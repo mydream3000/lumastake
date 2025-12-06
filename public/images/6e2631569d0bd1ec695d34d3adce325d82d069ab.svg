@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 524 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="modal-verify">
+<g id="Rectangle 4634" filter="url(#filter0_f_2024_1687)">
+<rect x="3" y="3" width="518" height="506" rx="15" fill="var(--fill-0, white)"/>
+<rect x="2.5" y="2.5" width="519" height="507" rx="15.5" stroke="var(--stroke-0, #FF451C)"/>
+</g>
+<rect id="Rectangle 4633" x="12" y="4" width="500" height="501" rx="15" fill="var(--fill-0, white)"/>
+<rect id="Rectangle 4515" x="234" y="87" width="78" height="77" rx="37" fill="var(--fill-0, #FEEAEA)"/>
+<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M259.292 114L258 115.333V136.667L259.292 138H287.708L289 136.667V115.333L287.708 114H259.292ZM260.583 118.348V135.333H286.417V118.347L273.5 130.469L260.583 118.348ZM284.367 116.667H262.633L273.5 126.865L284.367 116.667Z" fill="var(--fill-0, #FF451C)"/>
+</g>
+<defs>
+<filter id="filter0_f_2024_1687" x="0" y="0" width="524" height="512" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="1" result="effect1_foregroundBlur_2024_1687"/>
+</filter>
+</defs>
+</svg>

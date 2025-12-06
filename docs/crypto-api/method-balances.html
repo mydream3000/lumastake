@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="head:keywords">
+	<meta name="description" content="head:description">
+	<title>CryptoCurrencyAPI</title>
+
+	<base href="https://new.cryptocurrencyapi.net/">
+	<link rel="icon" href="favicon.ico">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link href="static/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="static/core/css/notification.css?ver=19.0217" rel="stylesheet">
+	<link href="static/core/css/view.css?ver=23.0715" rel="stylesheet">
+	<link href="static/core/css/wiki.css" rel="stylesheet">
+	<link href="static/core/css/flot.css?ver=23.0506" rel="stylesheet">
+	<link href="static/core/css/form.css?ver=23.0224" rel="stylesheet">
+	<link href="static/css/style.css" rel="stylesheet">
+	<link rel="preload" href="static/core/img/view/spinner.gif" as="image">
+
+			<script src="static/js/jquery.min.js"></script>
+	<script src="static/core/js/core.js"></script>
+	<script src="static/core/js/date.js?ver=19.0217"></script>
+	<script src="static/core/js/ajax.js?ver=23.0924"></script>
+	<script src="static/core/js/notification.js?ver=19.0217"></script>
+	<script src="static/core/js/view.js?ver=23.0715"></script>
+	<script src="static/core/js/wsevent.js?ver=24.0908"></script>
+	<script src="static/core/js/form.js?ver=23.0224"></script>
+	<script src="static/core/js/modal.js?ver=19.0217"></script>
+	<script src="static/core/js/table.js?ver=23.0115"></script>
+
+
+</head>
+<body >
+<script>
+	core.date.timeshift = 0;
+	$(function () { core.date.addTimer('main-clock', 1759621153); });
+</script>
+<script>
+	core.ajax.url = 'ajax';
+	core.ajax.key = '742b8c364bfe77fb9ccdc059c39b901d';
+	core.ajax.hid = '86792c62';
+</script>
+<script>
+	core.view.textError = 'AJAX error';
+	core.view.currentURL = 'docs/.api/method-balances';
+</script>
+<script>
+	core.wsevent.host = 'wss://new.cryptocurrencyapi.net:8000';
+	core.wsevent.pid = '271f284d';
+	core.wsevent.apid = '';
+	core.wsevent.console = 1;
+</script>
+<script>
+	core.form.textError = 'AJAX error';
+	core.form.textButtonConfirm = 'Confirm the execution';
+
+</script>
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+	<a class="navbar-brand" href="">
+				<i class="fa fa-home" aria-hidden="true"></i>
+		CryptoCurrencyAPI
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<div class="navbar-nav mr-auto">
+			<ul class="navbar-nav">
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle href="#" id="viewLangsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			EN
+		</a>
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewLangsDropdown">
+					<a class="dropdown-item disabled" href="en/docs/.api/method-balances" hreflang="en"
+				 onclick="return core.ajax('view', 'SetLang', { lang: 'en' });">
+				EN English
+			</a>
+					<a class="dropdown-item" href="ru/docs/.api/method-balances" hreflang="ru"
+				 onclick="return core.ajax('view', 'SetLang', { lang: 'ru' });">
+				RU Русский
+			</a>
+				</div>
+	</li>
+</ul>
+				<li class="nav-item">
+	<a class="nav-link active" href="docs">Documentation</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" href="https://t.me/No_Problems_Bot">Support#1</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" href="https://t.me/EtherAPIBot">#2</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" href="mailto:cryptocurrencyapi.net@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true" title="Send e-mail"></i></a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" href="https://t.me/CryptoCurrencyAPInet">News</a>
+</li>
+	</div>
+		<div class="navbar-nav mr-auto">
+								</div>
+		<div class="navbar-nav mr-auto">
+</div>
+		<div class="navbar-nav ">
+																																			 				 								 	</div>
+		<div class="navbar-nav ">
+				</div>
+		<div class="navbar-nav ">
+				<a href="#" class="nav-item nav-link" onclick="return core.modal.show('account::register', { url: 'dashboard'});">
+		Registration
+	</a>
+	<a href="#" class="nav-item nav-link" onclick="return core.modal.show('account::login', { url: 'dashboard'});">
+		Login
+	</a>
+	</div>
+	</div>
+</nav>
+
+<main class="container-fluid">
+
+<div class="container-fluid">
+	<div class="row flex-xl-nowrap">
+		<div class="col-md-3 col-xl-2 bd-sidebar">
+
+			<form action="docs" role="search" class="bd-search d-flex align-items-center">
+				<div class="input-group mb-3">
+					<input name="find" value="" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+				</div>
+			</form>
+
+			<div class="collapse d-md-block row" id="bd-docs-nav">
+				<nav class="bd-links" aria-label="Main navigation">
+
+										<div class="bd-toc-item">
+						<a class="bd-toc-link" href="docs/.start">
+							Начало
+						</a>
+											</div>
+										<div class="bd-toc-item active">
+						<a class="bd-toc-link" href="docs/.api">
+							API
+						</a>
+												<ul class="nav bd-sidenav">
+													<li>
+								<a href="docs/.api/api-access">
+									Доступ
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/api-url">
+									Вызов
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-primary">
+									Метод primary
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-balance">
+									Метод balance
+								</a>
+															</li>
+													<li class="active bd-sidenav-active">
+								<a href="docs/.api/method-balances">
+									Метод balances
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-give">
+									Метод give
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-track">
+									Метод track
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-send">
+									Метод send
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-sendFrom">
+									Метод sendFrom
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-sendByContract">
+									Метод sendByContract
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-forward">
+									Метод forward
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-approve">
+									Метод approve
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-swapRate">
+									Метод swapRate
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-swap">
+									Метод swap
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-swapApprove">
+									Метод swapApprove
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-status">
+									Метод status
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-gasPrice">
+									Метод gasPrice
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-satPerByte">
+									Метод satPerByte
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-tokens">
+									Метод tokens
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-energy">
+									Мет��д energy
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-delegate">
+									Метод delegate
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-reclaim">
+									Метод reclaim
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-giveEnergy">
+									Метод giveEnergy
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-acceptUSDT">
+									Метод acceptUSDT
+								</a>
+															</li>
+													<li>
+								<a href="docs/.api/method-manualConfirm">
+									Метод manualConfirm
+								</a>
+															</li>
+												</ul>
+											</div>
+										<div class="bd-toc-item">
+						<a class="bd-toc-link" href="docs/.ipn">
+							IPN и WebHook
+						</a>
+											</div>
+										<div class="bd-toc-item">
+						<a class="bd-toc-link" href="docs/.faq">
+							FAQ
+						</a>
+											</div>
+										<div class="bd-toc-item">
+						<a class="bd-toc-link" href="docs/.glossary">
+							Глоссарий
+						</a>
+											</div>
+					
+				</nav>
+			</div>
+
+        </div>
+
+	
+		
+		<main class="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+		
+				<h1 class="bd-title">Метод balances</h1>
+		<p class="bd-lead"></p>
+
+				<p>
+		Блокчейн: [Ethereum] [Polygon] [Binance Smart Chain] [TRON]<br>Стоимость: Бесплатно для ваших адресов или 1 единица за каждую монету для остальных<br><hr>Возвращает балансы (см <a href="docs/.start/new-features#p14">п.14</a>) монет из списка "Обработка поступлений", указанного в настройках<br><u>Параметры:</u><br>*address/from - адрес [основной адрес]<br><u>Пример вызова:</u><br><code>https://new.cryptocurrencyapi.net/api/trx/.balances?key=ac46bb60ed-a21e9a46ca-227f212121-b490a95afc</code><br><u>Пример ответа:</u><br><code>{"TRX":"12.345","USDC":"1.2"}</code><hr><big><a href="docs/.api/method-give">Метод give</a> <big><big>&rarr;</big></big></big>
+		</p>
+
+		</main>
+
+	
+	</div>
+</div>
+
+</main>
+
+<div class="notification-container"></div>
+<script src="static/core/js/flot/jquery.canvaswrapper.js"></script>
+<script src="static/core/js/flot/jquery.colorhelpers.js"></script>
+<script src="static/core/js/flot/jquery.flot.js"></script>
+<script src="static/core/js/flot/jquery.flot.saturated.js"></script>
+<script src="static/core/js/flot/jquery.flot.browser.js"></script>
+<script src="static/core/js/flot/jquery.flot.drawSeries.js"></script>
+<script src="static/core/js/flot/jquery.flot.uiConstants.js"></script>
+<script src="static/core/js/flot/jquery.flot.axislabels.js"></script>
+<script src="static/core/js/flot/jquery.flot.time.js"></script>
+<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="modal-window-container"></div>
+	</div>
+</div>
+
+
+<script src="static/bootstrap4/js/popper.min.js"></script>
+<script src="static/bootstrap4/js/bootstrap.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!-- script src="static/bootstrap4/js/ie10-viewport-bug-workaround.js"></script -->
+
+
+</body>
+</html>

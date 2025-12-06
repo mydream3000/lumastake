@@ -1,0 +1,26 @@
+User-agent: *
+Disallow: /
+#Disallow: /admin/
+#Disallow: /login
+#Disallow: /register
+#Disallow: /password/
+#Disallow: /logout
+#Disallow: /cart
+#Disallow: /checkout
+#Disallow: /terms-draft
+#Disallow: /privacy-draft
+#
+#
+#Disallow: /*?*
+#Allow: /*?page=
+#
+#
+#Allow: /storage/
+#Allow: /build/
+#Allow: /assets/
+#Allow: /images/
+#Allow: /css/
+#Allow: /js/
+#
+#
+#Sitemap: https://lumastake.com/sitemap.xml

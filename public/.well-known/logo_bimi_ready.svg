@@ -1,0 +1,60 @@
+<svg version="1.2" baseProfile="tiny" width="184" height="184" viewBox="0 0 184 184" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+    <title>Arbitex BIMI pink triangle logo</title>
+    <desc>Vector BIMI logo: pink triangle on dark circle background.</desc>
+    <g clip-path="url(#clip0_2095_896)">
+        <path d="M175 154L39.5 105.1L11 154H175Z" fill="url(#paint0_linear_2095_896)"/>
+        <path d="M93 13L11 154H11.1L120 59.4L93 13Z" fill="url(#paint1_linear_2095_896)"/>
+        <path d="M93 13L92.9 13.2L116.5 133L175 154L93 13Z" fill="url(#paint2_linear_2095_896)"/>
+    </g>
+    <defs>
+        <linearGradient id="paint0_linear_2095_896" x1="29" y1="130.8" x2="136.2" y2="165.8"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="5.3e-07" stop-color="#00FFA3"/>
+            <stop offset="0" stop-color="#09F6A5"/>
+            <stop offset=".1" stop-color="#23DCAA"/>
+            <stop offset=".2" stop-color="#4CB3B3"/>
+            <stop offset=".3" stop-color="#857ABF"/>
+            <stop offset=".5" stop-color="#CC33CD"/>
+            <stop offset=".5" stop-color="#FF00D8"/>
+            <stop offset=".6" stop-color="#FF03CF"/>
+            <stop offset=".7" stop-color="#FF0DB5"/>
+            <stop offset=".8" stop-color="#FF1C8C"/>
+            <stop offset=".9" stop-color="#FF3054"/>
+            <stop offset="1" stop-color="#FF451C"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_2095_896" x1="102.6" y1="41.5" x2="21.9" y2="153.1"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="5.3e-07" stop-color="#00FFA3"/>
+            <stop offset="0" stop-color="#09F6A5"/>
+            <stop offset=".1" stop-color="#23DCAA"/>
+            <stop offset=".2" stop-color="#4CB3B3"/>
+            <stop offset=".3" stop-color="#857ABF"/>
+            <stop offset=".5" stop-color="#CC33CD"/>
+            <stop offset=".5" stop-color="#FF00D8"/>
+            <stop offset=".6" stop-color="#FF03CF"/>
+            <stop offset=".7" stop-color="#FF0DB5"/>
+            <stop offset=".8" stop-color="#FF1C8C"/>
+            <stop offset=".9" stop-color="#FF3054"/>
+            <stop offset="1" stop-color="#FF451C"/>
+        </linearGradient>
+        <linearGradient id="paint2_linear_2095_896" x1="92.9" y1="83.5" x2="175" y2="83.5"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="5.3e-07" stop-color="#00FFA3"/>
+            <stop offset="0" stop-color="#09F6A5"/>
+            <stop offset=".1" stop-color="#23DCAA"/>
+            <stop offset=".2" stop-color="#4CB3B3"/>
+            <stop offset=".3" stop-color="#857ABF"/>
+            <stop offset=".5" stop-color="#CC33CD"/>
+            <stop offset=".5" stop-color="#FF00D8"/>
+            <stop offset=".6" stop-color="#FF03CF"/>
+            <stop offset=".7" stop-color="#FF0DB5"/>
+            <stop offset=".8" stop-color="#FF1C8C"/>
+            <stop offset=".9" stop-color="#FF3054"/>
+            <stop offset="1" stop-color="#FF451C"/>
+        </linearGradient>
+        <clipPath id="clip0_2095_896">
+            <rect width="164" height="141" fill="white" transform="translate(11 13)"/>
+        </clipPath>
+    </defs>
+</svg>

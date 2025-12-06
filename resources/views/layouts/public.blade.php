@@ -28,9 +28,9 @@
             $seoKey = $seoKey ?? 'home';
             $pageSeo = \App\Models\SeoSetting::getByKey($seoKey);
 
-            $pageTitle = $pageSeo?->page_title ?? 'Arbitex - USD Staking Platform';
+            $pageTitle = $pageSeo?->page_title ?? 'Lumastake - USD Staking Platform';
             $metaDescription = $pageSeo?->meta_description ?? 'Earn passive income with USDT staking on Lumastake. Secure, reliable, and profitable cryptocurrency staking platform.';
-            $metaKeywords = $pageSeo?->meta_keywords ?? 'USDT, staking, cryptocurrency, passive income, Tether';
+            $metaKeywords = $pageSeo?->meta_keywords ?? 'USD, staking, cryptocurrency, passive income, Tether';
             $ogTitle = $pageSeo?->og_title ?? $pageTitle;
             $ogDescription = $pageSeo?->og_description ?? $metaDescription;
             // Ensure og:image is absolute URL

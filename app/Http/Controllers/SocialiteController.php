@@ -47,6 +47,16 @@ class SocialiteController extends Controller
             }
         }
 
+        // Ensure session is saved before redirect (important for account_type persistence)
+        session()->save();
+
+        Log::info('Redirecting to OAuth provider', [
+            'provider' => $provider,
+            'has_pending_account_type' => session()->has('pending_account_type'),
+            'account_type' => session('pending_account_type'),
+            'session_id' => session()->getId(),
+        ]);
+
         return $driver->redirect();
     }
 
@@ -63,6 +73,9 @@ class SocialiteController extends Controller
                 'provider' => $provider,
                 'has_code' => request()->has('code'),
                 'has_error' => request()->has('error'),
+                'session_id' => session()->getId(),
+                'has_pending_account_type' => session()->has('pending_account_type'),
+                'pending_account_type' => session('pending_account_type'),
             ]);
 
             // Build Socialite driver
@@ -210,6 +223,12 @@ class SocialiteController extends Controller
                 // Get account type from session (saved before OAuth redirect)
                 $accountType = session('pending_account_type', 'normal');
 
+                Log::info('Retrieved account type from session for Google OAuth', [
+                    'account_type' => $accountType,
+                    'session_id' => session()->getId(),
+                    'has_pending_account_type' => session()->has('pending_account_type'),
+                ]);
+
                 // clear session keys regardless of outcome
                 session()->forget(['referrer_user_id', 'ref', 'referrer_uuid', 'pending_account_type']);
 
@@ -224,9 +243,11 @@ class SocialiteController extends Controller
                     'account_type' => $accountType,
                 ]);
 
-                Log::info('Social user created', [
+                Log::info('Social user created via Google OAuth', [
                     'user_id' => $user->id,
                     'email' => $user->email,
+                    'account_type' => $user->account_type,
+                    'account_type_from_session' => $accountType,
                 ]);
 
                 // Send Telegram notification about new Google OAuth registration

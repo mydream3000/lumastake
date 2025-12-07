@@ -487,6 +487,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveAccountTypeAndRedirect(e) {
         e.preventDefault();
         const accountType = document.querySelector('input[name="account_type"]:checked')?.value || 'normal';
+        const targetUrl = e.target.closest('a').href;
+
+        console.log('Saving account type before Google OAuth:', accountType);
 
         // Save to session via AJAX before redirect
         fetch('{{ route('register.save-account-type') }}', {
@@ -496,12 +499,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             body: JSON.stringify({ account_type: accountType })
-        }).then(() => {
-            // Redirect to Google OAuth
-            window.location.href = e.target.closest('a').href;
-        }).catch(() => {
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Account type saved successfully:', data);
+            // Add small delay to ensure session is persisted
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Failed to save account type:', error);
             // Even if save fails, proceed with OAuth
-            window.location.href = e.target.closest('a').href;
+            window.location.href = targetUrl;
         });
     }
 

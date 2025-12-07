@@ -371,10 +371,18 @@ class RegisterController extends BaseController
             'account_type' => ['required', Rule::in(['normal', 'islamic'])],
         ]);
 
+        // Save to session with explicit save to ensure persistence
         session(['pending_account_type' => $data['account_type']]);
+        session()->save(); // Force save immediately
+
+        Log::info('Account type saved to session before OAuth', [
+            'account_type' => $data['account_type'],
+            'session_id' => session()->getId(),
+        ]);
 
         return response()->json([
             'success' => true,
+            'account_type' => $data['account_type'],
         ]);
     }
 }

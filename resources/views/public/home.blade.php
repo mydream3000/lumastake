@@ -28,7 +28,6 @@
                     <div class="blob blob--md blob--pink glow-pulse" style="top:140px; right:-80px; animation-delay: 1s"></div>
                     <div class="blob blob--sm blob--orange glow-pulse" style="bottom:-40px; left:20%; animation-delay: 2s"></div>
                 </div>
-
                 <div class="particle" style="top: 20%; left: 15%;"></div>
                 <div class="particle" style="top: 60%; left: 80%;"></div>
                 <div class="particle" style="top: 40%; left: 50%;"></div>

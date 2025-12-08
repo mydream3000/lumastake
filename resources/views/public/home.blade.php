@@ -40,7 +40,7 @@
                             <div class="space-y-4 animate-slide-in-left">
                                 <h1 class="text-4xl md:text-6xl font-extrabold tech-accent">
                                     <span class="text-white">CRYPTO </span>
-                                    <span class="text-white font-normal">MADE EASY</span>
+                                    <span class="text-white font-normal">MADE IT CHANGE!!!</span>
                                 </h1>
                                 <h2 class="text-6xl md:text-8xl lg:text-9xl font-extrabold gradient-text tech-flicker">STAKING</h2>
                                 <h3 class="text-3xl md:text-5xl font-normal text-white">MADE SMARTER</h3>

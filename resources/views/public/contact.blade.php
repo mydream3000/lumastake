@@ -13,7 +13,7 @@
                 Contact Us
             </h1>
             <p class="text-xl md:text-2xl text-[#262262] max-w-3xl mx-auto font-medium leading-relaxed">
-                WeвЂ™d love to hear from you! Whether you have a question, feedback, or just want to connect, our team is here to help.
+                We'd love to hear from you! Whether you have a question, feedback, or just want to connect, our team is here to help.
             </p>
         </div>
     </section>
@@ -183,7 +183,7 @@
                 open: false,
                 phone: @json(old('phone', '')),
                 countries: [],
-                selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag: 'рџ‡єрџ‡ё'},
+                selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸'},
 
                 async init() {
                     try {

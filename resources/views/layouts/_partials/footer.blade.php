@@ -19,7 +19,7 @@
         </div>
 
         <div class="mt-20 pt-8 border-t border-blue-200 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-[#262262] text-lg mb-6 md:mb-0">В© 2025 All rights reserved.</p>
+            <p class="text-[#262262] text-lg mb-6 md:mb-0">© 2025 All rights reserved.</p>
 
             <div class="flex space-x-6">
                 <a href="#" class="text-[#262262] hover:text-blue-600 transition-colors">

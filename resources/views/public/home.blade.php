@@ -44,19 +44,19 @@
                 <div class="bg-white/50 backdrop-blur p-8 rounded-2xl border border-blue-200">
                     <ul class="space-y-6">
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-2xl">вЂў</span>
+                            <span class="text-[#3B4EFC] mr-4 text-2xl">•</span>
                             <span class="text-xl font-medium text-[#262262]">100% staking-based income</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-2xl">вЂў</span>
+                            <span class="text-[#3B4EFC] mr-4 text-2xl">•</span>
                             <span class="text-xl font-medium text-[#262262]">Zero exposure to trading or leverage</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-2xl">вЂў</span>
-                            <span class="text-xl font-medium text-[#262262]">Transparent returns вЂ” always visible</span>
+                            <span class="text-[#3B4EFC] mr-4 text-2xl">•</span>
+                            <span class="text-xl font-medium text-[#262262]">Transparent returns — always visible</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-2xl">вЂў</span>
+                            <span class="text-[#3B4EFC] mr-4 text-2xl">•</span>
                             <span class="text-xl font-medium text-[#262262]">Built for everyday users, not just tech experts</span>
                         </li>
                     </ul>
@@ -69,7 +69,7 @@
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-5xl font-black text-[#262262] uppercase mb-4">features</h2>
-            <p class="text-2xl text-gray-600 mb-16">Everything you need to grow your crypto, nothing you donвЂ™t.</p>
+            <p class="text-2xl text-gray-600 mb-16">Everything you need to grow your crypto, nothing you don't.</p>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                 <div class="flex flex-col items-center">
@@ -113,7 +113,7 @@
                 <div>
                     <h2 class="text-6xl font-black text-[#3B4EFC] uppercase mb-8">HOW IT WORKS</h2>
                     <p class="text-xl text-gray-700 mb-8">
-                        Get started in minutes with a simple, intuitive setupвЂ”no delays, no complicated onboarding. Jump straight into sign-up to action and start seeing value right away.
+                        Get started in minutes with a simple, intuitive setup—no delays, no complicated onboarding. Jump straight into sign-up to action and start seeing value right away.
                     </p>
                 </div>
                 <div class="space-y-6">
@@ -121,7 +121,7 @@
                         <div class="text-6xl font-black text-blue-100 mr-8">1</div>
                         <div>
                             <h3 class="text-3xl font-bold text-[#262262] mb-2 uppercase">SIGN UP</h3>
-                            <p class="text-gray-600">Create your account. ItвЂ™s fast, simple, and free.</p>
+                            <p class="text-gray-600">Create your account. It's fast, simple, and free.</p>
                         </div>
                     </div>
                     <div class="bg-blue-600 p-8 rounded-2xl shadow-lg text-white flex items-center">
@@ -172,7 +172,7 @@
                     <div class="w-20 h-20 mb-6 bg-blue-600 rounded-full flex items-center justify-center">
                         <img src="{{ asset('img/3fe77745dace33e86b14ff8de78ce2be0c4b5632.png') }}" alt="" class="w-10 h-10">
                     </div>
-                    <p class="text-xl text-gray-800">Hands-off experienceвЂ”no trading needed</p>
+                    <p class="text-xl text-gray-800">Hands-off experience—no trading needed</p>
                 </div>
                 <div class="flex flex-col items-center text-center">
                     <div class="w-20 h-20 mb-6 bg-blue-600 rounded-full flex items-center justify-center">
@@ -251,7 +251,7 @@
                     <div class="mt-20">
                         <h3 class="text-5xl font-black text-blue-600 uppercase mb-4">COMING SOON</h3>
                         <p class="text-xl text-gray-600 max-w-xl">
-                            Lumastake Academy вЂ” tips, guides and expert interviews to help you make smarter crypto moves.
+                            Lumastake Academy — tips, guides and expert interviews to help you make smarter crypto moves.
                         </p>
                     </div>
                 </div>

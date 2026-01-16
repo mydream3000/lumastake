@@ -68,7 +68,7 @@
 
                         <div class="inline-block px-4 py-2 border-2 border-[#3B4EFC] text-[#3B4EFC] font-black text-xl mb-10 text-left self-start rounded">
                             @if($tier->max_balance)
-                                ${{ number_format($tier->min_balance, 0) }} вЂ“ ${{ number_format($tier->max_balance, 0) }} USD
+                                ${{ number_format($tier->min_balance, 0) }} – ${{ number_format($tier->max_balance, 0) }} USD
                             @else
                                 ${{ number_format($tier->min_balance, 0) }}+ USD
                             @endif

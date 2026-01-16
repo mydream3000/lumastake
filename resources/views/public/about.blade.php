@@ -31,7 +31,7 @@
                 </div>
                 <h3 class="text-3xl font-black text-[#3B4EFC] mb-4 uppercase">Process</h3>
                 <p class="text-gray-700 leading-relaxed">
-                    Luma Stake bridges complex blockchain technology with practical wealth generationвЂ”using advanced staking and real-time automation to deliver stable, efficient earnings without speculation or constant market monitoring.
+                    Luma Stake bridges complex blockchain technology with practical wealth generation—using advanced staking and real-time automation to deliver stable, efficient earnings without speculation or constant market monitoring.
                 </p>
             </div>
 
@@ -112,7 +112,7 @@
 
             <div class="max-w-5xl mx-auto text-center">
                 <p class="text-2xl md:text-3xl text-gray-700 leading-relaxed">
-                    We are a professional <span class="font-bold">arbitrage firm.</span> Staked funds are used in low-risk arbitrage trades that profit from price differences across platforms. This method works in any market up or down вЂ” as it relies on <span class="font-bold">volatility,</span> not direction. Profits are shared between Luma Stake and our users, powered by a team of experts with <span class="font-bold">10+ years of experience.</span>
+                    We are a professional <span class="font-bold">arbitrage firm.</span> Staked funds are used in low-risk arbitrage trades that profit from price differences across platforms. This method works in any market up or down — as it relies on <span class="font-bold">volatility,</span> not direction. Profits are shared between Luma Stake and our users, powered by a team of experts with <span class="font-bold">10+ years of experience.</span>
                 </p>
             </div>
         </div>
@@ -125,7 +125,7 @@
                 <div class="absolute left-0 top-1/4 bottom-1/4 w-3 bg-[#3B4EFC] rounded-r-lg"></div>
                 <h2 class="text-4xl font-black text-[#3B4EFC] mb-6 uppercase">Who we serve</h2>
                 <p class="text-2xl text-gray-700 leading-relaxed">
-                    Luma stake is trusted by working professionals, crypto enthusiasts, passive income seekers, and anyone who wants their capital to work harder вЂ” without unnecessary risk.
+                    Luma stake is trusted by working professionals, crypto enthusiasts, passive income seekers, and anyone who wants their capital to work harder — without unnecessary risk.
                 </p>
             </div>
         </div>

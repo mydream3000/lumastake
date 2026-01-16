@@ -77,11 +77,11 @@
                     </p>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-3xl font-black">вЂў</span>
+                            <span class="text-[#3B4EFC] mr-4 text-3xl font-black">•</span>
                             <span class="text-xl font-medium text-[#262262]">Bitcoin may be trading at $28,000 on Exchange A.</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-[#3B4EFC] mr-4 text-3xl font-black">вЂў</span>
+                            <span class="text-[#3B4EFC] mr-4 text-3xl font-black">•</span>
                             <span class="text-xl font-medium text-[#262262]">At the same moment, it is priced at $28,500 on Exchange B.</span>
                         </li>
                     </ul>
@@ -89,7 +89,7 @@
                         An arbitrage trader purchases Bitcoin on Exchange A and sells it on Exchange B, securing the price difference after accounting for any fees.
                     </p>
                     <p class="text-xl text-gray-700 font-medium">
-                        This is fundamentally different from speculative trading. Arbitrage does not rely on predicting future price movements вЂ” it is designed to exploit market inefficiencies for measurable, low-exposure returns.
+                        This is fundamentally different from speculative trading. Arbitrage does not rely on predicting future price movements — it is designed to exploit market inefficiencies for measurable, low-exposure returns.
                     </p>
                 </div>
                 <div class="relative">
@@ -171,16 +171,16 @@
                 {{-- How Luma Stake Simplifies --}}
                 <div class="bg-gradient-to-b from-[#A2D0BF] to-white/70 p-12 rounded-[40px] border-8 border-[#F5F5F5] shadow-xl">
                     <h3 class="text-4xl font-black text-[#262262] mb-8 leading-tight">How Luma Stake Simplifies Arbitrage</h3>
-                    <p class="text-xl text-gray-700 mb-8">Arbitex bridges the gap between opportunity and execution by combining professional-grade arbitrage strategies with a straightforward staking model:</p>
+                    <p class="text-xl text-gray-700 mb-8">Luma Stake bridges the gap between opportunity and execution by combining professional-grade arbitrage strategies with a straightforward staking model:</p>
                     <ul class="space-y-4 text-lg">
                         <li class="flex items-start gap-3">
-                            <span class="font-bold text-[#262262]">1. You Stake Your USDT</span> вЂ“ Choose your preferred tier and staking period.
+                            <span class="font-bold text-[#262262]">1. You Stake Your USDT</span> – Choose your preferred tier and staking period.
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="font-bold text-[#262262]">2. We Execute Arbitrage</span> вЂ“ Our system identifies and acts on price gaps using a risk-managed approach.
+                            <span class="font-bold text-[#262262]">2. We Execute Arbitrage</span> – Our system identifies and acts on price gaps using a risk-managed approach.
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="font-bold text-[#262262]">3. You Earn Returns</span> вЂ“ Enjoy consistent staking rewards without the need for active trading.
+                            <span class="font-bold text-[#262262]">3. You Earn Returns</span> – Enjoy consistent staking rewards without the need for active trading.
                         </li>
                     </ul>
                     <p class="mt-8 text-gray-600 italic">

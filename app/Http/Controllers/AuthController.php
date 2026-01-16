@@ -30,8 +30,15 @@ class AuthController extends BaseController
 
         // Check if user is blocked
         if ($user && $user->blocked) {
+            $errorMessage = 'Your account has been blocked, please contact the site administration.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMessage,
+                ]);
+            }
             return back()
-                ->withErrors(['auth' => 'Your account has been blocked, please contact the site administration.'])
+                ->withErrors(['auth' => $errorMessage])
                 ->withInput($request->only('email', 'remember'));
         }
 
@@ -56,22 +63,43 @@ class AuthController extends BaseController
                         Log::error('Failed to send account locked email: ' . $e->getMessage());
                     }
 
+                    $errorMessage = 'Your account has been locked due to multiple failed login attempts. Please contact support.';
+                    if ($request->ajax() || $request->wantsJson()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => $errorMessage,
+                        ]);
+                    }
                     return back()
-                        ->withErrors(['auth' => 'Your account has been locked due to multiple failed login attempts. Please contact support.'])
+                        ->withErrors(['auth' => $errorMessage])
                         ->withInput($request->only('email', 'remember'));
                 } else {
                     // Increment failed attempts counter
                     $user->increment('failed_login_attempts');
 
                     $remainingAttempts = self::MAX_LOGIN_ATTEMPTS - $attempts;
+                    $errorMessage = "Invalid credentials. You have {$remainingAttempts} attempt(s) remaining before your account is locked.";
+                    if ($request->ajax() || $request->wantsJson()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => $errorMessage,
+                        ]);
+                    }
                     return back()
-                        ->withErrors(['auth' => "Invalid credentials. You have {$remainingAttempts} attempt(s) remaining before your account is locked."])
+                        ->withErrors(['auth' => $errorMessage])
                         ->withInput($request->only('email', 'remember'));
                 }
             }
 
+            $errorMessage = 'Invalid credentials.';
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMessage,
+                ]);
+            }
             return back()
-                ->withErrors(['auth' => 'Invalid credentials.'])
+                ->withErrors(['auth' => $errorMessage])
                 ->withInput($request->only('email', 'remember'));
         }
 
@@ -98,6 +126,12 @@ class AuthController extends BaseController
                 ]);
             }
 
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect' => route('cabinet.dashboard'),
+                ]);
+            }
             return redirect()->intended(route('cabinet.dashboard'));
         }
 
@@ -112,19 +146,12 @@ class AuthController extends BaseController
             Auth::login($user, $remember);
             $request->session()->regenerate();
 
-            // Отправить уведомление о входе администратора (только для админов)
-            if ($user->is_admin) {
-                try {
-                    $telegramService = app(\App\Services\TelegramBotService::class);
-                    $telegramService->sendAdminLogin($user, $request->ip(), 'standard');
-                } catch (\Exception $e) {
-                    Log::error('Failed to send admin login notification', [
-                        'user_id' => $user->id,
-                        'error' => $e->getMessage(),
-                    ]);
-                }
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect' => route('cabinet.dashboard'),
+                ]);
             }
-
             return redirect()->intended(route('cabinet.dashboard'));
         }
 
@@ -171,6 +198,15 @@ class AuthController extends BaseController
             '2fa_email' => $user->email,
             '2fa_remember' => $remember,
         ]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'two_fa_required' => true,
+                'message' => '2FA code sent to your email.',
+                'email' => $user->email,
+            ]);
+        }
 
         return redirect()->route('login')->with([
             'show_2fa_modal' => true,

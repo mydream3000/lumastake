@@ -119,7 +119,7 @@
     @vite(['resources/css/public.css','resources/js/public.js'])
 
 </head>
-<body class="bg-arbitex-dark text-white font-poppins overflow-x-hidden">
+<body class="bg-white text-gray-900 font-poppins overflow-x-hidden">
 
 @include('layouts._partials.header')
 

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 | до реализации бизнес-логики. Подключено из bootstrap/app.php с префиксом /api.
 */
 
+// GeoIP endpoints (без префикса для обратной совместимости)
+Route::get('/geoip/country', [\App\Http\Controllers\Api\GeoIpController::class, 'getCountry']);
+Route::get('/geoip/countries', [\App\Http\Controllers\Api\GeoIpController::class, 'getAllCountries']);
+
 Route::prefix('v1')->group(function () {
     // Reference/public data
     Route::get('/tiers', fn () => response()->json(['message' => 'Not implemented'], 501));

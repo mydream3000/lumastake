@@ -48,7 +48,7 @@
                             class="text-base px-4 py-3 bg-gray-100 text-gray-700 flex items-center gap-2
              select-none"
                         >
-                            <span x-text="selectedCountry.flag"></span>
+                            <img :src="'https://flagcdn.com/w40/' + selectedCountry.code.toLowerCase() + '.png'" :alt="selectedCountry.name" class="w-5 h-auto">
                             <span x-text="selectedCountry.phone_code"></span>
                             <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -69,7 +69,7 @@
                     >
                         <template x-for="country in countries" :key="country.code">
                             <button type="button" @click="selectCountry(country)" class="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3">
-                                <span class="text-xl" x-text="country.flag"></span>
+                                <img :src="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" :alt="country.name" class="w-5 h-auto">
                                 <span class="font-medium text-gray-700" x-text="country.phone_code"></span>
                                 <span class="text-gray-600" x-text="country.name"></span>
                             </button>
@@ -226,7 +226,10 @@ Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green fon
 text-gray-600 focus:border-arbitex-orange focus:outline-none text-lg
 flex items-center justify-between gap-2"
           >
-              <span x-text="selectedCountry.flag + ' ' + selectedCountry.phone_code">🇮🇹 +39</span>
+              <div class="flex items-center gap-2">
+                  <img :src="'https://flagcdn.com/w40/' + selectedCountry.code.toLowerCase() + '.png'" :alt="selectedCountry.name" class="w-5 h-auto">
+                  <span x-text="selectedCountry.phone_code"></span>
+              </div>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
@@ -242,7 +245,7 @@ bg-white border border-gray-300 rounded-md shadow-lg max-h-80 overflow-y-auto"
           >
               <template x-for="country in countries" :key="country.code">
                   <button type="button" @click="selectCountry(country)" class="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3">
-                      <span class="text-xl" x-text="country.flag"></span>
+                      <img :src="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" :alt="country.name" class="w-5 h-auto">
                       <span class="font-medium text-gray-700" x-text="country.phone_code"></span>
                       <span class="text-gray-600" x-text="country.name"></span>
                   </button>
@@ -528,7 +531,7 @@ return {
 open: false,
 phone: '{{ old('phone', '') }}',
 countries: [],
-selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
+selectedCountry: { code: 'US', name: 'United States', phone_code: '+1' },
 
 async init() {
 // Load all countries first

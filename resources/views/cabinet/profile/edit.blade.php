@@ -85,7 +85,10 @@
                             <div class="relative w-30 shrink-0">
                                 <button type="button" @click="open = !open"
                                         class="py-2 md:py-3 xl:py-4 w-30 px-3 md:px-4 rounded-l-md bg-[#F8F8F8] border border-[rgba(68,68,68,0.6)] border-r-0 text-gray-600 focus:border-cabinet-green focus:outline-none font-poppins text-base md:text-base xl:text-lg flex items-center justify-between transition">
-                                    <span x-text="selectedCountry.flag + ' ' + selectedCountry.phone_code">🇺🇸 +1</span>
+                                    <div class="flex items-center gap-2">
+                                        <img :src="'https://flagcdn.com/w40/' + selectedCountry.code.toLowerCase() + '.png'" :alt="selectedCountry.name" class="w-5 h-auto">
+                                        <span x-text="selectedCountry.phone_code"></span>
+                                    </div>
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                     </svg>
@@ -95,7 +98,7 @@
                                      class="absolute z-50 mt-1 w-[22rem] max-w-[calc(100vw-2rem)] bg-white border border-[rgba(68,68,68,0.6)] rounded-md shadow-lg max-h-80 overflow-y-auto">
                                     <template x-for="country in countries" :key="country.code">
                                         <button type="button" @click="selectCountry(country)" class="w-full px-4 py-2 text-left hover:bg-gray-100 flex items-center gap-3 font-poppins">
-                                            <span class="text-xl" x-text="country.flag">🇺🇸</span>
+                                            <img :src="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" :alt="country.name" class="w-5 h-auto">
                                             <span class="font-medium" x-text="country.phone_code">+1</span>
                                             <span class="text-gray-600" x-text="country.name">United States</span>
                                         </button>
@@ -391,7 +394,7 @@ function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso =
     return {
         open: false,
         countries: [],
-        selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
+        selectedCountry: { code: 'US', name: 'United States', phone_code: '+1' },
         phone: initialPhone ? String(initialPhone).replace(/\D+/g, '') : '',
         async init() {
             try {

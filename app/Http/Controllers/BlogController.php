@@ -15,9 +15,11 @@ class BlogController extends BaseController
             ->orderByDesc('published_at')
             ->paginate(10);
 
+        $faqs = \App\Models\Faq::active()->ordered()->take(4)->get();
+
         $seoKey = 'blog';
 
-        return view('public.blog.index', compact('posts', 'seoKey'));
+        return view('public.blog.index', compact('posts', 'faqs', 'seoKey'));
     }
 
     public function show(string $slug)

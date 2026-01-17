@@ -4,7 +4,7 @@
     {{-- HERO SECTION --}}
     <section class="relative pt-32 pb-20 overflow-hidden bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
-            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center text-center">
+            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[800px] flex flex-col items-center justify-center text-center">
                 {{-- Background Chart Image --}}
                 <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
                     <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
@@ -27,7 +27,7 @@
             </div>
 
             {{-- Main Image Overlay --}}
-            <div class="mt-[-100px] md:mt-[-150px] relative z-20 max-w-[1185px] mx-auto">
+            <div class="mt-[-250px] md:mt-[-350px] relative z-20 max-w-[1185px] mx-auto px-4">
                 <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-2 shadow-[0_4px_4px_0_rgba(43,166,255,1)] overflow-hidden">
                     <img src="{{ $post->image ? asset($post->image) : asset('img/blog/blog-article-main.png') }}" alt="{{ $post->title }}" class="w-full h-auto rounded-[30px] object-cover max-h-[563px]">
                 </div>
@@ -207,13 +207,25 @@
                 @endphp
 
                 @foreach($latestPosts as $lPost)
-                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-6 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col transition-transform hover:scale-[1.02]">
-                        <div class="h-[200px] mb-6 rounded-[20px] overflow-hidden">
+                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col transition-transform hover:scale-[1.02] min-h-[550px]">
+                        <div class="h-[240px] mb-8 rounded-[24px] overflow-hidden">
                             <img src="{{ $lPost->image ? asset($lPost->image) : asset('img/blog/blog-article-main.png') }}" alt="{{ $lPost->title }}" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-bold text-[#262262] mb-4 line-clamp-2 min-h-[64px]">{{ $lPost->title }}</h3>
-                        <p class="text-gray-600 mb-6 line-clamp-3">{{ Str::limit(strip_tags($lPost->content), 120) }}</p>
-                        <a href="{{ route('blog.show', $lPost->slug) }}" class="mt-auto text-[#3B4EFC] font-bold text-lg flex items-center gap-2 hover:translate-x-2 transition-transform uppercase">
+
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-4 py-1 bg-[#3B4EFC]/10 text-[#3B4EFC] rounded-full text-sm font-bold uppercase tracking-wider">Article</span>
+                            <span class="text-gray-400 text-sm">{{ $lPost->published_at->format('M d, Y') }}</span>
+                        </div>
+
+                        <h3 class="text-[32px] font-the-bold-font font-black text-[#262262] mb-6 uppercase leading-[0.9] tracking-tighter line-clamp-2 min-h-[58px]">
+                            {{ $lPost->title }}
+                        </h3>
+
+                        <p class="text-[#262262]/70 text-[18px] leading-relaxed mb-8 line-clamp-3">
+                            {{ Str::limit(strip_tags($lPost->content), 150) }}
+                        </p>
+
+                        <a href="{{ route('blog.show', $lPost->slug) }}" class="mt-auto inline-flex items-center gap-2 text-[#3B4EFC] font-black text-xl uppercase tracking-tighter hover:gap-4 transition-all">
                             Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>

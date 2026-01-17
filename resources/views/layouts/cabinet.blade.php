@@ -22,6 +22,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    @php
+        if (app()->environment('production')) {
+            \Illuminate\Support\Facades\Vite::useHotFile(base_path('no-vite-hot'));
+            \Illuminate\Support\Facades\Vite::useBuildDirectory('build');
+        }
+    @endphp
     @vite(['resources/css/cabinet.css', 'resources/js/cabinet.js'])
 </head>
 <body class="font-sans antialiased bg-cabinet-bg text-cabinet-text-main overflow-x-hidden" x-data="{ mobileMenuOpen: false, rightbarOpen: '', openRightbar(name) { this.rightbarOpen = name; }, closeRightbar() { this.rightbarOpen = ''; } }" x-on:open-rightbar.window="openRightbar($event.detail.name)" x-on:close-rightbar.window="closeRightbar()">

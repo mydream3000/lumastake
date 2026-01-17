@@ -2,57 +2,59 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[40px] p-12 md:p-20 relative overflow-hidden min-h-[600px] flex flex-col items-center justify-center text-center">
+    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
+            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center text-center">
                 {{-- Background Chart Image --}}
-                <div class="absolute inset-0 opacity-40 mix-blend-overlay">
+                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
                     <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
                 </div>
 
-                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none mb-8 relative z-10">
+                <h1 class="text-5xl md:text-7xl lg:text-[130px] font-the-bold-font font-black text-white leading-[0.9] mb-12 relative z-10 uppercase tracking-tighter">
                     DIGITAL ASSETS
                 </h1>
 
-                <p class="text-xl md:text-3xl text-white max-w-4xl mx-auto leading-relaxed relative z-10">
-                    At <span class="font-bold text-[#E3FF3B]">Luma Stake</span> we provide a secure, transparent staking solution for those who value consistency, clarity, and long-term growth.
-                </p>
+                <div class="max-w-[939px] mx-auto relative z-10">
+                    <p class="text-xl md:text-[28px] text-white leading-normal">
+                        At <span class="font-bold text-[#E3FF3B]">Luma Stake</span>, we provide a secure, transparent staking solution for those who value consistency, clarity, and long-term growth.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     {{-- PROCESS / MISSION / VISION --}}
     <section class="py-12 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8">
             {{-- Process --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center">
-                <div class="w-20 h-20 mb-6 bg-[#3B4EFC] rounded-full flex items-center justify-center">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
                     <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-12 h-12">
                 </div>
-                <h3 class="text-3xl font-black text-[#3B4EFC] mb-4 uppercase">Process</h3>
-                <p class="text-gray-700 leading-relaxed">
+                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Process</h3>
+                <p class="text-[#262262] text-[18px] leading-relaxed">
                     Luma Stake bridges complex blockchain technology with practical wealth generation—using advanced staking and real-time automation to deliver stable, efficient earnings without speculation or constant market monitoring.
                 </p>
             </div>
 
             {{-- Mission --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center">
-                <div class="w-20 h-20 mb-6 bg-[#3B4EFC] rounded-full flex items-center justify-center">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
                     <img src="{{ asset('img/about/icon-mission.png') }}" alt="Mission" class="w-12 h-12">
                 </div>
-                <h3 class="text-3xl font-black text-[#3B4EFC] mb-4 uppercase">Mission</h3>
-                <p class="text-gray-700 leading-relaxed">
+                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Mission</h3>
+                <p class="text-[#262262] text-[18px] leading-relaxed">
                     To provide a secure and structured environment where users can stake with confidence, earn passively, and grow their portfolios in a sustainable way.
                 </p>
             </div>
 
             {{-- Vision --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center">
-                <div class="w-20 h-20 mb-6 bg-[#3B4EFC] rounded-full flex items-center justify-center">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
                     <img src="{{ asset('img/about/icon-vision.png') }}" alt="Vision" class="w-12 h-12">
                 </div>
-                <h3 class="text-3xl font-black text-[#3B4EFC] mb-4 uppercase">Vision</h3>
-                <p class="text-gray-700 leading-relaxed">
+                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Vision</h3>
+                <p class="text-[#262262] text-[18px] leading-relaxed">
                     To become a global leader in decentralized wealth solutions by consistently delivering results, building trust, and prioritizing user experience.
                 </p>
             </div>
@@ -61,58 +63,57 @@
 
     {{-- WHY LUMA STAKE --}}
     <section class="py-24 bg-white overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-6xl md:text-8xl font-black text-[#3B4EFC] mb-16 uppercase">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
+            <h2 class="text-5xl md:text-[80px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[0.9] tracking-tighter">
                 WHY LUMA STAKE ?
             </h2>
 
-            <div class="grid lg:grid-cols-2 gap-8 items-start">
-                <div class="space-y-8">
+            <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                <div class="lg:col-span-7 space-y-8">
                     {{-- Predictable Returns --}}
-                    <div class="bg-white/50 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-2xl relative">
-                        <h3 class="text-4xl font-black text-[#262262] mb-4">Predictable Returns</h3>
-                        <p class="text-xl text-gray-700 leading-relaxed">
+                    <div class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] relative min-h-[267px] flex flex-col justify-center">
+                        <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Predictable Returns</h3>
+                        <p class="text-[22px] text-[#22253B]/79 leading-normal">
                             Our staking system is designed for performance, not promises. Earnings are based on clear terms and transparent structures.
                         </p>
                     </div>
 
                     {{-- User Centric Design --}}
-                    <div class="bg-white/50 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-2xl">
-                        <h3 class="text-4xl font-black text-[#262262] mb-4">User Centric Design</h3>
-                        <p class="text-xl text-gray-700 leading-relaxed">
+                    <div class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[334px] flex flex-col justify-center">
+                        <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">User Centric Design</h3>
+                        <p class="text-[22px] text-[#22253B]/79 leading-normal">
                             The Luma stake interface is built to remove confusion. With easy onboarding, straightforward tiers, and live earnings tracking, users stay in control at every step.
                         </p>
                     </div>
                 </div>
 
                 {{-- Capital Protection --}}
-                <div class="bg-white/50 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-2xl lg:h-full flex flex-col justify-center">
-                    <h3 class="text-4xl font-black text-[#262262] mb-4">Capital Protection</h3>
-                    <p class="text-xl text-gray-700 leading-relaxed">
+                <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] flex flex-col justify-center min-h-[371px]">
+                    <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Capital Protection</h3>
+                    <p class="text-[22px] text-black/70 leading-normal">
                         Security is our foundation. We follow strict protocols and maintain a risk-managed approach to staking.
                     </p>
                 </div>
             </div>
         </div>
 
-        {{-- Decorative Pyramid Background --}}
-        <div class="absolute right-0 bottom-0 w-1/3 opacity-5 pointer-events-none">
-            <img src="{{ asset('img/about/about-pyramid-light.png') }}" alt="" class="w-full">
-        </div>
+        {{-- Decorative Images --}}
+        <div class="absolute right-[-100px] top-[10%] w-[500px] h-[500px] bg-[#3B4EFC]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute left-[-100px] bottom-[10%] w-[400px] h-[400px] bg-[#3B4EFC]/5 rounded-full blur-[80px] pointer-events-none"></div>
     </section>
 
     {{-- HOW WE GENERATE PROFIT --}}
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-gradient-to-r from-[#3B4EFC] to-[#95D2FF] rounded-[20px] p-8 text-center mb-12">
-                <h2 class="text-4xl md:text-6xl font-black text-white uppercase">
+    <section class="py-20 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
+            <div class="bg-gradient-to-r from-[#3B4EFC] to-[#95D2FF] border border-[#2BA6FF] rounded-[18px] p-10 text-center mb-16 h-[141px] flex items-center justify-center">
+                <h2 class="text-4xl md:text-[70px] font-the-bold-font font-black text-white uppercase leading-[0.97] tracking-tighter">
                     HOW WE GENERATE PROFIT ?
                 </h2>
             </div>
 
-            <div class="max-w-5xl mx-auto text-center">
-                <p class="text-2xl md:text-3xl text-gray-700 leading-relaxed">
-                    We are a professional <span class="font-bold">arbitrage firm.</span> Staked funds are used in low-risk arbitrage trades that profit from price differences across platforms. This method works in any market up or down — as it relies on <span class="font-bold">volatility,</span> not direction. Profits are shared between Luma Stake and our users, powered by a team of experts with <span class="font-bold">10+ years of experience.</span>
+            <div class="max-w-[936px] mx-auto text-center">
+                <p class="text-2xl md:text-[28px] text-black/70 leading-normal">
+                    We are a professional <span class="font-semibold text-[#22253B]/79">arbitrage firm.</span> Staked funds are used in low-risk arbitrage trades that profit from price differences across platforms. This method works in any market up or down — as it relies on <span class="font-semibold text-black/70">volatility,</span> not direction. Profits are shared between Luma Stake and our users, powered by a team of experts with <span class="font-semibold text-black/70">10+ years of experience.</span>
                 </p>
             </div>
         </div>
@@ -120,13 +121,34 @@
 
     {{-- WHO WE SERVE --}}
     <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-white border border-[#2BA6FF] rounded-[20px] p-12 relative shadow-[0_4px_15px_rgba(0,0,0,0.1)]">
-                <div class="absolute left-0 top-1/4 bottom-1/4 w-3 bg-[#3B4EFC] rounded-r-lg"></div>
-                <h2 class="text-4xl font-black text-[#3B4EFC] mb-6 uppercase">Who we serve</h2>
-                <p class="text-2xl text-gray-700 leading-relaxed">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
+            <div class="bg-white/47 border border-[#2BA6FF] rounded-[8px] p-12 relative shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex flex-col justify-center min-h-[311px]">
+                <div class="absolute left-0 top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
+                <h2 class="text-4xl md:text-[40px] font-the-bold-font font-black text-[#3B4EFC] mb-8 uppercase leading-[0.9] ml-4 tracking-tighter">Who we serve</h2>
+                <p class="text-2xl md:text-[24px] text-[#22253B]/79 leading-normal ml-4">
                     Luma stake is trusted by working professionals, crypto enthusiasts, passive income seekers, and anyone who wants their capital to work harder — without unnecessary risk.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    {{-- FOOTER CTA AREA (From Figma) --}}
+    <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">
+        <div class="absolute inset-0 opacity-40 mix-blend-overlay">
+            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between">
+            <div class="max-w-[727px]">
+                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[101px] mb-8">
+                <p class="text-[32px] text-black leading-normal">
+                    Your future shouldn’t depend on market luck. <br>
+                    With <span class="font-bold">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
+                </p>
+            </div>
+            <div class="flex flex-col gap-4 mt-12 md:mt-0">
+                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Get Started Now</a>
+                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Explore Plans</a>
+                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Contact Support</a>
             </div>
         </div>
     </section>

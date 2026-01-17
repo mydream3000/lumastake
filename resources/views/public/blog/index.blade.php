@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-32 pb-20 overflow-hidden bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
             <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[500px] flex flex-col items-center justify-center text-center">
                 {{-- Background Chart Image --}}
@@ -35,64 +35,92 @@
         <div class="absolute left-[-100px] bottom-[10%] w-[400px] h-[400px] bg-[#3B4EFC]/5 rounded-full blur-[80px] pointer-events-none"></div>
 
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
-            @if($posts->count() > 0)
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach($posts as $post)
-                        <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col transition-transform hover:scale-[1.02] min-h-[550px]">
-                            <div class="h-[240px] mb-8 rounded-[24px] overflow-hidden">
-                                <img src="{{ $post->image ? asset($post->image) : asset('img/blog/blog-article-main.png') }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+            {{-- WHY DO PRICE DIFFERENCES OCCUR --}}
+            <div class="mb-32">
+                <h2 class="text-4xl md:text-[70px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[1.07] tracking-tighter">
+                    WHY DO PRICE DIFFERENCE OCCOUR ?
+                </h2>
+
+                <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                    {{-- Liquidity Variations --}}
+                    <div class="lg:col-span-7 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[267px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Liquidity Variations</h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                            Some exchanges have deeper order books and more trading activity than others.
+                        </p>
+                    </div>
+
+                    {{-- Geographic Demand --}}
+                    <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[371px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Geographic Demand</h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                            Regional demand differences can influence pricing.
+                        </p>
+                    </div>
+
+                    {{-- Transfer Delays --}}
+                    <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[371px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Transfer Delays</h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                            Network congestion can delay transactions, creating temporary price gaps.
+                        </p>
+                    </div>
+
+                    {{-- Exchange Policies --}}
+                    <div class="lg:col-span-7 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[334px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Exchange Policies</h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                            Different fee structures, withdrawal restrictions, and trading limits impact price formation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ARTICLES GRID (Section News moved down) --}}
+            <div>
+                <h2 class="text-4xl md:text-[60px] font-the-bold-font font-black text-[#3B4EFC] mb-12 uppercase leading-[0.9] tracking-tighter">
+                    Latest News
+                </h2>
+
+                @if($posts->count() > 0)
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        @foreach($posts as $post)
+                            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col transition-transform hover:scale-[1.02] min-h-[550px]">
+                                <div class="h-[240px] mb-8 rounded-[24px] overflow-hidden">
+                                    <img src="{{ $post->image ? asset($post->image) : asset('img/blog/blog-article-main.png') }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <span class="px-4 py-1 bg-[#3B4EFC]/10 text-[#3B4EFC] rounded-full text-sm font-bold uppercase tracking-wider">Article</span>
+                                    <span class="text-gray-400 text-sm">{{ $post->published_at->format('M d, Y') }}</span>
+                                </div>
+
+                                <h3 class="text-[32px] font-the-bold-font font-black text-[#262262] mb-6 uppercase leading-[0.9] tracking-tighter line-clamp-2 min-h-[58px]">
+                                    {{ $post->title }}
+                                </h3>
+
+                                <p class="text-[#262262]/70 text-[18px] leading-relaxed mb-8 line-clamp-3">
+                                    {{ Str::limit(strip_tags($post->content), 150) }}
+                                </p>
+
+                                <a href="{{ route('blog.show', $post->slug) }}" class="mt-auto inline-flex items-center gap-2 text-[#3B4EFC] font-black text-xl uppercase tracking-tighter hover:gap-4 transition-all">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
+                        @endforeach
+                    </div>
 
-                            <div class="flex items-center gap-4 mb-4">
-                                <span class="px-4 py-1 bg-[#3B4EFC]/10 text-[#3B4EFC] rounded-full text-sm font-bold uppercase tracking-wider">Article</span>
-                                <span class="text-gray-400 text-sm">{{ $post->published_at->format('M d, Y') }}</span>
-                            </div>
-
-                            <h3 class="text-[32px] font-the-bold-font font-black text-[#262262] mb-6 uppercase leading-[0.9] tracking-tighter line-clamp-2 min-h-[58px]">
-                                {{ $post->title }}
-                            </h3>
-
-                            <p class="text-[#262262]/70 text-[18px] leading-relaxed mb-8 line-clamp-3">
-                                {{ Str::limit(strip_tags($post->content), 150) }}
-                            </p>
-
-                            <a href="{{ route('blog.show', $post->slug) }}" class="mt-auto inline-flex items-center gap-2 text-[#3B4EFC] font-black text-xl uppercase tracking-tighter hover:gap-4 transition-all">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="mt-16">
-                    {{ $posts->links() }}
-                </div>
-            @else
-                <div class="text-center py-20">
-                    <h3 class="text-3xl font-the-bold-font text-gray-400 uppercase">No articles found yet.</h3>
-                </div>
-            @endif
+                    <div class="mt-16">
+                        {{ $posts->links() }}
+                    </div>
+                @else
+                    <div class="text-center py-20">
+                        <h3 class="text-3xl font-the-bold-font text-gray-400 uppercase">No articles found yet.</h3>
+                    </div>
+                @endif
+            </div>
         </div>
     </section>
 
 
-    {{-- FOOTER CTA AREA --}}
-    <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">
-        <div class="absolute inset-0 opacity-40 mix-blend-overlay">
-            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
-        </div>
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <div class="max-w-[727px]">
-                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[101px] mb-8">
-                <p class="text-[32px] text-black leading-normal">
-                    Your future shouldn’t depend on market luck. <br>
-                    With <span class="font-bold">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
-                </p>
-            </div>
-            <div class="flex flex-col gap-4 mt-12 md:mt-0">
-                <a href="{{ route('register') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Get Started Now</a>
-                <a href="{{ route('profit-tiers') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Explore Plans</a>
-                <a href="{{ route('contact') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Contact Support</a>
-            </div>
-        </div>
-    </section>
 @endsection

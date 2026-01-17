@@ -1,38 +1,43 @@
-﻿<footer class="bg-lumastake-light-blue py-24">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-                <a href="{{ route('home') }}" class="inline-block mb-10">
-                    <img src="{{ asset('img/home/logo-final.png') }}" alt="LumaStake Logo" class="h-12 w-auto">
-                </a>
-                <p class="text-lumastake-navy text-3xl font-medium leading-tight max-w-xl">
-                    Your future shouldn't depend on market luck. With LumaStake, <span class="font-bold">you earn passively</span>, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully</span>.
+﻿<footer class="bg-[#E0F2FF] w-full relative overflow-hidden pt-24 pb-12">
+    {{-- Background Image --}}
+    <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
+        <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
+    </div>
+
+    <div class="max-w-[1280px] mx-auto px-6 relative z-10">
+        {{-- CTA AREA --}}
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-16 mb-20">
+            <div class="max-w-[700px] text-center lg:text-left">
+                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[80px] md:h-[101px] mb-8 mx-auto lg:mx-0">
+                <p class="text-2xl md:text-[32px] text-black leading-tight font-poppins">
+                    Your future shouldn’t depend on market luck. <br class="hidden md:block">
+                    With <span class="font-bold text-[#3B4EFC]">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
                 </p>
             </div>
-            <div class="flex flex-col items-center lg:items-end">
-                <div class="flex flex-col space-y-5 w-full max-w-sm">
-                    <a href="{{ route('register') }}" class="border-2 border-lumastake-navy text-lumastake-navy text-center py-4 rounded-xl text-2xl font-bold hover:bg-lumastake-navy hover:text-white transition-all">Get Started Now</a>
-                    <a href="{{ route('profit-tiers') }}" class="border-2 border-lumastake-navy text-lumastake-navy text-center py-4 rounded-xl text-2xl font-bold hover:bg-lumastake-navy hover:text-white transition-all">Explore Plans</a>
-                    <a href="{{ route('contact') }}" class="border-2 border-lumastake-navy text-lumastake-navy text-center py-4 rounded-xl text-2xl font-bold hover:bg-lumastake-navy hover:text-white transition-all">Contact Support</a>
-                </div>
+
+            <div class="flex flex-col gap-4 w-full md:w-[350px]">
+                <a href="{{ route('register') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-xl md:text-[26px] text-black/70 hover:bg-white/40 transition-all text-center font-bold">Get Started Now</a>
+                <a href="{{ route('profit-tiers') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-xl md:text-[26px] text-black/70 hover:bg-white/40 transition-all text-center font-bold">Explore Plans</a>
+                <a href="{{ route('contact') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-xl md:text-[26px] text-black/70 hover:bg-white/40 transition-all text-center font-bold">Contact Support</a>
             </div>
         </div>
 
-        <div class="mt-24 pt-10 border-t border-blue-200 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-lumastake-navy text-xl mb-8 md:mb-0 font-medium">© 2026 All rights reserved.</p>
+        {{-- BOTTOM FOOTER --}}
+        <div class="pt-12 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-8">
+            <p class="text-lumastake-navy text-xl font-medium opacity-70">© 2026 Lumastake. All rights reserved.</p>
 
-            <div class="flex space-x-8">
+            <div class="flex space-x-6">
                 <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/instagram.svg') }}" alt="Instagram" class="w-10 h-10">
+                    <img src="{{ asset('img/instagram.svg') }}" alt="Instagram" class="w-8 h-8 opacity-80 hover:opacity-100">
                 </a>
                 <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/facebook.svg') }}" alt="Facebook" class="w-10 h-10">
+                    <img src="{{ asset('img/facebook.svg') }}" alt="Facebook" class="w-8 h-8 opacity-80 hover:opacity-100">
                 </a>
                 <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/xlink.svg') }}" alt="Twitter" class="w-10 h-10">
+                    <img src="{{ asset('img/xlink.svg') }}" alt="Twitter" class="w-8 h-8 opacity-80 hover:opacity-100">
                 </a>
                 <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/tiktok.svg') }}" alt="TikTok" class="w-10 h-10">
+                    <img src="{{ asset('img/tiktok.svg') }}" alt="TikTok" class="w-8 h-8 opacity-80 hover:opacity-100">
                 </a>
             </div>
         </div>

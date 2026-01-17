@@ -14,3 +14,8 @@
     --color-lumastake-lime: #D9FF00;
     --color-lumastake-dark: #101221;
 }
+
+[x-cloak] {
+    display: none !important;
+}
+

@@ -132,24 +132,4 @@
         </div>
     </section>
 
-    {{-- FOOTER CTA AREA (From Figma) --}}
-    <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">
-        <div class="absolute inset-0 opacity-40 mix-blend-overlay">
-            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
-        </div>
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <div class="max-w-[727px]">
-                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[101px] mb-8">
-                <p class="text-[32px] text-black leading-normal">
-                    Your future shouldn’t depend on market luck. <br>
-                    With <span class="font-bold">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
-                </p>
-            </div>
-            <div class="flex flex-col gap-4 mt-12 md:mt-0">
-                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Get Started Now</a>
-                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Explore Plans</a>
-                <a href="#" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Contact Support</a>
-            </div>
-        </div>
-    </section>
 @endsection

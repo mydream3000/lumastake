@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-32 pb-20 overflow-hidden bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
             <div class="text-center mb-12">
                 <h1 class="text-5xl md:text-[52px] font-the-bold-font font-black text-[#3B4EFC] mb-6 uppercase tracking-tighter leading-[0.9]">
@@ -119,17 +119,17 @@
 
                 {{-- Right: Contact Info --}}
                 <div class="lg:w-[40%] bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] p-8 md:p-14 text-white relative flex flex-col m-[15px] rounded-[23px]">
-                    <h2 class="text-[45px] font-extrabold mb-6 leading-tight">Contact Information</h2>
+                    <h2 class="text-[45px] font-the-bold-font font-black mb-6 leading-tight uppercase tracking-tighter">Contact Information</h2>
                     <p class="text-[26px] font-normal mb-12 opacity-90">Fill up the form and our team will get back to you within 24 hours.</p>
 
-                    <div class="relative space-y-10 flex-grow">
+                    <div class="relative space-y-10 flex-grow py-4">
                         {{-- Vertical Decorative Line --}}
-                        <div class="absolute left-[34px] top-6 bottom-6 w-[4px] bg-[#E3FF3B] rounded-full hidden sm:block"></div>
+                        <div class="absolute left-[34px] top-0 bottom-0 w-[4px] bg-[#E3FF3B] hidden sm:block"></div>
 
                         {{-- Contact Details --}}
                         <div class="relative flex items-center gap-8 pl-1">
-                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
-                                <i class="fas fa-phone-alt text-[#3B4EFC] text-xl"></i>
+                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                                <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
                                 <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Contact</p>
@@ -140,8 +140,8 @@
                         </div>
 
                         <div class="relative flex items-center gap-8 pl-1">
-                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
-                                <i class="fas fa-envelope text-[#3B4EFC] text-xl"></i>
+                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                                <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
                                 <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Email</p>
@@ -152,8 +152,8 @@
                         </div>
 
                         <div class="relative flex items-center gap-8 pl-1">
-                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
-                                <i class="fas fa-map-marker-alt text-[#3B4EFC] text-xl"></i>
+                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                                <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
                                 <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Location</p>
@@ -175,26 +175,6 @@
         </div>
     </section>
 
-    {{-- FOOTER CTA AREA --}}
-    <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">
-        <div class="absolute inset-0 opacity-40 mix-blend-overlay">
-            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
-        </div>
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <div class="max-w-[727px]">
-                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[101px] mb-8">
-                <p class="text-[32px] text-black leading-normal">
-                    Your future shouldn’t depend on market luck. <br>
-                    With <span class="font-bold">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
-                </p>
-            </div>
-            <div class="flex flex-col gap-4 mt-12 md:mt-0">
-                <a href="{{ route('register') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Get Started Now</a>
-                <a href="{{ route('profit-tiers') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Explore Plans</a>
-                <a href="{{ route('contact') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Contact Support</a>
-            </div>
-        </div>
-    </section>
 
     @push('scripts')
     <script>

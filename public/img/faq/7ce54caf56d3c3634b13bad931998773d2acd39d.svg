@@ -1,0 +1,52 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 36 425" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 8">
+<rect id="Rectangle 3252" width="36" height="36" rx="18" fill="url(#paint0_linear_2014_184)"/>
+<path id="Polygon 6" d="M17.134 29.5C17.5189 30.1667 18.4811 30.1667 18.866 29.5L28.3923 13C28.7772 12.3333 28.2961 11.5 27.5263 11.5H8.47372C7.70392 11.5 7.22279 12.3333 7.6077 13L17.134 29.5Z" fill="var(--fill-0, white)"/>
+<g id="Group 4">
+<rect id="Rectangle 3252_2" width="36" height="36" rx="18" fill="url(#paint1_linear_2014_184)"/>
+<path id="Polygon 6_2" d="M17.134 29.5C17.5189 30.1667 18.4811 30.1667 18.866 29.5L28.3923 13C28.7772 12.3333 28.2961 11.5 27.5263 11.5H8.47372C7.70392 11.5 7.22279 12.3333 7.6077 13L17.134 29.5Z" fill="var(--fill-0, white)"/>
+</g>
+<g id="Group 7">
+<rect id="Rectangle 3252_3" y="193" width="36" height="36" rx="18" fill="url(#paint2_linear_2014_184)"/>
+<path id="Polygon 6_3" d="M17.134 222.5C17.5189 223.167 18.4811 223.167 18.866 222.5L28.3923 206C28.7772 205.333 28.2961 204.5 27.5263 204.5H8.47372C7.70392 204.5 7.22279 205.333 7.6077 206L17.134 222.5Z" fill="var(--fill-0, white)"/>
+<g id="Group 4_2">
+<rect id="Rectangle 3252_4" y="193" width="36" height="36" rx="18" fill="url(#paint3_linear_2014_184)"/>
+<path id="Polygon 6_4" d="M17.134 222.5C17.5189 223.167 18.4811 223.167 18.866 222.5L28.3923 206C28.7772 205.333 28.2961 204.5 27.5263 204.5H8.47372C7.70392 204.5 7.22279 205.333 7.6077 206L17.134 222.5Z" fill="var(--fill-0, white)"/>
+</g>
+</g>
+<g id="Group 8_2">
+<rect id="Rectangle 3252_5" y="389" width="36" height="36" rx="18" fill="url(#paint4_linear_2014_184)"/>
+<path id="Polygon 6_5" d="M17.134 418.5C17.5189 419.167 18.4811 419.167 18.866 418.5L28.3923 402C28.7772 401.333 28.2961 400.5 27.5263 400.5H8.47372C7.70392 400.5 7.22279 401.333 7.6077 402L17.134 418.5Z" fill="var(--fill-0, white)"/>
+<g id="Group 4_3">
+<rect id="Rectangle 3252_6" y="389" width="36" height="36" rx="18" fill="url(#paint5_linear_2014_184)"/>
+<path id="Polygon 6_6" d="M17.134 418.5C17.5189 419.167 18.4811 419.167 18.866 418.5L28.3923 402C28.7772 401.333 28.2961 400.5 27.5263 400.5H8.47372C7.70392 400.5 7.22279 401.333 7.6077 402L17.134 418.5Z" fill="var(--fill-0, white)"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2014_184" x1="18" y1="0" x2="18" y2="36" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2014_184" x1="18" y1="0" x2="18" y2="36" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+<linearGradient id="paint2_linear_2014_184" x1="18" y1="193" x2="18" y2="229" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+<linearGradient id="paint3_linear_2014_184" x1="18" y1="193" x2="18" y2="229" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+<linearGradient id="paint4_linear_2014_184" x1="18" y1="389" x2="18" y2="425" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+<linearGradient id="paint5_linear_2014_184" x1="18" y1="389" x2="18" y2="425" gradientUnits="userSpaceOnUse">
+<stop stop-color="#95D2FF"/>
+<stop offset="1" stop-color="#3B4EFC"/>
+</linearGradient>
+</defs>
+</svg>

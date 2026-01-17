@@ -1,24 +1,22 @@
 <x-cabinet-layout>
-    <!-- Desktop Version (Таблица как раньше) -->
+    <!-- Desktop Version -->
     <div class="hidden lg:block">
-        <x-cabinet.card>
-            <x-slot name="header">
-                Earnings | <span class="text-cabinet-orange">Profit Earnings</span>
-            </x-slot>
-            <div class="card-scroll">
-                <div class="js-profit-earnings-table" data-url="{{ route('cabinet.earnings.profit.data') }}"></div>
-            </div>
-        </x-cabinet.card>
+        <div class="card p-6">
+            <h2 class="text-xl font-bold text-cabinet-text-main mb-6">
+                Earnings | <span class="text-cabinet-blue">Profit Earnings</span>
+            </h2>
+            <div class="js-profit-earnings-table" data-url="{{ route('cabinet.earnings.profit.data') }}"></div>
+        </div>
     </div>
 
-    <!-- Mobile Version (Новый дизайн) -->
-    <div class="lg:hidden bg-white rounded-lg shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
+    <!-- Mobile Version -->
+    <div class="lg:hidden bg-white rounded-xl border border-cabinet-border overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100">
             <div class="flex items-center justify-between">
-                <h2 class="text-xl font-bold text-gray-900">
-                    Earning | <span class="text-cabinet-orange">Profit</span>
+                <h2 class="text-xl font-bold text-cabinet-text-main">
+                    Earning | <span class="text-cabinet-blue">Profit</span>
                 </h2>
-                <a href="{{ route('cabinet.earnings.rewards') }}" class="text-sm font-semibold text-cabinet-green hover:text-cabinet-green/80 transition-colors">
+                <a href="{{ route('cabinet.earnings.rewards') }}" class="text-sm font-bold text-cabinet-blue hover:underline transition-colors">
                     Rewards
                 </a>
             </div>
@@ -26,7 +24,7 @@
 
         <div class="p-6" x-data="profitData()" x-init="loadProfits()">
             <div x-show="loading" class="py-12 text-center">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-green"></div>
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
             </div>
 
             <div x-show="!loading && profits.length === 0" class="py-12 text-center">
@@ -35,40 +33,37 @@
 
             <div x-show="!loading && profits.length > 0" class="space-y-4">
                 <template x-for="profit in profits" :key="profit.id">
-                    <div class="bg-white border border-gray-200 rounded-lg p-4">
-                        <h3 class="text-lg font-bold text-cabinet-green mb-4">Profit</h3>
+                    <div class="border border-gray-100 rounded-xl p-6 bg-gray-50/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Date</span>
+                            <span class="text-sm font-medium text-cabinet-text-main" x-text="profit.created_at"></span>
+                        </div>
 
-                        <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
                             <div>
-                                <span class="text-sm text-gray-600">Duration:</span>
-                                <span class="text-sm font-semibold text-gray-900" x-text="profit.duration"></span>
-                            </div>
-                            <div>
-                                <span class="text-sm text-gray-600">Tier:</span>
-                                <span class="text-sm font-semibold text-gray-900" x-text="profit.tier"></span>
+                                <span class="text-xs font-bold text-gray-400 uppercase">Duration</span>
+                                <div class="text-sm font-bold text-cabinet-text-main" x-text="profit.duration"></div>
                             </div>
                             <div class="text-right">
-                                <span class="text-sm text-gray-600">Profit:</span>
-                                <span class="text-sm font-semibold text-cabinet-green" x-text="profit.profit + '%'"></span>
+                                <span class="text-xs font-bold text-gray-400 uppercase">Profit</span>
+                                <div class="text-sm font-bold text-[#2BA6FF]" x-text="profit.profit + '%'"></div>
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Created At:</span>
-                                <span class="text-sm font-semibold text-gray-900 ml-20" x-text="profit.created_at"></span>
+                        <div class="grid grid-cols-2 gap-4 mb-4 pt-4 border-t border-gray-100">
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase">Principal</span>
+                                <div class="text-sm font-bold text-cabinet-text-main" x-text="'$' + profit.invested_amount"></div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Tier</span>
+                                <div class="text-sm font-bold text-cabinet-text-main" x-text="profit.tier"></div>
                             </div>
                         </div>
 
-                        <div class="space-y-1">
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">Earned</span>
-                                <span class="text-lg font-bold text-gray-900" x-text="profit.earned"></span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">Staked Amount:</span>
-                                <span class="text-base font-semibold text-gray-900" x-text="profit.invested_amount"></span>
-                            </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Profit Earned</span>
+                            <span class="text-lg font-bold text-green-600" x-text="'$' + profit.earned"></span>
                         </div>
                     </div>
                 </template>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center py-8">
-    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-orange"></div>
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
     <data-table
@@ -12,7 +12,7 @@
       :default-per-page="10"
     >
       <template #cell-profit="{ value }">
-        <span class="text-cabinet-orange font-semibold">{{ value }}</span>
+        <span class="text-[#2BA6FF] font-bold">{{ value }}</span>
       </template>
 
       <template #cell-auto_renewal="{ row }">
@@ -23,7 +23,7 @@
             @change="toggleAutoRenewal(row.id, $event.target.checked)"
             class="hidden peer"
           >
-          <div class="relative w-11 h-6 bg-cabinet-grey peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cabinet-orange/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cabinet-orange"></div>
+          <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cabinet-blue/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cabinet-blue"></div>
         </label>
       </template>
 
@@ -34,7 +34,7 @@
       <template #cell-action="{ row }">
         <button
           @click="unstakeConfirm(row)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-orange text-white  hover:bg-cabinet-orange/80  font-semibold transition"
+          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-blue text-white  hover:bg-cabinet-blue/80  font-bold uppercase transition shadow-sm"
         >
           Unstake
         </button>
@@ -43,30 +43,30 @@
 
     <!-- Unstake Confirmation Modal -->
     <div v-if="showUnstakeModal" class="fixed inset-0 z-50 flex items-center justify-center px-4" @click.self="showUnstakeModal = false">
-      <div class="fixed inset-0 bg-black/70 transition-opacity"></div>
-      <div class="relative bg-cabinet-dark rounded-lg max-w-md w-full p-6 shadow-2xl border border-cabinet-grey">
-        <div class="text-left">
-          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-cabinet-orange/20 mb-4">
-            <svg class="h-6 w-6 text-cabinet-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+      <div class="relative bg-white rounded-xl max-w-md w-full p-8 shadow-2xl border border-gray-200">
+        <div class="text-center">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-6">
+            <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
           </div>
-          <h3 class="text-lg text-center font-medium text-cabinet-text-dark mb-2">Unstake Confirmation</h3>
-          <small class="text-sm text-center text-cabinet-text-grey mb-6">Note: If you unstake before the time ends, a fee of 10% will be applied.</small>
-          <p class="text-sm text-center text-cabinet-text-grey mb-6">Are you sure you want to unstake?</p>
+          <h3 class="text-2xl font-bold text-cabinet-text-main mb-2">Unstake Confirmation</h3>
+          <p class="text-base text-gray-500 mb-4">Note: If you unstake before the time ends, a fee of <span class="font-bold text-red-600">10%</span> will be applied.</p>
+          <p class="text-lg font-medium text-cabinet-text-main mb-8">Are you sure you want to unstake?</p>
 
-          <div class="space-y-2">
+          <div class="grid grid-cols-2 gap-4">
             <button
               @click="performUnstake"
-              class="w-full px-4 py-2 bg-cabinet-green text-white font-medium rounded-lg hover:bg-cabinet-green/80 transition-colors"
+              class="px-6 py-3 bg-cabinet-blue text-white font-bold rounded-lg hover:bg-cabinet-blue/90 transition shadow-lg uppercase"
             >
-              Yes
+              Yes, Unstake
             </button>
             <button
               @click="showUnstakeModal = false"
-              class="w-full px-4 py-2 bg-cabinet-red text-white font-medium rounded-lg hover:bg-cabinet-red/80 transition-colors"
+              class="px-6 py-3 bg-gray-100 text-gray-600 font-bold rounded-lg hover:bg-gray-200 transition uppercase"
             >
-              No
+              No, Cancel
             </button>
           </div>
         </div>

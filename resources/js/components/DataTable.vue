@@ -30,11 +30,11 @@
               >
                   <path
                       d="M3.5655 0.184608C3.5945 0.212859 3.7185 0.319532 3.8205 0.418899C4.462 1.00146 5.512 2.52119 5.8325 3.31661C5.884 3.43741 5.993 3.74282 6 3.90599C6 4.06235 5.964 4.2114 5.891 4.35363C5.789 4.53093 5.6285 4.67316 5.439 4.7511C5.3075 4.80127 4.914 4.8792 4.907 4.8792C4.4765 4.95714 3.777 5 3.004 5C2.2675 5 1.5965 4.95714 1.1595 4.89333C1.1525 4.88602 0.6635 4.80809 0.496 4.72284C0.19 4.56649 0 4.26108 0 3.93424V3.90599C0.00750017 3.69313 0.1975 3.24549 0.2045 3.24549C0.5255 2.49294 1.524 1.00828 2.1875 0.411593C2.1875 0.411593 2.358 0.243546 2.4645 0.170482C2.6175 0.0565028 2.807 0 2.9965 0C3.208 0 3.405 0.0638089 3.5655 0.184608Z"
-                      :fill="sortKey === column.key && sortOrder === 'asc' ? '#FF451C' : '#CCCCCC'"
+                      :fill="sortKey === column.key && sortOrder === 'asc' ? '#3B4EFC' : '#CCCCCC'"
                   />
                   <path
                       d="M2.4345 11.8154C2.4055 11.7871 2.2815 11.6805 2.1795 11.5811C1.538 10.9985 0.488 9.47881 0.1675 8.68339C0.116 8.56259 0.007 8.25718 0 8.09401C0 7.93765 0.036 7.7886 0.109 7.64637C0.211 7.46907 0.3715 7.32684 0.561 7.2489C0.6925 7.19873 1.086 7.1208 1.093 7.1208C1.5235 7.04286 2.223 7 2.996 7C3.7325 7 4.4035 7.04286 4.8405 7.10667C4.8475 7.11398 5.3365 7.19191 5.504 7.27716C5.81 7.43351 6 7.73892 6 8.06576V8.09401C5.9925 8.30687 5.8025 8.75451 5.7955 8.75451C5.4745 9.50706 4.476 10.9917 3.8125 11.5884C3.8125 11.5884 3.642 11.7565 3.5355 11.8295C3.3825 11.9435 3.193 12 3.0035 12C2.792 12 2.595 11.9362 2.4345 11.8154Z"
-                      :fill="sortKey === column.key && sortOrder === 'desc' ? '#FF451C' : '#CCCCCC'"
+                      :fill="sortKey === column.key && sortOrder === 'desc' ? '#3B4EFC' : '#CCCCCC'"
                   />
               </svg>
           </div>
@@ -81,11 +81,11 @@
     <!-- Pagination -->
     <div v-if="data.length > 0" class="mt-6 flex items-center justify-between flex-shrink-0">
       <!-- Per Page Selector -->
-      <div class="flex items-center gap-2 text-sm text-cabinet-orange font-medium">
+      <div class="flex items-center gap-2 text-cabinet-blue font-medium">
         <span>Row per page</span>
         <select
           v-model.number="perPage"
-          class="px-3 py-1 border border-gray-06 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
+          class="px-3 py-1 border border-gray-200 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-cabinet-blue"
         >
           <option :value="10">10</option>
           <option :value="25">25</option>
@@ -101,7 +101,7 @@
           @click="goToPage(currentPage - 1)"
           :disabled="currentPage === 1"
           class="px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed rounded-md"
-          :class="currentPage === 1 ? 'bg-gray-06 text-gray-400' : 'text-gray-700 hover:bg-cabinet-orange/10 hover:text-cabinet-orange'"
+          :class="currentPage === 1 ? 'bg-gray-100 text-gray-400' : 'text-gray-700 hover:bg-cabinet-blue/10 hover:text-cabinet-blue'"
         >
           &lt; Previous
         </button>
@@ -112,7 +112,7 @@
             v-if="page !== '...'"
             @click="goToPage(page)"
             class="px-3 py-1.5 text-sm transition-colors rounded-md"
-            :class="currentPage === page ? 'bg-cabinet-orange text-white' : 'text-gray-700 hover:bg-cabinet-orange/10 hover:text-cabinet-orange'"
+            :class="currentPage === page ? 'bg-cabinet-blue text-white' : 'text-gray-700 hover:bg-cabinet-blue/10 hover:text-cabinet-blue'"
           >
             {{ page }}
           </button>
@@ -124,7 +124,7 @@
           @click="goToPage(currentPage + 1)"
           :disabled="currentPage === totalPages"
           class="px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed rounded-md"
-          :class="currentPage === totalPages ? 'bg-gray-06 text-gray-400' : 'text-gray-700 hover:bg-cabinet-orange/10 hover:text-cabinet-orange'"
+          :class="currentPage === totalPages ? 'bg-gray-100 text-gray-400' : 'text-gray-700 hover:bg-cabinet-blue/10 hover:text-cabinet-blue'"
         >
           Next &gt;
         </button>
@@ -156,19 +156,19 @@ const props = defineProps({
   },
   headerClass: {
     type: String,
-    default: 'bg-white'
+    default: 'bg-white border-b border-gray-200 text-gray-400'
   },
   rowClass: {
     type: [String, Function],
-    default: 'bg-cabinet-table-row/40 hover:bg-cabinet-table-row/60'
+    default: 'bg-white border-b border-gray-100 hover:bg-gray-50'
   },
   paginationButtonClass: {
     type: String,
-    default: 'border-cabinet-card-border hover:bg-cabinet-table-row/40'
+    default: 'border-gray-200 hover:bg-gray-50'
   },
   paginationActiveClass: {
     type: String,
-    default: 'bg-cabinet-orange text-white border-cabinet-orange'
+    default: 'bg-cabinet-blue text-white border-cabinet-blue'
   },
   emptyText: {
     type: String,

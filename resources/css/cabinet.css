@@ -7,33 +7,29 @@
 
 /* Cabinet-specific theme colors from Figma */
 @theme {
-    --color-cabinet-dark: #262262;
+    --color-cabinet-bg: #F2F5F8;
+    --color-cabinet-sidebar-start: #95D2FF;
+    --color-cabinet-sidebar-end: #3B4EFC;
     --color-cabinet-blue: #3B4EFC;
     --color-cabinet-lime: #E3FF3B;
-    --color-cabinet-light-blue: #95D2FF;
-    --color-cabinet-red: #F70808; /* Keep for errors */
+    --color-cabinet-light-blue: #D9EFFF;
+    --color-cabinet-light-yellow: #F9FFD9;
+    --color-cabinet-red: #F70808;
 
-    --color-cabinet-text-dark: #FFFFFF;
+    --color-cabinet-text-main: #222222;
+    --color-cabinet-text-secondary: #444444;
     --color-cabinet-text-grey: #B3B3B3;
 
-    --color-cabinet-grey: #4A4688; /* Borders and dividers */
-    --color-cabinet-header-bg: #1A1A1A; /* Old, will be replaced by dark */
-    --color-cabinet-table-row: #2F2B7A; /* Table row background */
-
-    /* Referral Level colors from previous design - can be updated if needed */
-    --color-cabinet-level-1: #3B4EFC;
-    --color-cabinet-level-2: #05C982;
-    --color-cabinet-level-3: #FF00D8;
-    --color-cabinet-level-4: #02C9D8;
-    --color-cabinet-level-5: #FF9D00;
+    --color-cabinet-border: #CCCCCC;
+    --color-cabinet-card-bg: #FFFFFF;
 
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
 }
 
 body {
-    background-color: var(--color-cabinet-dark);
-    color: var(--color-cabinet-text-dark);
+    background-color: var(--color-cabinet-bg);
+    color: var(--color-cabinet-text-main);
 }
 
 /* Loading spinner for cabinet */
@@ -80,16 +76,16 @@ textarea:focus {
 
 /* General card styling */
 .card {
-    background-color: #2F2B7A;
-    border: 1px solid #4A4688;
-    border-radius: 24px;
+    background-color: var(--color-cabinet-card-bg);
+    border: 1px solid var(--color-cabinet-border);
+    border-radius: 10px;
+    box-shadow: 0px 4px 5px -25px rgba(0, 0, 0, 0.25);
 }
 
 /* Sidebar active link style */
 .sidebar-active {
-    background-color: #3B4EFC;
-    color: #FFFFFF;
+    color: var(--color-cabinet-lime);
 }
 .sidebar-active img {
-    filter: brightness(0) invert(1);
+    filter: invert(88%) sepia(59%) saturate(677%) hue-rotate(18deg) brightness(108%) contrast(101%);
 }

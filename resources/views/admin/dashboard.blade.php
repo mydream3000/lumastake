@@ -91,9 +91,9 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-gray-600">Total Real Deposits</p>
-                    <p class="text-xl font-bold text-orange-600 mt-1">${{ number_format($totalRealDeposits, 2) }}</p>
+                    <p class="text-xl font-bold text-cabinet-blue mt-1">${{ number_format($totalRealDeposits, 2) }}</p>
                 </div>
-                <i class="fas fa-clock text-orange-400"></i>
+                <i class="fas fa-clock text-cabinet-blue/40"></i>
             </div>
         </div>
 

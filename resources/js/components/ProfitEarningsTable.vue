@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center py-8">
-    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-orange"></div>
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
     <data-table
@@ -12,11 +12,11 @@
       :default-per-page="10"
     >
       <template #cell-earned="{ value }">
-        <span class="font-semibold text-cabinet-green">{{ value }}</span>
+        <span class="font-bold text-green-600">{{ value }}</span>
       </template>
 
       <template #cell-profit="{ value }">
-        <span class="text-cabinet-orange font-semibold">{{ value }}</span>
+        <span class="text-[#2BA6FF] font-bold">{{ value }}</span>
       </template>
     </data-table>
   </div>

@@ -6,22 +6,22 @@
   >
     <div
       @click.stop="tooltipOpen = false"
-      class="bg-cabinet-dark rounded-lg p-6 max-w-md w-full mx-4 border border-cabinet-grey"
+      class="bg-white rounded-xl p-8 max-w-md w-full mx-4 border border-gray-200 shadow-xl"
     >
       <div class="flex flex-col items-center mb-6">
-        <div class="w-12 h-12 rounded-full bg-cabinet-orange/10 flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-cabinet-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-16 h-16 rounded-full bg-cabinet-blue/10 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-cabinet-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-cabinet-text-dark mb-2">Stake Confirmation</h3>
-        <p class="text-sm text-cabinet-text-grey text-center">Please specify the amount you want to stake</p>
+        <h3 class="text-2xl font-bold text-cabinet-text-main mb-2">Stake Confirmation</h3>
+        <p class="text-base text-gray-500 text-center">Please specify the amount you want to stake</p>
       </div>
 
       <div class="mb-4">
         <div class="flex items-center justify-between mb-2">
-          <label class="text-sm font-medium text-cabinet-green">Available Balance</label>
-          <span class="text-sm text-cabinet-text-grey">{{ formatCurrency(availableBalance) }} USD</span>
+          <label class="text-sm font-semibold text-gray-600">Available Balance</label>
+          <span class="text-sm font-bold text-cabinet-blue">{{ formatCurrency(availableBalance) }} USDT</span>
         </div>
         <div class="relative">
           <input
@@ -31,22 +31,22 @@
             min="0"
             :max="availableBalance"
             placeholder="Enter amount"
-            class="w-full px-4 py-2 border border-cabinet-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange bg-cabinet-dark text-cabinet-text-dark"
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-blue bg-gray-50 text-cabinet-text-main font-medium"
           >
           <button
             @click="setMaxAmount"
-            class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-cabinet-orange rounded hover:bg-cabinet-orange/80"
+            class="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1 text-xs font-bold text-white bg-cabinet-blue rounded hover:bg-cabinet-blue/80 transition"
           >
             Max
           </button>
         </div>
-        <p v-if="errorMessage" class="text-sm text-cabinet-red mt-1">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="text-sm text-cabinet-red mt-2 font-medium">{{ errorMessage }}</p>
       </div>
 
-      <div class="mb-6">
+      <div class="mb-8">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <label class="text-sm font-medium text-cabinet-text-grey">Auto Stake</label>
+            <label class="text-sm font-semibold text-gray-600">Auto Stake</label>
             <div class="relative">
               <svg
                 @click.stop="tooltipOpen = !tooltipOpen"
@@ -61,7 +61,7 @@
               <div
                 v-show="tooltipOpen"
                 @click.stop
-                class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-3 bg-cabinet-dark border border-cabinet-grey text-cabinet-text-grey text-sm rounded-lg shadow-lg z-50 transition-opacity"
+                class="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-64 p-4 bg-white border border-gray-200 text-gray-600 text-sm rounded-xl shadow-2xl z-50 transition-all"
               >
                 Auto Stake automatically restakes your initial investment when the period ends.
               </div>
@@ -71,12 +71,12 @@
             @click="toggleAutoStake"
             :class="[
               'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-              autoStake ? 'bg-cabinet-orange' : 'bg-cabinet-grey'
+              autoStake ? 'bg-cabinet-blue' : 'bg-gray-200'
             ]"
           >
             <span
               :class="[
-                'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
+                'inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm',
                 autoStake ? 'translate-x-6' : 'translate-x-1'
               ]"
             ></span>
@@ -87,7 +87,7 @@
       <button
         @click="confirmStake"
         :disabled="!isValid || isSubmitting"
-        class="w-full px-6 py-3 bg-cabinet-orange text-white font-semibold rounded-lg hover:bg-cabinet-orange/80 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full px-6 py-4 bg-cabinet-blue text-white font-bold rounded-lg hover:bg-cabinet-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg"
       >
         {{ isSubmitting ? 'Processing...' : 'Continue' }}
       </button>

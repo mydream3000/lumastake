@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center py-8">
-    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-orange"></div>
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
     <data-table
@@ -13,17 +13,17 @@
     >
       <template #cell-status="{ value }">
         <span
-          class="px-3 py-1 rounded-full text-sm font-medium inline-block"
+          class="px-3 py-1 rounded-full text-xs font-bold inline-block uppercase"
           :class="getStatusClass(value)"
         >
-          {{ value.charAt(0).toUpperCase() + value.slice(1) }}
+          {{ value }}
         </span>
       </template>
 
       <template #cell-details="{ row }">
         <button
           @click="showDetails(row)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-green text-white hover:bg-cabinet-green/80 font-semibold transition"
+          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-blue text-white hover:bg-cabinet-blue/80 font-bold uppercase transition"
         >
           View
         </button>
@@ -34,67 +34,67 @@
   <!-- Details Modal -->
   <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto" @click.self="showModal = false">
     <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="fixed inset-0 bg-black/70 transition-opacity"></div>
-      <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg max-w-3xl w-full p-6 shadow-2xl border border-gray-700">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-700">
-          <h3 class="text-2xl font-bold text-white">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+      <div class="relative bg-white rounded-xl max-w-3xl w-full p-8 shadow-2xl border border-gray-200">
+        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+          <h3 class="text-2xl font-bold text-cabinet-text-main">
             Deposit #{{ selectedTransaction?.id }}
           </h3>
-          <button @click="showModal = false" class="text-gray-400 hover:text-white transition-colors">
+          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-        <div v-if="selectedTransaction" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Type</div>
-              <div class="text-white font-semibold">{{ selectedTransaction.type }}</div>
+        <div v-if="selectedTransaction" class="space-y-6">
+          <div class="grid grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+              <div class="text-xs font-bold text-gray-400 uppercase mb-1">Type</div>
+              <div class="text-cabinet-text-main font-bold">{{ selectedTransaction.type }}</div>
             </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Amount</div>
-              <div class="text-white font-semibold text-lg">{{ selectedTransaction.amount }}</div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+              <div class="text-xs font-bold text-gray-400 uppercase mb-1">Amount</div>
+              <div class="text-cabinet-blue font-bold text-xl">{{ selectedTransaction.amount }}</div>
             </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Status</div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+              <div class="text-xs font-bold text-gray-400 uppercase mb-1">Status</div>
               <span
-                class="px-3 py-1 rounded-full text-sm font-medium inline-block"
+                class="px-3 py-1 rounded-full text-xs font-bold inline-block uppercase mt-1"
                 :class="getStatusClass(selectedTransaction.status)"
               >
-                {{ selectedTransaction.status.charAt(0).toUpperCase() + selectedTransaction.status.slice(1) }}
+                {{ selectedTransaction.status }}
               </span>
             </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Created</div>
-              <div class="text-white font-medium">{{ selectedTransaction.created_at }}</div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+              <div class="text-xs font-bold text-gray-400 uppercase mb-1">Created</div>
+              <div class="text-cabinet-text-main font-medium">{{ selectedTransaction.created_at }}</div>
             </div>
           </div>
 
-          <div v-if="selectedTransaction.description" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-2">Description</div>
-            <div class="text-white">{{ selectedTransaction.description }}</div>
+          <div v-if="selectedTransaction.description" class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <div class="text-xs font-bold text-gray-400 uppercase mb-2">Description</div>
+            <div class="text-cabinet-text-main">{{ selectedTransaction.description }}</div>
           </div>
 
-          <div v-if="selectedTransaction.tx_hash" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-2">Transaction Hash</div>
-            <div class="text-white font-mono text-xs break-all">{{ selectedTransaction.tx_hash }}</div>
+          <div v-if="selectedTransaction.tx_hash" class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <div class="text-xs font-bold text-gray-400 uppercase mb-2">Transaction Hash</div>
+            <div class="text-cabinet-text-main font-mono text-xs break-all">{{ selectedTransaction.tx_hash }}</div>
           </div>
 
-          <div v-if="selectedTransaction.meta && Object.keys(selectedTransaction.meta).length > 0" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-3">Additional Information</div>
-            <div class="space-y-2">
+          <div v-if="selectedTransaction.meta && Object.keys(selectedTransaction.meta).length > 0" class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <div class="text-xs font-bold text-gray-400 uppercase mb-4">Additional Information</div>
+            <div class="space-y-3">
               <div v-if="selectedTransaction.meta.wallet_address" class="flex justify-between items-start">
-                <span class="text-gray-300">Wallet Address:</span>
-                <span class="text-white font-mono text-xs break-all ml-4">{{ selectedTransaction.meta.wallet_address }}</span>
+                <span class="text-gray-500 font-medium">Wallet Address:</span>
+                <span class="text-cabinet-text-main font-mono text-xs break-all ml-4">{{ selectedTransaction.meta.wallet_address }}</span>
               </div>
               <div v-if="selectedTransaction.meta.network" class="flex justify-between">
-                <span class="text-gray-300">Network:</span>
-                <span class="text-white font-semibold">{{ selectedTransaction.meta.network }}</span>
+                <span class="text-gray-500 font-medium">Network:</span>
+                <span class="text-cabinet-text-main font-bold">{{ selectedTransaction.meta.network }}</span>
               </div>
               <div v-if="selectedTransaction.meta.confirmations !== undefined" class="flex justify-between">
-                <span class="text-gray-300">Confirmations:</span>
-                <span class="text-white">{{ selectedTransaction.meta.confirmations }}</span>
+                <span class="text-gray-500 font-medium">Confirmations:</span>
+                <span class="text-cabinet-text-main">{{ selectedTransaction.meta.confirmations }}</span>
               </div>
             </div>
           </div>
@@ -124,38 +124,20 @@ const selectedTransaction = ref(null)
 
 const columns = [
   {
-    key: 'number',
-    label: 'S.No',
-    sortable: true,
-    span: 1,
-    headerClass: 'text-left',
-    cellClass: 'font-medium'
-  },
-  {
     key: 'type',
-    label: 'Transaction Type',
+    label: 'Type',
     sortable: true,
     span: 3,
     headerClass: 'text-left',
-    cellClass: 'text-cabinet-green font-medium'
+    cellClass: 'text-cabinet-blue font-bold'
   },
   {
     key: 'amount',
-    label: 'Transaction Amount',
+    label: 'Amount',
     sortable: true,
     span: 3,
     headerClass: 'text-left',
-    cellClass: 'font-semibold'
-  },
-  {
-    key: 'created_at',
-    label: 'Created At',
-    sortable: true,
-    span: 3,
-    headerClass: 'text-left',
-    cellClass: 'text-sm',
-    sortValue: (row) => parseDateToTimestamp(row.created_at),
-    format: (value) => formatDateShort(value)
+    cellClass: 'font-bold text-cabinet-text-main'
   },
   {
     key: 'status',
@@ -164,6 +146,16 @@ const columns = [
     span: 2,
     headerClass: 'text-center',
     cellClass: 'text-center'
+  },
+  {
+    key: 'created_at',
+    label: 'Date',
+    sortable: true,
+    span: 3,
+    headerClass: 'text-left',
+    cellClass: 'text-sm text-gray-400',
+    sortValue: (row) => parseDateToTimestamp(row.created_at),
+    format: (value) => formatDateShort(value)
   },
   {
     key: 'details',
@@ -188,12 +180,12 @@ async function fetchTransactions() {
 
 function getStatusClass(status) {
   const classes = {
-    'confirmed': 'bg-cabinet-green/20 text-cabinet-green',
-    'pending': 'bg-cabinet-orange/20 text-cabinet-orange',
-    'failed': 'bg-cabinet-red/20 text-cabinet-red',
-    'cancelled': 'bg-gray-400/20 text-gray-400'
+    'confirmed': 'bg-green-100 text-green-600',
+    'pending': 'bg-blue-100 text-cabinet-blue',
+    'failed': 'bg-red-100 text-cabinet-red',
+    'cancelled': 'bg-gray-100 text-gray-400'
   }
-  return classes[status] || 'bg-gray-400/20 text-gray-400'
+  return classes[status] || 'bg-gray-100 text-gray-400'
 }
 
 async function showDetails(row) {

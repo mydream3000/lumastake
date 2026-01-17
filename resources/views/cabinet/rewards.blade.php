@@ -6,21 +6,21 @@
                     @php
                         $isActive = $currentLevel == $level->level;
                     @endphp
-                    <div class="card p-6 {{ $isActive ? 'border-cabinet-lime' : '' }}">
-                        <h3 class="text-lg font-bold text-cabinet-text-dark mb-4">Level {{ $level->level }}</h3>
+                    <div class="card p-6 {{ $isActive ? 'border-cabinet-blue bg-cabinet-light-blue/20' : '' }}">
+                        <h3 class="text-lg font-bold text-cabinet-text-main mb-4">Level {{ $level->level }}</h3>
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-cabinet-text-grey">Referrals</span>
-                            <span class="text-sm font-semibold text-cabinet-text-dark">{{ $level->name }}</span>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Referrals</span>
+                            <span class="text-sm font-bold text-cabinet-text-main">{{ $level->name }}</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-sm text-cabinet-text-grey">Rewards</span>
-                            <span class="text-sm font-bold text-cabinet-lime">{{ rtrim(number_format($level->reward_percentage, 0), '.') }}%</span>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Rewards</span>
+                            <span class="text-sm font-bold text-[#2BA6FF]">{{ rtrim(number_format($level->reward_percentage, 0), '.') }}%</span>
                         </div>
                         @if($isActive)
-                            <div class="mt-3 pt-3 border-t border-cabinet-grey">
-                                <div class="flex items-center justify-center gap-2 text-cabinet-lime font-semibold text-sm">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Active Level</span>
+                            <div class="mt-3 pt-3 border-t border-cabinet-blue/20">
+                                <div class="flex items-center justify-center gap-2 text-cabinet-blue font-bold text-xs uppercase">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    <span>Active</span>
                                 </div>
                             </div>
                         @endif
@@ -29,8 +29,8 @@
             </div>
 
             <div class="card p-6">
-                <h3 class="font-semibold text-lg text-cabinet-text-dark mb-3">How Our Referral System Works</h3>
-                <p class="text-sm text-cabinet-text-grey leading-relaxed">
+                <h3 class="text-lg font-bold text-cabinet-text-main mb-3">How Our Referral System Works</h3>
+                <p class="text-base text-cabinet-text-secondary leading-relaxed">
                     Want to turn connections into cash? With our referral system, every share brings you closer to limitless rewards. The more you spread the word, the more you earn—start today!
                 </p>
             </div>
@@ -38,30 +38,33 @@
 
         <div class="lg:col-span-1 space-y-6">
             <div class="card p-6">
-                <h3 class="text-lg font-bold text-cabinet-text-dark mb-2">Referral Link</h3>
+                <h3 class="text-lg font-bold text-cabinet-text-main mb-4">Referral Link</h3>
                 <div class="flex items-center gap-3 w-full">
-                    <input type="text" readonly value="{{ $referralLink }}" id="referral-link-rewards" class="flex-1 bg-cabinet-dark border border-cabinet-grey text-cabinet-text-dark rounded px-4 py-2.5 text-sm">
-                    <button onclick="copyReferralLinkRewards()" class="bg-cabinet-blue text-white px-6 py-2.5 rounded font-semibold text-sm hover:opacity-90">
+                    <input type="text" readonly value="{{ $referralLink }}" id="referral-link-rewards" class="flex-1 bg-gray-50 border border-gray-200 text-gray-500 rounded-lg px-4 py-3 text-sm">
+                    <button onclick="copyReferralLinkRewards()" class="text-cabinet-blue font-bold text-sm hover:underline">
                         Copy
                     </button>
                 </div>
             </div>
             <div class="card p-6">
-                <h3 class="text-lg font-bold text-cabinet-text-dark mb-4">Your Partners</h3>
-                <div class="space-y-2">
+                <h3 class="text-lg font-bold text-cabinet-text-main mb-6">Your Partners</h3>
+                <div class="space-y-3">
                     @forelse($referrals as $referral)
-                        <div class="bg-cabinet-table-row rounded-lg p-3">
-                            <div class="flex items-center gap-3">
-                                <img src="{{ $referral->avatar_url }}" alt="{{ $referral->name }}" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <div class="font-semibold text-sm {{ $referral->active ? 'text-cabinet-lime' : 'text-cabinet-text-dark' }}">{{ $referral->name }}</div>
-                                    <div class="text-xs text-cabinet-text-grey">{{ $referral->email }}</div>
+                        <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ $referral->avatar_url }}" alt="{{ $referral->name }}" class="w-12 h-12 rounded-full object-cover">
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-bold text-sm text-cabinet-text-main truncate">{{ $referral->name }}</div>
+                                    <div class="text-xs text-gray-400 truncate font-medium">{{ $referral->email }}</div>
                                 </div>
+                                @if($referral->active)
+                                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                @endif
                             </div>
                         </div>
                     @empty
-                        <div class="text-center text-cabinet-text-grey py-8">
-                            No referrals yet.
+                        <div class="text-center text-gray-400 py-12">
+                            <p class="text-sm font-medium">No referrals yet.</p>
                         </div>
                     @endforelse
                 </div>

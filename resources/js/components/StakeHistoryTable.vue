@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center py-8">
-    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-orange"></div>
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
     <data-table
@@ -13,15 +13,15 @@
       :row-class="getRowClass"
     >
       <template #cell-profit="{ value }">
-        <span class="text-cabinet-green font-semibold">{{ value }}%</span>
+        <span class="text-[#2BA6FF] font-bold">{{ value }}%</span>
       </template>
 
       <template #cell-earned_profit="{ value, row }">
         <span
-          class="font-semibold"
+          class="font-bold"
           :class="{
-            'text-cabinet-red': row.earned_profit_raw < 0,
-            'text-cabinet-green': row.earned_profit_raw > 0 && row.status !== 'active'
+            'text-red-600': row.earned_profit_raw < 0,
+            'text-green-600': row.earned_profit_raw > 0 && row.status !== 'active'
           }"
         >
           {{ value }}
@@ -30,10 +30,10 @@
 
       <template #cell-status="{ value }">
         <span
-          class="px-3 py-1 rounded-full text-sm font-medium inline-block"
+          class="px-3 py-1 rounded-full text-xs font-bold inline-block uppercase"
           :class="getStatusClass(value)"
         >
-          {{ value.charAt(0).toUpperCase() + value.slice(1) }}
+          {{ value }}
         </span>
       </template>
     </data-table>
@@ -141,24 +141,24 @@ async function fetchHistory() {
 
 function getStatusClass(status) {
   const classes = {
-    'completed': 'bg-cabinet-green/20 text-cabinet-green border border-cabinet-green/40',
-    'unstaked': 'bg-gray-400/20 text-gray-600 border border-gray-400/40',
-    'cancelled': 'bg-cabinet-red/20 text-cabinet-red border border-cabinet-red/40'
+    'completed': 'bg-green-100 text-green-600',
+    'unstaked': 'bg-gray-100 text-gray-500',
+    'cancelled': 'bg-red-100 text-red-600'
   }
-  return classes[status] || 'bg-gray-400/20 text-gray-400'
+  return classes[status] || 'bg-gray-100 text-gray-400'
 }
 
 function getRowClass(row) {
   // Разные фоны строк в зависимости от статуса
   if (row.status === 'completed') {
-    return 'bg-cabinet-green/10 hover:bg-cabinet-green/20'
+    return 'bg-green-50/30 hover:bg-green-50/50 border-b border-gray-100'
   } else if (row.status === 'unstaked') {
-    return 'bg-cabinet-table-row/40 hover:bg-cabinet-table-row/60'
+    return 'bg-white border-b border-gray-100 hover:bg-gray-50'
   } else if (row.highlight) {
     // Для выделенных записей
-    return 'bg-cabinet-orange/10 hover:bg-cabinet-orange/20 border border-cabinet-orange/40'
+    return 'bg-blue-50 hover:bg-blue-100/50 border-b border-gray-100'
   }
-  return 'bg-cabinet-table-row/40 hover:bg-cabinet-table-row/60'
+  return 'bg-white border-b border-gray-100 hover:bg-gray-50'
 }
 
 onMounted(() => {

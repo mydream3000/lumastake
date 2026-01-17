@@ -15,18 +15,18 @@
           type="checkbox"
           v-model="selectedPools"
           :value="row.id"
-          class="w-4 h-4 text-cabinet-orange bg-gray-100 border-gray-300 rounded focus:ring-cabinet-orange focus:ring-2"
+          class="w-4 h-4 text-cabinet-blue bg-gray-50 border-gray-300 rounded focus:ring-cabinet-blue focus:ring-2"
         >
       </template>
 
       <template #cell-profit="{ value }">
-        <span class="text-cabinet-green font-semibold">{{ value }}</span>
+        <span class="text-[#2BA6FF] font-semibold">{{ value }}</span>
       </template>
 
       <template #cell-action="{ row }">
         <button
           @click="openStakeModal(row)"
-          class="px-4 py-1.5 text-sm rounded bg-cabinet-green text-white hover:bg-cabinet-green/80 font-medium"
+          class="px-4 py-1.5 text-sm rounded bg-cabinet-lime text-cabinet-text-main hover:bg-cabinet-lime/80 font-bold uppercase transition"
         >
           Stake
         </button>

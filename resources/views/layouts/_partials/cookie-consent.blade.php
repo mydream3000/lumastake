@@ -2,7 +2,7 @@
 <div x-data="cookieConsent()"
      x-show="showBanner"
      x-cloak
-     class="cookies-accepts fixed bottom-0 left-0 right-0 z-[9999] bg-arbitex-dark/95 backdrop-blur-sm border-t border-gray-700 shadow-2xl"
+     class="cookies-accepts fixed bottom-0 left-0 right-0 z-[9999] bg-lumastake-dark/95 backdrop-blur-sm border-t border-lumastake-blue/30 shadow-2xl"
      style="display: none;">
 
     <div class="container mx-auto px-4 py-4 md:py-6">
@@ -13,7 +13,7 @@
                 <div class="flex items-start gap-3">
                     {{-- Icon --}}
                     <div class="flex-shrink-0 mt-1">
-                        <svg class="w-5 h-5 md:w-6 md:h-6 text-arbitex-orange" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-lumastake-lime" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 9a1 1 0 112 0v4a1 1 0 11-2 0V9zm1-5a1 1 0 100 2 1 1 0 000-2z"/>
                         </svg>
                     </div>
@@ -25,8 +25,8 @@
                             We use cookies and similar technologies to provide, secure, and improve our services.
                             By clicking "Accept All", you consent to our use of cookies.
                             You can manage your preferences or learn more in our
-                            <a href="{{ route('privacy') }}" class="text-arbitex-green hover:text-arbitex-green/80 underline font-medium" target="_blank" rel="noopener">Privacy Policy</a> and
-                            <a href="{{ route('terms') }}" class="text-arbitex-green hover:text-arbitex-green/80 underline font-medium" target="_blank" rel="noopener">Terms of Service</a>.
+                            <a href="{{ route('privacy') }}" class="text-lumastake-blue hover:text-lumastake-light-blue underline font-medium" target="_blank" rel="noopener">Privacy Policy</a> and
+                            <a href="{{ route('terms') }}" class="text-lumastake-blue hover:text-lumastake-light-blue underline font-medium" target="_blank" rel="noopener">Terms of Service</a>.
                         </p>
                     </div>
                 </div>
@@ -36,13 +36,13 @@
             <div class="flex flex-row md:flex-row items-center gap-2 md:gap-3 w-full md:w-auto">
                 {{-- Decline Button --}}
                 <button @click="declineCookies"
-                        class="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 rounded-md transition-colors duration-200 whitespace-nowrap">
+                        class="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium text-white bg-lumastake-blue hover:bg-lumastake-navy rounded-md transition-colors duration-200 whitespace-nowrap">
                     Decline
                 </button>
 
                 {{-- Accept Button --}}
                 <button @click="acceptCookies"
-                        class="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-semibold text-white bg-arbitex-green hover:bg-arbitex-green/90 rounded-md transition-colors duration-200 whitespace-nowrap">
+                        class="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-semibold text-black bg-lumastake-lime hover:bg-lumastake-lime/80 rounded-md transition-colors duration-200 whitespace-nowrap">
                     Accept All
                 </button>
 

@@ -2,9 +2,15 @@
 
 @php
     $user = auth()->user();
-    // Use Tier id stored in user.current_tier; show No Tier when null
     $currentTier = \App\Models\Tier::find($user->current_tier);
     $allTiers = \App\Models\Tier::orderBy('level')->get();
+
+    // --- FIX: Define variables for active menu state ---
+    $currentRoute = request()->route()->getName();
+    $transactionRoutes = ['cabinet.transactions.deposits', 'cabinet.transactions.withdraw'];
+    $earningsRoutes = ['cabinet.earnings.profit', 'cabinet.earnings.rewards'];
+    $isTransactionActive = in_array($currentRoute, $transactionRoutes);
+    $isEarningsActive = in_array($currentRoute, $earningsRoutes);
 @endphp
 
 <!DOCTYPE html>
@@ -141,7 +147,7 @@
                     </div>
 
                     <!-- Menu Items -->
-                    <nav class="py-6" x-data="{ transactionOpen: {{ request()->routeIs('cabinet.transactions.*') ? 'true' : 'false' }}, earningOpen: {{ request()->routeIs('cabinet.earnings.*') ? 'true' : 'false' }} }">
+                    <nav class="py-6" x-data="{ transactionOpen: {{ $isTransactionActive ? 'true' : 'false' }}, earningOpen: {{ $isEarningsActive ? 'true' : 'false' }} }">
                         <a href="{{ route('cabinet.dashboard') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 active:bg-cabinet-blue/30 transition-colors {{ request()->routeIs('cabinet.dashboard') ? 'sidebar-active' : '' }}">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>

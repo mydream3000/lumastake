@@ -2,46 +2,41 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden">
-        {{-- Background Chart Image --}}
-        <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
-            <img src="{{ asset('img/contact/contact-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
-        </div>
+    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl md:text-[52px] font-the-bold-font font-black text-[#3B4EFC] mb-6 uppercase tracking-tighter leading-[0.9]">
+                    Contact Us
+                </h1>
+                <div class="max-w-[861px] mx-auto">
+                    <p class="text-xl md:text-[28px] text-[#262262] leading-tight">
+                        We’d love to hear from you! Whether you have a question, feedback, or just want to connect, our team is here to help.
+                    </p>
+                </div>
+            </div>
 
-        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
-            <h1 class="text-6xl md:text-8xl font-black text-[#3B4EFC] mb-6 uppercase">
-                Contact Us
-            </h1>
-            <p class="text-xl md:text-2xl text-[#262262] max-w-3xl mx-auto font-medium leading-relaxed">
-                We'd love to hear from you! Whether you have a question, feedback, or just want to connect, our team is here to help.
-            </p>
-        </div>
-    </section>
-
-    {{-- CONTACT FORM & INFO SECTION --}}
-    <section class="pb-32 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="bg-white border border-[#2BA6FF] rounded-[40px] shadow-[0_4px_30px_rgba(43,166,255,0.15)] overflow-hidden flex flex-col lg:flex-row">
+            {{-- CONTACT CONTAINER --}}
+            <div class="bg-white border border-[#2BA6FF] rounded-[13px] shadow-[0_4px_4px_0_rgba(43,166,255,1)] overflow-hidden flex flex-col lg:flex-row min-h-[922px] relative z-20">
 
                 {{-- Left: Form --}}
-                <div class="lg:w-7/12 p-8 md:p-16">
-                    <h2 class="text-4xl font-black text-[#3B4EFC] mb-4 uppercase">Get in Touch</h2>
-                    <p class="text-xl text-[#262262] mb-12">We are here for you. How we can help?</p>
+                <div class="lg:w-[60%] p-8 md:p-14">
+                    <h2 class="text-3xl md:text-[40px] font-semibold text-[#3B4EFC] mb-4 leading-tight">Get in Touch</h2>
+                    <p class="text-xl md:text-[28px] text-[#262262] mb-12">We are here for you. How we can help?</p>
 
                     @if(session('status'))
-                        <div class="mb-8 p-6 bg-green-50 border border-green-200 rounded-2xl text-green-700 font-medium">
+                        <div class="mb-8 p-6 bg-green-50 border border-green-200 rounded-xl text-green-700 font-medium">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <form action="{{ route('contact.send') }}" method="POST" class="space-y-6" x-data="phoneInput()">
+                    <form action="{{ route('contact.send') }}" method="POST" class="space-y-8" x-data="phoneInput()">
                         @csrf
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid md:grid-cols-2 gap-8">
                             {{-- Full Name --}}
                             <div class="space-y-2">
-                                <label for="full_name" class="block text-gray-500 font-bold px-2">Full Name</label>
+                                <label for="full_name" class="block text-[22px] text-black/70 px-2">Full Name</label>
                                 <input type="text" id="full_name" name="name" value="{{ old('name') }}" required
-                                    class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl px-6 py-4 text-lg text-[#262262] focus:outline-none focus:ring-2 focus:ring-[#3B4EFC]/20 transition-all placeholder:text-gray-400"
+                                    class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-[8px] px-6 py-4 text-xl text-[#262262] focus:outline-none transition-all placeholder:text-gray-400 h-[83px]"
                                     placeholder="Full Name">
                                 @error('name')
                                     <span class="text-red-500 text-sm font-bold px-2">{{ $message }}</span>
@@ -50,8 +45,8 @@
 
                             {{-- Phone Number --}}
                             <div class="space-y-2 relative overflow-visible">
-                                <label for="phone" class="block text-gray-500 font-bold px-2">Phone Number</label>
-                                <div class="flex bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl overflow-visible focus-within:ring-2 focus-within:ring-[#3B4EFC]/20 transition-all">
+                                <label for="phone" class="block text-[22px] text-black/70 px-2">Phone Number</label>
+                                <div class="flex bg-[#E0F2FF] border border-[#2BA6FF] rounded-[8px] overflow-visible transition-all h-[83px]">
                                     {{-- Country Selector --}}
                                     <div class="relative">
                                         <button type="button" @click="open = !open"
@@ -65,7 +60,7 @@
 
                                         {{-- Dropdown --}}
                                         <div x-show="open" @click.away="open = false"
-                                            class="absolute left-0 top-full mt-2 w-72 bg-white border border-[#2BA6FF] rounded-2xl shadow-2xl z-50 max-h-80 overflow-y-auto py-2"
+                                            class="absolute left-0 top-full mt-2 w-72 bg-white border border-[#2BA6FF] rounded-xl shadow-2xl z-50 max-h-80 overflow-y-auto py-2"
                                             style="display: none;">
                                             <template x-for="country in countries" :key="country.code">
                                                 <button type="button" @click="selectCountry(country)"
@@ -79,7 +74,7 @@
                                     </div>
 
                                     <input type="tel" x-model="phone" @input="formatPhone" name="phone" maxlength="19"
-                                        class="w-full bg-transparent px-4 py-4 text-lg text-[#262262] focus:outline-none placeholder:text-gray-400"
+                                        class="w-full bg-transparent px-4 py-4 text-xl text-[#262262] focus:outline-none placeholder:text-gray-400"
                                         placeholder="Phone Number">
                                 </div>
                                 <input type="hidden" name="country_code" x-model="selectedCountry.phone_code">
@@ -92,9 +87,9 @@
 
                         {{-- Email --}}
                         <div class="space-y-2">
-                            <label for="email" class="block text-gray-500 font-bold px-2">Email</label>
+                            <label for="email" class="block text-[22px] text-black/70 px-2">Email</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                                class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl px-6 py-4 text-lg text-[#262262] focus:outline-none focus:ring-2 focus:ring-[#3B4EFC]/20 transition-all placeholder:text-gray-400"
+                                class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-[8px] px-6 py-4 text-xl text-[#262262] focus:outline-none transition-all placeholder:text-gray-400 h-[83px]"
                                 placeholder="Email">
                             @error('email')
                                 <span class="text-red-500 text-sm font-bold px-2">{{ $message }}</span>
@@ -103,9 +98,9 @@
 
                         {{-- Message --}}
                         <div class="space-y-2">
-                            <label for="message" class="block text-gray-500 font-bold px-2">Message</label>
+                            <label for="message" class="block text-[22px] text-black/70 px-2">Message</label>
                             <textarea id="message" name="message" rows="5" required
-                                class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl px-6 py-4 text-lg text-[#262262] focus:outline-none focus:ring-2 focus:ring-[#3B4EFC]/20 transition-all placeholder:text-gray-400 resize-none"
+                                class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-[8px] px-6 py-6 text-xl text-[#262262] focus:outline-none transition-all placeholder:text-gray-400 resize-none min-h-[208px]"
                                 placeholder="Message">{{ old('message') }}</textarea>
                             @error('message')
                                 <span class="text-red-500 text-sm font-bold px-2">{{ $message }}</span>
@@ -113,9 +108,9 @@
                         </div>
 
                         {{-- Submit Button --}}
-                        <div class="pt-4">
+                        <div class="pt-6">
                             <button type="submit"
-                                class="bg-[#D9FF00] text-[#262262] px-12 py-5 rounded-2xl text-2xl font-black hover:scale-105 transition-transform shadow-lg uppercase">
+                                class="bg-[#3B4EFC] text-white px-10 py-4 rounded-[3px] text-[32px] font-the-bold-font font-black hover:bg-blue-700 transition-all shadow-lg uppercase tracking-tight h-[67px] flex items-center justify-center min-w-[258px]">
                                 Submit Now
                             </button>
                         </div>
@@ -123,55 +118,80 @@
                 </div>
 
                 {{-- Right: Contact Info --}}
-                <div class="lg:w-5/12 bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] p-8 md:p-16 text-white relative">
-                    <h2 class="text-5xl font-black mb-6 leading-tight uppercase">Contact Information</h2>
-                    <p class="text-xl font-medium mb-12 opacity-90">Fill up the form and our team will get back to you within 24 hours.</p>
+                <div class="lg:w-[40%] bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] p-8 md:p-14 text-white relative flex flex-col m-[15px] rounded-[23px]">
+                    <h2 class="text-[45px] font-extrabold mb-6 leading-tight">Contact Information</h2>
+                    <p class="text-[26px] font-normal mb-12 opacity-90">Fill up the form and our team will get back to you within 24 hours.</p>
 
-                    <div class="relative space-y-12">
+                    <div class="relative space-y-10 flex-grow">
                         {{-- Vertical Decorative Line --}}
-                        <div class="absolute left-[34px] top-4 bottom-4 w-1 bg-[#D9FF00] rounded-full hidden sm:block"></div>
+                        <div class="absolute left-[34px] top-6 bottom-6 w-[4px] bg-[#E3FF3B] rounded-full hidden sm:block"></div>
 
                         {{-- Contact Details --}}
-                        <div class="relative flex items-center gap-8">
-                            <div class="w-[70px] h-[70px] rounded-full bg-[#D9FF00] flex items-center justify-center flex-shrink-0 z-10 border-4 border-white/20">
-                                <i class="fas fa-phone-alt text-[#3B4EFC] text-2xl"></i>
+                        <div class="relative flex items-center gap-8 pl-1">
+                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
+                                <i class="fas fa-phone-alt text-[#3B4EFC] text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-lg font-semibold opacity-80 uppercase tracking-wider mb-1">Contact</p>
-                                <p class="text-2xl font-black">
+                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Contact</p>
+                                <p class="text-[28px] font-bold font-manrope">
                                     <a href="tel:{{ $contactInfo->phone }}">{{ $contactInfo->phone }}</a>
                                 </p>
                             </div>
                         </div>
 
-                        <div class="relative flex items-center gap-8">
-                            <div class="w-[70px] h-[70px] rounded-full bg-[#D9FF00] flex items-center justify-center flex-shrink-0 z-10 border-4 border-white/20">
-                                <i class="fas fa-envelope text-[#3B4EFC] text-2xl"></i>
+                        <div class="relative flex items-center gap-8 pl-1">
+                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
+                                <i class="fas fa-envelope text-[#3B4EFC] text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-lg font-semibold opacity-80 uppercase tracking-wider mb-1">Email</p>
-                                <p class="text-2xl font-black">
+                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Email</p>
+                                <p class="text-[28px] font-bold font-manrope">
                                     <a href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</a>
                                 </p>
                             </div>
                         </div>
 
-                        <div class="relative flex items-center gap-8">
-                            <div class="w-[70px] h-[70px] rounded-full bg-[#D9FF00] flex items-center justify-center flex-shrink-0 z-10 border-4 border-white/20">
-                                <i class="fas fa-map-marker-alt text-[#3B4EFC] text-2xl"></i>
+                        <div class="relative flex items-center gap-8 pl-1">
+                            <div class="w-[69px] h-[69px] rounded-full bg-[#E3FF3B] border-[12px] border-[#3B4EFC]/30 flex items-center justify-center flex-shrink-0 z-10">
+                                <i class="fas fa-map-marker-alt text-[#3B4EFC] text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-lg font-semibold opacity-80 uppercase tracking-wider mb-1">Location</p>
-                                <p class="text-2xl font-black leading-tight">{{ $contactInfo->address }}</p>
+                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Location</p>
+                                <p class="text-[28px] font-bold font-manrope leading-tight">{{ $contactInfo->address }}</p>
                             </div>
                         </div>
                     </div>
-
-                    {{-- Decorative Pyramid --}}
-                    <div class="absolute right-0 bottom-0 w-48 opacity-10 pointer-events-none">
-                        <img src="{{ asset('img/about/about-pyramid-light.png') }}" alt="" class="w-full">
-                    </div>
                 </div>
+            </div>
+        </div>
+
+        {{-- Decorative Ellipses --}}
+        <div class="absolute right-[-200px] top-[10%] w-[600px] h-[600px] bg-[#3B4EFC]/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute left-[-200px] top-[20%] w-[600px] h-[600px] bg-[#3B4EFC]/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        {{-- Background Texture --}}
+        <div class="absolute inset-0 opacity-10 pointer-events-none z-0">
+            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="" class="w-full h-full object-cover">
+        </div>
+    </section>
+
+    {{-- FOOTER CTA AREA --}}
+    <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">
+        <div class="absolute inset-0 opacity-40 mix-blend-overlay">
+            <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between">
+            <div class="max-w-[727px]">
+                <img src="{{ asset('img/about/logo-about.png') }}" alt="Luma Stake" class="h-[101px] mb-8">
+                <p class="text-[32px] text-black leading-normal">
+                    Your future shouldn’t depend on market luck. <br>
+                    With <span class="font-bold">Lumastake</span>, you earn passively, <span class="font-bold">stake confidently</span>, and <span class="font-bold">sleep peacefully.</span>
+                </p>
+            </div>
+            <div class="flex flex-col gap-4 mt-12 md:mt-0">
+                <a href="{{ route('register') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Get Started Now</a>
+                <a href="{{ route('profit-tiers') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Explore Plans</a>
+                <a href="{{ route('contact') }}" class="bg-white/20 border border-[#2BA6FF] px-8 py-4 rounded-lg text-[28px] text-black/70 hover:bg-white/40 transition-all text-center">Contact Support</a>
             </div>
         </div>
     </section>

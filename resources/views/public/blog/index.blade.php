@@ -74,27 +74,6 @@
         </div>
     </section>
 
-    {{-- WHY DO PRICE DIFFERENCES OCCUR (FAQ Integration) --}}
-    @if($faqs->count() > 0)
-    <section class="py-24 bg-white overflow-hidden relative">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
-            <h2 class="text-5xl md:text-[80px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[0.9] tracking-tighter">
-                WHY DO PRICE DIFFERENCES OCCUR ?
-            </h2>
-
-            <div class="grid md:grid-cols-2 gap-8 items-stretch">
-                @foreach($faqs as $faq)
-                    <div class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[267px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(0,0,0,0.05)]">
-                        <h3 class="text-4xl md:text-[40px] font-bold text-[#262262] mb-6 leading-[0.93]">{{ $faq->question }}</h3>
-                        <p class="text-[22px] text-[#22253B]/79 leading-normal">
-                            {{ $faq->answer }}
-                        </p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
 
     {{-- FOOTER CTA AREA --}}
     <section class="py-20 bg-[#E0F2FF] relative overflow-hidden mt-12 rounded-[8px] mx-4 md:mx-12">

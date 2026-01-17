@@ -234,6 +234,25 @@
     }
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            window.showToast("{{ session('success') }}", 'success');
+        @endif
+        @if(session('error'))
+            window.showToast("{{ session('error') }}", 'error');
+        @endif
+        @if(session('status'))
+            window.showToast("{{ session('status') }}", 'info');
+        @endif
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                window.showToast("{{ $error }}", 'error');
+            @endforeach
+        @endif
+    });
+</script>
+
 @stack('scripts')
 
 {{-- Cookie Consent Banner --}}

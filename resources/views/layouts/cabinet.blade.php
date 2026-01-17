@@ -4,8 +4,6 @@
     $user = auth()->user();
     $currentTier = \App\Models\Tier::find($user->current_tier);
     $allTiers = \App\Models\Tier::orderBy('level')->get();
-
-    // FIX: Re-added this logic here to fix the undefined variable error
     $currentRoute = request()->route()->getName();
     $transactionRoutes = ['cabinet.transactions.deposits', 'cabinet.transactions.withdraw'];
     $earningsRoutes = ['cabinet.earnings.profit', 'cabinet.earnings.rewards'];
@@ -19,51 +17,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Favicon -->
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
     @vite(['resources/css/cabinet.css', 'resources/js/cabinet.js'])
 </head>
-<body class="font-sans antialiased bg-cabinet-dark text-cabinet-text-dark overflow-x-hidden" x-data="{
-    mobileMenuOpen: false,
-    rightbarOpen: '',
-    openRightbar(name) { this.rightbarOpen = name; },
-    closeRightbar() { this.rightbarOpen = ''; }
-}" x-on:open-rightbar.window="openRightbar($event.detail.name)" x-on:close-rightbar.window="closeRightbar()">
-
-<!-- Admin Impersonation Banner -->
-@if(($impersonating ?? false) && !$user->is_admin)
-    <div class="fixed top-0 left-0 right-0 bg-cabinet-blue text-white px-4 py-3 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-                <span class="font-semibold">Вы вошли под пользователем: {{ $user->name }} (ID: {{ $user->id }})</span>
-            </div>
-            <form method="POST" action="{{ route('admin.return-to-admin') }}" class="inline">
-                @csrf
-                <button type="submit" class="flex items-center gap-2 px-4 py-2 bg-white text-cabinet-blue rounded-md font-semibold text-sm hover:bg-blue-50 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                    Вернуться в админку
-                </button>
-            </form>
-        </div>
-    </div>
-@endif
+<body class="font-sans antialiased bg-cabinet-dark text-cabinet-text-dark overflow-x-hidden" x-data="{ mobileMenuOpen: false, rightbarOpen: '', openRightbar(name) { this.rightbarOpen = name; }, closeRightbar() { this.rightbarOpen = ''; } }" x-on:open-rightbar.window="openRightbar($event.detail.name)" x-on:close-rightbar.window="closeRightbar()">
 
 @if($showTopBar)
-<!-- Mobile Top Header (Fixed) -->
-<div class="lg:hidden fixed top-0 left-0 right-0 bg-cabinet-dark px-4 py-3 z-30 w-full border-b border-cabinet-grey {{ (($impersonating ?? false) && !$user->is_admin) ? 'top-14' : '' }}">
+<!-- Mobile Top Header -->
+<div class="lg:hidden fixed top-0 left-0 right-0 bg-cabinet-dark px-4 py-3 z-30 w-full border-b border-cabinet-grey">
     <div class="flex items-center justify-between gap-3">
         <a href="{{ route('cabinet.dashboard') }}"><img src="{{ asset('images/sidebar/logo-white.png') }}" alt="Lumastake" class="h-6"></a>
         <div class="flex items-center gap-2 flex-1 justify-center">
@@ -83,10 +48,10 @@
             <button @click="mobileMenuOpen = false" class="text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
         </div>
         <nav class="py-6" x-data="{ transactionOpen: {{ $isTransactionActive ? 'true' : 'false' }}, earningOpen: {{ $isEarningsActive ? 'true' : 'false' }} }">
-            <x-cabinet.mobile-nav-link :href="route('cabinet.dashboard')" :active="request()->routeIs('cabinet.dashboard')">Dashboard</x-cabinet.mobile-nav-link>
-            <x-cabinet.mobile-nav-link :href="route('cabinet.pools.index')" :active="request()->routeIs('cabinet.pools.*')">Pools</x-cabinet.mobile-nav-link>
-            <x-cabinet.mobile-nav-link :href="route('cabinet.staking.index')" :active="request()->routeIs('cabinet.staking.*')">Stakings</x-cabinet.mobile-nav-link>
-            <x-cabinet.mobile-nav-link :href="route('cabinet.history')" :active="request()->routeIs('cabinet.history')">Stake History</x-cabinet.mobile-nav-link>
+            <a href="{{ route('cabinet.dashboard') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.dashboard') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Dashboard</span></a>
+            <a href="{{ route('cabinet.pools.index') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.pools.*') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Pools</span></a>
+            <a href="{{ route('cabinet.staking.index') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.staking.*') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Stakings</span></a>
+            <a href="{{ route('cabinet.history') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.history') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Stake History</span></a>
             <div>
                 <button @click="transactionOpen = !transactionOpen" class="flex items-center justify-between w-full gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ $isTransactionActive ? 'sidebar-active' : '' }}">
                     <span class="text-lg font-medium">Transactions</span>
@@ -107,8 +72,8 @@
                     <a href="{{ route('cabinet.earnings.rewards') }}" class="block py-2 text-cabinet-text-grey hover:text-cabinet-blue transition-colors {{ request()->routeIs('cabinet.earnings.rewards') ? 'text-cabinet-blue font-medium' : '' }}">Rewards</a>
                 </div>
             </div>
-            <x-cabinet.mobile-nav-link :href="route('cabinet.rewards')" :active="request()->routeIs('cabinet.rewards')">Rewards</x-cabinet.mobile-nav-link>
-            <x-cabinet.mobile-nav-link :href="route('cabinet.profile.show')" :active="request()->routeIs('cabinet.profile.*')">Profile</x-cabinet.mobile-nav-link>
+            <a href="{{ route('cabinet.rewards') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.rewards') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Rewards</span></a>
+            <a href="{{ route('cabinet.profile.show') }}" class="flex items-center gap-4 px-6 py-3 text-cabinet-text-dark hover:bg-cabinet-blue/20 transition-colors {{ request()->routeIs('cabinet.profile.*') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Profile</span></a>
         </nav>
     </div>
 </div>

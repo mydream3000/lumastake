@@ -60,7 +60,8 @@
                     </div>
                     <img src="{{ asset('images/sidebar/arrow-down.svg') }}" alt="" class="w-[19px] h-[19px] transition-transform" :class="{'rotate-180': open}">
                 </button>
-                <div x-show="open" class="pl-[60px] mt-2 space-y-2">
+                <div x-show="open"
+                     class="pl-[60px] mt-2 space-y-2">
                     <a href="{{ route('cabinet.transactions.deposits') }}" class="block py-2 text-cabinet-text-grey font-manrope font-medium text-[20px] hover:text-cabinet-blue transition-colors {{ $currentRoute === 'cabinet.transactions.deposits' ? 'text-cabinet-blue' : '' }}">Deposits</a>
                     <a href="{{ route('cabinet.transactions.withdraw') }}" class="block py-2 text-cabinet-text-grey font-manrope font-medium text-[20px] hover:text-cabinet-blue transition-colors {{ $currentRoute === 'cabinet.transactions.withdraw' ? 'text-cabinet-blue' : '' }}">Withdraw</a>
                 </div>
@@ -77,7 +78,8 @@
                     </div>
                     <img src="{{ asset('images/sidebar/arrow-down.svg') }}" alt="" class="w-[19px] h-[19px] transition-transform" :class="{'rotate-180': open}">
                 </button>
-                <div x-show="open" class="pl-[60px] mt-2 space-y-2">
+                <div x-show="open"
+                     class="pl-[60px] mt-2 space-y-2">
                     <a href="{{ route('cabinet.earnings.profit') }}" class="block py-2 text-cabinet-text-grey font-manrope font-medium text-[20px] hover:text-cabinet-blue transition-colors {{ $currentRoute === 'cabinet.earnings.profit' ? 'text-cabinet-blue' : '' }}">Profits</a>
                     <a href="{{ route('cabinet.earnings.rewards') }}" class="block py-2 text-cabinet-text-grey font-manrope font-medium text-[20px] hover:text-cabinet-blue transition-colors {{ $currentRoute === 'cabinet.earnings.rewards' ? 'text-cabinet-blue' : '' }}">Rewards</a>
                 </div>

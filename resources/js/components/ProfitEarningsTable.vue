@@ -43,7 +43,7 @@ const columns = [
     key: 'created_at',
     label: 'Date',
     sortable: true,
-    span: 3,
+    span: 4,
     headerClass: 'text-left',
     cellClass: 'text-sm'
   },
@@ -78,7 +78,7 @@ const columns = [
     key: 'duration',
     label: 'Duration',
     sortable: true,
-    span: 3,
+    span: 4,
     headerClass: 'text-left',
     cellClass: 'text-sm'
   },
@@ -94,7 +94,7 @@ const columns = [
     key: 'description',
     label: 'Description',
     sortable: false,
-    span: 3,
+    span: 4,
     headerClass: 'text-left',
     cellClass: 'text-sm text-cabinet-gray/70'
   }

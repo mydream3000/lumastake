@@ -41,13 +41,12 @@
       </div>
   </div>
     <!-- Table -->
-    <div class="space-y-3 flex-1 overflow-y-auto min-h-0 pt-3">
-
+    <div class="flex-1 overflow-y-auto min-h-0 border-t border-gray-100">
       <!-- Data Rows -->
       <div
         v-for="(row, index) in paginatedData"
         :key="row.id || index"
-        class="grid gap-4 px-4 py-3 rounded-lg transition-colors"
+        class="grid gap-4 px-4 py-4 transition-colors border-b border-gray-50 last:border-b-0"
         :class="getRowClass(row)"
         :style="gridStyle"
       >
@@ -156,11 +155,11 @@ const props = defineProps({
   },
   headerClass: {
     type: String,
-    default: 'bg-white border-b border-gray-200 text-gray-400'
+    default: 'text-gray-400'
   },
   rowClass: {
     type: [String, Function],
-    default: 'bg-white border-b border-gray-100 hover:bg-gray-50'
+    default: 'hover:bg-gray-50'
   },
   paginationButtonClass: {
     type: String,

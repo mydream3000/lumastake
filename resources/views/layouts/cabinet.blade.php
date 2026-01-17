@@ -110,7 +110,7 @@
     <div class="flex-1 flex flex-col min-w-0">
         <!-- Page Content -->
         <main class="flex-1 bg-cabinet-bg pt-[52px] lg:pt-[98px] w-full">
-            <div class="container mx-auto px-4 lg:px-6 py-4 lg:py-8">
+            <div class="px-4 lg:px-8 py-4 lg:py-8">
                 {{ $slot }}
             </div>
         </main>

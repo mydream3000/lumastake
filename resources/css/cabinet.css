@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.vue';
 
 /* Alpine.js cloak */
 [x-cloak] {
@@ -30,6 +33,7 @@
 body {
     background-color: var(--color-cabinet-bg);
     color: var(--color-cabinet-text-main);
+    font-family: var(--font-manrope);
 }
 
 /* Loading spinner for cabinet */
@@ -49,20 +53,20 @@ body {
 
 /* Custom scrollbar for cabinet */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #1e1a5a;
+    background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #3B4EFC, #95D2FF);
-    border-radius: 4px;
+    background: #3B4EFC;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #95D2FF, #3B4EFC);
+    background: #2538e5;
 }
 
 /* Focus styles for accessibility */
@@ -70,7 +74,7 @@ button:focus,
 a:focus,
 input:focus,
 textarea:focus {
-    outline: 2px solid #E3FF3B;
+    outline: 2px solid #3B4EFC;
     outline-offset: 2px;
 }
 
@@ -84,7 +88,8 @@ textarea:focus {
 
 /* Sidebar active link style */
 .sidebar-active {
-    color: var(--color-cabinet-lime);
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-cabinet-lime) !important;
 }
 .sidebar-active img {
     filter: invert(88%) sepia(59%) saturate(677%) hue-rotate(18deg) brightness(108%) contrast(101%);

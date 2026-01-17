@@ -151,7 +151,7 @@ const columns = [
     key: 'created_at',
     label: 'Date',
     sortable: true,
-    span: 3,
+    span: 4,
     headerClass: 'text-left',
     cellClass: 'text-sm text-gray-400',
     sortValue: (row) => parseDateToTimestamp(row.created_at),

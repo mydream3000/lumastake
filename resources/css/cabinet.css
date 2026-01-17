@@ -5,50 +5,43 @@
     display: none !important;
 }
 
-/* Cabinet-specific theme colors */
+/* Cabinet-specific theme colors from Figma */
 @theme {
-    --color-cabinet-green: #15B28C;
-    --color-cabinet-orange: #E87855;
-    --color-cabinet-red: #E85555;
-    --color-cabinet-pink: #E855A3;
-    --color-cabinet-blue: #5586E8;
-    --color-cabinet-light-blue: #A3C1F3;
-    --color-cabinet-dark: #0D0D0D;
-    --color-cabinet-grey: #333333;
+    --color-cabinet-dark: #262262;
+    --color-cabinet-blue: #3B4EFC;
+    --color-cabinet-lime: #E3FF3B;
+    --color-cabinet-light-blue: #95D2FF;
+    --color-cabinet-red: #F70808; /* Keep for errors */
+
     --color-cabinet-text-dark: #FFFFFF;
     --color-cabinet-text-grey: #B3B3B3;
 
+    --color-cabinet-grey: #4A4688; /* Borders and dividers */
+    --color-cabinet-header-bg: #1A1A1A; /* Old, will be replaced by dark */
+    --color-cabinet-table-row: #2F2B7A; /* Table row background */
+
+    /* Referral Level colors from previous design - can be updated if needed */
     --color-cabinet-level-1: #3B4EFC;
     --color-cabinet-level-2: #05C982;
     --color-cabinet-level-3: #FF00D8;
     --color-cabinet-level-4: #02C9D8;
     --color-cabinet-level-5: #FF9D00;
-    /* Pastel backgrounds for referral levels */
-    --color-level-1-bg: #FFD4C8;
-    --color-level-2-bg: #C8F4E3;
-    --color-level-3-bg: #E8C8F4;
-    --color-level-4-bg: #C8E8F4;
-    --color-level-5-bg: #F4E8C8;
-    /* Darker borders for active referral levels */
-    --color-level-1-border: #FFB4A0;
-    --color-level-2-border: #A0E8C8;
-    --color-level-3-border: #D0A0E8;
-    --color-level-4-border: #A0D0E8;
-    --color-level-5-border: #E8D0A0;
-    --color-cabinet-header-bg: #1A1A1A;
-    --color-gray-06: #333333;
-    --color-cabinet-table-row: #1A1A1A;
 
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
+}
+
+body {
+    background-color: var(--color-cabinet-dark);
+    color: var(--color-cabinet-text-dark);
 }
 
 /* Loading spinner for cabinet */
 .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid rgba(21, 178, 140, 0.3);
-    border-top: 4px solid #15B28C;
+    border: 4px solid rgba(59, 78, 252, 0.3);
+    border-top: 4px solid #3B4EFC;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -58,78 +51,22 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Referral level active animation */
-:root {
-    /* Default pulse colors (fallback: Level 1) */
-    --pulse-color-low: rgba(232, 120, 85, 0.2);
-    --pulse-color-high: rgba(232, 120, 85, 0.45);
-}
-
-@keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 0 0 10px var(--pulse-color-low);
-    }
-    50% {
-        box-shadow: 0 0 18px var(--pulse-color-high);
-    }
-}
-
-/* Apply animation to active referral level */
-.referral-level-active {
-    animation: pulse-glow 2.4s ease-in-out infinite;
-}
-
-/* Level-specific pulse colors */
-.level-1-pulse { --pulse-color-low: rgba(232, 120, 85, 0.2); --pulse-color-high: rgba(232, 120, 85, 0.45); }
-.level-2-pulse { --pulse-color-low: rgba(21, 178, 140, 0.2); --pulse-color-high: rgba(21, 178, 140, 0.45); }
-.level-3-pulse { --pulse-color-low: rgba(232, 85, 163, 0.2); --pulse-color-high: rgba(232, 85, 163, 0.45); }
-.level-4-pulse { --pulse-color-low: rgba(2, 201, 216, 0.2); --pulse-color-high: rgba(2, 201, 216, 0.45); }
-.level-5-pulse { --pulse-color-low: rgba(255, 157, 0, 0.2); --pulse-color-high: rgba(255, 157, 0, 0.45); }
-
 /* Custom scrollbar for cabinet */
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #1A1A1A;
+    background: #1e1a5a;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #15B28C, #E87855);
+    background: linear-gradient(180deg, #3B4EFC, #95D2FF);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #E87855, #15B28C);
-}
-
-/* Custom card scrollbar class - for cards with limited height */
-.card-scroll {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    max-height: calc(100vh - 360px);
-}
-
-.card-scroll::-webkit-scrollbar {
-    width: 14px;
-}
-
-.card-scroll::-webkit-scrollbar-track {
-    background: #1A1A1A;
-    border-radius: 7px;
-}
-
-.card-scroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #15B28C, #E87855);
-    border-radius: 3px;
-    width: 6px;
-    border: 4px solid #1A1A1A;
-}
-
-.card-scroll::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #E87855, #15B28C);
+    background: linear-gradient(180deg, #95D2FF, #3B4EFC);
 }
 
 /* Focus styles for accessibility */
@@ -137,271 +74,22 @@ button:focus,
 a:focus,
 input:focus,
 textarea:focus {
-    outline: 2px solid #15B28C;
+    outline: 2px solid #E3FF3B;
     outline-offset: 2px;
 }
 
-/* =============================
-   Dashboard: Top Metrics Cards
-   Precise styling for Balance and Amount (Figma spec)
-   Note: No HTML changes; selectors target existing Tailwind classes
-   ============================= */
-
-/* Scope: the first two cards grid inside the left column */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative {
-    border-radius: 24px; /* closer to figma rounding */
-    overflow: visible; /* allow pseudo-accent and decorative images to be visible */
-}
-
-/* BALANCE (pink) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 {
-    border-color: #E855A3; /* figma pink */
-}
-
-/* Background layer tune */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 > .absolute.inset-0 {
-    background: linear-gradient(180deg, rgba(232, 85, 163, 0.16) 0%, rgba(232, 85, 163, 0.06) 100%);
-}
-
-/* Hide old left accent bar element per figma (use pseudo-element instead) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 > .absolute.left-0.top-0.bottom-0 {
-    display: none;
-}
-
-/* New accent via pseudo-element (figma style) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500::before {
-    content: "";
-    position: absolute;
-    left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 88px;
-    background: linear-gradient(180deg, #E855A3 0%, #FF6ABF 100%);
-    border-radius: 4px;
-    box-shadow: 0 0 36px rgba(232, 85, 163, .35);
-    pointer-events: none;
-}
-
-/* Content spacing and typography */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 > .relative.p-6 {
-    padding: 32px; /* override p-6 (24px) */
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 h3 {
-    font-family: 'Manrope', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.01em;
-    color: #FFFFFF; /* slate-900 like */
-}
-/* Main amount */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .text-4xl.font-bold {
-    font-family: 'Manrope', sans-serif;
-    font-size: 40px; /* 40px for balance/amount */
-    line-height: 1.1;
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .text-4xl.font-bold span {
-    font-family: 'Manrope', sans-serif;
-    font-size: 22px; /* USDT suffix slightly smaller */
-}
-
-/* Progress area */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .text-sm.text-gray-600 {
-    color: #B3B3B3; /* slate-600 */
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .bg-pink-200.rounded-full.h-2 {
-    height: 10px; /* thicker */
-    background-color: rgba(232, 85, 163,0.25);
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .bg-pink-500.rounded-full {
-    background: linear-gradient(90deg, #E855A3 0%, #FF6ABF 100%);
-}
-
-/* Decorative concentric circles image positioning */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 > img[src$="balance-ragul.svg"] {
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 220px;
-    height: auto;
-    opacity: 0.32;
-    pointer-events: none;
-}
-
-/* Icon container position + glow */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .w-12.h-12 {
-    position: absolute;
-    top: 3px;
-    right: 16px;
-    box-shadow: 0 8px 32px rgba(232, 85, 163,0.18);
-}
-
-/* AMOUNT STAKED (green) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green {
-    border-color: #15B28C;
-}
-
-/* Background layer */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green > .absolute.inset-0 {
-    background: linear-gradient(180deg, rgba(21, 178, 140,0.16) 0%, rgba(21, 178, 140,0.06) 100%);
-}
-
-/* Hide old left accent bar element per figma (use pseudo-element instead) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green > .absolute.left-0.top-0.bottom-0 {
-    display: none;
-}
-
-/* New accent via pseudo-element (figma style) */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green::before {
-    content: "";
-    position: absolute;
-    left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 88px;
-    background: linear-gradient(180deg, #69F3B7 0%, #15B28C 100%);
-    border-radius: 4px;
-    box-shadow: 0 0 36px rgba(105, 243, 183, .35);
-    pointer-events: none;
-}
-
-/* Content padding */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green > .relative.p-6 {
-    padding: 32px;
-}
-/* Title */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green h3 {
-    font-family: 'Manrope', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.01em;
-    color: #FFFFFF;
-}
-/* Main amount */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .text-4xl.font-bold {
-    font-family: 'Manrope', sans-serif;
-    font-size: 40px; /* 40px for balance/amount */
-    line-height: 1.1;
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .text-4xl.font-bold span {
-    font-family: 'Manrope', sans-serif;
-    font-size: 22px;
-}
-
-/* Progress */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .text-sm.text-gray-600 {
-    color: #B3B3B3;
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .bg-emerald-200.rounded-full.h-2 {
-    height: 10px;
-    background-color: rgba(21, 178, 140,0.22);
-}
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .bg-cabinet-green.rounded-full {
-    background: linear-gradient(90deg, #15B28C 0%, #37E0AC 100%);
-}
-
-/* Decorative image */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green > img[src$="amount-ragul.svg"] {
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 220px;
-    height: auto;
-    opacity: 0.32;
-    pointer-events: none;
-}
-
-/* Icon container position + glow */
-.lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .w-12.h-12 {
-    position: absolute;
-    top: 3px;
-    right: 16px;
-    box-shadow: 0 8px 32px rgba(21, 178, 140,0.18);
-}
-
-/* Responsive tuning */
-@media (max-width: 768px) {
-    .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative > img[src$="balance-ragul.svg"],
-    .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative > img[src$="amount-ragul.svg"] {
-        right: -40px;
-        bottom: -40px;
-        width: 220px;
-        opacity: 0.28;
-    }
-    .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative > .relative.p-6 {
-        padding: 24px; /* return to compact on mobile */
-    }
-    .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative .text-4xl.font-bold {
-        font-size: 32px;
-    }
-    .flex.items-center.gap-4.px-6.py-3.text-gray-800.hover\:bg-gray-50.active\:bg-gray-200.transition-colors.bg-gray-50.text-cabinet-orange {
-        background: #0D0D0D;
-        color: whitesmoke;
-    }
-}
-
-.Card{
+/* General card styling */
+.card {
+    background-color: #2F2B7A;
+    border: 1px solid #4A4688;
     border-radius: 24px;
 }
-/* Desktop fixed sizing per figma */
 
-/* Right sidebar: visually merge Profit and Calculate Profit cards on desktop */
-@media (min-width: 1024px) {
-    /* Target the right column on dashboard: two stacked x-cabinet.card components */
-    .grid.grid-cols-1.lg\:grid-cols-3.gap-6 > .space-y-6 > .bg-white.overflow-hidden.shadow-sm.sm\:rounded-lg.border.border-gray-06 + .bg-white.overflow-hidden.shadow-sm.sm\:rounded-lg.border.border-gray-06 {
-        /* remove the Tailwind space-y margin between these two cards */
-        margin-top: 0 !important;
-        /* join borders/radii */
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-top: none;
-    }
-    .grid.grid-cols-1.lg\:grid-cols-3.gap-6 > .space-y-6 > .bg-white.overflow-hidden.shadow-sm.sm\:rounded-lg.border.border-gray-06:first-child {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-bottom: none;
-    }
+/* Sidebar active link style */
+.sidebar-active {
+    background-color: #3B4EFC;
+    color: #FFFFFF;
 }
-.diam-dec{
-    left: -11px;
-}
-
-
-/* --- Referral Level Utilities (safelist) ----------------------------------
-   Эти классы гарантируют наличие фонов и цветов рамок уровней,
-   даже если Tailwind JIT/Purge не подхватывает динамические имена. */
-.bg-level-1-bg { background-color: var(--color-level-1-bg) !important; }
-.bg-level-2-bg { background-color: var(--color-level-2-bg) !important; }
-.bg-level-3-bg { background-color: var(--color-level-3-bg) !important; }
-.bg-level-4-bg { background-color: var(--color-level-4-bg) !important; }
-.bg-level-5-bg { background-color: var(--color-level-5-bg) !important; }
-
-.border-level-1-border { border-color: var(--color-level-1-border) !important; }
-.border-level-2-border { border-color: var(--color-level-2-border) !important; }
-.border-level-3-border { border-color: var(--color-level-3-border) !important; }
-.border-level-4-border { border-color: var(--color-level-4-border) !important; }
-.border-level-5-border { border-color: var(--color-level-5-border) !important; }
-
-#backToTop {
-    bottom: 76px;
-    right: 20px;
-}
-.staked_card_decor{
-    left: -10px;
-    width: 10px;
-    border-radius: 10px;
-}
-.icon_bal_amount {
-    top: -24px;
-}
-
-/* Manrope font utility class */
-.font-manrope {
-    font-family: 'Manrope', sans-serif;
-}
-
-/* Headings in cabinet use Manrope */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Manrope', sans-serif;
+.sidebar-active img {
+    filter: brightness(0) invert(1);
 }

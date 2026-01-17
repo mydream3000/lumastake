@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Tiers Management</h1>
-            <p class="text-gray-600 mt-1">Управление уровнями и процентами вознаграждений</p>
+            <p class="text-gray-600 mt-1">Управление уровнями и процентами вознаграждений ({{ ucfirst($accountType) }})</p>
         </div>
         <button type="button" onclick="openBulkEditModal()"
            class="inline-flex items-center px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
@@ -17,9 +17,23 @@
         </button>
     </div>
 
+    <!-- Tabs -->
+    <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <a href="{{ route('admin.tiers.index', ['type' => 'normal']) }}"
+               class="{{ $accountType === 'normal' ? 'border-cabinet-orange text-cabinet-orange' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Normal Account
+            </a>
+            <a href="{{ route('admin.tiers.index', ['type' => 'islamic']) }}"
+               class="{{ $accountType === 'islamic' ? 'border-cabinet-orange text-cabinet-orange' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Islamic Account
+            </a>
+        </nav>
+    </div>
+
     <!-- Tiers Table -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div class="js-tiers-table" data-url="{{ route('admin.tiers.index') }}"></div>
+        <div class="js-tiers-table" data-url="{{ route('admin.tiers.index', ['type' => $accountType]) }}"></div>
     </div>
 </div>
 
@@ -239,7 +253,8 @@ window.updateTier = async function() {
 // Bulk Edit Functions
 window.openBulkEditModal = async function() {
     try {
-        const response = await fetch(`{{ route('admin.tiers.index') }}?per_page=9999`, {
+        const accountType = '{{ $accountType }}';
+        const response = await fetch(`{{ route('admin.tiers.index') }}?per_page=9999&type=${accountType}`, {
             headers: {
                 'Accept': 'application/json',
             }
@@ -248,30 +263,66 @@ window.openBulkEditModal = async function() {
         const tiers = result.data;
 
         const container = document.getElementById('tiers-bulk-container');
-        container.innerHTML = tiers.map(tier => `
-            <div class="border border-gray-200 rounded-lg p-4">
+        container.innerHTML = tiers.map(tier => {
+            let percentagesHtml = '';
+            if (tier.percentages && tier.percentages.length > 0) {
+                percentagesHtml = `
+                    <div class="mt-4 border-t pt-4">
+                        <h5 class="text-sm font-semibold text-gray-700 mb-2">Percentages</h5>
+                        <div class="space-y-3">
+                            ${tier.percentages.map((p, idx) => `
+                                <div class="flex items-center gap-4">
+                                    <div class="w-24">
+                                        <label class="block text-xs text-gray-500">Days</label>
+                                        <input type="number" name="tiers[${tier.id}][percentages][${idx}][${accountType === 'islamic' ? 'duration_days' : 'days'}]" value="${accountType === 'islamic' ? p.duration_days : p.days}" readonly class="w-full px-2 py-1 bg-gray-50 border border-gray-300 rounded text-sm">
+                                    </div>
+                                    ${accountType === 'islamic' ? `
+                                        <div class="flex-1">
+                                            <label class="block text-xs text-gray-500">Min %</label>
+                                            <input type="number" step="0.01" name="tiers[${tier.id}][percentages][${idx}][min_percentage]" value="${p.min_percentage}" class="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-cabinet-orange">
+                                        </div>
+                                        <div class="flex-1">
+                                            <label class="block text-xs text-gray-500">Max %</label>
+                                            <input type="number" step="0.01" name="tiers[${tier.id}][percentages][${idx}][max_percentage]" value="${p.max_percentage}" class="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-cabinet-orange">
+                                        </div>
+                                    ` : `
+                                        <div class="flex-1">
+                                            <label class="block text-xs text-gray-500">Percentage %</label>
+                                            <input type="number" step="0.01" name="tiers[${tier.id}][percentages][${idx}][percentage]" value="${p.percentage}" class="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-cabinet-orange">
+                                        </div>
+                                    `}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50/30">
                 <h4 class="font-semibold text-gray-900 mb-3">Level ${tier.level} - ${tier.name}</h4>
                 <input type="hidden" name="tiers[${tier.id}][id]" value="${tier.id}">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                         <input type="text" name="tiers[${tier.id}][name]" value="${tier.name}" required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange">
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Min Balance ($)</label>
                         <input type="number" name="tiers[${tier.id}][min_balance]" value="${tier.min_balance}" required step="0.01"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange">
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Max Balance ($)</label>
                         <input type="number" name="tiers[${tier.id}][max_balance]" value="${tier.max_balance || ''}" step="0.01"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange bg-white"
                                placeholder="No limit">
                     </div>
                 </div>
+                ${percentagesHtml}
             </div>
-        `).join('');
+        `; }).join('');
 
         document.getElementById('bulk-edit-modal').classList.remove('hidden');
     } catch (error) {
@@ -288,19 +339,31 @@ document.getElementById('bulk-edit-form').addEventListener('submit', async (e) =
     e.preventDefault();
     const formData = new FormData(e.target);
     const tiersData = {};
+    const accountType = '{{ $accountType }}';
 
     for (let [key, value] of formData.entries()) {
+        // Match tiers[ID][field] or tiers[ID][percentages][IDX][field]
+        const percMatch = key.match(/tiers\[(\d+)\]\[percentages\]\[(\d+)\]\[(\w+)\]/);
+        if (percMatch) {
+            const [, tierId, percIdx, field] = percMatch;
+            if (!tiersData[tierId]) tiersData[tierId] = { percentages: [] };
+            if (!tiersData[tierId].percentages[percIdx]) tiersData[tierId].percentages[percIdx] = {};
+            tiersData[tierId].percentages[percIdx][field] = value;
+            continue;
+        }
+
         const match = key.match(/tiers\[(\d+)\]\[(\w+)\]/);
         if (match) {
             const [, tierId, field] = match;
-            if (!tiersData[tierId]) tiersData[tierId] = {};
+            if (!tiersData[tierId]) tiersData[tierId] = { percentages: [] };
             tiersData[tierId][field] = value;
         }
     }
 
     try {
         const updates = Object.values(tiersData).map(async (tier) => {
-            const response = await fetch(`/admin/tiers/${tier.id}`, {
+            // Update Tier Basic Info
+            const tierRes = await fetch(`/admin/tiers/${tier.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -313,7 +376,23 @@ document.getElementById('bulk-edit-form').addEventListener('submit', async (e) =
                     max_balance: tier.max_balance || null,
                 }),
             });
-            return response.json();
+
+            // Update Percentages if any
+            if (tier.percentages && tier.percentages.length > 0) {
+                await fetch(`/admin/tiers/${tier.id}/percentages?type=${accountType}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                    body: JSON.stringify({
+                        percentages: Object.values(tier.percentages)
+                    }),
+                });
+            }
+
+            return tierRes.json();
         });
 
         await Promise.all(updates);

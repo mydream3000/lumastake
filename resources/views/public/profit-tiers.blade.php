@@ -91,7 +91,11 @@
                                         {{ $accountType === 'islamic' ? $p->duration_days : $p->days }} Days
                                     </span>
                                     <span class="{{ $isBlue ? 'text-white' : 'text-[#262262]' }} font-black text-[24px]">
-                                        {{ number_format($p->percentage, 1) }}%
+                                        @if($accountType === 'islamic')
+                                            {{ number_format($p->min_percentage, 1) }}% – {{ number_format($p->max_percentage, 1) }}%
+                                        @else
+                                            {{ number_format($p->percentage, 1) }}%
+                                        @endif
                                     </span>
                                 </div>
                             @endforeach

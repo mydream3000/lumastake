@@ -13,12 +13,14 @@ class TierController extends Controller
      */
     public function index(Request $request)
     {
+        $accountType = $request->query('type') === 'islamic' ? 'islamic' : 'normal';
+
         if ($request->expectsJson()) {
             $tiers = Tier::orderBy('level')->get();
 
             return response()->json([
-                'data' => $tiers->map(function ($tier) {
-                    return [
+                'data' => $tiers->map(function ($tier) use ($accountType) {
+                    $data = [
                         'id' => $tier->id,
                         'level' => $tier->level,
                         'name' => $tier->name,
@@ -26,6 +28,15 @@ class TierController extends Controller
                         'max_balance' => $tier->max_balance,
                         'created_at' => $tier->created_at->format('d, M, Y'),
                     ];
+
+                    // Добавляем проценты для отображения, если нужно
+                    if ($accountType === 'islamic') {
+                        $data['percentages'] = $tier->islamicPercentages()->orderBy('duration_days')->get();
+                    } else {
+                        $data['percentages'] = $tier->percentages()->orderBy('days')->get();
+                    }
+
+                    return $data;
                 }),
                 'total' => $tiers->count(),
                 'per_page' => $tiers->count(),
@@ -34,7 +45,7 @@ class TierController extends Controller
             ]);
         }
 
-        return view('admin.tiers.index');
+        return view('admin.tiers.index', compact('accountType'));
     }
 
     /**
@@ -42,18 +53,28 @@ class TierController extends Controller
      */
     public function edit(Request $request, Tier $tier)
     {
+        $accountType = $request->query('type') === 'islamic' ? 'islamic' : 'normal';
+
         if ($request->expectsJson()) {
-            return response()->json([
+            $data = [
                 'id' => $tier->id,
                 'level' => $tier->level,
                 'name' => $tier->name,
                 'min_balance' => $tier->min_balance,
                 'max_balance' => $tier->max_balance,
-            ]);
+            ];
+
+            if ($accountType === 'islamic') {
+                $data['percentages'] = $tier->islamicPercentages()->orderBy('duration_days')->get();
+            } else {
+                $data['percentages'] = $tier->percentages()->orderBy('days')->get();
+            }
+
+            return response()->json($data);
         }
 
-        $tier->load('tierPercentages');
-        return view('admin.tiers.edit', compact('tier'));
+        $tier->load(['percentages', 'islamicPercentages']);
+        return view('admin.tiers.edit', compact('tier', 'accountType'));
     }
 
     /**
@@ -86,17 +107,35 @@ class TierController extends Controller
      */
     public function updatePercentages(Request $request, Tier $tier)
     {
-        $validated = $request->validate([
-            'percentages' => 'required|array',
-            'percentages.*.duration' => 'required|integer|min:1',
-            'percentages.*.percentage' => 'required|numeric|min:0|max:100',
-        ]);
+        $accountType = $request->query('type') === 'islamic' ? 'islamic' : 'normal';
 
-        foreach ($validated['percentages'] as $data) {
-            $tier->tierPercentages()->updateOrCreate(
-                ['duration' => $data['duration']],
-                ['percentage' => $data['percentage']]
-            );
+        if ($accountType === 'islamic') {
+            $validated = $request->validate([
+                'percentages' => 'required|array',
+                'percentages.*.duration_days' => 'required|integer|min:1',
+                'percentages.*.min_percentage' => 'required|numeric|min:0',
+                'percentages.*.max_percentage' => 'required|numeric|min:0',
+            ]);
+
+            foreach ($validated['percentages'] as $data) {
+                $tier->islamicPercentages()->updateOrCreate(
+                    ['duration_days' => $data['duration_days']],
+                    ['min_percentage' => $data['min_percentage'], 'max_percentage' => $data['max_percentage']]
+                );
+            }
+        } else {
+            $validated = $request->validate([
+                'percentages' => 'required|array',
+                'percentages.*.days' => 'required|integer|min:1',
+                'percentages.*.percentage' => 'required|numeric|min:0|max:100',
+            ]);
+
+            foreach ($validated['percentages'] as $data) {
+                $tier->percentages()->updateOrCreate(
+                    ['days' => $data['days']],
+                    ['percentage' => $data['percentage']]
+                );
+            }
         }
 
         return response()->json([

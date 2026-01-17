@@ -12,7 +12,7 @@
       :default-per-page="10"
     >
       <template #cell-profit="{ value }">
-        <span class="text-cabinet-green font-semibold">{{ value }}</span>
+        <span class="text-cabinet-orange font-semibold">{{ value }}</span>
       </template>
 
       <template #cell-auto_renewal="{ row }">
@@ -23,7 +23,7 @@
             @change="toggleAutoRenewal(row.id, $event.target.checked)"
             class="hidden peer"
           >
-          <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cabinet-orange/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cabinet-orange"></div>
+          <div class="relative w-11 h-6 bg-cabinet-grey peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cabinet-orange/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cabinet-orange"></div>
         </label>
       </template>
 
@@ -44,27 +44,27 @@
     <!-- Unstake Confirmation Modal -->
     <div v-if="showUnstakeModal" class="fixed inset-0 z-50 flex items-center justify-center px-4" @click.self="showUnstakeModal = false">
       <div class="fixed inset-0 bg-black/70 transition-opacity"></div>
-      <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg max-w-md w-full p-6 shadow-2xl border border-gray-700">
+      <div class="relative bg-cabinet-dark rounded-lg max-w-md w-full p-6 shadow-2xl border border-cabinet-grey">
         <div class="text-left">
           <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-cabinet-orange/20 mb-4">
             <svg class="h-6 w-6 text-cabinet-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
           </div>
-          <h3 class="text-lg text-center font-medium text-white mb-2">Unstake Confirmation</h3>
-          <small class="text-sm text-center text-gray-300 mb-6">Note: If you unstake before the time ends, a fee of 10% will be applied.</small>
-          <p class="text-sm text-center text-gray-300 mb-6">Are you sure you want to unstake?</p>
+          <h3 class="text-lg text-center font-medium text-cabinet-text-dark mb-2">Unstake Confirmation</h3>
+          <small class="text-sm text-center text-cabinet-text-grey mb-6">Note: If you unstake before the time ends, a fee of 10% will be applied.</small>
+          <p class="text-sm text-center text-cabinet-text-grey mb-6">Are you sure you want to unstake?</p>
 
           <div class="space-y-2">
             <button
               @click="performUnstake"
-              class="w-full px-4 py-2 bg-cabinet-green text-black font-medium rounded-lg hover:bg-cabinet-green/80 transition-colors"
+              class="w-full px-4 py-2 bg-cabinet-green text-white font-medium rounded-lg hover:bg-cabinet-green/80 transition-colors"
             >
               Yes
             </button>
             <button
               @click="showUnstakeModal = false"
-              class="w-full px-4 py-2 bg-cabinet-orange text-black font-medium rounded-lg hover:bg-cabinet-orange/80 transition-colors"
+              class="w-full px-4 py-2 bg-cabinet-red text-white font-medium rounded-lg hover:bg-cabinet-red/80 transition-colors"
             >
               No
             </button>

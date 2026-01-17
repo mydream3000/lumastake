@@ -44,8 +44,8 @@ return [
     // Veriff (KYC)
     'veriff' => [
         'base_url' => env('VERIFF_BASE_URL', 'https://stationapi.veriff.com'),
-        'api_key' => env('VERIFF_API_KEY'),
-        'signature_key' => env('VERIFF_SIGNATURE_KEY'),
+        'api_key' => 'f6dfe357-c340-4b53-8022-c97a8b6de9db',
+        'signature_key' => '696b8dfd-b8c6-4f11-9eff-1d0fb32f5bb3',
         // Return/Callback URL after user completes verification flow (for reference)
         'callback_url' => env('VERIFF_CALLBACK_URL'),
         // Our webhook endpoints (configured at Veriff dashboard)

@@ -29,7 +29,7 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Новое сообщение из формы обратной связи - Arbitex',
+            subject: 'Новое сообщение из формы обратной связи - Lumastake',
             replyTo: [$this->data['email']],
         );
     }

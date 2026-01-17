@@ -6,22 +6,22 @@
   >
     <div
       @click.stop="tooltipOpen = false"
-      class="bg-white rounded-lg p-6 max-w-md w-full mx-4"
+      class="bg-cabinet-dark rounded-lg p-6 max-w-md w-full mx-4 border border-cabinet-grey"
     >
       <div class="flex flex-col items-center mb-6">
-        <div class="w-12 h-12 rounded-full bg-cabinet-orange/[0.1] flex items-center justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-cabinet-orange/10 flex items-center justify-center mb-4">
           <svg class="w-6 h-6 text-cabinet-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Stake Confirmation</h3>
-        <p class="text-sm text-gray-600 text-center">Please specify the amount you want to stake</p>
+        <h3 class="text-xl font-bold text-cabinet-text-dark mb-2">Stake Confirmation</h3>
+        <p class="text-sm text-cabinet-text-grey text-center">Please specify the amount you want to stake</p>
       </div>
 
       <div class="mb-4">
         <div class="flex items-center justify-between mb-2">
           <label class="text-sm font-medium text-cabinet-green">Available Balance</label>
-          <span class="text-sm text-gray-600">{{ formatCurrency(availableBalance) }} USD</span>
+          <span class="text-sm text-cabinet-text-grey">{{ formatCurrency(availableBalance) }} USD</span>
         </div>
         <div class="relative">
           <input
@@ -31,22 +31,22 @@
             min="0"
             :max="availableBalance"
             placeholder="Enter amount"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-green"
+            class="w-full px-4 py-2 border border-cabinet-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange bg-cabinet-dark text-cabinet-text-dark"
           >
           <button
             @click="setMaxAmount"
-            class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-cabinet-green rounded hover:bg-cabinet-green/80"
+            class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-cabinet-orange rounded hover:bg-cabinet-orange/80"
           >
             Max
           </button>
         </div>
-        <p v-if="errorMessage" class="text-sm text-red-500 mt-1">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="text-sm text-cabinet-red mt-1">{{ errorMessage }}</p>
       </div>
 
       <div class="mb-6">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <label class="text-sm font-medium text-gray-700">Auto Stake</label>
+            <label class="text-sm font-medium text-cabinet-text-grey">Auto Stake</label>
             <div class="relative">
               <svg
                 @click.stop="tooltipOpen = !tooltipOpen"
@@ -61,7 +61,7 @@
               <div
                 v-show="tooltipOpen"
                 @click.stop
-                class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-3 bg-white border border-gray-200 text-gray-700 text-sm rounded-lg shadow-lg z-50 transition-opacity"
+                class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-3 bg-cabinet-dark border border-cabinet-grey text-cabinet-text-grey text-sm rounded-lg shadow-lg z-50 transition-opacity"
               >
                 Auto Stake automatically restakes your initial investment when the period ends.
               </div>
@@ -71,7 +71,7 @@
             @click="toggleAutoStake"
             :class="[
               'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-              autoStake ? 'bg-cabinet-orange' : 'bg-gray-300'
+              autoStake ? 'bg-cabinet-orange' : 'bg-cabinet-grey'
             ]"
           >
             <span
@@ -87,7 +87,7 @@
       <button
         @click="confirmStake"
         :disabled="!isValid || isSubmitting"
-        class="w-full px-6 py-3 bg-cabinet-green text-white font-semibold rounded-lg hover:bg-cabinet-green/80 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full px-6 py-3 bg-cabinet-orange text-white font-semibold rounded-lg hover:bg-cabinet-orange/80 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {{ isSubmitting ? 'Processing...' : 'Continue' }}
       </button>

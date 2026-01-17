@@ -23,7 +23,7 @@
       <template #cell-details="{ row }">
         <button
           @click="showDetails(row)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-green text-white hover:bg-cabinet-green/80 font-semibold transition"
+          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-orange text-white hover:bg-cabinet-orange/80 font-semibold transition"
         >
           View
         </button>
@@ -33,90 +33,90 @@
         <button
           v-if="row.can_cancel"
           @click="cancelWithdraw(row.id)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-orange text-white  hover:bg-cabinet-orange/80  font-semibold transition"
+          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-red text-white  hover:bg-cabinet-red/80  font-semibold transition"
         >
           Cancel
         </button>
       </template>
     </data-table>
-  </div>
 
-  <!-- Details Modal -->
-  <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto" @click.self="showModal = false">
-    <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="fixed inset-0 bg-black/70 transition-opacity"></div>
-      <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg max-w-3xl w-full p-6 shadow-2xl border border-gray-700">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-700">
-          <h3 class="text-2xl font-bold text-white">
-            Transaction #{{ selectedTransaction?.id }}
-          </h3>
-          <button @click="showModal = false" class="text-gray-400 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <div v-if="selectedTransaction" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Type</div>
-              <div class="text-white font-semibold">{{ selectedTransaction.type }}</div>
-            </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Amount</div>
-              <div class="text-white font-semibold text-lg">{{ selectedTransaction.amount }}</div>
-            </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Status</div>
-              <span
-                class="px-3 py-1 rounded-full text-sm font-medium inline-block"
-                :class="getStatusClass(selectedTransaction.status)"
-              >
-                {{ selectedTransaction.status.charAt(0).toUpperCase() + selectedTransaction.status.slice(1) }}
-              </span>
-            </div>
-            <div class="bg-gray-800/50 p-4 rounded-lg">
-              <div class="text-sm text-gray-400 mb-1">Created</div>
-              <div class="text-white font-medium">{{ selectedTransaction.created_at }}</div>
-            </div>
+    <!-- Details Modal -->
+    <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto" @click.self="showModal = false">
+      <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="fixed inset-0 bg-black/70 transition-opacity"></div>
+        <div class="relative bg-cabinet-dark rounded-lg max-w-3xl w-full p-6 shadow-2xl border border-cabinet-grey">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-cabinet-grey">
+            <h3 class="text-2xl font-bold text-cabinet-text-dark">
+              Transaction #{{ selectedTransaction?.id }}
+            </h3>
+            <button @click="showModal = false" class="text-cabinet-text-grey hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
+          <div v-if="selectedTransaction" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-cabinet-dark/50 p-4 rounded-lg">
+                <div class="text-sm text-cabinet-text-grey mb-1">Type</div>
+                <div class="text-cabinet-text-dark font-semibold">{{ selectedTransaction.type }}</div>
+              </div>
+              <div class="bg-cabinet-dark/50 p-4 rounded-lg">
+                <div class="text-sm text-cabinet-text-grey mb-1">Amount</div>
+                <div class="text-cabinet-text-dark font-semibold text-lg">{{ selectedTransaction.amount }}</div>
+              </div>
+              <div class="bg-cabinet-dark/50 p-4 rounded-lg">
+                <div class="text-sm text-cabinet-text-grey mb-1">Status</div>
+                <span
+                  class="px-3 py-1 rounded-full text-sm font-medium inline-block"
+                  :class="getStatusClass(selectedTransaction.status)"
+                >
+                  {{ selectedTransaction.status.charAt(0).toUpperCase() + selectedTransaction.status.slice(1) }}
+                </span>
+              </div>
+              <div class="bg-cabinet-dark/50 p-4 rounded-lg">
+                <div class="text-sm text-cabinet-text-grey mb-1">Created</div>
+                <div class="text-cabinet-text-dark font-medium">{{ selectedTransaction.created_at }}</div>
+              </div>
+            </div>
 
-          <div v-if="selectedTransaction.description" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-2">Description</div>
-            <div class="text-white">{{ selectedTransaction.description }}</div>
-          </div>
+            <div v-if="selectedTransaction.description" class="bg-cabinet-dark/50 p-4 rounded-lg">
+              <div class="text-sm text-cabinet-text-grey mb-2">Description</div>
+              <div class="text-cabinet-text-dark">{{ selectedTransaction.description }}</div>
+            </div>
 
-          <div v-if="selectedTransaction.tx_hash" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-2">Transaction Hash</div>
-            <div class="text-white font-mono text-xs break-all">{{ selectedTransaction.tx_hash }}</div>
-          </div>
+            <div v-if="selectedTransaction.tx_hash" class="bg-cabinet-dark/50 p-4 rounded-lg">
+              <div class="text-sm text-cabinet-text-grey mb-2">Transaction Hash</div>
+              <div class="text-cabinet-text-dark font-mono text-xs break-all">{{ selectedTransaction.tx_hash }}</div>
+            </div>
 
-          <div v-if="selectedTransaction.meta && Object.keys(selectedTransaction.meta).length > 0" class="bg-gray-800/50 p-4 rounded-lg">
-            <div class="text-sm text-gray-400 mb-3">Additional Information</div>
-            <div class="space-y-2">
-              <div v-if="selectedTransaction.meta.wallet_address" class="flex justify-between items-start">
-                <span class="text-gray-300">Wallet Address:</span>
-                <span class="text-white font-mono text-xs break-all ml-4">{{ selectedTransaction.meta.wallet_address }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.network" class="flex justify-between">
-                <span class="text-gray-300">Network:</span>
-                <span class="text-white font-semibold">{{ selectedTransaction.meta.network }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.token" class="flex justify-between">
-                <span class="text-gray-300">Withdrawal In:</span>
-                <span class="text-white font-semibold">{{ selectedTransaction.meta.token }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.net_amount" class="flex justify-between">
-                <span class="text-gray-300">Net Amount:</span>
-                <span class="text-cabinet-green font-semibold">${{ Number(selectedTransaction.meta.net_amount).toFixed(2) }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.confirmations !== undefined" class="flex justify-between">
-                <span class="text-gray-300">Confirmations:</span>
-                <span class="text-white">{{ selectedTransaction.meta.confirmations }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.estimated_time" class="flex justify-between">
-                <span class="text-gray-300">Estimated Time:</span>
-                <span class="text-white">{{ selectedTransaction.meta.estimated_time }}</span>
+            <div v-if="selectedTransaction.meta && Object.keys(selectedTransaction.meta).length > 0" class="bg-cabinet-dark/50 p-4 rounded-lg">
+              <div class="text-sm text-cabinet-text-grey mb-3">Additional Information</div>
+              <div class="space-y-2">
+                <div v-if="selectedTransaction.meta.wallet_address" class="flex justify-between items-start">
+                  <span class="text-cabinet-text-grey">Wallet Address:</span>
+                  <span class="text-cabinet-text-dark font-mono text-xs break-all ml-4">{{ selectedTransaction.meta.wallet_address }}</span>
+                </div>
+                <div v-if="selectedTransaction.meta.network" class="flex justify-between">
+                  <span class="text-cabinet-text-grey">Network:</span>
+                  <span class="text-cabinet-text-dark font-semibold">{{ selectedTransaction.meta.network }}</span>
+                </div>
+                <div v-if="selectedTransaction.meta.token" class="flex justify-between">
+                  <span class="text-cabinet-text-grey">Withdrawal In:</span>
+                  <span class="text-cabinet-text-dark font-semibold">{{ selectedTransaction.meta.token }}</span>
+                </div>
+                <div v-if="selectedTransaction.meta.net_amount" class="flex justify-between">
+                  <span class="text-cabinet-text-grey">Net Amount:</span>
+                  <span class="text-cabinet-green font-semibold">${{ Number(selectedTransaction.meta.net_amount).toFixed(2) }}</span>
+                </div>
+                <div v-if="selectedTransaction.meta.confirmations !== undefined" class="flex justify-between">
+                  <span class="text-cabinet-text-grey">Confirmations:</span>
+                  <span class="text-cabinet-text-dark">{{ selectedTransaction.meta.confirmations }}</span>
+                </div>
+                <div v-if="selectedTransaction.meta.estimated_time" class="flex justify-between">
+                  <span class="text-cabinet-text-grey">Estimated Time:</span>
+                  <span class="text-cabinet-text-dark">{{ selectedTransaction.meta.estimated_time }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -146,12 +146,14 @@ const selectedTransaction = ref(null)
 
 const columns = [
   {
-    key: 'number',
-    label: 'S.No',
+    key: 'created_at',
+    label: 'Created At',
     sortable: true,
-    span: 1,
+    span: 3,
     headerClass: 'text-left',
-    cellClass: 'font-medium'
+    cellClass: 'text-sm',
+    sortValue: (row) => parseDateToTimestamp(row.created_at),
+    format: (value) => formatDateShort(value)
   },
   {
     key: 'type',
@@ -159,7 +161,7 @@ const columns = [
     sortable: true,
     span: 3,
     headerClass: 'text-left',
-    cellClass: 'text-cabinet-green font-medium'
+    cellClass: 'text-cabinet-orange font-medium'
   },
   {
     key: 'amount',
@@ -176,16 +178,6 @@ const columns = [
     span: 2,
     headerClass: 'text-left',
     cellClass: 'text-sm font-semibold'
-  },
-  {
-    key: 'created_at',
-    label: 'Created At',
-    sortable: true,
-    span: 3,
-    headerClass: 'text-left',
-    cellClass: 'text-sm',
-    sortValue: (row) => parseDateToTimestamp(row.created_at),
-    format: (value) => formatDateShort(value)
   },
   {
     key: 'status',
@@ -207,7 +199,7 @@ const columns = [
     key: 'action',
     label: 'Action',
     sortable: false,
-    span: 1,
+    span: 2,
     headerClass: 'text-center',
     cellClass: 'text-center'
   }
@@ -229,9 +221,9 @@ function getStatusClass(status) {
     'confirmed': 'bg-cabinet-green/20 text-cabinet-green',
     'pending': 'bg-cabinet-orange/20 text-cabinet-orange',
     'failed': 'bg-cabinet-red/20 text-cabinet-red',
-    'cancelled': 'bg-gray-400/20 text-gray-400'
+    'cancelled': 'bg-gray-700/20 text-gray-400'
   }
-  return classes[status] || 'bg-gray-400/20 text-gray-400'
+  return classes[status] || 'bg-gray-700/20 text-gray-400'
 }
 
 async function showDetails(row) {

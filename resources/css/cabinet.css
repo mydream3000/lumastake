@@ -7,16 +7,16 @@
 
 /* Cabinet-specific theme colors */
 @theme {
-    --color-cabinet-green: #05C982;
-    --color-cabinet-orange: #3B4EFC;
-    --color-cabinet-red: #F70808;
-    --color-cabinet-pink: #FF00D8;
-    --color-cabinet-blue: #3B4EFC;
-    --color-cabinet-light-blue: #95D2FF;
-    --color-cabinet-dark: #101221;
-    --color-cabinet-grey: #CCCCCC;
-    --color-cabinet-text-dark: #222222;
-    --color-cabinet-text-grey: #444444;
+    --color-cabinet-green: #15B28C;
+    --color-cabinet-orange: #E87855;
+    --color-cabinet-red: #E85555;
+    --color-cabinet-pink: #E855A3;
+    --color-cabinet-blue: #5586E8;
+    --color-cabinet-light-blue: #A3C1F3;
+    --color-cabinet-dark: #0D0D0D;
+    --color-cabinet-grey: #333333;
+    --color-cabinet-text-dark: #FFFFFF;
+    --color-cabinet-text-grey: #B3B3B3;
 
     --color-cabinet-level-1: #3B4EFC;
     --color-cabinet-level-2: #05C982;
@@ -35,9 +35,9 @@
     --color-level-3-border: #D0A0E8;
     --color-level-4-border: #A0D0E8;
     --color-level-5-border: #E8D0A0;
-    --color-cabinet-header-bg: #D9D9D9;
-    --color-gray-06: #CCCCCC;
-    --color-cabinet-table-row: #EEEEEE;
+    --color-cabinet-header-bg: #1A1A1A;
+    --color-gray-06: #333333;
+    --color-cabinet-table-row: #1A1A1A;
 
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
@@ -47,8 +47,8 @@
 .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid rgba(5, 201, 130, 0.3);
-    border-top: 4px solid #05C982;
+    border: 4px solid rgba(21, 178, 140, 0.3);
+    border-top: 4px solid #15B28C;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -61,8 +61,8 @@
 /* Referral level active animation */
 :root {
     /* Default pulse colors (fallback: Level 1) */
-    --pulse-color-low: rgba(255, 69, 28, 0.2);
-    --pulse-color-high: rgba(255, 69, 28, 0.45);
+    --pulse-color-low: rgba(232, 120, 85, 0.2);
+    --pulse-color-high: rgba(232, 120, 85, 0.45);
 }
 
 @keyframes pulse-glow {
@@ -80,9 +80,9 @@
 }
 
 /* Level-specific pulse colors */
-.level-1-pulse { --pulse-color-low: rgba(255, 69, 28, 0.2); --pulse-color-high: rgba(255, 69, 28, 0.45); }
-.level-2-pulse { --pulse-color-low: rgba(5, 201, 130, 0.2); --pulse-color-high: rgba(5, 201, 130, 0.45); }
-.level-3-pulse { --pulse-color-low: rgba(255, 0, 216, 0.2); --pulse-color-high: rgba(255, 0, 216, 0.45); }
+.level-1-pulse { --pulse-color-low: rgba(232, 120, 85, 0.2); --pulse-color-high: rgba(232, 120, 85, 0.45); }
+.level-2-pulse { --pulse-color-low: rgba(21, 178, 140, 0.2); --pulse-color-high: rgba(21, 178, 140, 0.45); }
+.level-3-pulse { --pulse-color-low: rgba(232, 85, 163, 0.2); --pulse-color-high: rgba(232, 85, 163, 0.45); }
 .level-4-pulse { --pulse-color-low: rgba(2, 201, 216, 0.2); --pulse-color-high: rgba(2, 201, 216, 0.45); }
 .level-5-pulse { --pulse-color-low: rgba(255, 157, 0, 0.2); --pulse-color-high: rgba(255, 157, 0, 0.45); }
 
@@ -92,16 +92,16 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #f5f5f5;
+    background: #1A1A1A;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #05C982, #FF451C);
+    background: linear-gradient(180deg, #15B28C, #E87855);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #FF451C, #05C982);
+    background: linear-gradient(180deg, #E87855, #15B28C);
 }
 
 /* Custom card scrollbar class - for cards with limited height */
@@ -117,19 +117,19 @@
 }
 
 .card-scroll::-webkit-scrollbar-track {
-    background: #f5f5f5;
+    background: #1A1A1A;
     border-radius: 7px;
 }
 
 .card-scroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #05C982, #FF451C);
+    background: linear-gradient(180deg, #15B28C, #E87855);
     border-radius: 3px;
     width: 6px;
-    border: 4px solid #f5f5f5;
+    border: 4px solid #1A1A1A;
 }
 
 .card-scroll::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #FF451C, #05C982);
+    background: linear-gradient(180deg, #E87855, #15B28C);
 }
 
 /* Focus styles for accessibility */
@@ -137,7 +137,7 @@ button:focus,
 a:focus,
 input:focus,
 textarea:focus {
-    outline: 2px solid #05C982;
+    outline: 2px solid #15B28C;
     outline-offset: 2px;
 }
 
@@ -155,12 +155,12 @@ textarea:focus {
 
 /* BALANCE (pink) */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 {
-    border-color: #FF00D8; /* figma pink */
+    border-color: #E855A3; /* figma pink */
 }
 
 /* Background layer tune */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 > .absolute.inset-0 {
-    background: linear-gradient(180deg, rgba(255,0,216,0.16) 0%, rgba(255,0,216,0.06) 100%);
+    background: linear-gradient(180deg, rgba(232, 85, 163, 0.16) 0%, rgba(232, 85, 163, 0.06) 100%);
 }
 
 /* Hide old left accent bar element per figma (use pseudo-element instead) */
@@ -177,9 +177,9 @@ textarea:focus {
     transform: translateY(-50%);
     width: 14px;
     height: 88px;
-    background: linear-gradient(180deg, #FF6ABF 0%, #FF00D8 100%);
+    background: linear-gradient(180deg, #E855A3 0%, #FF6ABF 100%);
     border-radius: 4px;
-    box-shadow: 0 0 36px rgba(255, 0, 216, .35);
+    box-shadow: 0 0 36px rgba(232, 85, 163, .35);
     pointer-events: none;
 }
 
@@ -191,7 +191,7 @@ textarea:focus {
     font-family: 'Manrope', sans-serif;
     font-size: 22px;
     letter-spacing: 0.01em;
-    color: #0F172A; /* slate-900 like */
+    color: #FFFFFF; /* slate-900 like */
 }
 /* Main amount */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .text-4xl.font-bold {
@@ -206,14 +206,14 @@ textarea:focus {
 
 /* Progress area */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .text-sm.text-gray-600 {
-    color: #475569; /* slate-600 */
+    color: #B3B3B3; /* slate-600 */
 }
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .bg-pink-200.rounded-full.h-2 {
     height: 10px; /* thicker */
-    background-color: rgba(255,0,216,0.25);
+    background-color: rgba(232, 85, 163,0.25);
 }
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-pink-500 .bg-pink-500.rounded-full {
-    background: linear-gradient(90deg, #FF00D8 0%, #FF6ABF 100%);
+    background: linear-gradient(90deg, #E855A3 0%, #FF6ABF 100%);
 }
 
 /* Decorative concentric circles image positioning */
@@ -233,17 +233,17 @@ textarea:focus {
     position: absolute;
     top: 3px;
     right: 16px;
-    box-shadow: 0 8px 32px rgba(255,0,216,0.18);
+    box-shadow: 0 8px 32px rgba(232, 85, 163,0.18);
 }
 
 /* AMOUNT STAKED (green) */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green {
-    border-color: #05C982;
+    border-color: #15B28C;
 }
 
 /* Background layer */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green > .absolute.inset-0 {
-    background: linear-gradient(180deg, rgba(5,201,130,0.16) 0%, rgba(5,201,130,0.06) 100%);
+    background: linear-gradient(180deg, rgba(21, 178, 140,0.16) 0%, rgba(21, 178, 140,0.06) 100%);
 }
 
 /* Hide old left accent bar element per figma (use pseudo-element instead) */
@@ -260,7 +260,7 @@ textarea:focus {
     transform: translateY(-50%);
     width: 14px;
     height: 88px;
-    background: linear-gradient(180deg, #69F3B7 0%, #49E694 100%);
+    background: linear-gradient(180deg, #69F3B7 0%, #15B28C 100%);
     border-radius: 4px;
     box-shadow: 0 0 36px rgba(105, 243, 183, .35);
     pointer-events: none;
@@ -275,7 +275,7 @@ textarea:focus {
     font-family: 'Manrope', sans-serif;
     font-size: 22px;
     letter-spacing: 0.01em;
-    color: #0F172A;
+    color: #FFFFFF;
 }
 /* Main amount */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .text-4xl.font-bold {
@@ -290,14 +290,14 @@ textarea:focus {
 
 /* Progress */
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .text-sm.text-gray-600 {
-    color: #475569;
+    color: #B3B3B3;
 }
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .bg-emerald-200.rounded-full.h-2 {
     height: 10px;
-    background-color: rgba(5,201,130,0.22);
+    background-color: rgba(21, 178, 140,0.22);
 }
 .lg\:col-span-2 > .grid.md\:grid-cols-2.gap-6 > .relative.border-cabinet-green .bg-cabinet-green.rounded-full {
-    background: linear-gradient(90deg, #05C982 0%, #37E0AC 100%);
+    background: linear-gradient(90deg, #15B28C 0%, #37E0AC 100%);
 }
 
 /* Decorative image */
@@ -317,7 +317,7 @@ textarea:focus {
     position: absolute;
     top: 3px;
     right: 16px;
-    box-shadow: 0 8px 32px rgba(5,201,130,0.18);
+    box-shadow: 0 8px 32px rgba(21, 178, 140,0.18);
 }
 
 /* Responsive tuning */
@@ -336,7 +336,7 @@ textarea:focus {
         font-size: 32px;
     }
     .flex.items-center.gap-4.px-6.py-3.text-gray-800.hover\:bg-gray-50.active\:bg-gray-200.transition-colors.bg-gray-50.text-cabinet-orange {
-        background: #101221;
+        background: #0D0D0D;
         color: whitesmoke;
     }
 }

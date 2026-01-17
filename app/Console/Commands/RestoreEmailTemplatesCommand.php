@@ -20,10 +20,10 @@ class RestoreEmailTemplatesCommand extends Command
             EmailSetting::firstOrCreate(
                 ['id' => 1],
                 [
-                    'sender_email' => 'no-reply@arbitex.io',
-                    'sender_name' => 'Arbitex',
-                    'support_email' => 'support@arbitex.io',
-                    'footer_text' => '© '.date('Y').' Arbitex. All rights reserved.',
+                    'sender_email' => 'no-reply@lumastake.com',
+                    'sender_name' => 'Lumastake',
+                    'support_email' => 'support@lumastake.com',
+                    'footer_text' => '© '.date('Y').' Lumastake. All rights reserved.',
                     'footer_support' => true,
                 ]
             );
@@ -190,7 +190,7 @@ class RestoreEmailTemplatesCommand extends Command
             [
                 'key' => 'deposit_replenished',
                 'name' => 'Deposit Successful',
-                'subject' => 'Deposit Successful - Arbitex',
+                'subject' => 'Deposit Successful - Lumastake',
                 'content' => file_get_contents(resource_path('views/emails/deposit_replenished.blade.php')),
                 'variables' => [
                     'userName' => 'User name',
@@ -202,7 +202,7 @@ class RestoreEmailTemplatesCommand extends Command
             [
                 'key' => 'withdrawal_created',
                 'name' => 'Withdrawal Request Created',
-                'subject' => 'Withdrawal Request Received - Arbitex',
+                'subject' => 'Withdrawal Request Received - Lumastake',
                 'content' => file_get_contents(resource_path('views/emails/withdrawal-created.blade.php')),
                 'variables' => [
                     'userName' => 'User name',
@@ -214,7 +214,7 @@ class RestoreEmailTemplatesCommand extends Command
             [
                 'key' => 'withdrawal_approved',
                 'name' => 'Withdrawal Approved',
-                'subject' => 'Withdrawal Approved - Arbitex',
+                'subject' => 'Withdrawal Approved - Lumastake',
                 'content' => file_get_contents(resource_path('views/emails/withdrawal-approved.blade.php')),
                 'variables' => [
                     'userName' => 'User name',
@@ -226,7 +226,7 @@ class RestoreEmailTemplatesCommand extends Command
             [
                 'key' => 'withdrawal_rejected',
                 'name' => 'Withdrawal Rejected',
-                'subject' => 'Withdrawal Rejected - Arbitex',
+                'subject' => 'Withdrawal Rejected - Lumastake',
                 'content' => file_get_contents(resource_path('views/emails/withdraw-rejected.blade.php')),
                 'variables' => [
                     'userName' => 'User name',
@@ -332,7 +332,7 @@ class RestoreEmailTemplatesCommand extends Command
 <tr>
     <td style="padding: 0 40px 40px;">
         <p style="margin: 0; color: #8f8f8f; font-size: 13px; line-height: 1.6;">
-            Thank you for choosing Arbitex for your staking needs. If you have any questions, please contact our support team.
+            Thank you for choosing Lumastake for your staking needs. If you have any questions, please contact our support team.
         </p>
     </td>
 </tr>

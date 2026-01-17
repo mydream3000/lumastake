@@ -70,7 +70,7 @@ class ContactController extends BaseController
         foreach ($supportEmails as $email) {
             try {
                 Mail::raw($emailBody, function ($m) use ($email) {
-                    $m->to($email)->subject('Contact form submission - Arbitex');
+                    $m->to($email)->subject('Contact form submission - Lumastake');
                 });
             } catch (\Exception $e) {
                 Log::error('Failed to send contact form email', [

@@ -1,39 +1,39 @@
 <?php
 /**
- * Script to replace all Arbitex references with Lumastake
- * Run: php scripts/replace_arbitex_lumastake.php
+ * Script to replace all Lumastake references with Lumastake
+ * Run: php scripts/replace_lumastake_lumastake.php
  */
 
 $replacements = [
     // Emails
-    'no-reply@arbitex.io' => 'no-reply@lumastake.com',
-    'support@arbitex.io' => 'support@lumastake.com',
-    'inquiries@arbitex.io' => 'inquiries@lumastake.com',
+    'no-reply@lumastake.com' => 'no-reply@lumastake.com',
+    'support@lumastake.com' => 'support@lumastake.com',
+    'inquiries@lumastake.com' => 'inquiries@lumastake.com',
 
     // Social handles
-    '@arbitex_support' => '@lumastake_support',
-    '@arbitex' => '@lumastake',
+    '@lumastake_support' => '@lumastake_support',
+    '@lumastake' => '@lumastake',
 
-    // Company name in text (preserve CSS classes like bg-arbitex-)
-    'Arbitex.' => 'Lumastake.',
-    ' Arbitex ' => ' Lumastake ',
-    '>Arbitex<' => '>Lumastake<',
-    '"Arbitex"' => '"Lumastake"',
-    '\'Arbitex\'' => '\'Lumastake\'',
-    'Arbitex,' => 'Lumastake,',
-    'Arbitex!' => 'Lumastake!',
-    'Arbitex?' => 'Lumastake?',
-    'Arbitex Security' => 'Lumastake Security',
-    'arbitex.io' => 'lumastake.com',
+    // Company name in text (preserve CSS classes like bg-lumastake-)
+    'Lumastake.' => 'Lumastake.',
+    ' Lumastake ' => ' Lumastake ',
+    '>Lumastake<' => '>Lumastake<',
+    '"Lumastake"' => '"Lumastake"',
+    '\'Lumastake\'' => '\'Lumastake\'',
+    'Lumastake,' => 'Lumastake,',
+    'Lumastake!' => 'Lumastake!',
+    'Lumastake?' => 'Lumastake?',
+    'Lumastake Security' => 'Lumastake Security',
+    'lumastake.com' => 'lumastake.com',
 
     // Specific case preserving (for titles, headings)
-    'Welcome to Arbitex' => 'Welcome to Lumastake',
-    'About Arbitex' => 'About Lumastake',
-    'ARBITEX' => 'LUMASTAKE',
+    'Welcome to Lumastake' => 'Welcome to Lumastake',
+    'About Lumastake' => 'About Lumastake',
+    'LUMASTAKE' => 'LUMASTAKE',
 
     // Meta and SEO
-    'about arbitex' => 'about lumastake',
-   'arbitex@gmail.com' => 'lumastake@gmail.com',
+    'about lumastake' => 'about lumastake',
+   'lumastake@gmail.com' => 'lumastake@gmail.com',
 ];
 
 // Directories to search
@@ -73,13 +73,13 @@ foreach ($directories as $directory) {
         $content = file_get_contents($file->getPathname());
         $originalContent = $content;
 
-        // Skip files that only contain CSS classes (bg-arbitex-, text-arbitex-, etc.)
+        // Skip files that only contain CSS classes (bg-lumastake-, text-lumastake-, etc.)
         // These should NOT be replaced
         foreach ($replacements as $search => $replace) {
             // Skip if this is a CSS class pattern
-            if (strpos($search, '@') === false && preg_match('/[bg|text|border|from|to|via]-arbitex-/', $content)) {
-                // Be cautious with bare "Arbitex" replacements near CSS
-                if ($search === 'Arbitex' || $search === 'arbitex') {
+            if (strpos($search, '@') === false && preg_match('/[bg|text|border|from|to|via]-lumastake-/', $content)) {
+                // Be cautious with bare "Lumastake" replacements near CSS
+                if ($search === 'Lumastake' || $search === 'lumastake') {
                     continue;
                 }
             }

@@ -22,7 +22,7 @@ class SeoController extends Controller
             'home' => [
                 'title' => 'Home Page',
                 'defaults' => [
-                    'page_title' => 'Arbitex - USDT Staking Platform',
+                    'page_title' => 'Lumastake - USDT Staking Platform',
                     'meta_description' => 'Earn passive income with USDT staking on Lumastake. Secure, reliable, and profitable cryptocurrency staking platform.',
                     'meta_keywords' => 'USDT, staking, cryptocurrency, passive income, Tether',
                 ]
@@ -38,7 +38,7 @@ class SeoController extends Controller
             'tiers' => [
                 'title' => 'Tiers Page',
                 'defaults' => [
-                    'page_title' => 'Staking Tiers - Arbitex',
+                    'page_title' => 'Staking Tiers - Lumastake',
                     'meta_description' => 'Explore our flexible staking tiers and choose the best option for your investment goals.',
                     'meta_keywords' => 'staking tiers, investment plans, APR rates',
                 ]
@@ -46,7 +46,7 @@ class SeoController extends Controller
             'blog' => [
                 'title' => 'Blog Page',
                 'defaults' => [
-                    'page_title' => 'Blog - Latest News and Updates | Arbitex',
+                    'page_title' => 'Blog - Latest News and Updates | Lumastake',
                     'meta_description' => 'Stay updated with the latest cryptocurrency news, staking tips, and platform updates from Lumastake.',
                     'meta_keywords' => 'blog, news, updates, cryptocurrency, staking tips',
                 ]
@@ -62,7 +62,7 @@ class SeoController extends Controller
             'faq' => [
                 'title' => 'FAQ Page',
                 'defaults' => [
-                    'page_title' => 'FAQ - Frequently Asked Questions | Arbitex',
+                    'page_title' => 'FAQ - Frequently Asked Questions | Lumastake',
                     'meta_description' => 'Find answers to common questions about USDT staking, deposits, withdrawals, and more.',
                     'meta_keywords' => 'FAQ, questions, answers, help, support',
                 ]

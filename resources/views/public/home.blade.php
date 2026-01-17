@@ -147,7 +147,7 @@
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-6xl font-black text-[#3B4EFC] uppercase mb-4">BENEFITS</h2>
-            <p class="text-2xl text-gray-600 mb-20">Why people are switching to Arbitex</p>
+            <p class="text-2xl text-gray-600 mb-20">Why people are switching to Lumastake</p>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <div class="flex flex-col items-center text-center">
@@ -198,14 +198,14 @@
                     <p class="text-xl font-bold text-blue-600 uppercase tracking-widest">Turning crypto complexity into opportunity</p>
                     <h2 class="text-5xl md:text-6xl font-black text-[#262262] leading-tight">LESS CONFUSION. MORE CONTROL.</h2>
                     <p class="text-xl text-gray-600 max-w-lg">
-                        We built Arbitex to remove the noise from crypto. No tokens to flip, no charts to trade. Just one goal: make your stablecoins work more, safely and smoothly.
+                        We built Lumastake to remove the noise from crypto. No tokens to flip, no charts to trade. Just one goal: make your stablecoins work more, safely and smoothly.
                     </p>
                     <a href="{{ route('register') }}" class="inline-block bg-[#D9FF00] text-[#262262] px-10 py-4 rounded font-bold text-xl hover:bg-[#c4e600] transition-all">
                         Start Staking
                     </a>
                 </div>
                 <div class="lg:w-1/2 mt-12 lg:mt-0 relative">
-                    <img src="{{ asset('img/pyramid.png') }}" alt="Arbitex Ecosystem" class="w-full h-auto">
+                    <img src="{{ asset('img/pyramid.png') }}" alt="Lumastake Ecosystem" class="w-full h-auto">
                 </div>
             </div>
         </div>

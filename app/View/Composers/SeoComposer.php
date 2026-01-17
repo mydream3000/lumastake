@@ -52,9 +52,9 @@ class SeoComposer
         // Fallback на дефолтные значения если SEO данные не найдены
         if (!$seo) {
             $seo = (object) [
-                'seo_title' => 'Arbitex — Secure Crypto Investments | Earn Passively, Trade Confidently',
-                'meta_description' => 'Welcome to Arbitex — a reliable crypto investment platform where your USDT grows securely through staking.',
-                'meta_keywords' => 'Arbitex, crypto investments, passive income, secure staking, invest in crypto',
+                'seo_title' => 'Lumastake — Secure Crypto Investments | Earn Passively, Trade Confidently',
+                'meta_description' => 'Welcome to Lumastake — a reliable crypto investment platform where your USDT grows securely through staking.',
+                'meta_keywords' => 'Lumastake, crypto investments, passive income, secure staking, invest in crypto',
             ];
         }
 

@@ -19,8 +19,8 @@ class RestoreDepositTemplateCommand extends Command
             [
                 'name' => 'Deposit Confirmed',
                 'subject' => 'Your Deposit has been Confirmed',
-                'sender_name' => 'Arbitex',
-                'content' => '<!DOCTYPE html><html><body><h1>Deposit Confirmed</h1><p>Hello {{ $userName }},</p><p>Your deposit of ${{ $amount }} has been successfully confirmed and added to your balance.</p><p>Thank you for using Arbitex!</p></body></html>',
+                'sender_name' => 'Lumastake',
+                'content' => '<!DOCTYPE html><html><body><h1>Deposit Confirmed</h1><p>Hello {{ $userName }},</p><p>Your deposit of ${{ $amount }} has been successfully confirmed and added to your balance.</p><p>Thank you for using Lumastake!</p></body></html>',
                 'variables' => [
                     'userName' => 'User Name',
                     'amount' => 'Deposit Amount',

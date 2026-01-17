@@ -30,7 +30,7 @@ class PasswordResetCode extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new \Illuminate\Mail\Mailables\Address('no-reply@lumastake.com', 'Please confirm from Arbitex'),
+            from: new \Illuminate\Mail\Mailables\Address('no-reply@lumastake.com', 'Please confirm from Lumastake'),
             subject: 'Password Reset Code',
         );
     }

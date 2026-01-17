@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             TestDataSeeder::class, // Добавляем сидер с тестовыми данными
+            NewTestDataSeeder::class, // Добавляем новый сидер с тестовыми данными
             TierSeeder::class,
             InvestmentPoolSeeder::class,
             CountrySeeder::class,

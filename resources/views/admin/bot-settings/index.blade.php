@@ -49,7 +49,7 @@
                        value="{{ old('bot_name', $botSettings->bot_name ?? '') }}"
                        maxlength="255"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
-                       placeholder="Arbitex Financial Bot">
+                       placeholder="Lumastake Financial Bot">
                 <p class="mt-1 text-sm text-gray-500">Название для идентификации бота (опционально)</p>
                 @error('bot_name')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

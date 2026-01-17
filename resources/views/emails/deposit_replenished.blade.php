@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit Successful - Arbitex</title>
+    <title>Deposit Successful - Lumastake</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #101221; padding: 40px 20px;">

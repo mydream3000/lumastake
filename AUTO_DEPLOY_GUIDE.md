@@ -40,8 +40,8 @@
 
 **SSH в сервер:**
 ```bash
-ssh arbitex@vm4303927.had.su
-cd /var/www/arbitex/data/www/arbitex.io
+ssh lumastake@vm4303927.had.su
+cd /var/www/lumastake/data/www/lumastake.com
 ```
 
 **Инициализация Git (если еще не сделано):**
@@ -58,7 +58,7 @@ git remote -v
 
 #### 2.2. Создание деплой-скрипта на сервере
 
-Создайте файл `/var/www/arbitex/data/www/arbitex.io/deploy.sh`:
+Создайте файл `/var/www/lumastake/data/www/lumastake.com/deploy.sh`:
 
 ```bash
 #!/bin/bash
@@ -67,7 +67,7 @@ git remote -v
 # AUTO-DEPLOY SCRIPT
 # =========================
 
-cd /var/www/arbitex/data/www/arbitex.io || exit
+cd /var/www/lumastake/data/www/lumastake.com || exit
 
 echo "🔄 Starting deployment..."
 
@@ -110,7 +110,7 @@ php artisan view:cache
 # 8. Права доступа
 echo "🔐 Setting permissions..."
 chmod -R 775 storage bootstrap/cache
-chown -R arbitex:www-data storage bootstrap/cache
+chown -R lumastake:www-data storage bootstrap/cache
 
 # 9. Перезапуск очереди (если используется supervisor)
 echo "♻️ Restarting queue workers..."
@@ -129,7 +129,7 @@ chmod +x deploy.sh
 **Для GitHub:**
 1. Откройте ваш репозиторий на GitHub
 2. **Settings → Webhooks → Add webhook**
-3. **Payload URL:** `https://arbitex.io/deploy-webhook.php`
+3. **Payload URL:** `https://lumastake.com/deploy-webhook.php`
 4. **Content type:** `application/json`
 5. **Secret:** Придумайте секретный ключ (например: `your-secret-token-123`)
 6. **Events:** Выберите "Just the push event"
@@ -138,14 +138,14 @@ chmod +x deploy.sh
 
 **Для GitLab:**
 1. **Settings → Webhooks**
-2. **URL:** `https://arbitex.io/deploy-webhook.php`
+2. **URL:** `https://lumastake.com/deploy-webhook.php`
 3. **Secret Token:** Тот же секрет
 4. **Trigger:** Push events
 5. **Add webhook**
 
 #### 2.4. Создание webhook-обработчика на сервере
 
-Создайте файл `/var/www/arbitex/data/www/arbitex.io/public/deploy-webhook.php`:
+Создайте файл `/var/www/lumastake/data/www/lumastake.com/public/deploy-webhook.php`:
 
 ```php
 <?php
@@ -154,10 +154,10 @@ chmod +x deploy.sh
 define('SECRET_KEY', 'your-secret-token-123');
 
 // Путь к деплой-скрипту
-define('DEPLOY_SCRIPT', '/var/www/arbitex/data/www/arbitex.io/deploy.sh');
+define('DEPLOY_SCRIPT', '/var/www/lumastake/data/www/lumastake.com/deploy.sh');
 
 // Лог файл
-define('LOG_FILE', '/var/www/arbitex/data/www/arbitex.io/storage/logs/deploy.log');
+define('LOG_FILE', '/var/www/lumastake/data/www/lumastake.com/storage/logs/deploy.log');
 
 // Проверка секретного ключа
 $headers = getallheaders();
@@ -202,31 +202,31 @@ echo json_encode([
 
 **Права доступа:**
 ```bash
-chmod 755 /var/www/arbitex/data/www/arbitex.io/public/deploy-webhook.php
+chmod 755 /var/www/lumastake/data/www/lumastake.com/public/deploy-webhook.php
 ```
 
 #### 2.5. Настройка прав для скрипта
 
 ```bash
-# Добавьте пользователя www-data в группу arbitex
-sudo usermod -a -G arbitex www-data
+# Добавьте пользователя www-data в группу lumastake
+sudo usermod -a -G lumastake www-data
 
 # Права на папку проекта
-sudo chown -R arbitex:www-data /var/www/arbitex/data/www/arbitex.io
-sudo chmod -R 775 /var/www/arbitex/data/www/arbitex.io
+sudo chown -R lumastake:www-data /var/www/lumastake/data/www/lumastake.com
+sudo chmod -R 775 /var/www/lumastake/data/www/lumastake.com
 ```
 
 #### 2.6. Тестирование
 
 **Тест webhook вручную:**
 ```bash
-curl -X POST https://arbitex.io/deploy-webhook.php \
+curl -X POST https://lumastake.com/deploy-webhook.php \
   -H "X-Gitlab-Token: your-secret-token-123"
 ```
 
 **Проверка логов:**
 ```bash
-tail -f /var/www/arbitex/data/www/arbitex.io/storage/logs/deploy.log
+tail -f /var/www/lumastake/data/www/lumastake.com/storage/logs/deploy.log
 ```
 
 ---
@@ -237,14 +237,14 @@ tail -f /var/www/arbitex/data/www/arbitex.io/storage/logs/deploy.log
 
 1. **Tools → Deployment → Configuration**
 2. Нажмите **+** → **SFTP**
-3. **Name:** `Arbitex Production`
+3. **Name:** `Lumastake Production`
 4. **Вкладка Connection:**
    - **Type:** SFTP
    - **Host:** `vm4303927.had.su`
    - **Port:** `22`
-   - **Username:** `arbitex`
+   - **Username:** `lumastake`
    - **Auth type:** Key pair или Password
-   - **Root path:** `/var/www/arbitex/data/www/arbitex.io`
+   - **Root path:** `/var/www/lumastake/data/www/lumastake.com`
 5. **Вкладка Mappings:**
    - **Local path:** `C:\Users\user\LUMASTAKE`
    - **Deployment path:** `/`
@@ -370,11 +370,11 @@ storage/logs/*.log
 
 ```bash
 # Файлы проекта
-find /var/www/arbitex/data/www/arbitex.io -type f -exec chmod 644 {} \;
-find /var/www/arbitex/data/www/arbitex.io -type d -exec chmod 755 {} \;
+find /var/www/lumastake/data/www/lumastake.com -type f -exec chmod 644 {} \;
+find /var/www/lumastake/data/www/lumastake.com -type d -exec chmod 755 {} \;
 
 # Исполняемые файлы
-chmod +x /var/www/arbitex/data/www/arbitex.io/deploy.sh
+chmod +x /var/www/lumastake/data/www/lumastake.com/deploy.sh
 
 # Storage и cache
 chmod -R 775 storage bootstrap/cache
@@ -393,7 +393,7 @@ chmod -R 775 storage bootstrap/cache
 ### 6.1. Проверка Git
 
 ```bash
-cd /var/www/arbitex/data/www/arbitex.io
+cd /var/www/lumastake/data/www/lumastake.com
 git status
 git log --oneline -5
 ```
@@ -411,7 +411,7 @@ git log --oneline -5
 2. Commit and Push
 3. Проверьте на сервере:
 ```bash
-cat /var/www/arbitex/data/www/arbitex.io/storage/logs/deploy.log
+cat /var/www/lumastake/data/www/lumastake.com/storage/logs/deploy.log
 ```
 
 ---
@@ -451,15 +451,15 @@ git remote set-url origin https://github.com/username/repo.git
 
 **Решение:**
 ```bash
-# Добавьте www-data в группу arbitex
-sudo usermod -a -G arbitex www-data
+# Добавьте www-data в группу lumastake
+sudo usermod -a -G lumastake www-data
 
 # Перезапустите nginx
 sudo systemctl restart nginx
 
 # Установите правильные права
-sudo chown -R arbitex:www-data /var/www/arbitex/data/www/arbitex.io
-sudo chmod -R 775 /var/www/arbitex/data/www/arbitex.io
+sudo chown -R lumastake:www-data /var/www/lumastake/data/www/lumastake.com
+sudo chmod -R 775 /var/www/lumastake/data/www/lumastake.com
 ```
 
 ---
@@ -482,7 +482,7 @@ send_telegram() {
         -d parse_mode="HTML"
 }
 
-send_telegram "🚀 <b>Deployment started</b> on arbitex.io"
+send_telegram "🚀 <b>Deployment started</b> on lumastake.com"
 # ... ваш код деплоя ...
 send_telegram "✅ <b>Deployment completed</b> successfully!"
 ```

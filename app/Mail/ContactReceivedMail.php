@@ -53,7 +53,7 @@ class ContactReceivedMail extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->template?->subject ?? 'We received your message - Lumastake Support';
-        $senderName = $this->template?->sender_name ?? 'Arbitex Support Team';
+        $senderName = $this->template?->sender_name ?? 'Lumastake Support Team';
 
         return new Envelope(
             subject: $subject,

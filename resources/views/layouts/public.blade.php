@@ -8,7 +8,7 @@
         // Check if $seo array is provided (for blog posts with custom SEO)
         if (isset($seo) && is_array($seo)) {
             // Use SEO data from $seo array
-            $pageTitle = $seo['title'] ?? 'Arbitex - USDT Staking Platform';
+            $pageTitle = $seo['title'] ?? 'Lumastake - USDT Staking Platform';
             $metaDescription = $seo['description'] ?? 'Earn passive income with USDT staking on Lumastake.';
             $metaKeywords = $seo['keywords'] ?? 'USDT, staking, cryptocurrency';
             $ogTitle = $seo['og_title'] ?? $pageTitle;
@@ -128,7 +128,7 @@
 </main>
 
 <!-- Back to Top Button -->
-<button id="backToTop" class="fixed z-50 bg-arbitex-green text-arbitex-dark p-3 rounded-full shadow-lg hover:bg-arbitex-green/90 transition-all duration-300 opacity-0 invisible translate-y-4">
+<button id="backToTop" class="fixed z-50 bg-lumastake-green text-lumastake-dark p-3 rounded-full shadow-lg hover:bg-lumastake-green/90 transition-all duration-300 opacity-0 invisible translate-y-4">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>
@@ -177,7 +177,7 @@
                 window.__lastToast = { message: String(message), time: now };
                 console.log('[Toast] Showing:', message, 'Type:', type);
 
-                const containerId = 'arbitex-toast-container';
+                const containerId = 'lumastake-toast-container';
                 let container = document.getElementById(containerId);
                 if (!container) {
                     container = document.createElement('div');

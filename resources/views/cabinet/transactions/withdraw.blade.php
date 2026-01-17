@@ -12,10 +12,10 @@
     </div>
 
     <!-- Mobile Version (Новый дизайн) -->
-    <div class="lg:hidden bg-white rounded-lg shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
+    <div class="lg:hidden bg-cabinet-dark rounded-lg shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-cabinet-grey">
             <div class="flex items-center justify-between">
-                <h2 class="text-xl font-bold text-gray-900">
+                <h2 class="text-xl font-bold text-cabinet-text-dark">
                     Transactions | <span class="text-cabinet-orange">Withdraw</span>
                 </h2>
                 <a href="{{ route('cabinet.transactions.deposits') }}" class="text-sm font-semibold text-cabinet-green hover:text-cabinet-green/80 transition-colors">
@@ -30,61 +30,53 @@
             </div>
 
             <div x-show="!loading && withdrawals.length === 0" class="py-12 text-center">
-                <p class="text-gray-500">No withdrawals found</p>
+                <p class="text-cabinet-text-grey">No withdrawals found</p>
             </div>
 
             <div x-show="!loading && withdrawals.length > 0" class="space-y-4">
                 <template x-for="(withdrawal, index) in withdrawals" :key="withdrawal.id">
                     <div :class="{
                         'bg-cabinet-green/10 border-cabinet-green/30': withdrawal.status === 'completed',
-                        'bg-amber-50/70 border-amber-200': withdrawal.status === 'pending',
-                        'bg-orange-50 border-orange-200': withdrawal.status === 'processing',
-                        'bg-red-50/50 border-red-300': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected',
-                        'bg-red-50/50 border-red-300': withdrawal.status === 'failed'
+                        'bg-amber-500/10 border-amber-500/30': withdrawal.status === 'pending',
+                        'bg-orange-500/10 border-orange-500/30': withdrawal.status === 'processing',
+                        'bg-red-500/10 border-red-500/30': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected',
+                        'bg-red-500/10 border-red-500/30': withdrawal.status === 'failed'
                     }" class="border rounded-lg p-4">
                         <div class="flex gap-4">
-{{--                            <div :class="{--}}
-{{--                                'bg-cabinet-green': withdrawal.status === 'completed',--}}
-{{--                                'bg-pink-400': withdrawal.status === 'pending',--}}
-{{--                                'bg-cabinet-orange': withdrawal.status === 'processing'--}}
-{{--                            }" class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center">--}}
-{{--                                <span class="text-white text-lg font-bold" x-text="index + 1"></span>--}}
-{{--                            </div>--}}
-
                             <div class="flex-1">
                                 <div class="flex items-start justify-between mb-3">
                                     <div>
-                                        <div class="text-sm text-gray-600 mb-1">Transaction Type:</div>
+                                        <div class="text-sm text-cabinet-text-grey mb-1">Transaction Type:</div>
                                         <div :class="{
                                             'text-cabinet-green': withdrawal.status === 'completed',
-                                            'text-amber-700': withdrawal.status === 'pending',
+                                            'text-amber-500': withdrawal.status === 'pending',
                                             'text-cabinet-orange': withdrawal.status === 'processing',
-                                            'text-red-600': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected' || withdrawal.status === 'failed'
+                                            'text-red-500': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected' || withdrawal.status === 'failed'
                                         }" class="text-base font-semibold">Withdrawal</div>
                                     </div>
                                     <span :class="{
                                         'bg-cabinet-green/20 text-cabinet-green': withdrawal.status === 'completed',
-                                        'bg-amber-100/70 text-amber-700 border border-amber-300': withdrawal.status === 'pending',
-                                        'bg-orange-100 text-cabinet-orange': withdrawal.status === 'processing',
-                                        'bg-red-100/50 text-red-600 border border-red-400': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected' || withdrawal.status === 'failed'
-                                    }" class="px-3 py-1 text-sm font-medium rounded-full capitalize bg-green-100/50 text-green-600 border border-green-400" x-text="withdrawal.status === 'pending' ? 'Requested' : withdrawal.status"></span>
+                                        'bg-amber-500/20 text-amber-500': withdrawal.status === 'pending',
+                                        'bg-orange-500/20 text-cabinet-orange': withdrawal.status === 'processing',
+                                        'bg-red-500/20 text-red-500': withdrawal.status === 'cancelled' || withdrawal.status === 'rejected' || withdrawal.status === 'failed'
+                                    }" class="px-3 py-1 text-sm font-medium rounded-full capitalize" x-text="withdrawal.status === 'pending' ? 'Requested' : withdrawal.status"></span>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4 mb-3">
                                     <div>
-                                        <div class="text-sm text-gray-600 mb-1">Created At:</div>
-                                        <div class="text-sm font-semibold text-gray-900" x-text="formatDate(withdrawal.created_at)"></div>
+                                        <div class="text-sm text-cabinet-text-grey mb-1">Created At:</div>
+                                        <div class="text-sm font-semibold text-cabinet-text-dark" x-text="formatDate(withdrawal.created_at)"></div>
                                     </div>
                                 </div>
 
                                 <div class="space-y-1 mb-3">
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Withdrawal In:</span>
-                                        <span class="text-sm font-semibold text-gray-900" x-text="withdrawal.withdrawal_currency || 'USDT'"></span>
+                                        <span class="text-sm text-cabinet-text-grey">Withdrawal In:</span>
+                                        <span class="text-sm font-semibold text-cabinet-text-dark" x-text="withdrawal.withdrawal_currency || 'USDT'"></span>
                                     </div>
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Transaction Amount:</span>
-                                        <span class="text-lg font-bold text-gray-900" x-text="withdrawal.amount"></span>
+                                        <span class="text-sm text-cabinet-text-grey">Transaction Amount:</span>
+                                        <span class="text-lg font-bold text-cabinet-text-dark" x-text="withdrawal.amount"></span>
                                     </div>
                                 </div>
 
@@ -140,60 +132,60 @@
                 showDetails(withdrawal) {
                     const statusColors = {
                         'completed': 'bg-cabinet-green/20 text-cabinet-green',
-                        'pending': 'bg-amber-100/70 text-amber-700 border border-amber-300',
-                        'processing': 'bg-orange-100 text-cabinet-orange',
-                        'cancelled': 'bg-red-100/50 text-red-600 border border-red-400',
-                        'rejected': 'bg-red-100/50 text-red-600 border border-red-400',
-                        'failed': 'bg-red-100/50 text-red-600 border border-red-400'
+                        'pending': 'bg-amber-500/20 text-amber-500',
+                        'processing': 'bg-orange-500/20 text-cabinet-orange',
+                        'cancelled': 'bg-red-500/20 text-red-500',
+                        'rejected': 'bg-red-500/20 text-red-500',
+                        'failed': 'bg-red-500/20 text-red-500'
                     };
-                    const statusClass = statusColors[withdrawal.status] || 'bg-gray-100 text-gray-800';
+                    const statusClass = statusColors[withdrawal.status] || 'bg-gray-700/20 text-gray-400';
 
                     window.dispatchEvent(new CustomEvent('open-modal', {
                         detail: {
                             title: 'Withdrawal Details',
                             message: `
                                 <div class="space-y-4">
-                                    <div class="bg-gray-50 rounded-lg p-4 space-y-3">
-                                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                                            <span class="text-sm text-gray-600">Transaction ID</span>
-                                            <span class="font-semibold text-gray-900">#${withdrawal.id}</span>
+                                    <div class="bg-cabinet-dark rounded-lg p-4 space-y-3">
+                                        <div class="flex justify-between items-center border-b border-cabinet-grey pb-2">
+                                            <span class="text-sm text-cabinet-text-grey">Transaction ID</span>
+                                            <span class="font-semibold text-cabinet-text-dark">#${withdrawal.id}</span>
                                         </div>
 
-                                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                                            <span class="text-sm text-gray-600">Amount</span>
-                                            <span class="font-bold text-lg text-gray-900">${withdrawal.amount}</span>
+                                        <div class="flex justify-between items-center border-b border-cabinet-grey pb-2">
+                                            <span class="text-sm text-cabinet-text-grey">Amount</span>
+                                            <span class="font-bold text-lg text-cabinet-text-dark">${withdrawal.amount}</span>
                                         </div>
 
-                                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                                            <span class="text-sm text-gray-600">Withdrawal In</span>
-                                            <span class="font-semibold text-gray-900">${withdrawal.withdrawal_currency || 'USDT'}</span>
+                                        <div class="flex justify-between items-center border-b border-cabinet-grey pb-2">
+                                            <span class="text-sm text-cabinet-text-grey">Withdrawal In</span>
+                                            <span class="font-semibold text-cabinet-text-dark">${withdrawal.withdrawal_currency || 'USDT'}</span>
                                         </div>
 
-                                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                                            <span class="text-sm text-gray-600">Status</span>
+                                        <div class="flex justify-between items-center border-b border-cabinet-grey pb-2">
+                                            <span class="text-sm text-cabinet-text-grey">Status</span>
                                             <span class="px-3 py-1 text-xs font-semibold rounded-full ${statusClass} capitalize">
                                                 ${withdrawal.status}
                                             </span>
                                         </div>
 
-                                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                                            <span class="text-sm text-gray-600">Created At</span>
-                                            <span class="font-semibold text-gray-900">${this.formatDate(withdrawal.created_at)}</span>
+                                        <div class="flex justify-between items-center border-b border-cabinet-grey pb-2">
+                                            <span class="text-sm text-cabinet-text-grey">Created At</span>
+                                            <span class="font-semibold text-cabinet-text-dark">${this.formatDate(withdrawal.created_at)}</span>
                                         </div>
 
                                         ${withdrawal.details && withdrawal.details.wallet_address ? `
                                             <div class="pt-2">
-                                                <span class="text-sm text-gray-600 block mb-2">Receiver Address</span>
-                                                <div class="bg-white rounded border border-gray-300 p-3">
-                                                    <code class="text-xs text-gray-800 break-all font-mono">${withdrawal.details.wallet_address}</code>
+                                                <span class="text-sm text-cabinet-text-grey block mb-2">Receiver Address</span>
+                                                <div class="bg-cabinet-dark rounded border border-cabinet-grey p-3">
+                                                    <code class="text-xs text-cabinet-text-dark break-all font-mono">${withdrawal.details.wallet_address}</code>
                                                 </div>
                                             </div>
                                         ` : ''}
 
                                         ${withdrawal.details && withdrawal.details.network ? `
                                             <div class="flex justify-between items-center">
-                                                <span class="text-sm text-gray-600">Network</span>
-                                                <span class="font-semibold text-gray-900 uppercase">${withdrawal.details.network}</span>
+                                                <span class="text-sm text-cabinet-text-grey">Network</span>
+                                                <span class="font-semibold text-cabinet-text-dark uppercase">${withdrawal.details.network}</span>
                                             </div>
                                         ` : ''}
                                     </div>

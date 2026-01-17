@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Arbitex** is a Laravel-based cryptocurrency staking platform for USDT. Users can deposit USDT, create staking deposits with interest, withdraw funds, and earn referral rewards through a multi-tier system.
+**Lumastake** is a Laravel-based cryptocurrency staking platform for USDT. Users can deposit USDT, create staking deposits with interest, withdraw funds, and earn referral rewards through a multi-tier system.
 
 ## Technology Stack
 
@@ -103,7 +103,7 @@ Routes are split across multiple files:
 ### Tailwind CSS 4 Custom Colors
 
 Custom colors are defined in `resources/css/public.css` under `@theme`:
-- `arbitex-green`, `arbitex-pink`, `arbitex-orange`, `arbitex-dark`, `arbitex-gray`, `arbitex-accent`
+- `lumastake-green`, `lumastake-pink`, `lumastake-orange`, `lumastake-dark`, `lumastake-gray`, `lumastake-accent`
 - `cabinet-green`, `cabinet-orange`, `cabinet-red`
 - `cabinet-level-1` through `cabinet-level-5` (referral tier colors)
 - `cabinet-header-bg`, `cabinet-card-border`, `cabinet-table-row`

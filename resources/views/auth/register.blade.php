@@ -5,9 +5,9 @@
     <!-- Mobile Header - only visible on mobile -->
     <div class="md:hidden w-full">
         <!-- Welcome Header -->
-        <div class="bg-arbitex-dark px-6 py-4">
+        <div class="bg-lumastake-navy px-6 py-4">
             <p class="text-white text-lg">
-                Welcome to Lumastake <span class="font-bold text-arbitex-orange">Dashboard</span>
+                Welcome to Lumastake <span class="font-bold text-lumastake-blue">Dashboard</span>
             </p>
         </div>
 
@@ -15,7 +15,7 @@
         <div class="bg-white min-h-screen p-6 text-gray-900">
             <!-- Logo -->
             <div class="flex justify-center mb-8">
-                <img src="{{ asset('assets/b759e555426373ac0810f48438900378efc8f6df.svg') }}" alt="Lumastake" class="w-12 h-12">
+                <img src="{{ asset('img/home/logo-final.png') }}" alt="Lumastake" class="w-12 h-12">
             </div>
 
             <!-- Form -->
@@ -26,7 +26,7 @@
                 <!-- Name -->
                 <div class="relative">
                     <input type="text" id="mobile-name" name="name" value="{{ old('name') }}" required
-                           class="text-base w-full px-4 py-3 rounded-md bg-gray-100 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none "
+                           class="text-base w-full px-4 py-3 rounded-md bg-gray-100 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none "
                            placeholder="Name">
                     @error('name')
                         <span class="text-xs text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -38,8 +38,8 @@
 
                     <div
                         class="flex w-full items-stretch rounded-md border border-gray-300 bg-gray-100
-           overflow-hidden focus-within:border-arbitex-orange focus-within:ring-2
-           focus-within:ring-arbitex-orange/30"
+           overflow-hidden focus-within:border-lumastake-blue focus-within:ring-2
+           focus-within:ring-lumastake-blue/30"
                     >
 
                         <button
@@ -84,7 +84,7 @@
 <!-- Email -->
 <div class="relative">
 <input type="email" id="mobile-email" name="email" value="{{ old('email') }}" required
-     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-base"
+     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-base"
      placeholder="Email">
 @error('email')
   <span class="text-xs text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -94,7 +94,7 @@
 <!-- Password -->
 <div class="relative">
 <input type="password" id="mobile-password" name="password" required
-     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-base"
+     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-base"
      placeholder="Password">
 @error('password')
   <span class="text-xs text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -104,14 +104,14 @@
 <!-- Confirm Password -->
 <div class="relative">
 <input type="password" id="mobile-password_confirmation" name="password_confirmation" required
-     class="w-full px-4 py-3 rounded-md bg-gray-100 border border-gray-300 text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-base"
+     class="w-full px-4 py-3 rounded-md bg-gray-100 border border-gray-300 text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-base"
      placeholder="Confirm Password">
 </div>
 
 <!-- Promo Code (Optional) -->
 <div class="relative">
 <input type="text" id="mobile-promo_code" name="promo_code" value="{{ old('promo_code') }}"
-     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('promo_code') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-base"
+     class="w-full px-4 py-3 rounded-md bg-gray-100 border @error('promo_code') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-base"
      placeholder="Promo Code (Optional)">
 @error('promo_code')
   <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
@@ -122,12 +122,12 @@
 <div class="space-y-2">
     <label class="text-sm text-gray-600">Account Type</label>
     <div class="grid grid-cols-2 gap-3">
-        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-md cursor-pointer has-[:checked]:bg-arbitex-orange/10 has-[:checked]:border-arbitex-orange">
-            <input type="radio" name="account_type" value="normal" class="w-4 h-4 text-arbitex-orange focus:ring-0 focus:outline-none" checked>
+        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-md cursor-pointer has-[:checked]:bg-lumastake-blue/10 has-[:checked]:border-lumastake-blue">
+            <input type="radio" name="account_type" value="normal" class="w-4 h-4 text-lumastake-blue focus:ring-0 focus:outline-none" checked>
             <span class="font-medium text-sm text-gray-700">Normal</span>
         </label>
-        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-md cursor-pointer has-[:checked]:bg-arbitex-orange/10 has-[:checked]:border-arbitex-orange">
-            <input type="radio" name="account_type" value="islamic" class="w-4 h-4 text-arbitex-orange focus:ring-0 focus:outline-none">
+        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-md cursor-pointer has-[:checked]:bg-lumastake-blue/10 has-[:checked]:border-lumastake-blue">
+            <input type="radio" name="account_type" value="islamic" class="w-4 h-4 text-lumastake-blue focus:ring-0 focus:outline-none">
             <span class="font-medium text-sm text-gray-700">Islamic</span>
         </label>
     </div>
@@ -144,7 +144,7 @@
 <p class="text-xs text-red-600">{{ $message }}</p>
 @enderror
 
-<button type="submit" class="w-full bg-arbitex-orange text-white py-3 rounded-md font-semibold text-lg hover:opacity-90 transition-opacity">
+<button type="submit" class="w-full bg-lumastake-blue text-white py-3 rounded-md font-semibold text-lg hover:opacity-90 transition-opacity">
 Register
 </button>
 </form>
@@ -169,7 +169,7 @@ Register
 
 <!-- Login Link -->
 <div class="text-center text-sm text-gray-400">
-Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green font-semibold hover:underline">Login</a>
+Do have an account? <a href="{{ route('login') }}" class="text-lumastake-blue font-semibold hover:underline">Login</a>
 </div>
 </div>
 </div>
@@ -177,16 +177,16 @@ Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green fon
 <!-- Desktop Layout - hidden on mobile -->
 <div class="hidden md:flex w-full container-fixed">
 <!-- Left Panel -->
-<div class="relative w-1/2 bg-arbitex-dark overflow-hidden">
+<div class="relative w-1/2 bg-lumastake-navy overflow-hidden">
 <!-- Background Image -->
 <div class="absolute inset-0 opacity-70">
-<img src="{{ asset('assets/login_bg.jpg') }}" alt="Growth" class="w-full h-full object-cover">
+<img src="{{ asset('img/login/login-bg.png') }}" alt="Growth" class="w-full h-full object-cover">
 </div>
 
 <!-- Content -->
 <div class="relative z-10 flex flex-col justify-center h-full px-12">
 <h1 class="text-4xl lg:text-5xl font-normal text-white mb-2">Welcome to Lumastake</h1>
-<h2 class="text-5xl lg:text-6xl font-bold text-arbitex-orange">Dashboard</h2>
+<h2 class="text-5xl lg:text-6xl font-bold text-lumastake-blue">Dashboard</h2>
 </div>
 </div>
 
@@ -195,7 +195,7 @@ Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green fon
 <div class="w-full max-w-md">
 <!-- Logo -->
 <div class="flex justify-center mb-12">
-<img src="{{ asset('assets/b759e555426373ac0810f48438900378efc8f6df.svg') }}" alt="Lumastake" style="width: 93.05px; height: 80px;">
+<img src="{{ asset('img/home/logo-final.png') }}" alt="Lumastake" style="width: 93.05px; height: 80px;">
 </div>
 
 <!-- Form -->
@@ -206,7 +206,7 @@ Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green fon
 <!-- Name -->
 <div class="relative">
   <input type="text" id="name" name="name" value="{{ old('name') }}" required
-         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
          placeholder="Name">
   @error('name')
       <span class="text-sm text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -223,7 +223,7 @@ Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green fon
               type="button"
               @click="open = !open"
               class="py-6 w-32 px-4 rounded-l-md bg-gray-100 border border-gray-300 border-r-0
-text-gray-600 focus:border-arbitex-orange focus:outline-none text-lg
+text-gray-600 focus:border-lumastake-blue focus:outline-none text-lg
 flex items-center justify-between gap-2"
           >
               <div class="flex items-center gap-2">
@@ -262,7 +262,7 @@ bg-white border border-gray-300 rounded-md shadow-lg max-h-80 overflow-y-auto"
           maxlength="19"
           required
           class="py-6 min-w-0 flex-1 px-6 rounded-r-md bg-gray-100 border border-gray-300 border-l-0
-text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
           placeholder="123 456 7890"
       />
   </div>
@@ -275,7 +275,7 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 <!-- Email -->
 <div class="relative">
   <input type="email" id="email" name="email" value="{{ old('email') }}" required
-         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
          placeholder="Email">
   @error('email')
       <span class="text-sm text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -285,7 +285,7 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 <!-- Password -->
 <div class="relative">
   <input type="password" id="password" name="password" required
-         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
          placeholder="Password">
   @error('password')
       <span class="text-sm text-red-600 mt-1" role="alert">{{ $message }}</span>
@@ -295,14 +295,14 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 <!-- Confirm Password -->
 <div class="relative">
   <input type="password" id="password_confirmation" name="password_confirmation" required
-         class="w-full px-6 py-6 rounded-md bg-gray-100 border border-gray-300 text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+         class="w-full px-6 py-6 rounded-md bg-gray-100 border border-gray-300 text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
          placeholder="Confirm Password">
 </div>
 
 <!-- Promo Code (Optional) -->
 <div class="relative">
   <input type="text" id="promo_code" name="promo_code" value="{{ old('promo_code') }}"
-         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('promo_code') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-none text-lg"
+         class="w-full px-6 py-6 rounded-md bg-gray-100 border @error('promo_code') border-red-500 @else border-gray-300 @enderror text-gray-600 placeholder-gray-400 focus:border-lumastake-blue focus:outline-none text-lg"
          placeholder="Promo Code (Optional)">
   @error('promo_code')
       <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -313,12 +313,12 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 <div class="space-y-3">
     <label class="text-lg text-gray-600">Account Type</label>
     <div class="grid grid-cols-2 gap-4">
-        <label class="register-in flex items-center gap-3 p-4 border border-cabinet-green rounded-lg cursor-pointer has-[:checked]:bg-cabinet-green/80 has-[:checked]:border-cabinet-green ">
-            <input type="radio" name="account_type" value="normal" class="peer w-5 h-5 text-arbitex-orange focus:ring-0 focus:outline-none" checked>
+        <label class="register-in flex items-center gap-3 p-4 border border-lumastake-blue rounded-lg cursor-pointer has-[:checked]:bg-lumastake-blue/80 has-[:checked]:border-lumastake-blue ">
+            <input type="radio" name="account_type" value="normal" class="peer w-5 h-5 text-lumastake-blue focus:ring-0 focus:outline-none" checked>
             <span class="font-medium text-gray-700 peer-checked:text-white">Normal</span>
         </label>
-        <label class="register-in flex items-center gap-3 p-4 border border-cabinet-green rounded-lg cursor-pointer has-[:checked]:bg-cabinet-green/80 has-[:checked]:border-cabinet-green ">
-            <input type="radio" name="account_type" value="islamic" class="peer w-5 h-5 text-arbitex-orange focus:ring-0 focus:outline-none">
+        <label class="register-in flex items-center gap-3 p-4 border border-lumastake-blue rounded-lg cursor-pointer has-[:checked]:bg-lumastake-blue/80 has-[:checked]:border-lumastake-blue ">
+            <input type="radio" name="account_type" value="islamic" class="peer w-5 h-5 text-lumastake-blue focus:ring-0 focus:outline-none">
             <span class="font-medium text-gray-700 peer-checked:text-white">Islamic</span>
         </label>
     </div>
@@ -328,14 +328,14 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 <div class="flex items-start gap-3 py-4">
    <input id="terms" name="terms" type="checkbox" required class="h-5 w-5 mt-1" {{ old('terms') ? 'checked' : '' }} />
    <label for="terms" class="text-gray-600 text-lg">
-      By registering, I consent to the Lumastake <a href="{{ route('terms') }}" class="font-medium text-arbitex-green hover:underline" target="_blank" rel="noopener">Terms of Service</a> and <a href="{{ route('privacy') }}" class="font-medium text-arbitex-green hover:underline" target="_blank" rel="noopener">Privacy Policy</a>.
+      By registering, I consent to the Lumastake <a href="{{ route('terms') }}" class="font-medium text-lumastake-blue hover:underline" target="_blank" rel="noopener">Terms of Service</a> and <a href="{{ route('privacy') }}" class="font-medium text-lumastake-blue hover:underline" target="_blank" rel="noopener">Privacy Policy</a>.
    </label>
 </div>
 @error('terms')
   <p class="text-sm text-red-600">{{ $message }}</p>
 @enderror
 
-<button type="submit" class="w-full bg-arbitex-orange text-white py-6 rounded-md font-semibold text-2xl hover:opacity-90 transition-opacity">
+<button type="submit" class="w-full bg-lumastake-blue text-white py-6 rounded-md font-semibold text-2xl hover:opacity-90 transition-opacity">
   Register
 </button>
 </form>
@@ -360,7 +360,7 @@ text-gray-600 placeholder-gray-400 focus:border-arbitex-orange focus:outline-non
 
 <!-- Login Link -->
 <div class="text-center text-lg text-gray-400">
-Do have an account? <a href="{{ route('login') }}" class="text-arbitex-green font-semibold hover:underline">Login</a>
+Do have an account? <a href="{{ route('login') }}" class="text-lumastake-blue font-semibold hover:underline">Login</a>
 </div>
 </div>
 </div>
@@ -400,7 +400,7 @@ class="relative z-10 bg-white rounded-2xl shadow-2xl w-full mx-4 md:mx-0 max-w-m
 <!-- Icon -->
 <div class="flex justify-center mb-6">
 <div class="w-16 h-16 rounded-full bg-[#FEEAEA] flex items-center justify-center">
-<svg class="w-8 h-8 text-arbitex-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<svg class="w-8 h-8 text-lumastake-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
 </svg>
 </div>
@@ -426,15 +426,15 @@ class="relative z-10 bg-white rounded-2xl shadow-2xl w-full mx-4 md:mx-0 max-w-m
   @input="handleInput($event, i)"
   @keydown.backspace="handleBackspace($event, i)"
   @paste="handlePaste($event)"
-  class="w-10 h-12 md:w-12 md:h-14 text-center text-lg font-medium bg-[#f8f8f8] rounded-md border transition-colors focus:outline-none focus:border-arbitex-orange"
-  :class="code[i-1] ? 'border-arbitex-orange text-arbitex-orange' : 'border-[rgba(68,68,68,0.6)] text-[#cccccc]'"
+  class="w-10 h-12 md:w-12 md:h-14 text-center text-lg font-medium bg-[#f8f8f8] rounded-md border transition-colors focus:outline-none focus:border-lumastake-blue"
+  :class="code[i-1] ? 'border-lumastake-blue text-lumastake-blue' : 'border-[rgba(68,68,68,0.6)] text-[#cccccc]'"
 />
 </template>
 </div>
 
 <!-- Insert Button -->
 <div class="flex justify-center mb-6">
-<button type="button" @click="insertFromClipboard" class="px-4 py-1.5 bg-arbitex-green hover:bg-arbitex-green/90 text-white text-xs font-semibold rounded transition-colors">
+<button type="button" @click="insertFromClipboard" class="px-4 py-1.5 bg-lumastake-blue hover:bg-lumastake-blue/90 text-white text-xs font-semibold rounded transition-colors">
 Insert from Clipboard
 </button>
 </div>
@@ -450,7 +450,7 @@ class="mb-4 text-center text-sm text-red-600">
 <button
 @click="verifyCode"
 :disabled="loading"
-class="w-full bg-arbitex-green text-white py-4 rounded font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 mb-4">
+class="w-full bg-lumastake-blue text-white py-4 rounded font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 mb-4">
 <span x-show="!loading">Continue</span>
 <span x-show="loading">Verifying...</span>
 </button>
@@ -462,7 +462,7 @@ Didn't receive the code?
 @click="resendCode"
 :disabled="loading || resendTimer > 0"
 class="font-medium hover:underline transition-colors"
-:class="resendTimer > 0 ? 'text-gray-400 cursor-not-allowed' : 'text-arbitex-green'">
+:class="resendTimer > 0 ? 'text-gray-400 cursor-not-allowed' : 'text-lumastake-blue'">
 <span x-show="resendTimer === 0">Resend Code</span>
 <span x-show="resendTimer > 0">Resend in <span x-text="resendTimer"></span>s</span>
 </button>
@@ -758,7 +758,7 @@ if (data.success) {
 this.errorMessage = '';
 // Show success message
 const successMsg = document.createElement('div');
-successMsg.className = 'fixed top-4 right-4 bg-arbitex-green text-white px-6 py-3 rounded-lg shadow-lg z-50';
+successMsg.className = 'fixed top-4 right-4 bg-lumastake-blue text-white px-6 py-3 rounded-lg shadow-lg z-50';
 successMsg.textContent = 'New verification code sent! Please check your email.';
 document.body.appendChild(successMsg);
 setTimeout(() => successMsg.remove(), 5000);

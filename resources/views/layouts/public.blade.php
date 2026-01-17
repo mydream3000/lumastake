@@ -119,16 +119,16 @@
     @vite(['resources/css/public.css','resources/js/public.js'])
 
 </head>
-<body class="bg-white text-gray-900 font-poppins overflow-x-hidden">
+<body class="bg-white text-gray-900 font-poppins overflow-x-hidden selection:bg-lumastake-blue selection:text-white">
 
 @include('layouts._partials.header')
 
-<main class="relative overflow-x-clip pt-16 md:pt-24">
+<main class="relative overflow-x-clip">
     @yield('content')
 </main>
 
 <!-- Back to Top Button -->
-<button id="backToTop" class="fixed z-50 bg-lumastake-green text-lumastake-dark p-3 rounded-full shadow-lg hover:bg-lumastake-green/90 transition-all duration-300 opacity-0 invisible translate-y-4">
+<button id="backToTop" class="fixed z-50 bg-lumastake-blue text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 transition-all duration-300 opacity-0 invisible translate-y-4 right-8 bottom-8">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>

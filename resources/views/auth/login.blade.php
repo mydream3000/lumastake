@@ -39,7 +39,7 @@
 
             {{-- Logo --}}
             <div class="mb-8 md:mb-10">
-                <img src="{{ asset('img/logo.png') }}" alt="LumaStake" class="h-12 md:h-16">
+                <img src="{{ asset('img/home/logo-final.png') }}" alt="LumaStake" class="h-12 md:h-16">
             </div>
 
             <div class="w-full max-w-[600px] flex-grow flex flex-col justify-center">

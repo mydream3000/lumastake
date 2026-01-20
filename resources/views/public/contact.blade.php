@@ -51,7 +51,7 @@
                                     <div class="relative">
                                         <button type="button" @click="open = !open"
                                             class="flex items-center gap-2 px-4 h-full border-r border-[#2BA6FF]/30 text-[#262262] font-bold">
-                                            <img :src="'https://flagcdn.com/w40/' + selectedCountry.code.toLowerCase() + '.png'" :alt="selectedCountry.name" class="w-6 h-auto">
+                                            <span class="text-2xl" x-text="selectedCountry.flag"></span>
                                             <span x-text="selectedCountry.phone_code"></span>
                                             <svg class="w-4 h-4 transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
@@ -65,7 +65,7 @@
                                             <template x-for="country in countries" :key="country.code">
                                                 <button type="button" @click="selectCountry(country)"
                                                     class="w-full px-4 py-3 text-left hover:bg-[#E0F2FF] flex items-center gap-3 transition-colors">
-                                                    <img :src="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" :alt="country.name" class="w-6 h-auto">
+                                                    <span class="text-2xl" x-text="country.flag"></span>
                                                     <span x-text="country.phone_code" class="font-bold text-[#3B4EFC] min-w-[3rem]"></span>
                                                     <span x-text="country.name" class="text-gray-600 truncate"></span>
                                                 </button>
@@ -183,7 +183,7 @@
                 open: false,
                 phone: @json(old('phone', '')),
                 countries: [],
-                selectedCountry: {code: 'US', name: 'United States', phone_code: '+1'},
+                selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸'},
 
                 async init() {
                     try {

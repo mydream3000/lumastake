@@ -47,7 +47,7 @@
     <div class="bg-white rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto" @click.outside="open = false">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">Edit Tier</h3>
 
-        <form @submit.prevent="updateTier()">
+        <form @submit.prevent="window.updateTier()">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Level</label>
@@ -206,7 +206,13 @@ window.openEditModal = async function(tierId) {
 
 window.updateTier = async function() {
     const modal = document.querySelector('#edit-tier-modal');
-    const tier = modal.__x.$data.tier;
+    // Alpine v3 data access
+    const alpineData = typeof Alpine !== 'undefined' ? Alpine.$data(modal) : (modal.__x ? modal.__x.$data : null);
+    if (!alpineData || !alpineData.tier) {
+        console.error('Could not find tier data');
+        return;
+    }
+    const tier = alpineData.tier;
 
     try {
         const response = await fetch(`/admin/tiers/${tier.id}`, {
@@ -236,14 +242,14 @@ window.updateTier = async function() {
             return;
         }
 
-        const data = await response.json();
+        const result = await response.json();
 
-        if (data.success) {
-            window.showToast(data.message, 'success');
-            modal.__x.$data.open = false;
+        if (result.success) {
+            window.showToast(result.message, 'success');
+            alpineData.open = false;
             window.dispatchEvent(new Event('datatable-refresh'));
         } else {
-            window.showToast(data.message || 'Error occurred', 'error');
+            window.showToast(result.message || 'Error occurred', 'error');
         }
     } catch (error) {
         window.showToast('Error occurred', 'error');

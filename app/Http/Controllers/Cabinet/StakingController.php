@@ -33,14 +33,28 @@ class StakingController extends Controller
         // Фильтруем только активные стейкинги, которые еще не истекли
         // Истекшие будут обработаны scheduler'ом каждые 5 минут
         $stakes = $user->stakingDeposits()
+            ->with('tier')
             ->where('status', 'active')
             ->where('end_date', '>', now())
             ->latest()
             ->get();
 
+        // Получаем все стейки пользователя для нумерации в рамках каждого tier
+        $allUserStakes = $user->stakingDeposits()->orderBy('id')->get();
+        $tierCounters = [];
+        $stakeNumbers = [];
+        foreach ($allUserStakes as $s) {
+            $tierId = $s->tier_id;
+            if (!isset($tierCounters[$tierId])) {
+                $tierCounters[$tierId] = 0;
+            }
+            $tierCounters[$tierId]++;
+            $stakeNumbers[$s->id] = $tierCounters[$tierId];
+        }
+
         return response()->json([
             'success' => true,
-            'data' => $stakes->map(function ($stake) use ($user) {
+            'data' => $stakes->map(function ($stake) use ($user, $stakeNumbers) {
                 $now = now();
                 // Вычисляем разницу в секундах (положительное = в будущем, отрицательное = в прошлом)
                 $timeLeftSeconds = $stake->end_date->timestamp - $now->timestamp;
@@ -66,9 +80,12 @@ class StakingController extends Controller
                     }
                 }
 
+                $tierName = $stake->tier->name ?? 'Pool';
+                $number = $stakeNumbers[$stake->id] ?? 1;
+
                 return [
                     'id' => $stake->id,
-                    'pool_name' => 'Pool #' . $stake->id,
+                    'pool_name' => $tierName . ' №' . $number,
                     'duration' => $stake->days . ' days',
                     'profit' => $profitDisplay,
                     'amount' => '$' . number_format($stake->amount, 2),

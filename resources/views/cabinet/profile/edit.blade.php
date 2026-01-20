@@ -122,19 +122,33 @@
                 </div>
 
                 {{-- Country --}}
-                <x-cabinet.select
-                    class="col-span-1"
-                    label="Country"
-                    name="country"
-                    :value="$user->country"
-                    placeholder="Select country"
-                >
-                    @foreach($countries as $country)
-                        <option value="{{ $country->code }}" {{ old('country', $user->country) === $country->code ? 'selected' : '' }}>
-                            {{ $country->name }}
-                        </option>
-                    @endforeach
-                </x-cabinet.select>
+                <div class="col-span-1" x-data="countrySelector('{{ $user->country }}', {{ json_encode($countries) }})">
+                    <label class="block font-poppins font-normal text-base md:text-lg xl:text-[28px] text-[#CCCCCC] mb-1 md:mb-2">Country</label>
+                    <div class="relative">
+                        <button type="button" @click="open = !open"
+                                class="w-full bg-[#F8F8F8] border border-[rgba(68,68,68,0.6)] rounded-md px-3 py-2 md:px-4 md:py-3 xl:py-4 font-poppins text-sm md:text-base xl:text-lg flex items-center justify-between focus:outline-none focus:border-cabinet-green transition">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl" x-text="selected.flag"></span>
+                                <span x-text="selected.name"></span>
+                            </div>
+                            <svg class="w-5 h-5 text-cabinet-orange transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="open" @click.away="open = false" x-cloak
+                             class="absolute z-50 mt-1 w-full bg-white border border-[rgba(68,68,68,0.6)] rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            <template x-for="c in countries" :key="c.code">
+                                <button type="button" @click="select(c)"
+                                        class="w-full px-4 py-2 text-left hover:bg-gray-100 flex items-center gap-3 font-poppins transition-colors">
+                                    <span class="text-xl" x-text="c.flag"></span>
+                                    <span x-text="c.name"></span>
+                                </button>
+                            </template>
+                        </div>
+                        <input type="hidden" name="country" :value="selected.code">
+                    </div>
+                </div>
             </div>
 
             {{-- Submit Button --}}
@@ -390,6 +404,18 @@
     @endpush
 @push('scripts')
 <script>
+function countrySelector(initialCode = '', allCountries = []) {
+    return {
+        open: false,
+        countries: allCountries,
+        selected: allCountries.find(c => c.code === initialCode) || allCountries.find(c => c.code === 'US') || {code: '', name: 'Select Country', flag: ''},
+        select(country) {
+            this.selected = country;
+            this.open = false;
+        }
+    }
+}
+
 function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso = '') {
     return {
         open: false,
@@ -405,22 +431,24 @@ function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso =
                 }
             } catch (e) { console.error('Failed to load countries', e); }
 
-            // Prefer initial values; fallback to GeoIP
+            // Try to find the best match
             let picked = null;
-            if (initialDialCode) {
-                picked = this.countries.find(c => c.phone_code === initialDialCode);
-            }
-            if (!picked && initialIso) {
-                picked = this.countries.find(c => c.code === initialIso);
-            }
-            if (!picked) {
-                try {
-                    const resp2 = await fetch('/api/v1/geoip/country');
-                    const d2 = await resp2.json();
-                    if (d2.success && d2.country) {
-                        picked = this.countries.find(c => c.code === d2.country.country_code) || null;
-                    }
-                } catch (e) { /* ignore */ }
+            if (this.countries.length > 0) {
+                if (initialIso) {
+                    picked = this.countries.find(c => c.code === initialIso);
+                }
+                if (!picked && initialDialCode) {
+                    picked = this.countries.find(c => c.phone_code === initialDialCode);
+                }
+                if (!picked) {
+                    try {
+                        const resp2 = await fetch('/api/v1/geoip/country');
+                        const d2 = await resp2.json();
+                        if (d2.success && d2.country) {
+                            picked = this.countries.find(c => c.code === d2.country.country_code);
+                        }
+                    } catch (e) {}
+                }
             }
             if (picked) this.selectedCountry = picked;
         },

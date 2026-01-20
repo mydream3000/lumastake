@@ -33,7 +33,10 @@ class HistoryController extends Controller
 
     public function getData(Request $request)
     {
-        $query = StakingDeposit::where('user_id', auth()->id())
+        $userId = auth()->id();
+
+        $query = StakingDeposit::with('tier')
+            ->where('user_id', $userId)
             ->whereIn('status', ['completed', 'unstaked', 'cancelled'])
             ->latest();
 
@@ -51,9 +54,22 @@ class HistoryController extends Controller
 
         $deposits = $query->get();
 
+        // Получаем все стейки пользователя для нумерации в рамках каждого tier
+        $allUserStakes = StakingDeposit::where('user_id', $userId)->orderBy('id')->get();
+        $tierCounters = [];
+        $stakeNumbers = [];
+        foreach ($allUserStakes as $s) {
+            $tierId = $s->tier_id;
+            if (!isset($tierCounters[$tierId])) {
+                $tierCounters[$tierId] = 0;
+            }
+            $tierCounters[$tierId]++;
+            $stakeNumbers[$s->id] = $tierCounters[$tierId];
+        }
+
         return response()->json([
             'success' => true,
-            'data' => $deposits->map(function ($deposit) {
+            'data' => $deposits->map(function ($deposit) use ($stakeNumbers) {
                 // Для active статуса рассчитываем теоретический профит, для остальных берем earned_profit
                 if ($deposit->status === 'active') {
                     $profitValue = $deposit->amount * ($deposit->percentage / 100);
@@ -68,9 +84,12 @@ class HistoryController extends Controller
                     }
                 }
 
+                $tierName = $deposit->tier->name ?? 'Pool';
+                $number = $stakeNumbers[$deposit->id] ?? 1;
+
                 return [
                     'id' => $deposit->id,
-                    'pool_name' => 'Pool #' . $deposit->id,
+                    'pool_name' => $tierName . ' №' . $number,
                     'duration' => $deposit->days . ' days',
                     'profit' => number_format($deposit->percentage, 2),
                     'amount' => '$' . number_format($deposit->amount, 2),

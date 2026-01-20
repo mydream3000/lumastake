@@ -199,11 +199,29 @@
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-12">
-                        <div class="md:col-span-2">
-                            <select v-model="formData.nationality" class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-6 py-4 text-xl focus:outline-none">
-                                <option value="" disabled>Nationality</option>
-                                <option v-for="c in countries" :key="c.code" :value="c.code">{{ c.flag }} {{ c.name }}</option>
-                            </select>
+                        <div class="md:col-span-2 relative">
+                            <label class="text-[#989898] block mb-2">Nationality</label>
+                            <button
+                                type="button"
+                                @click="nationalityDropdownOpen = !nationalityDropdownOpen"
+                                class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-6 py-4 text-xl focus:outline-none flex items-center justify-between"
+                            >
+                                <span v-if="selectedNationality">{{ selectedNationality.flag }} {{ selectedNationality.name }}</span>
+                                <span v-else class="text-gray-400">Select Nationality</span>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="{'rotate-180': nationalityDropdownOpen}"></i>
+                            </button>
+
+                            <div v-if="nationalityDropdownOpen" class="absolute z-50 left-0 right-0 mt-2 bg-white border border-[#2BA6FF] rounded-[10px] shadow-xl max-h-60 overflow-y-auto">
+                                <div
+                                    v-for="c in countries"
+                                    :key="c.code"
+                                    @click="selectNationality(c)"
+                                    class="px-6 py-3 hover:bg-[#E5F3FF] cursor-pointer flex items-center gap-3 text-xl"
+                                >
+                                    <span>{{ c.flag }}</span>
+                                    <span>{{ c.name }}</span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="md:col-span-2">
@@ -229,10 +247,29 @@
                         </div>
 
                         <div class="md:col-span-2 flex gap-4">
-                            <div class="w-1/3">
-                                <select v-model="formData.country_code" class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-4 py-4 text-xl focus:outline-none">
-                                    <option v-for="c in countries" :key="c.code" :value="c.phone_code">{{ c.flag }} {{ c.code }} ({{ c.phone_code }})</option>
-                                </select>
+                            <div class="w-1/3 relative">
+                                <button
+                                    type="button"
+                                    @click="countryCodeDropdownOpen = !countryCodeDropdownOpen"
+                                    class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-4 py-4 text-xl focus:outline-none flex items-center justify-between"
+                                >
+                                    <span v-if="selectedCountryCode">{{ selectedCountryCode.flag }} {{ selectedCountryCode.phone_code }}</span>
+                                    <span v-else class="text-gray-400">Code</span>
+                                    <i class="fas fa-chevron-down text-gray-400 text-xs transition-transform" :class="{'rotate-180': countryCodeDropdownOpen}"></i>
+                                </button>
+
+                                <div v-if="countryCodeDropdownOpen" class="absolute z-50 left-0 w-[300px] mt-2 bg-white border border-[#2BA6FF] rounded-[10px] shadow-xl max-h-60 overflow-y-auto">
+                                    <div
+                                        v-for="c in countries"
+                                        :key="c.code"
+                                        @click="selectCountryCode(c)"
+                                        class="px-4 py-2 hover:bg-[#E5F3FF] cursor-pointer flex items-center gap-3 text-lg"
+                                    >
+                                        <span>{{ c.flag }}</span>
+                                        <span class="font-bold text-[#3b4efc] w-12">{{ c.phone_code }}</span>
+                                        <span class="text-gray-600 truncate">{{ c.name }}</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="w-2/3">
                                 <input v-model="formData.phone" type="tel" placeholder="Phone Number" class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-6 py-4 text-xl focus:outline-none">
@@ -306,6 +343,8 @@ export default {
             showPassword: false,
             resendTimer: 0,
             countries: [],
+            nationalityDropdownOpen: false,
+            countryCodeDropdownOpen: false,
             passValidations: {
                 length: false,
                 number: false,
@@ -314,6 +353,12 @@ export default {
         }
     },
     computed: {
+        selectedNationality() {
+            return this.countries.find(c => c.code === this.formData.nationality)
+        },
+        selectedCountryCode() {
+            return this.countries.find(c => c.phone_code === this.formData.country_code)
+        },
         stepTitle() {
             const titles = {
                 1: 'Welcome to Luma Stake Dashboard',
@@ -331,12 +376,29 @@ export default {
     },
     mounted() {
         this.loadCountries()
-        // If ref is in URL, it's already in refCode prop
+        document.addEventListener('click', this.closeDropdowns)
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.closeDropdowns)
     },
     methods: {
+        closeDropdowns(e) {
+            if (!e.target.closest('.relative')) {
+                this.nationalityDropdownOpen = false
+                this.countryCodeDropdownOpen = false
+            }
+        },
         nextStep(s) {
             this.step = s
             window.scrollTo(0, 0)
+        },
+        selectNationality(country) {
+            this.formData.nationality = country.code
+            this.nationalityDropdownOpen = false
+        },
+        selectCountryCode(country) {
+            this.formData.country_code = country.phone_code
+            this.countryCodeDropdownOpen = false
         },
         async loadCountries() {
             try {

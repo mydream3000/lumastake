@@ -13,7 +13,17 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        return view('cabinet.profile.show', ['user' => auth()->user()]);
+        $user = auth()->user();
+        $country = null;
+        if ($user->country) {
+            $allCountries = \App\Helpers\GeoIpHelper::getAllCountries();
+            $country = collect($allCountries)->firstWhere('code', $user->country);
+        }
+
+        return view('cabinet.profile.show', [
+            'user' => $user,
+            'country' => $country
+        ]);
     }
 
     /**
@@ -76,7 +86,7 @@ class ProfileController extends Controller
     {
         return view('cabinet.profile.edit', [
             'user' => auth()->user(),
-            'countries' => Country::orderBy('name')->get(),
+            'countries' => \App\Helpers\GeoIpHelper::getAllCountries(),
         ]);
     }
 

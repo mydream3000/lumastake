@@ -133,8 +133,13 @@
                 <div class="flex items-center justify-between gap-4">
                     <span class="shrink-0 font-poppins text-sm md:text-base xl:text-xl text-[#444444]">Phone:</span>
                     <span class="min-w-0 grow text-right font-poppins text-sm md:text-base xl:text-xl text-black">
-        @php $phone = trim((string) ($user->phone ?? '')); @endphp
+                        @php
+                            $phone = trim((string) ($user->phone ?? ''));
+                            $allCountries = \App\Helpers\GeoIpHelper::getAllCountries();
+                            $phoneCountry = collect($allCountries)->firstWhere('phone_code', $user->country_code);
+                        @endphp
                         @if($phone !== '')
+                            @if($phoneCountry) {{ $phoneCountry['flag'] }} @endif
                             @if(Str::startsWith($phone, '+'))
                                 {{ $phone }}
                             @else
@@ -143,15 +148,19 @@
                         @else
                             Not specified
                         @endif
-      </span>
+                    </span>
                 </div>
 
                 {{-- Country --}}
                 <div class="flex items-center justify-between gap-4">
                     <span class="shrink-0 font-poppins text-sm md:text-base xl:text-xl text-[#444444]">Country:</span>
                     <span class="min-w-0 grow text-right font-poppins text-sm md:text-base xl:text-xl text-black">
-        {{ $user->country ?? 'Not specified' }}
-      </span>
+                        @if($country)
+                            {{ $country['flag'] }} {{ $country['name'] }}
+                        @else
+                            {{ $user->country ?? 'Not specified' }}
+                        @endif
+                    </span>
                 </div>
 
             </div>

@@ -177,13 +177,13 @@
                 <div class="relative rounded-lg " style="background-color: {{ $tierColor }}1A;">
                     {{-- Left accent bar with diamond --}}
                     <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
-                    <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2">
+                    <div class="absolute left-[2px] top-1/2 -translate-y-1/2 -translate-x-1/2">
                         <div class="w-3 h-3 rotate-45 border-2 border-white" style="background-color: {{ $tierColor }};"></div>
                     </div>
 
                     {{-- Content --}}
                     <div class="pl-5 pr-4 py-3">
-                        <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center justify-between mb-1 pb-2 border-b border-b-gray-800">
                             <span class="font-bold text-cabinet-text-main">{{ $tier->name }}</span>
                             <span class="text-sm text-gray-500">{{ $days }} Days</span>
                         </div>

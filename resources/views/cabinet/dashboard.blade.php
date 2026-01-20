@@ -38,53 +38,52 @@
                 @endphp
 
                 {{-- Balance Card --}}
-                <div class="card p-6 bg-cabinet-light-blue border-cabinet-blue/20 relative overflow-hidden" x-data="{ progressWidth: 0 }" x-init="setTimeout(() => progressWidth = {{ $progress * 100 }}, 100)">
-                    <div class="relative z-10">
-                        <div class="flex items-center justify-between mb-8">
-                            <h3 class="font-bold text-2xl text-cabinet-text-main">Balance</h3>
-                            <div class="bg-cabinet-blue p-2 rounded-lg">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            </div>
+                @php
+                    $progressPercent = min(max($progress * 100, 0), 100);
+                @endphp
+                <div class="card p-6 pb-4 bg-cabinet-light-blue border-cabinet-blue/20">
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="font-bold text-2xl text-cabinet-text-main">Balance</h3>
+                        <div class="bg-cabinet-blue p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         </div>
-                        <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-4" x-text="$store.userBalance.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' USDT'">
-                            {{ number_format($user->available_balance, 0) }} USDT
-                        </p>
-                        <p class="text-sm text-cabinet-text-secondary">
-                            @if($nextTier)
-                                {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
-                            @else
-                                Maximum Tier Reached
-                            @endif
-                        </p>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/30">
-                        <div class="h-full bg-cabinet-blue transition-all duration-1000 ease-out" :style="'width: ' + progressWidth + '%'"></div>
+                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2" x-text="$store.userBalance.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' USDT'">
+                        {{ number_format($user->available_balance, 0) }} USDT
+                    </p>
+                    <div class="w-full rounded-full h-2 mb-2 overflow-hidden" style="background-color: rgba(59, 78, 252, 0.2);" x-data="{ width: 0 }" x-init="setTimeout(() => width = {{ $progressPercent }}, 100)">
+                        <div class="h-full bg-cabinet-blue rounded-full transition-all duration-1000 ease-out" style="width: {{ $progressPercent }}%" x-bind:style="'width: ' + width + '%'"></div>
                     </div>
+                    <p class="text-sm text-cabinet-text-secondary">
+                        @if($nextTier)
+                            {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
+                        @else
+                            Maximum Tier Reached
+                        @endif
+                    </p>
                 </div>
 
                 {{-- Amount Staked Card --}}
-                <div class="card p-6 bg-cabinet-light-yellow border-cabinet-lime/20 relative overflow-hidden" x-data="{ progressWidth: 0 }" x-init="setTimeout(() => progressWidth = {{ $progress * 100 }}, 100)">
-                    <div class="relative z-10">
-                        <div class="flex items-center justify-between mb-8">
-                            <h3 class="font-bold text-2xl text-cabinet-text-main">Amount Staked</h3>
-                            <div class="bg-cabinet-lime p-2 rounded-lg">
-                                <svg class="w-6 h-6 text-cabinet-text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
+                <div class="card p-6 pb-4 bg-cabinet-light-yellow border-cabinet-lime/20">
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="font-bold text-2xl text-cabinet-text-main">Amount Staked</h3>
+                        <div class="bg-cabinet-lime p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-cabinet-text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
-                        <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-4">
-                            {{ number_format($totalStaked, 2) }} USDT
-                        </p>
-                        <p class="text-sm text-cabinet-text-secondary">
-                            @if($nextTier)
-                                {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
-                            @else
-                                Maximum Tier Reached
-                            @endif
-                        </p>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/30">
-                        <div class="h-full bg-cabinet-lime transition-all duration-1000 ease-out" :style="'width: ' + progressWidth + '%'"></div>
+                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2">
+                        {{ number_format($totalStaked, 2) }} USDT
+                    </p>
+                    <div class="w-full rounded-full h-2 mb-2 overflow-hidden" style="background-color: rgba(227, 255, 59, 0.3);" x-data="{ width: 0 }" x-init="setTimeout(() => width = {{ $progressPercent }}, 100)">
+                        <div class="h-full bg-cabinet-lime rounded-full transition-all duration-1000 ease-out" style="width: {{ $progressPercent }}%" x-bind:style="'width: ' + width + '%'"></div>
                     </div>
+                    <p class="text-sm text-cabinet-text-secondary">
+                        @if($nextTier)
+                            {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
+                        @else
+                            Maximum Tier Reached
+                        @endif
+                    </p>
                 </div>
             </div>
 

@@ -95,7 +95,7 @@
 
             <!-- Actions -->
             <div class="flex items-center gap-3">
-                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                <button type="submit" class="px-6 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
                     <i class="fas fa-save mr-2"></i>Update Promo Code
                 </button>
                 <a href="{{ route('admin.promo.index') }}" class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">

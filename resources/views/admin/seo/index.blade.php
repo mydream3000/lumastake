@@ -92,7 +92,7 @@
                               class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 font-mono text-sm">{{ $seoSettings[$key]->schema_json ?? '' }}</textarea>
                     <p class="text-xs text-gray-500 mt-1">Example: {&quot;@@context&quot;: &quot;https://schema.org&quot;, ...}</p>
                 </div>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="submit" class="px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
                     Update {{ $page['title'] }} SEO
                 </button>
             </form>
@@ -105,7 +105,7 @@
                 @csrf
                 <textarea name="robots_txt" rows="10" required
                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 font-mono text-sm">{{ $globalSeo->robots_txt ?? '' }}</textarea>
-                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="submit" class="mt-4 px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
                     Update Robots.txt
                 </button>
             </form>

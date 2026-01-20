@@ -119,7 +119,7 @@
         </nav>
     </div>
     <!-- Bottom decorative image (desktop only) -->
-    <div class="hidden md:block px-[12px] pb-6 select-none">
+    <div class="hidden md:block px-[12px] select-none">
         <img src="{{ asset('img/dashboard-img/growth_1.png') }}" alt="" class="w-full h-auto pointer-events-none">
     </div>
 </div>

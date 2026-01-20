@@ -90,7 +90,16 @@
         <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-14 h-14 rounded-full">
         <div>
             <div class="text-2xl font-semibold text-cabinet-blue flex items-center gap-2">Welcome Back <span>👋</span></div>
-            <div class="text-base text-cabinet-text-main font-medium">{{ $user->name }} | <span class="text-cabinet-blue font-extrabold">{{ $currentTier->name ?? 'No Tier' }}</span></div>
+            <div class="text-base text-cabinet-text-main font-medium">
+                {{ $user->name }} |
+                <button
+                    type="button"
+                    @if($currentTier) x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $currentTier->id }}'})" @endif
+                    class="text-cabinet-blue font-extrabold hover:underline"
+                >
+                    {{ $currentTier->name ?? 'No Tier' }}
+                </button>
+            </div>
         </div>
     </div>
     <div class="flex items-center gap-3">

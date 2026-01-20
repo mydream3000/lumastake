@@ -11,14 +11,18 @@
                     $isCompleted = $currentTier && $currentTier->level > $tier->level;
                 @endphp
                 <div class="flex items-center gap-2">
-                    <span class="flex items-center gap-1.5 {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}">
+                    <button
+                        type="button"
+                        x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
+                        class="flex items-center gap-1.5 transition-opacity hover:opacity-80 {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
+                    >
                         {{ $tier->name }}
                         @if($isCompleted)
                             <svg class="w-4 h-4 text-cabinet-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         @elseif($isCurrent)
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         @endif
-                    </span>
+                    </button>
                     @if(!$loop->last)
                         <svg class="w-3 h-3 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
                     @endif

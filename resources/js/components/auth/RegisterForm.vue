@@ -372,20 +372,25 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': this.csrfToken
                     },
                     body: JSON.stringify({ email: this.formData.email })
                 })
+
                 const data = await response.json()
-                if (data.success) {
+
+                if (response.ok && data.success) {
                     this.nextStep(3)
                     this.startResendTimer()
                 } else {
-                    this.errors.email = data.message || 'Failed to send code'
+                    this.errors.email = data.message || (data.errors && data.errors.email ? data.errors.email[0] : 'Failed to send code')
                     if (window.showToast) window.showToast(this.errors.email, 'error')
                 }
             } catch (e) {
-                if (window.showToast) window.showToast('Something went wrong', 'error')
+                console.error('Email submit error:', e)
+                if (window.showToast) window.showToast('Server error. Please refresh the page.', 'error')
             } finally {
                 this.loading = false
             }
@@ -413,6 +418,8 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': this.csrfToken
                     },
                     body: JSON.stringify({
@@ -421,14 +428,16 @@ export default {
                     })
                 })
                 const data = await response.json()
-                if (data.success) {
+                if (response.ok && data.success) {
                     this.nextStep(4)
                 } else {
-                    if (window.showToast) window.showToast(data.message || 'Invalid code', 'error')
+                    const msg = data.message || 'Invalid code'
+                    if (window.showToast) window.showToast(msg, 'error')
                     this.codeDigits = ['', '', '', '', '', '']
                     this.$refs.codeInputs[0].focus()
                 }
             } catch (e) {
+                console.error('Code verify error:', e)
                 if (window.showToast) window.showToast('Verification failed', 'error')
             } finally {
                 this.loading = false
@@ -453,16 +462,22 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': this.csrfToken
                     },
                     body: JSON.stringify({ email: this.formData.email })
                 })
                 const data = await response.json()
-                if (data.success) {
+                if (response.ok && data.success) {
                     if (window.showToast) window.showToast('Code resent!', 'success')
                     this.startResendTimer()
+                } else {
+                    const msg = data.message || 'Failed to resend code'
+                    if (window.showToast) window.showToast(msg, 'error')
                 }
             } catch (e) {
+                console.error('Resend code error:', e)
                 if (window.showToast) window.showToast('Failed to resend code', 'error')
             } finally {
                 this.loading = false
@@ -482,18 +497,22 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': this.csrfToken
                     },
                     body: JSON.stringify(this.formData)
                 })
                 const data = await response.json()
-                if (data.success) {
+                if (response.ok && data.success) {
                     if (window.showToast) window.showToast('Registration complete!', 'success')
                     window.location.href = data.redirect || '/dashboard'
                 } else {
-                    if (window.showToast) window.showToast(data.message || 'Registration failed', 'error')
+                    const msg = data.message || (data.errors ? Object.values(data.errors).flat()[0] : 'Registration failed')
+                    if (window.showToast) window.showToast(msg, 'error')
                 }
             } catch (e) {
+                console.error('Finalize error:', e)
                 if (window.showToast) window.showToast('Something went wrong', 'error')
             } finally {
                 this.loading = false

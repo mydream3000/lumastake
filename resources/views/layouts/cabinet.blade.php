@@ -136,7 +136,60 @@
 <x-cabinet.rightbar name="deposit-sidebar" title="Deposit" />
 <x-cabinet.rightbar name="withdraw-sidebar" title="Withdraw" />
 @foreach($allTiers as $tier)
-    <x-cabinet.rightbar name="tier-{{ $tier->id }}" :title="$tier->name" />
+    <x-cabinet.rightbar name="tier-{{ $tier->id }}" :title="$tier->name">
+        {{-- Balance Range --}}
+        <div class="mb-6">
+            <p class="text-xl font-bold text-cabinet-text-main">
+                ${{ number_format($tier->min_balance, 0) }} – ${{ number_format($tier->max_balance ?? 999999, 0) }} USDT
+            </p>
+        </div>
+
+        {{-- Tier Percentages --}}
+        <div class="space-y-3">
+            @php
+                $percentages = $user->account_type === 'islamic'
+                    ? $tier->islamicPercentages()->orderBy('duration_days')->get()
+                    : $tier->percentages()->orderBy('days')->get();
+            @endphp
+
+            @forelse($percentages as $percentage)
+                @php
+                    $days = $user->account_type === 'islamic' ? $percentage->duration_days : $percentage->days;
+                    $percent = $user->account_type === 'islamic'
+                        ? $percentage->min_percentage . '% - ' . $percentage->max_percentage . '%'
+                        : $percentage->percentage . '%';
+
+                    // Color based on days
+                    $bgColor = match(true) {
+                        $days <= 10 => 'bg-cabinet-light-blue border-cabinet-blue/30',
+                        $days <= 30 => 'bg-cabinet-light-yellow border-cabinet-lime/30',
+                        $days <= 60 => 'bg-blue-50 border-blue-200',
+                        $days <= 90 => 'bg-purple-50 border-purple-200',
+                        default => 'bg-green-50 border-green-200',
+                    };
+                    $textColor = match(true) {
+                        $days <= 10 => 'text-cabinet-blue',
+                        $days <= 30 => 'text-cabinet-lime',
+                        $days <= 60 => 'text-blue-600',
+                        $days <= 90 => 'text-purple-600',
+                        default => 'text-green-600',
+                    };
+                @endphp
+                <div class="p-4 rounded-lg border {{ $bgColor }}">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-cabinet-text-main">{{ $tier->name }}</span>
+                        <span class="text-sm text-gray-500">{{ $days }} Days</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Return On Investment</span>
+                        <span class="font-bold {{ $textColor }}">{{ $percent }}</span>
+                    </div>
+                </div>
+            @empty
+                <p class="text-gray-500 text-sm">No investment pools available for this tier.</p>
+            @endforelse
+        </div>
+    </x-cabinet.rightbar>
 @endforeach
 <x-toast />
 <x-universal-modal />

@@ -183,7 +183,7 @@
 
                     {{-- Content --}}
                     <div class="pl-5 pr-4 py-3">
-                        <div class="flex items-center justify-between mb-1 pb-2 border-b border-b-gray-800">
+                        <div class="flex items-center justify-between mb-1 pb-2 border-b border-dashed border-b-gray-800">
                             <span class="font-bold text-cabinet-text-main">{{ $tier->name }}</span>
                             <span class="text-sm text-gray-500">{{ $days }} Days</span>
                         </div>

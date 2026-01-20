@@ -38,7 +38,7 @@
                 @endphp
 
                 {{-- Balance Card --}}
-                <div class="card p-6 bg-cabinet-light-blue border-cabinet-blue/20 relative overflow-hidden">
+                <div class="card p-6 bg-cabinet-light-blue border-cabinet-blue/20 relative overflow-hidden" x-data="{ progressWidth: 0 }" x-init="setTimeout(() => progressWidth = {{ $progress * 100 }}, 100)">
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-8">
                             <h3 class="font-bold text-2xl text-cabinet-text-main">Balance</h3>
@@ -49,9 +49,6 @@
                         <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-4" x-text="$store.userBalance.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' USDT'">
                             {{ number_format($user->available_balance, 0) }} USDT
                         </p>
-                        <div class="w-full bg-white/50 rounded-full h-2 mb-2">
-                            <div class="bg-cabinet-blue h-2 rounded-full" style="width: {{ $progress * 100 }}%"></div>
-                        </div>
                         <p class="text-sm text-cabinet-text-secondary">
                             @if($nextTier)
                                 {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
@@ -60,11 +57,13 @@
                             @endif
                         </p>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-1 bg-cabinet-blue h-3/4"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/30">
+                        <div class="h-full bg-cabinet-blue transition-all duration-1000 ease-out" :style="'width: ' + progressWidth + '%'"></div>
+                    </div>
                 </div>
 
                 {{-- Amount Staked Card --}}
-                <div class="card p-6 bg-cabinet-light-yellow border-cabinet-lime/20 relative overflow-hidden">
+                <div class="card p-6 bg-cabinet-light-yellow border-cabinet-lime/20 relative overflow-hidden" x-data="{ progressWidth: 0 }" x-init="setTimeout(() => progressWidth = {{ $progress * 100 }}, 100)">
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-8">
                             <h3 class="font-bold text-2xl text-cabinet-text-main">Amount Staked</h3>
@@ -75,9 +74,6 @@
                         <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-4">
                             {{ number_format($totalStaked, 2) }} USDT
                         </p>
-                        <div class="w-full bg-white/50 rounded-full h-2 mb-2">
-                            <div class="bg-cabinet-lime h-2 rounded-full" style="width: {{ $progress * 100 }}%"></div>
-                        </div>
                         <p class="text-sm text-cabinet-text-secondary">
                             @if($nextTier)
                                 {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
@@ -86,7 +82,9 @@
                             @endif
                         </p>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-1 bg-cabinet-lime h-3/4"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/30">
+                        <div class="h-full bg-cabinet-lime transition-all duration-1000 ease-out" :style="'width: ' + progressWidth + '%'"></div>
+                    </div>
                 </div>
             </div>
 

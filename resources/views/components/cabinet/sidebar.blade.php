@@ -100,7 +100,7 @@
             {{-- Rewards --}}
             <a href="{{ route('cabinet.rewards') }}"
                class="flex items-center gap-4 px-8 py-3 font-manrope font-medium text-[22px] leading-tight rounded-xl transition-colors
-                      {{ request()->routeIs('cabinet.rewards') ? 'sidebar-active' : 'text-white hover:bg-white/10' }}">
+                      {{ request()->routeIs('cabinet.rewards') ? 'sidebar-active-reward bg-white/15 text-cabinet-lime' : 'text-white hover:bg-white/10' }}">
                 <div class="w-8 flex justify-center">
                     <img src="{{ asset('images/sidebar/icon-reward.png') }}" alt="Rewards" class="w-7 h-7">
                 </div>

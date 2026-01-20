@@ -80,6 +80,7 @@ class ReferralController extends Controller
             ->sum('amount');
 
         return view('cabinet.rewards', compact(
+            'user',
             'totalReferrals',
             'activeReferrals',
             'referrals',

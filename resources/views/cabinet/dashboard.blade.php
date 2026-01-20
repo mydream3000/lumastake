@@ -111,7 +111,7 @@
                         </div>
                         <p class="text-base font-bold text-cabinet-text-main mb-3">Earn the Profits</p>
                         <div class="flex items-center gap-3 w-full">
-                            <input type="text" readonly value="{{ url('/register?ref=' . $user->referral_code) }}" id="referral-link" class="flex-1 bg-gray-50 border border-gray-200 text-gray-500 rounded-lg px-4 py-3 text-sm">
+                            <input type="text" readonly value="{{ url('/register?ref=' . $user->uuid) }}" id="referral-link" class="flex-1 bg-gray-50 border border-gray-200 text-gray-500 rounded-lg px-4 py-3 text-sm">
                         </div>
                     </div>
                 </div>

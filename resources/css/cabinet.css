@@ -100,6 +100,9 @@ textarea:focus {
 .sidebar-active img {
     filter: brightness(0) invert(1) !important;
 }
+.sidebar-active-reward img {
+    filter: invert(86%) sepia(74%) saturate(632%) hue-rotate(7deg) brightness(104%) contrast(105%) !important;
+}
 nav a img, nav button img {
     filter: brightness(0) invert(1);
 }

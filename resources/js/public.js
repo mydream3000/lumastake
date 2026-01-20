@@ -1,8 +1,47 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
+import { createApp } from 'vue'
 
 window.Alpine = Alpine;
 Alpine.start();
+
+/**
+ * Кастомный лоадер для монтирования Vue компонентов
+ */
+function mountComponent(selector, component, props = {}) {
+    const element = document.querySelector(selector)
+    if (!element) return null
+
+    if (typeof component === 'string') {
+        import(`./components/${component}.vue`)
+            .then(module => {
+                const mountPoint = document.createElement('div')
+                element.appendChild(mountPoint)
+                const app = createApp(module.default, props)
+                app.mount(mountPoint)
+            })
+            .catch(err => console.error(`Failed to load component ${component}:`, err))
+    } else {
+        const mountPoint = document.createElement('div')
+        element.appendChild(mountPoint)
+        const app = createApp(component, props)
+        return app.mount(mountPoint)
+    }
+}
+
+window.mountComponent = mountComponent
+
+// Автоматическое монтирование компонентов
+document.addEventListener('DOMContentLoaded', () => {
+    const registerFormEl = document.querySelector('.js-register-form')
+    if (registerFormEl) {
+        import('./components/auth/RegisterForm.vue').then(module => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+            const refCode = registerFormEl.dataset.ref
+            mountComponent('.js-register-form', module.default, { csrfToken, refCode })
+        })
+    }
+});
 
 // === CUSTOM CURSOR ===
 document.addEventListener('DOMContentLoaded', () => {

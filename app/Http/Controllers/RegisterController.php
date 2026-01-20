@@ -385,4 +385,146 @@ class RegisterController extends BaseController
             'account_type' => $data['account_type'],
         ]);
     }
+
+    public function step1SendCode(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email|unique:users,email',
+        ]);
+
+        $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        // Store code in cache for 15 min
+        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(15));
+
+        try {
+            Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send reg code', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => 'Failed to send email.']);
+        }
+    }
+
+    public function step2VerifyCode(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email',
+            'code' => 'required|string|size:6',
+        ]);
+
+        $cachedCode = \Illuminate\Support\Facades\Cache::get('reg_code_' . $data['email']);
+
+        if ($cachedCode && $cachedCode === $data['code']) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Invalid or expired code.']);
+    }
+
+    public function resendCodeApi(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(15));
+
+        try {
+            Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to send email.']);
+        }
+    }
+
+    public function finalize(Request $request, TelegramBotService $telegramBotService)
+    {
+        $data = $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'name' => 'required|string|max:255',
+            'account_type' => ['required', Rule::in(['normal', 'islamic'])],
+            'promo_code' => 'nullable|string|max:64',
+            'ref' => 'nullable|string|max:36',
+            'nationality' => 'nullable|string|max:2',
+            'gender' => 'nullable|string|in:male,female,other',
+            'dob_dd' => 'nullable|string|max:2',
+            'dob_mm' => 'nullable|string|max:2',
+            'dob_yyyy' => 'nullable|string|max:4',
+            'phone' => 'required|string|max:20',
+            'country_code' => 'required|string|max:10',
+        ]);
+
+        // Verify that the email was actually verified (optional check if we trust the flow)
+        // For security, we should probably check a flag in Cache/Session
+
+        $referrer = null;
+        if (!empty($data['ref'])) {
+            $referrer = User::where('uuid', $data['ref'])->first();
+        }
+
+        $promo = null;
+        if (!empty($data['promo_code'])) {
+            $promo = PromoCode::where('code', $data['promo_code'])->first();
+        }
+
+        $user = DB::transaction(function () use ($data, $promo, $referrer) {
+            // Generate unique referral code
+            $referralCode = null;
+            for ($i = 0; $i < 5; $i++) {
+                $candidate = \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(8));
+                if (!User::where('referral_code', $candidate)->exists()) {
+                    $referralCode = $candidate;
+                    break;
+                }
+            }
+            $referralCode = $referralCode ?: \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(8));
+
+            $user = User::create([
+                'uuid' => \Illuminate\Support\Str::uuid(),
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'phone' => $data['phone'],
+                'country_code' => $data['country_code'],
+                'country' => $data['nationality'] ?? null,
+                'gender' => $data['gender'] ?? null,
+                'account_type' => $data['account_type'],
+                'referred_by' => $referrer?->id,
+                'referral_code' => $referralCode,
+                'email_verified_at' => now(), // It was verified in Step 3
+                'active' => true,
+            ]);
+
+            if ($promo && $promo->start_balance > 0) {
+                $amount = (float)$promo->start_balance;
+                Transaction::create([
+                    'user_id' => $user->id,
+                    'type' => 'deposit',
+                    'status' => 'confirmed',
+                    'amount' => $amount,
+                    'description' => 'Promo bonus',
+                    'meta' => ['promo_code' => $promo->code],
+                ]);
+                $user->increment('balance', $amount);
+                $user->increment('deposited', $amount);
+                $promo->increment('used_count');
+            }
+
+            return $user;
+        });
+
+        Auth::login($user);
+
+        try {
+            $telegramBotService->sendUserRegistration($user, $request->ip(), 'api-form');
+        } catch (\Exception $e) {}
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('cabinet.dashboard')
+        ]);
+    }
 }

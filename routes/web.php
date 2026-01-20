@@ -75,6 +75,12 @@ Route::post('/register/verify-email', [RegisterController::class, 'verifyEmail']
 Route::post('/register/resend-code', [RegisterController::class, 'resendCode'])->middleware('throttle:3,1')->name('register.resend-code');
 Route::post('/register/save-account-type', [RegisterController::class, 'saveAccountType'])->name('register.save-account-type');
 
+// New Multi-step API routes
+Route::post('/register/step1-send-code', [RegisterController::class, 'step1SendCode'])->middleware('throttle:3,1');
+Route::post('/register/step2-verify-code', [RegisterController::class, 'step2VerifyCode'])->middleware('throttle:10,1');
+Route::post('/register/resend-code-api', [RegisterController::class, 'resendCodeApi'])->middleware('throttle:3,1');
+Route::post('/register/finalize', [RegisterController::class, 'finalize']);
+
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 // Password Reset Routes

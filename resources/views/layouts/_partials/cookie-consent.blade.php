@@ -2,8 +2,8 @@
 <div x-data="cookieConsent()"
      x-show="showBanner"
      x-cloak
-     class="cookies-accepts fixed bottom-0 left-0 right-0 z-[9999] bg-lumastake-dark/95 backdrop-blur-sm border-t border-lumastake-blue/30 shadow-2xl"
-     style="display: none;">
+     class="cookies-accepts fixed bottom-0 left-0 right-0 z-[9999] backdrop-blur-xl border-t border-white/20 shadow-2xl"
+     style="display: none; background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(230,240,255,0.85) 100%);">
 
     <div class="container mx-auto px-4 py-4 md:py-6">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -13,20 +13,20 @@
                 <div class="flex items-start gap-3">
                     {{-- Icon --}}
                     <div class="flex-shrink-0 mt-1">
-                        <svg class="w-5 h-5 md:w-6 md:h-6 text-lumastake-lime" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-lumastake-blue" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 9a1 1 0 112 0v4a1 1 0 11-2 0V9zm1-5a1 1 0 100 2 1 1 0 000-2z"/>
                         </svg>
                     </div>
 
                     {{-- Text --}}
                     <div class="flex-1">
-                        <h3 class="text-white font-semibold text-sm md:text-base mb-1">We Use Cookies</h3>
-                        <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-gray-900 font-semibold text-sm md:text-base mb-1">We Use Cookies</h3>
+                        <p class="text-gray-700 text-xs md:text-sm leading-relaxed">
                             We use cookies and similar technologies to provide, secure, and improve our services.
                             By clicking "Accept All", you consent to our use of cookies.
                             You can manage your preferences or learn more in our
-                            <a href="{{ route('privacy') }}" class="text-lumastake-blue hover:text-lumastake-light-blue underline font-medium" target="_blank" rel="noopener">Privacy Policy</a> and
-                            <a href="{{ route('terms') }}" class="text-lumastake-blue hover:text-lumastake-light-blue underline font-medium" target="_blank" rel="noopener">Terms of Service</a>.
+                            <a href="{{ route('privacy') }}" class="text-lumastake-blue hover:text-lumastake-navy underline font-medium" target="_blank" rel="noopener">Privacy Policy</a> and
+                            <a href="{{ route('terms') }}" class="text-lumastake-blue hover:text-lumastake-navy underline font-medium" target="_blank" rel="noopener">Terms of Service</a>.
                         </p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 
                 {{-- Close Button --}}
                 <button @click="closeBanner"
-                        class="flex-shrink-0 p-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        class="flex-shrink-0 p-2 text-gray-500 hover:text-gray-900 transition-colors duration-200">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>

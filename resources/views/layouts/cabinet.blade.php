@@ -174,7 +174,7 @@
                         ? $percentage->min_percentage . '% - ' . $percentage->max_percentage . '%'
                         : $percentage->percentage . '%';
                 @endphp
-                <div class="relative rounded-lg overflow-hidden" style="background-color: {{ $tierColor }}1A;">
+                <div class="relative rounded-lg " style="background-color: {{ $tierColor }}1A;">
                     {{-- Left accent bar with diamond --}}
                     <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
                     <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2">

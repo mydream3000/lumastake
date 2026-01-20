@@ -22,9 +22,15 @@
                             {{ number_format($user->available_balance, 0) }} USDT
                         </p>
                         <div class="w-full bg-white/50 rounded-full h-2 mb-2">
-                            <div class="bg-cabinet-blue h-2 rounded-full" style="width: 70%"></div>
+                            <div class="bg-cabinet-blue h-2 rounded-full" style="width: {{ $progress * 100 }}%"></div>
                         </div>
-                        <p class="text-sm text-cabinet-text-secondary">668.53 USDT to reach Diamond</p>
+                        <p class="text-sm text-cabinet-text-secondary">
+                            @if($nextTier)
+                                {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
+                            @else
+                                Maximum Tier Reached
+                            @endif
+                        </p>
                     </div>
                     <div class="absolute bottom-0 left-0 w-1 bg-cabinet-blue h-3/4"></div>
                 </div>
@@ -42,11 +48,49 @@
                             {{ number_format($totalStaked, 2) }} USDT
                         </p>
                         <div class="w-full bg-white/50 rounded-full h-2 mb-2">
-                            <div class="bg-cabinet-lime h-2 rounded-full" style="width: 45%"></div>
+                            <div class="bg-cabinet-lime h-2 rounded-full" style="width: {{ $progress * 100 }}%"></div>
                         </div>
-                        <p class="text-sm text-cabinet-text-secondary">552.53 USDT to reach Diamond</p>
+                        <p class="text-sm text-cabinet-text-secondary">
+                            @if($nextTier)
+                                {{ number_format($remainingToNextTier, 2) }} USDT to reach {{ $nextTier->name }}
+                            @else
+                                Maximum Tier Reached
+                            @endif
+                        </p>
                     </div>
                     <div class="absolute bottom-0 left-0 w-1 bg-cabinet-lime h-3/4"></div>
+                </div>
+            </div>
+
+            {{-- Tiers Section --}}
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-bold text-cabinet-text-main">Tiers</h2>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    @php
+                        $tiersForDisplay = \App\Models\Tier::orderBy('level')->get();
+                    @endphp
+                    @foreach($tiersForDisplay as $tier)
+                        @php
+                            $isCurrent = $currentTier && $currentTier->id === $tier->id;
+                            $isCompleted = $currentTier && $currentTier->level >= $tier->level;
+                        @endphp
+                        <div class="p-4 rounded-xl border {{ $isCurrent ? 'bg-cabinet-light-blue border-cabinet-blue ring-2 ring-cabinet-blue/20' : ($isCompleted ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-100 opacity-60') }} flex flex-col items-center text-center transition-all relative">
+                            @if($isCurrent)
+                                <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-cabinet-blue text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Current</span>
+                            @endif
+                            <div class="w-10 h-10 rounded-full {{ $isCompleted ? 'bg-cabinet-blue text-white' : 'bg-gray-200 text-gray-400' }} flex items-center justify-center mb-3">
+                                @if($isCompleted)
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                @else
+                                    <span class="text-xs font-bold">{{ $tier->level }}</span>
+                                @endif
+                            </div>
+                            <h4 class="font-bold text-xs {{ $isCurrent ? 'text-cabinet-blue' : 'text-cabinet-text-main' }} mb-1">{{ $tier->name }}</h4>
+                            <p class="text-[9px] text-gray-400 font-medium italic">Min. ${{ number_format($tier->min_balance, 0) }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -214,13 +258,23 @@
             const pool = pools.find(p => p.id === poolId);
 
             if (pool && amount > 0) {
-                const minProfit = parseFloat(pool.profit.split('-')[0]) / 100;
-                const maxProfit = parseFloat(pool.profit.split('-')[1]) / 100;
+                let minProfit, maxProfit;
+
+                if (pool.profit.includes('-')) {
+                    minProfit = parseFloat(pool.profit.split('-')[0]) / 100;
+                    maxProfit = parseFloat(pool.profit.split('-')[1]) / 100;
+                } else {
+                    minProfit = maxProfit = parseFloat(pool.profit) / 100;
+                }
 
                 const minReturn = amount * minProfit;
                 const maxReturn = amount * maxProfit;
 
-                calcResult.innerText = `${minReturn.toFixed(2)} USDT - ${maxReturn.toFixed(2)} USDT`;
+                if (minReturn === maxReturn) {
+                    calcResult.innerText = `${minReturn.toFixed(2)} USDT`;
+                } else {
+                    calcResult.innerText = `${minReturn.toFixed(2)} USDT - ${maxReturn.toFixed(2)} USDT`;
+                }
             } else {
                 calcResult.innerText = 'Please enter a valid amount';
             }

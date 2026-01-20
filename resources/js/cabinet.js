@@ -158,4 +158,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Инициализация Alpine.js - должна быть ДО загрузки DOM, но определение window.Alpine до start()
 window.Alpine = Alpine
+
+// Alpine Store for global user data
+document.addEventListener('alpine:init', () => {
+    Alpine.store('userBalance', {
+        balance: 0,
+        availableBalance: 0,
+        hasPendingWithdraw: false,
+        pendingWithdrawAmount: 0,
+
+        init() {
+            this.refresh();
+            // Refresh balance every 60 seconds
+            setInterval(() => this.refresh(), 60000);
+        },
+
+        async refresh() {
+            try {
+                const response = await axios.get('/dashboard/balance/state');
+                if (response.data.success) {
+                    this.balance = response.data.balance;
+                    this.availableBalance = response.data.available_balance;
+                    this.hasPendingWithdraw = response.data.has_pending_withdraw;
+                    this.pendingWithdrawAmount = response.data.pending_withdraw_amount;
+                }
+            } catch (error) {
+                console.error('Failed to refresh balance:', error);
+            }
+        }
+    });
+});
+
 Alpine.start()

@@ -202,7 +202,7 @@
                         <div class="md:col-span-2">
                             <select v-model="formData.nationality" class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-6 py-4 text-xl focus:outline-none">
                                 <option value="" disabled>Nationality</option>
-                                <option v-for="c in countries" :key="c.code" :value="c.code">{{ c.name }}</option>
+                                <option v-for="c in countries" :key="c.code" :value="c.code">{{ c.flag }} {{ c.name }}</option>
                             </select>
                         </div>
 
@@ -231,7 +231,7 @@
                         <div class="md:col-span-2 flex gap-4">
                             <div class="w-1/3">
                                 <select v-model="formData.country_code" class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-4 py-4 text-xl focus:outline-none">
-                                    <option v-for="c in countries" :key="c.code" :value="c.phone_code">{{ c.code }} ({{ c.phone_code }})</option>
+                                    <option v-for="c in countries" :key="c.code" :value="c.phone_code">{{ c.flag }} {{ c.code }} ({{ c.phone_code }})</option>
                                 </select>
                             </div>
                             <div class="w-2/3">

@@ -92,8 +92,11 @@ textarea:focus {
 /* Sidebar active link style */
 .sidebar-active {
     background-color: rgba(255, 255, 255, 0.15);
-    color: var(--color-cabinet-lime) !important;
+    color: #FFFFFF !important;
 }
 .sidebar-active img {
-    filter: invert(88%) sepia(59%) saturate(677%) hue-rotate(18deg) brightness(108%) contrast(101%);
+    filter: brightness(0) invert(1) !important;
+}
+nav a img, nav button img {
+    filter: brightness(0) invert(1);
 }

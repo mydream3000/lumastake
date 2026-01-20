@@ -91,7 +91,7 @@
 
                             {{-- Eye Icon Toggle --}}
                             <button type="button" @click="togglePassword($el)" class="absolute right-6 md:right-8 top-1/2 -translate-y-1/2 text-[#2BA6FF]">
-                                <img src="{{ asset('img/login/f5db2e8213dae77711adde1ebe72e3ce4259bf89.png') }}" alt="Show" class="w-8 h-6 md:w-10 md:h-8 opacity-70">
+                                <img src="{{ asset('img/login/eyed.png') }}" alt="Show" class="w-8 h-6 md:w-10 md:h-8 opacity-70">
                             </button>
 
                             <template x-if="errors.password">

@@ -1,36 +1,4 @@
 <x-cabinet-layout>
-    {{-- Tiers Bar --}}
-    @php
-        $tiersForDisplay = \App\Models\Tier::orderBy('level')->get();
-        // Recalculate current tier for display consistency
-        $totalAmount = $user->balance + $user->stakingDeposits()->where('status', 'active')->sum('amount');
-        $activeTier = \App\Models\Tier::where('min_balance', '<=', $totalAmount)->orderBy('level', 'desc')->first() ?: $tiersForDisplay->first();
-    @endphp
-    <div class="card px-6 py-4 mb-6 overflow-x-auto">
-        <div class="flex items-center gap-4 min-w-max">
-            @foreach($tiersForDisplay as $index => $tier)
-                @php
-                    $isCurrent = $activeTier && $activeTier->id === $tier->id;
-                    $isCompleted = $activeTier && $activeTier->level > $tier->level;
-                @endphp
-                <div class="flex items-center gap-4">
-                    <button
-                        type="button"
-                        x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
-                        class="flex items-center gap-1.5 transition-opacity hover:opacity-80 {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
-                    >
-                        <span class="text-base">{{ $tier->name }}</span>
-                    </button>
-                    @if(!$loop->last)
-                        <svg class="w-3 h-3 text-gray-300 rotate-[-90deg]" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 21l-12-18h24z"></path>
-                        </svg>
-                    @endif
-                </div>
-            @endforeach
-        </div>
-    </div>
-
     <div class="flex items-center justify-between mb-8">
         <h2 class="text-3xl font-extrabold text-cabinet-text-main">Rewards</h2>
         <div class="text-cabinet-blue font-bold text-lg bg-cabinet-blue/5 px-4 py-2 rounded-lg">

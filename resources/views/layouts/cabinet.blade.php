@@ -97,35 +97,71 @@
 </div>
 
 <!-- Desktop Top Header -->
-<div class="hidden lg:flex items-center justify-between bg-white p-6 border-b border-cabinet-border fixed left-[346px] right-0 z-30 {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
-    <div class="flex items-center gap-4">
-        <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-14 h-14 rounded-full">
-        <div>
-            <div class="text-2xl font-semibold text-cabinet-blue flex items-center gap-2">Welcome Back <span>👋</span></div>
-            <div class="text-base text-cabinet-text-main font-medium">
-                {{ $user->name }} |
-                <button
-                    type="button"
-                    @if($currentTier) x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $currentTier->id }}'})" @endif
-                    class="text-cabinet-blue font-extrabold hover:underline"
-                >
-                    {{ $currentTier->name ?? 'No Tier' }}
-                </button>
+<div class="hidden lg:flex flex-col bg-white border-b border-cabinet-border fixed left-[346px] right-0 z-30 {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
+    <div class="flex items-center justify-between p-6">
+        <div class="flex items-center gap-4">
+            <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-14 h-14 rounded-full">
+            <div>
+                <div class="text-2xl font-semibold text-cabinet-blue flex items-center gap-2">Welcome Back <span>👋</span></div>
+                <div class="text-base text-cabinet-text-main font-medium">
+                    {{ $user->name }} |
+                    <button
+                        type="button"
+                        @if($currentTier) x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $currentTier->id }}'})" @endif
+                        class="text-cabinet-blue font-extrabold hover:underline"
+                    >
+                        {{ $currentTier->name ?? 'No Tier' }}
+                    </button>
+                </div>
             </div>
         </div>
+        <div class="flex items-center gap-3">
+            @if($user->is_admin)
+                <a href="{{ route('admin.dashboard') }}" class="px-6 py-2.5 bg-cabinet-blue text-white rounded-md font-semibold text-sm uppercase hover:bg-cabinet-blue/90 transition">Admin Panel</a>
+            @endif
+            <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'deposit-sidebar'})" class="px-6 py-2.5 bg-cabinet-blue text-white rounded-md font-semibold text-sm uppercase hover:bg-cabinet-blue/90 transition">Deposit</button>
+            <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'withdraw-sidebar'})" class="px-6 py-2.5 bg-cabinet-lime text-cabinet-text-main rounded-md font-semibold text-sm uppercase hover:bg-cabinet-lime/90 transition">Withdraw</button>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 inline-block transition text-gray-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="flex items-center gap-3">
-        @if($user->is_admin)
-            <a href="{{ route('admin.dashboard') }}" class="px-6 py-2.5 bg-cabinet-blue text-white rounded-md font-semibold text-sm uppercase hover:bg-cabinet-blue/90 transition">Admin Panel</a>
-        @endif
-        <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'deposit-sidebar'})" class="px-6 py-2.5 bg-cabinet-blue text-white rounded-md font-semibold text-sm uppercase hover:bg-cabinet-blue/90 transition">Deposit</button>
-        <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'withdraw-sidebar'})" class="px-6 py-2.5 bg-cabinet-lime text-cabinet-text-main rounded-md font-semibold text-sm uppercase hover:bg-cabinet-lime/90 transition">Withdraw</button>
-        <form method="POST" action="{{ route('logout') }}" class="inline">
-            @csrf
-            <button type="submit" class="p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 inline-block transition text-gray-500">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-            </button>
-        </form>
+
+    {{-- Tiers Bar (Header Version) --}}
+    @php
+        $totalAmount = $user->balance + $user->stakingDeposits()->where('status', 'active')->sum('amount');
+        $activeTier = \App\Models\Tier::where('min_balance', '<=', $totalAmount)->orderBy('level', 'desc')->first() ?: $allTiers->first();
+    @endphp
+    <div class="px-6 pb-4 overflow-x-auto scrollbar-hide">
+        <div class="bg-[#101221]/5 border border-cabinet-border rounded-[10px] p-2">
+            <div class="flex items-center gap-0 min-w-max">
+                @foreach($allTiers as $index => $tier)
+                    @php
+                        $isCurrent = $activeTier && $activeTier->id === $tier->id;
+                        $isCompleted = $activeTier && $activeTier->level > $tier->level;
+                    @endphp
+                    <div class="flex items-center">
+                        <button
+                            type="button"
+                            x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
+                            class="flex items-center gap-2 px-3 py-1.5 transition-all hover:bg-black/5 rounded-md {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
+                        >
+                            <span class="text-[14px] leading-none">{{ $tier->name }}</span>
+                            <svg class="w-2 h-2 {{ $isCurrent ? 'text-cabinet-blue' : 'text-gray-400' }}" viewBox="0 0 8 8" fill="currentColor">
+                                <path d="M0 0L8 4L0 8V0Z" />
+                            </svg>
+                        </button>
+
+                        @if(!$loop->last)
+                            <div class="h-6 w-px bg-cabinet-border mx-1"></div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
 @endif
@@ -136,7 +172,7 @@
 
     <div class="flex-1 flex flex-col min-w-0">
         <!-- Page Content -->
-        <main class="flex-1 bg-cabinet-bg pt-[52px] lg:pt-[98px] w-full">
+        <main class="flex-1 bg-cabinet-bg pt-[52px] lg:pt-[158px] w-full">
             <div class="px-4 lg:px-8 py-4 lg:py-8">
                 {{ $slot }}
             </div>

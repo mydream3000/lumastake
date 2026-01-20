@@ -158,31 +158,24 @@
                     $percent = $user->account_type === 'islamic'
                         ? $percentage->min_percentage . '% - ' . $percentage->max_percentage . '%'
                         : $percentage->percentage . '%';
-
-                    // Color based on days
-                    $bgColor = match(true) {
-                        $days <= 10 => 'bg-cabinet-light-blue border-cabinet-blue/30',
-                        $days <= 30 => 'bg-cabinet-light-yellow border-cabinet-lime/30',
-                        $days <= 60 => 'bg-blue-50 border-blue-200',
-                        $days <= 90 => 'bg-purple-50 border-purple-200',
-                        default => 'bg-green-50 border-green-200',
-                    };
-                    $textColor = match(true) {
-                        $days <= 10 => 'text-cabinet-blue',
-                        $days <= 30 => 'text-cabinet-lime',
-                        $days <= 60 => 'text-blue-600',
-                        $days <= 90 => 'text-purple-600',
-                        default => 'text-green-600',
-                    };
                 @endphp
-                <div class="p-4 rounded-lg border {{ $bgColor }}">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="font-semibold text-cabinet-text-main">{{ $tier->name }}</span>
-                        <span class="text-sm text-gray-500">{{ $days }} Days</span>
+                <div class="relative bg-cabinet-light-yellow rounded-lg overflow-hidden">
+                    {{-- Left accent bar with diamond --}}
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-cabinet-lime"></div>
+                    <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2">
+                        <div class="w-3 h-3 bg-cabinet-lime rotate-45 border-2 border-white"></div>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Return On Investment</span>
-                        <span class="font-bold {{ $textColor }}">{{ $percent }}</span>
+
+                    {{-- Content --}}
+                    <div class="pl-5 pr-4 py-3">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-bold text-cabinet-text-main">{{ $tier->name }}</span>
+                            <span class="text-sm text-gray-500">{{ $days }} Days</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Return On Investment</span>
+                            <span class="font-bold text-cabinet-lime">{{ $percent }}</span>
+                        </div>
                     </div>
                 </div>
             @empty

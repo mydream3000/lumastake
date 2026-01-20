@@ -32,7 +32,9 @@
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
 }
-
+.bg-cabinet-orange{
+    background: var( --color-cabinet-lime);
+}
 body {
     background-color: var(--color-cabinet-bg);
     color: var(--color-cabinet-text-main);

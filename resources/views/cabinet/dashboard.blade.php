@@ -1,4 +1,32 @@
 <x-cabinet-layout>
+    {{-- Tiers Bar --}}
+    @php
+        $tiersForDisplay = \App\Models\Tier::orderBy('level')->get();
+    @endphp
+    <div class="card px-6 py-4 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 min-w-max">
+            @foreach($tiersForDisplay as $index => $tier)
+                @php
+                    $isCurrent = $currentTier && $currentTier->id === $tier->id;
+                    $isCompleted = $currentTier && $currentTier->level > $tier->level;
+                @endphp
+                <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1.5 {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}">
+                        {{ $tier->name }}
+                        @if($isCompleted)
+                            <svg class="w-4 h-4 text-cabinet-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        @elseif($isCurrent)
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        @endif
+                    </span>
+                    @if(!$loop->last)
+                        <svg class="w-3 h-3 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {{-- Left Column (2/3) --}}
         <div class="lg:col-span-2 flex flex-col gap-6">
@@ -59,38 +87,6 @@
                         </p>
                     </div>
                     <div class="absolute bottom-0 left-0 w-1 bg-cabinet-lime h-3/4"></div>
-                </div>
-            </div>
-
-            {{-- Tiers Section --}}
-            <div class="card p-6">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-xl font-bold text-cabinet-text-main">Tiers</h2>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                    @php
-                        $tiersForDisplay = \App\Models\Tier::orderBy('level')->get();
-                    @endphp
-                    @foreach($tiersForDisplay as $tier)
-                        @php
-                            $isCurrent = $currentTier && $currentTier->id === $tier->id;
-                            $isCompleted = $currentTier && $currentTier->level >= $tier->level;
-                        @endphp
-                        <div class="p-4 rounded-xl border {{ $isCurrent ? 'bg-cabinet-light-blue border-cabinet-blue ring-2 ring-cabinet-blue/20' : ($isCompleted ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-100 opacity-60') }} flex flex-col items-center text-center transition-all relative">
-                            @if($isCurrent)
-                                <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-cabinet-blue text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Current</span>
-                            @endif
-                            <div class="w-10 h-10 rounded-full {{ $isCompleted ? 'bg-cabinet-blue text-white' : 'bg-gray-200 text-gray-400' }} flex items-center justify-center mb-3">
-                                @if($isCompleted)
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                @else
-                                    <span class="text-xs font-bold">{{ $tier->level }}</span>
-                                @endif
-                            </div>
-                            <h4 class="font-bold text-xs {{ $isCurrent ? 'text-cabinet-blue' : 'text-cabinet-text-main' }} mb-1">{{ $tier->name }}</h4>
-                            <p class="text-[9px] text-gray-400 font-medium italic">Min. ${{ number_format($tier->min_balance, 0) }}</p>
-                        </div>
-                    @endforeach
                 </div>
             </div>
 

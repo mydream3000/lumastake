@@ -34,6 +34,7 @@
 }
 .bg-cabinet-orange{
     background: var( --color-cabinet-lime);
+    color: var(--color-cabinet-text-main);
 }
 body {
     background-color: var(--color-cabinet-bg);

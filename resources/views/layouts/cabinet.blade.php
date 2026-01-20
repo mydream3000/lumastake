@@ -32,9 +32,21 @@
 </head>
 <body class="font-sans antialiased bg-cabinet-bg text-cabinet-text-main overflow-x-hidden" x-data="{ mobileMenuOpen: false, rightbarOpen: '', openRightbar(name) { this.rightbarOpen = name; }, closeRightbar() { this.rightbarOpen = ''; } }" x-on:open-rightbar.window="openRightbar($event.detail.name)" x-on:close-rightbar.window="closeRightbar()">
 
+@if($impersonating ?? false)
+    <div class="bg-red-600 text-white py-2 px-4 flex items-center justify-center gap-4 fixed top-0 left-0 right-0 z-[100] h-14">
+        <span class="font-bold text-sm md:text-base">Impersonating: {{ auth()->user()->name }}</span>
+        <form action="{{ route('admin.return-to-admin') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit" class="bg-white text-red-600 px-3 py-1 rounded-md text-xs md:text-sm font-bold hover:bg-gray-100 transition whitespace-nowrap">
+                Back to Admin
+            </button>
+        </form>
+    </div>
+@endif
+
 @if($showTopBar)
 <!-- Mobile Top Header -->
-<div class="lg:hidden fixed top-0 left-0 right-0 bg-white px-4 py-3 z-30 w-full border-b border-cabinet-border">
+<div class="lg:hidden fixed left-0 right-0 bg-white px-4 py-3 z-30 w-full border-b border-cabinet-border {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
     <div class="flex items-center justify-between gap-3">
         <a href="{{ route('cabinet.dashboard') }}"><img src="{{ asset('images/sidebar/logo-white.png') }}" alt="Lumastake" class="h-6 brightness-0"></a>
         <div class="flex items-center gap-2 flex-1 justify-center">
@@ -85,7 +97,7 @@
 </div>
 
 <!-- Desktop Top Header -->
-<div class="hidden lg:flex items-center justify-between bg-white p-6 border-b border-cabinet-border fixed top-0 left-[346px] right-0 z-30 {{ (($impersonating ?? false) && !$user->is_admin) ? 'top-14' : '' }}">
+<div class="hidden lg:flex items-center justify-between bg-white p-6 border-b border-cabinet-border fixed left-[346px] right-0 z-30 {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
     <div class="flex items-center gap-4">
         <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-14 h-14 rounded-full">
         <div>
@@ -118,7 +130,7 @@
 </div>
 @endif
 
-<div class="flex min-h-screen bg-cabinet-bg {{ (($impersonating ?? false) && !$user->is_admin) ? 'pt-14' : '' }}">
+<div class="flex min-h-screen bg-cabinet-bg {{ ($impersonating ?? false) ? 'pt-14' : '' }}">
     <!-- Sidebar -->
     <x-cabinet.sidebar />
 

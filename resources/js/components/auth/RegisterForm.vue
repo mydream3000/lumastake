@@ -335,6 +335,7 @@ export default {
                 dob_yyyy: '',
                 phone: '',
                 country_code: '',
+                phone_country: '',
                 account_type: 'normal',
                 ref: this.refCode || ''
             },
@@ -357,6 +358,9 @@ export default {
             return this.countries.find(c => c.code === this.formData.nationality)
         },
         selectedCountryCode() {
+            if (this.formData.phone_country) {
+                return this.countries.find(c => c.code === this.formData.phone_country)
+            }
             return this.countries.find(c => c.phone_code === this.formData.country_code)
         },
         stepTitle() {
@@ -398,27 +402,36 @@ export default {
         },
         selectCountryCode(country) {
             this.formData.country_code = country.phone_code
+            this.formData.phone_country = country.code
             this.countryCodeDropdownOpen = false
         },
         async loadCountries() {
             try {
-                const response = await fetch('/api/v1/geoip/countries')
+                // Use the same endpoint as in contacts
+                const response = await fetch('/api/geoip/countries')
                 const data = await response.json()
                 if (data.success) {
                     this.countries = data.countries
                     // Auto-detect country
-                    const geoResponse = await fetch('/api/v1/geoip/country')
+                    const geoResponse = await fetch('/api/geoip/country')
                     const geoData = await geoResponse.json()
                     if (geoData.success) {
                         const country = this.countries.find(c => c.code === geoData.country.country_code)
                         if (country) {
                             this.formData.nationality = country.code
                             this.formData.country_code = country.phone_code
+                            this.formData.phone_country = country.code
                         }
                     }
                 }
             } catch (e) {
                 console.error('Failed to load countries', e)
+                // Fallback to v1 if main fails
+                try {
+                    const response = await fetch('/api/v1/geoip/countries')
+                    const data = await response.json()
+                    if (data.success) this.countries = data.countries
+                } catch(e2) {}
             }
         },
         async handleEmailSubmit() {

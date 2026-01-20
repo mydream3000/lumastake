@@ -6,26 +6,27 @@
     <data-table
       :data="transactions"
       :columns="columns"
-      :grid-cols="16"
+      :grid-cols="15"
       default-sort="created_at"
       default-sort-order="desc"
       :default-per-page="10"
+      :row-class="getRowClass"
     >
       <template #cell-status="{ value }">
         <span
-          class="px-3 py-1 rounded-full text-xs font-bold inline-block uppercase"
+          class="px-3 py-1 rounded-full text-xs font-medium inline-block capitalize"
           :class="getStatusClass(value)"
         >
-          {{ value }}
+          {{ getStatusLabel(value) }}
         </span>
       </template>
 
       <template #cell-details="{ row }">
         <button
           @click="showDetails(row)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-blue text-white hover:bg-cabinet-blue/80 font-bold uppercase transition"
+          class="px-4 py-1.5 text-xs rounded-md border border-cabinet-blue text-cabinet-blue hover:bg-cabinet-blue/10 font-medium transition"
         >
-          View
+          Details
         </button>
       </template>
 
@@ -33,7 +34,7 @@
         <button
           v-if="row.can_cancel"
           @click="cancelWithdraw(row.id)"
-          class="px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm rounded-md bg-cabinet-red text-white hover:bg-cabinet-red/80 font-bold uppercase transition"
+          class="px-4 py-1.5 text-xs rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 font-medium transition"
         >
           Cancel
         </button>
@@ -68,10 +69,10 @@
               <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <div class="text-xs font-bold text-gray-400 uppercase mb-1">Status</div>
                 <span
-                  class="px-3 py-1 rounded-full text-xs font-bold inline-block uppercase mt-1"
+                  class="px-3 py-1 rounded-full text-xs font-medium inline-block capitalize mt-1"
                   :class="getStatusClass(selectedTransaction.status)"
                 >
-                  {{ selectedTransaction.status }}
+                  {{ getStatusLabel(selectedTransaction.status) }}
                 </span>
               </div>
               <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
@@ -146,28 +147,46 @@ const selectedTransaction = ref(null)
 
 const columns = [
   {
-    key: 'type',
-    label: 'Type',
+    key: 'number',
+    label: 'S. No.',
     sortable: true,
-    span: 3,
+    span: 1,
     headerClass: 'text-left',
-    cellClass: 'text-cabinet-blue font-bold'
+    cellClass: 'text-gray-500 font-medium'
+  },
+  {
+    key: 'type',
+    label: 'Transaction Type',
+    sortable: true,
+    span: 2,
+    headerClass: 'text-left',
+    cellClass: 'text-cabinet-blue font-medium'
   },
   {
     key: 'amount',
-    label: 'Amount',
+    label: 'Transaction Amout',
     sortable: true,
     span: 2,
     headerClass: 'text-left',
-    cellClass: 'font-bold text-cabinet-text-main'
+    cellClass: 'font-medium text-cabinet-text-main'
   },
   {
-    key: 'withdrawal_currency',
-    label: 'Currency',
+    key: 'withdraw_fee',
+    label: 'Withdraw Fee',
     sortable: true,
     span: 2,
     headerClass: 'text-left',
-    cellClass: 'text-sm font-bold text-gray-500'
+    cellClass: 'font-medium text-cabinet-text-main'
+  },
+  {
+    key: 'created_at',
+    label: 'Created At',
+    sortable: true,
+    span: 2,
+    headerClass: 'text-left',
+    cellClass: 'text-sm text-gray-500',
+    sortValue: (row) => parseDateToTimestamp(row.created_at),
+    format: (value) => formatDateShort(value)
   },
   {
     key: 'status',
@@ -176,16 +195,6 @@ const columns = [
     span: 2,
     headerClass: 'text-center',
     cellClass: 'text-center'
-  },
-  {
-    key: 'created_at',
-    label: 'Date',
-    sortable: true,
-    span: 3,
-    headerClass: 'text-left',
-    cellClass: 'text-sm text-gray-400',
-    sortValue: (row) => parseDateToTimestamp(row.created_at),
-    format: (value) => formatDateShort(value)
   },
   {
     key: 'details',
@@ -218,12 +227,35 @@ async function fetchTransactions() {
 
 function getStatusClass(status) {
   const classes = {
-    'confirmed': 'bg-green-100 text-green-600',
-    'pending': 'bg-blue-100 text-cabinet-blue',
-    'failed': 'bg-red-100 text-cabinet-red',
-    'cancelled': 'bg-gray-100 text-gray-400'
+    'confirmed': 'bg-cabinet-green/20 text-cabinet-green',
+    'pending': 'bg-cabinet-orange/20 text-cabinet-orange',
+    'failed': 'bg-cabinet-red/20 text-cabinet-red',
+    'cancelled': 'bg-gray-200 text-gray-500'
   }
-  return classes[status] || 'bg-gray-100 text-gray-400'
+  return classes[status] || 'bg-gray-200 text-gray-500'
+}
+
+function getStatusLabel(status) {
+  const labels = {
+    'confirmed': 'Served',
+    'pending': 'Requested',
+    'failed': 'Failed',
+    'cancelled': 'Cancelled'
+  }
+  return labels[status] || status
+}
+
+function getRowClass(row) {
+  if (row.status === 'pending') {
+    return 'bg-cabinet-orange/5'
+  }
+  if (row.status === 'confirmed') {
+    return 'bg-cabinet-green/5'
+  }
+  if (row.status === 'cancelled') {
+    return 'bg-gray-50'
+  }
+  return 'hover:bg-gray-50'
 }
 
 async function showDetails(row) {

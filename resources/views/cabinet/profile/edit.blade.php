@@ -79,7 +79,7 @@
                 {{-- Phone Number (with country dial code selector) --}}
                 <div class="col-span-1">
                     <label class="block font-poppins font-normal text-base md:text-lg xl:text-[28px] text-[#CCCCCC] mb-1 md:mb-2">Phone Number</label>
-                    <div class="relative" x-data="phoneInputProfile('{{ $user->country_code }}', '{{ $user->phone }}', '{{ $user->country }}')">
+                    <div class="relative" x-data="phoneInputProfile('{{ $user->country_code }}', '{{ $user->phone }}', '{{ $user->country }}', {{ json_encode($countries) }})">
                         <div class="flex items-stretch gap-0">
                             <!-- Country selector -->
                             <div class="relative w-30 shrink-0">
@@ -416,20 +416,22 @@ function countrySelector(initialCode = '', allCountries = []) {
     }
 }
 
-function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso = '') {
+function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso = '', allCountries = []) {
     return {
         open: false,
-        countries: [],
+        countries: allCountries,
         selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
         phone: initialPhone ? String(initialPhone).replace(/\D+/g, '') : '',
         async init() {
-            try {
-                const resp = await fetch('/api/v1/geoip/countries');
-                const data = await resp.json();
-                if (data.success) {
-                    this.countries = data.countries;
-                }
-            } catch (e) { console.error('Failed to load countries', e); }
+            if (this.countries.length === 0) {
+                try {
+                    const resp = await fetch('/api/geoip/countries');
+                    const data = await resp.json();
+                    if (data.success) {
+                        this.countries = data.countries;
+                    }
+                } catch (e) { console.error('Failed to load countries', e); }
+            }
 
             // Try to find the best match
             let picked = null;
@@ -438,11 +440,14 @@ function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso =
                     picked = this.countries.find(c => c.code === initialIso);
                 }
                 if (!picked && initialDialCode) {
-                    picked = this.countries.find(c => c.phone_code === initialDialCode);
+                    // Normalize initialDialCode (ensure it has +)
+                    let searchCode = initialDialCode;
+                    if (searchCode && searchCode[0] !== '+') searchCode = '+' + searchCode;
+                    picked = this.countries.find(c => c.phone_code === searchCode);
                 }
                 if (!picked) {
                     try {
-                        const resp2 = await fetch('/api/v1/geoip/country');
+                        const resp2 = await fetch('/api/geoip/country');
                         const d2 = await resp2.json();
                         if (d2.success && d2.country) {
                             picked = this.countries.find(c => c.code === d2.country.country_code);

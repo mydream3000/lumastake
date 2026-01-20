@@ -136,7 +136,11 @@
                         @php
                             $phone = trim((string) ($user->phone ?? ''));
                             $allCountries = \App\Helpers\GeoIpHelper::getAllCountries();
-                            $phoneCountry = collect($allCountries)->firstWhere('phone_code', $user->country_code);
+                            // Use country ISO code for more accurate flag matching
+                            $phoneCountry = collect($allCountries)->firstWhere('code', $user->country);
+                            if (!$phoneCountry && $user->country_code) {
+                                $phoneCountry = collect($allCountries)->firstWhere('phone_code', $user->country_code);
+                            }
                         @endphp
                         @if($phone !== '')
                             @if($phoneCountry) {{ $phoneCountry['flag'] }} @endif

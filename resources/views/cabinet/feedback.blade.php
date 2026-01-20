@@ -90,7 +90,7 @@
                         @click="open = !open"
                         class="text-sm px-4 py-3 bg-gray-50 text-gray-700 flex items-center gap-2 select-none hover:bg-gray-100 transition"
                     >
-                        <img :src="'https://flagcdn.com/w40/' + selectedCountry.code.toLowerCase() + '.png'" :alt="selectedCountry.name" class="w-5 h-auto">
+                        <span class="text-xl" x-text="selectedCountry.flag"></span>
                         <span x-text="selectedCountry.phone_code"></span>
                         <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -121,7 +121,7 @@
                             @click="selectCountry(country)"
                             class="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3 transition"
                         >
-                            <img :src="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" :alt="country.name" class="w-5 h-auto">
+                            <span class="text-xl" x-text="country.flag"></span>
                             <span class="font-medium" x-text="country.phone_code"></span>
                             <span class="text-gray-600" x-text="country.name"></span>
                         </button>
@@ -297,23 +297,29 @@
                 open: false,
                 phone: '',
                 countries: [],
-                selectedCountry: { code: 'US', name: 'United States', phone_code: '+1' },
+                selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
 
                 async init() {
                     // Load all countries
                     try {
-                        const response = await fetch('/api/v1/geoip/countries');
+                        const response = await fetch('/api/geoip/countries');
                         const data = await response.json();
                         if (data.success) {
                             this.countries = data.countries;
                         }
                     } catch (error) {
                         console.error('Failed to load countries:', error);
+                        // Fallback to v1
+                        try {
+                            const resp = await fetch('/api/v1/geoip/countries');
+                            const d = await resp.json();
+                            if (d.success) this.countries = d.countries;
+                        } catch(e) {}
                     }
 
                     // Get country by IP
                     try {
-                        const response = await fetch('/api/v1/geoip/country');
+                        const response = await fetch('/api/geoip/country');
                         const data = await response.json();
                         if (data.success && data.country) {
                             const country = this.countries.find(c => c.code === data.country.country_code);

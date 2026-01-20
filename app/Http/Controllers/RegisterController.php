@@ -128,7 +128,7 @@ class RegisterController extends BaseController
                     'password' => $data['password'],
                     'account_type' => $data['account_type'],
                     'email_verification_code' => $verificationCode,
-                    'email_verification_code_expires_at' => now()->addMinutes(15),
+                    'email_verification_code_expires_at' => now()->addMinutes(60),
                     'referral_code' => $existingUser->referral_code ?: $referralCode,
                 ]);
 
@@ -151,7 +151,7 @@ class RegisterController extends BaseController
                     'referred_by' => $referrer?->id,
                     'referral_code' => $referralCode,
                     'email_verification_code' => $verificationCode,
-                    'email_verification_code_expires_at' => now()->addMinutes(15),
+                    'email_verification_code_expires_at' => now()->addMinutes(60),
                 ]);
             }
 
@@ -326,7 +326,7 @@ class RegisterController extends BaseController
         $verificationCode = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $user->email_verification_code = $verificationCode;
-        $user->email_verification_code_expires_at = now()->addMinutes(15);
+        $user->email_verification_code_expires_at = now()->addMinutes(60);
         $user->save();
 
         // Send verification email
@@ -394,8 +394,8 @@ class RegisterController extends BaseController
 
         $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
-        // Store code in cache for 15 min
-        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(15));
+        // Store code in cache for 60 min
+        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(60));
 
         try {
             Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));
@@ -429,7 +429,7 @@ class RegisterController extends BaseController
         ]);
 
         $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(15));
+        \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(60));
 
         try {
             Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));

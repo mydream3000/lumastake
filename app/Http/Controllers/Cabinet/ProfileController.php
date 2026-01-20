@@ -33,10 +33,10 @@ class ProfileController extends Controller
             return redirect()->back();
         }
 
-        // Генерируем/обновляем код на 6 цифр, срок — 15 минут
+        // Генерируем/обновляем код на 6 цифр, срок — 60 минут
         $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $user->email_verification_code = $code;
-        $user->email_verification_code_expires_at = now()->addMinutes(15);
+        $user->email_verification_code_expires_at = now()->addMinutes(60);
         $user->save();
 
         try {
@@ -127,7 +127,7 @@ class ProfileController extends Controller
                 // Генерируем код подтверждения
                 $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
                 $user->email_change_code = $code;
-                $user->email_change_code_expires_at = now()->addMinutes(10);
+                $user->email_change_code_expires_at = now()->addMinutes(60);
                 $user->save();
 
                 // Отправляем код на НОВУЮ почту
@@ -279,7 +279,7 @@ class ProfileController extends Controller
         // Генерируем новый код
         $code = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $user->email_change_code = $code;
-        $user->email_change_code_expires_at = now()->addMinutes(10);
+        $user->email_change_code_expires_at = now()->addMinutes(60);
         $user->save();
 
         // Отправляем код на НОВУЮ почту

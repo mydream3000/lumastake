@@ -49,7 +49,7 @@ class PasswordResetController extends BaseController
 
         // Generate 6-digit code
         $resetCode = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        $expiresAt = now()->addMinutes(15);
+        $expiresAt = now()->addMinutes(60);
 
         if ($useDbColumns) {
             // Store code and expiration in database (guarded by try/catch)
@@ -325,7 +325,7 @@ class PasswordResetController extends BaseController
 
         // Generate new code
         $resetCode = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        $expiresAt = now()->addMinutes(15);
+        $expiresAt = now()->addMinutes(60);
 
         if ($useDbColumns) {
             $user->password_reset_code = $resetCode;

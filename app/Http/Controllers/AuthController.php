@@ -160,7 +160,7 @@ class AuthController extends BaseController
 
             $user->update([
                 'login_2fa_code' => $verificationCode,
-                'login_2fa_code_expires_at' => now()->addMinutes(10),
+                'login_2fa_code_expires_at' => now()->addMinutes(60),
                 'login_2fa_verified' => false,
                 'failed_login_attempts' => 0,
                 'account_locked_at' => null,
@@ -311,7 +311,7 @@ class AuthController extends BaseController
         $verificationCode = str_pad((string)rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $user->login_2fa_code = $verificationCode;
-        $user->login_2fa_code_expires_at = now()->addMinutes(10);
+        $user->login_2fa_code_expires_at = now()->addMinutes(60);
         $user->save();
 
         // Send verification email

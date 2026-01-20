@@ -20,9 +20,7 @@
             <!-- Main Card -->
             <div class="w-full bg-white border border-[#2ba6ff] rounded-[13px] shadow-[0px_4px_4px_0px_rgba(43,166,255,0.25)] p-8 md:p-16 flex flex-col items-center min-h-[600px] transition-all duration-300">
                 <!-- Logo -->
-                <div class="mb-12">
-                    <img src="/img/home/logo-final.png" alt="Luma Stake" class="h-20 w-auto">
-                </div>
+                <img :src="'/img/home/logo-final.png'" alt="Luma Stake" class="h-20 w-auto">
 
                 <!-- Step 1: Start -->
                 <div v-if="step === 1" class="w-full max-w-md flex flex-col items-center">
@@ -40,7 +38,7 @@
                     </div>
 
                     <a href="/auth/google" class="w-full border border-gray-300 py-4 rounded-md flex items-center justify-center gap-3 text-2xl font-medium mb-12 hover:bg-gray-50 transition-colors">
-                        <img src="/img/registration_redesign/fefa1c2e6f5c665029dc6d31c54c0577fef11aa5.svg" alt="Google" class="w-6 h-6">
+                        <img :src="'/img/registration_redesign/fefa1c2e6f5c665029dc6d31c54c0577fef11aa5.svg'" alt="Google" class="w-6 h-6">
                         Sign in with Google
                     </a>
 

@@ -36,6 +36,10 @@
     background: var( --color-cabinet-lime);
     color: var(--color-cabinet-text-main);
 }
+.from-cabinet-sidebar-start.to-cabinet-sidebar-end{
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+}
 body {
     background-color: var(--color-cabinet-bg);
     color: var(--color-cabinet-text-main);

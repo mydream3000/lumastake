@@ -40,6 +40,10 @@
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
 }
+svg.time-left{
+    display: inline-flex;
+    vertical-align: bottom;
+}
 body {
     background-color: var(--color-cabinet-bg);
     color: var(--color-cabinet-text-main);

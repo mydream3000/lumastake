@@ -136,6 +136,21 @@
 <x-cabinet.rightbar name="deposit-sidebar" title="Deposit" />
 <x-cabinet.rightbar name="withdraw-sidebar" title="Withdraw" />
 @foreach($allTiers as $tier)
+    @php
+        $tierColors = [
+            'Starter' => '#F6BD0E',
+            'Bronze' => '#FF613E',
+            'Silver' => '#F70808',
+            'Gold' => '#E10495',
+            'Platinum' => '#C000CA',
+            'Titanium' => '#2F7DEA',
+            'Diamond' => '#1393AF',
+            'Elite Diamond' => '#29BDB4',
+            'Crown Elite' => '#82CA8A',
+            'Royal Legacy' => '#CACA33',
+        ];
+        $tierColor = $tierColors[$tier->name] ?? '#3B4EFC';
+    @endphp
     <x-cabinet.rightbar name="tier-{{ $tier->id }}" :title="$tier->name">
         {{-- Balance Range --}}
         <div class="mb-6">
@@ -159,11 +174,11 @@
                         ? $percentage->min_percentage . '% - ' . $percentage->max_percentage . '%'
                         : $percentage->percentage . '%';
                 @endphp
-                <div class="relative bg-cabinet-light-yellow rounded-lg overflow-hidden">
+                <div class="relative rounded-lg overflow-hidden" style="background-color: {{ $tierColor }}1A;">
                     {{-- Left accent bar with diamond --}}
-                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-cabinet-lime"></div>
+                    <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
                     <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2">
-                        <div class="w-3 h-3 bg-cabinet-lime rotate-45 border-2 border-white"></div>
+                        <div class="w-3 h-3 rotate-45 border-2 border-white" style="background-color: {{ $tierColor }};"></div>
                     </div>
 
                     {{-- Content --}}
@@ -174,7 +189,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-sm text-gray-500">Return On Investment</span>
-                            <span class="font-bold text-cabinet-lime">{{ $percent }}</span>
+                            <span class="font-bold" style="color: {{ $tierColor }};">{{ $percent }}</span>
                         </div>
                     </div>
                 </div>

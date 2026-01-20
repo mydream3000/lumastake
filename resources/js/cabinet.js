@@ -132,6 +132,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    // DepositForm
+    const depositFormEl = document.querySelector('.js-deposit-form')
+    if (depositFormEl) {
+        import('./components/DepositForm.vue').then(module => {
+            mountComponent('.js-deposit-form', module.default)
+        })
+    }
+
+    // WithdrawForm
+    const withdrawFormEl = document.querySelector('.js-withdraw-form')
+    if (withdrawFormEl) {
+        import('./components/WithdrawForm.vue').then(module => {
+            mountComponent('.js-withdraw-form', module.default)
+        })
+    }
+
     // Toast
     const toastEl = document.querySelector('#toast-app')
     if (toastEl) {

@@ -4,15 +4,7 @@
             <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Deposit Funds</h1>
 
             <x-cabinet.card>
-                <h3 class="text-lg font-semibold mb-4">Deposit USDT/USDC</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    Click the button below to start deposit process
-                </p>
-                <x-cabinet.button
-                    x-on:click="$dispatch('open-rightbar', { name: 'deposit-sidebar' })"
-                >
-                    Deposit
-                </x-cabinet.button>
+                <div class="js-deposit-form min-h-[400px]"></div>
             </x-cabinet.card>
 
             @if(isset($pendingDeposits) && $pendingDeposits->count() > 0)

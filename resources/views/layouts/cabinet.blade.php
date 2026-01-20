@@ -181,8 +181,12 @@
 </div>
 
 <!-- Sidebars and Modals -->
-<x-cabinet.rightbar name="deposit-sidebar" title="Deposit" />
-<x-cabinet.rightbar name="withdraw-sidebar" title="Withdraw" />
+<x-cabinet.rightbar name="deposit-sidebar" title="Deposit">
+    <div class="js-deposit-form"></div>
+</x-cabinet.rightbar>
+<x-cabinet.rightbar name="withdraw-sidebar" title="Withdraw">
+    <div class="js-withdraw-form"></div>
+</x-cabinet.rightbar>
 @foreach($allTiers as $tier)
     @php
         $tierColors = [

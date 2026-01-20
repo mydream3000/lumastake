@@ -151,7 +151,7 @@
         ];
         $tierColor = $tierColors[$tier->name] ?? '#3B4EFC';
     @endphp
-    <x-cabinet.rightbar name="tier-{{ $tier->id }}" :title="$tier->name">
+    <x-cabinet.rightbar name="tier-{{ $tier->id }}" :title="$tier->name" :titleColor="$tierColor">
         {{-- Balance Range --}}
         <div class="mb-6">
             <p class="text-xl font-bold text-cabinet-text-main">

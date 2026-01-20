@@ -1,4 +1,4 @@
-@props(['name', 'show' => false])
+@props(['name', 'show' => false, 'title' => '', 'titleColor' => null])
 
 <div
     x-show="rightbarOpen === '{{ $name }}'"
@@ -17,8 +17,8 @@
                 <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                     <div class="px-4 sm:px-6">
                         <div class="flex items-start justify-between">
-                            <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                                {{ $title ?? '' }}
+                            <h2 class="text-2xl font-black text-cabinet-blue uppercase tracking-tight" id="slide-over-title" @if($titleColor) style="color: {{ $titleColor }}" @endif>
+                                {{ $title }}
                             </h2>
                             <div class="ml-3 h-7 flex items-center">
                                 <button x-on:click="closeRightbar()" type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

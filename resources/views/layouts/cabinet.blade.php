@@ -135,33 +135,32 @@
         $totalAmount = $user->balance + $user->stakingDeposits()->where('status', 'active')->sum('amount');
         $activeTier = \App\Models\Tier::where('min_balance', '<=', $totalAmount)->orderBy('level', 'desc')->first() ?: $allTiers->first();
     @endphp
+    <div class="px-6 pb-4 overflow-x-auto scrollbar-hide">
+        <div class="bg-[#101221]/5 border border-cabinet-border rounded-[10px] p-2">
+            <div class="flex items-center gap-0 min-w-max">
+                @foreach($allTiers as $index => $tier)
+                    @php
+                        $isCurrent = $activeTier && $activeTier->id === $tier->id;
+                        $isCompleted = $activeTier && $activeTier->level > $tier->level;
+                    @endphp
+                    <div class="flex items-center">
+                        <button
+                            type="button"
+                            x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
+                            class="flex items-center gap-2 px-3 py-1.5 transition-all hover:bg-black/5 rounded-md {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
+                        >
+                            <span class="text-[14px] leading-none">{{ $tier->name }}</span>
+                            <svg class="w-2 h-2 {{ $isCurrent ? 'text-cabinet-blue' : 'text-gray-400' }}" viewBox="0 0 8 8" fill="currentColor">
+                                <path d="M0 0L8 4L0 8V0Z" />
+                            </svg>
+                        </button>
 
-</div>
-<div class="px-6 pb-4 overflow-x-auto scrollbar-hide">
-    <div class="bg-[#101221]/5 border border-cabinet-border rounded-[10px] p-2">
-        <div class="flex items-center gap-0 min-w-max">
-            @foreach($allTiers as $index => $tier)
-                @php
-                    $isCurrent = $activeTier && $activeTier->id === $tier->id;
-                    $isCompleted = $activeTier && $activeTier->level > $tier->level;
-                @endphp
-                <div class="flex items-center">
-                    <button
-                        type="button"
-                        x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
-                        class="flex items-center gap-2 px-3 py-1.5 transition-all hover:bg-black/5 rounded-md {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
-                    >
-                        <span class="text-[14px] leading-none">{{ $tier->name }}</span>
-                        <svg class="w-2 h-2 {{ $isCurrent ? 'text-cabinet-blue' : 'text-gray-400' }}" viewBox="0 0 8 8" fill="currentColor">
-                            <path d="M0 0L8 4L0 8V0Z" />
-                        </svg>
-                    </button>
-
-                    @if(!$loop->last)
-                        <div class="h-6 w-px bg-cabinet-border mx-1"></div>
-                    @endif
-                </div>
-            @endforeach
+                        @if(!$loop->last)
+                            <div class="h-6 w-px bg-cabinet-border mx-1"></div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

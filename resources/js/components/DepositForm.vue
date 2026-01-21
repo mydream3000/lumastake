@@ -5,13 +5,14 @@
       <label class="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Select Asset & Network</label>
       <div class="grid grid-cols-2 gap-4 mb-4">
         <button
-          v-for="token in ['USDT', 'USDC']"
-          :key="token"
-          @click="selectedToken = token; fetchAddress()"
-          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm"
-          :class="selectedToken === token ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400 hover:border-gray-200'"
+          v-for="token in tokens"
+          :key="token.id"
+          @click="selectedToken = token.id; fetchAddress()"
+          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm flex items-center justify-center gap-2"
+          :class="selectedToken === token.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400 hover:border-gray-200'"
         >
-          {{ token }}
+          <img :src="token.icon" :alt="token.id" class="w-5 h-5">
+          {{ token.id }}
         </button>
       </div>
 
@@ -20,9 +21,10 @@
           v-for="net in availableNetworks"
           :key="net.id"
           @click="selectedNetwork = net.id; fetchAddress()"
-          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm uppercase"
+          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm uppercase flex items-center justify-center gap-2"
           :class="selectedNetwork === net.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400 hover:border-gray-200'"
         >
+          <span v-html="net.icon" class="w-5 h-5 flex-shrink-0"></span>
           {{ net.name }}
         </button>
       </div>
@@ -104,14 +106,26 @@ const loading = ref(true)
 const error = ref(null)
 const confirming = ref(false)
 
+// Network icons (inline SVG)
+const networkIcons = {
+  tron: `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#ef0027" d="M8 16c4.4183 0 8-3.5817 8-8 0-4.41828-3.5817-8-8-8C3.58172 0 0 3.58172 0 8c0 4.4183 3.58172 8 8 8Z"/><path fill="#fff" d="M10.966 4.95654 3.75 3.62854l3.7975 9.55601 5.2915-6.447-1.873-1.78101ZM10.85 5.54155l1.104 1.0495-3.019 0.5465 1.915-1.596Zm-2.571 1.4865-3.182-2.63901 5.201 0.95701-2.019 1.682Zm-0.2265 0.467-0.519 4.29L4.736 4.74354l3.3165 2.75151Zm0.48 0.2275 3.3435-0.605-3.835 4.6715 0.4915-4.0665Z"/></svg>`,
+  ethereum: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#627EEA"/><path d="M16.498 4V12.87L23.995 16.22L16.498 4Z" fill="white" fill-opacity="0.602"/><path d="M16.498 4L9 16.22L16.498 12.87V4Z" fill="white"/><path d="M16.498 21.968V27.995L24 17.616L16.498 21.968Z" fill="white" fill-opacity="0.602"/><path d="M16.498 27.995V21.967L9 17.616L16.498 27.995Z" fill="white"/><path d="M16.498 20.573L23.995 16.22L16.498 12.872V20.573Z" fill="white" fill-opacity="0.2"/><path d="M9 16.22L16.498 20.573V12.872L9 16.22Z" fill="white" fill-opacity="0.602"/></svg>`,
+  bsc: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52L19.886 14.404L22.146 12.144L16 6L9.856 12.144L12.116 14.404ZM6 16L8.26 13.74L10.52 16L8.26 18.26L6 16ZM12.116 17.596L16 21.48L19.886 17.596L22.146 19.856L16 26L9.856 19.856L12.116 17.596ZM21.48 16L23.74 13.74L26 16L23.74 18.26L21.48 16ZM16 18.26L13.74 16L16 13.74L18.26 16L16 18.26Z" fill="white"/></svg>`
+}
+
+const tokens = [
+  { id: 'USDT', icon: '/img/usdt-logo-coin.png' },
+  { id: 'USDC', icon: '/img/usd-coin-usdc-logo.svg' }
+]
+
 const networks = {
   USDT: [
-    { id: 'tron', name: 'TRC-20' },
-    { id: 'ethereum', name: 'ERC-20' }
+    { id: 'tron', name: 'TRC-20', icon: networkIcons.tron },
+    { id: 'ethereum', name: 'ERC-20', icon: networkIcons.ethereum }
   ],
   USDC: [
-    { id: 'bsc', name: 'BEP-20' },
-    { id: 'ethereum', name: 'ERC-20' }
+    { id: 'bsc', name: 'BEP-20', icon: networkIcons.bsc },
+    { id: 'ethereum', name: 'ERC-20', icon: networkIcons.ethereum }
   ]
 }
 

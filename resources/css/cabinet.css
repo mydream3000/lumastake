@@ -26,15 +26,15 @@
     --color-cabinet-text-secondary: #444444;
     --color-cabinet-text-grey: #B3B3B3;
 
+    /* Status colors */
+    --color-cabinet-green: #22C55E;
+    --color-cabinet-orange: #F59E0B;
+
     --color-cabinet-border: #CCCCCC;
     --color-cabinet-card-bg: #FFFFFF;
 
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
-}
-.bg-cabinet-orange{
-    background: var( --color-cabinet-lime);
-    color: var(--color-cabinet-text-main);
 }
 .from-cabinet-sidebar-start.to-cabinet-sidebar-end{
     border-bottom-right-radius: 30px;

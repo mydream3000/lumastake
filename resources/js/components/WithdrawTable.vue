@@ -24,7 +24,7 @@
       <template #cell-details="{ row }">
         <button
           @click="showDetails(row)"
-          class="px-4 py-1.5 text-xs rounded-md border border-cabinet-blue text-cabinet-blue hover:bg-cabinet-blue/10 font-medium transition"
+          class="px-4 py-1.5 text-xs rounded-md bg-cabinet-blue text-white hover:bg-cabinet-blue/90 font-medium transition"
         >
           Details
         </button>
@@ -34,7 +34,7 @@
         <button
           v-if="row.can_cancel"
           @click="cancelWithdraw(row.id)"
-          class="px-4 py-1.5 text-xs rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 font-medium transition"
+          class="px-4 py-1.5 text-xs rounded-md border border-cabinet-blue text-cabinet-blue hover:bg-cabinet-blue/10 font-medium transition"
         >
           Cancel
         </button>
@@ -227,8 +227,8 @@ async function fetchTransactions() {
 
 function getStatusClass(status) {
   const classes = {
-    'confirmed': 'bg-cabinet-green/20 text-cabinet-green',
-    'pending': 'bg-cabinet-orange/20 text-cabinet-orange',
+    'confirmed': 'bg-cabinet-lime text-cabinet-text-main',
+    'pending': 'bg-cabinet-lime text-cabinet-text-main',
     'failed': 'bg-cabinet-red/20 text-cabinet-red',
     'cancelled': 'bg-gray-200 text-gray-500'
   }
@@ -247,13 +247,13 @@ function getStatusLabel(status) {
 
 function getRowClass(row) {
   if (row.status === 'pending') {
-    return 'bg-cabinet-orange/5'
+    return 'bg-cabinet-blue/5 border-l-4 border-l-cabinet-blue'
   }
   if (row.status === 'confirmed') {
-    return 'bg-cabinet-green/5'
+    return 'bg-[#f0fdf4] border-l-4 border-l-cabinet-green'
   }
   if (row.status === 'cancelled') {
-    return 'bg-gray-50'
+    return ''
   }
   return 'hover:bg-gray-50'
 }

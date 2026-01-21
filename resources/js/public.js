@@ -3,6 +3,65 @@ import Alpine from 'alpinejs';
 import { createApp } from 'vue'
 
 window.Alpine = Alpine;
+
+// Register global function for Alpine.js phone input component BEFORE Alpine.start()
+// This function is called from x-data attribute in Blade template
+window.phoneInput = function() {
+    return {
+        open: false,
+        phone: '',
+        countries: [],
+        selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us'},
+
+        async init() {
+            // Load countries
+            try {
+                const response = await fetch('/api/geoip/countries');
+                const data = await response.json();
+                if (data.success) {
+                    this.countries = data.countries;
+                }
+            } catch (error) {
+                console.error('Failed to load countries:', error);
+            }
+
+            // Auto-detect country by IP
+            try {
+                const response = await fetch('/api/geoip/country');
+                const data = await response.json();
+                if (data.success && data.country) {
+                    const country = this.countries.find(c => c.code === data.country.country_code);
+                    if (country) {
+                        this.selectedCountry = country;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to detect country:', error);
+            }
+        },
+
+        selectCountry(country) {
+            this.selectedCountry = country;
+            this.open = false;
+        },
+
+        formatPhone(event) {
+            let value = event.target.value.replace(/\D/g, '');
+            if (value.length > 15) {
+                value = value.slice(0, 15);
+            }
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 3 === 0) {
+                    formatted += ' ';
+                }
+                formatted += value[i];
+            }
+            this.phone = formatted;
+        }
+    }
+}
+
 Alpine.start();
 
 /**

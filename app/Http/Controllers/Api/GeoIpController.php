@@ -15,17 +15,27 @@ class GeoIpController extends Controller
     public function getCountry(Request $request): JsonResponse
     {
         $ip = $request->ip();
+        $isLocalhost = ($ip === '127.0.0.1' || $ip === '::1');
 
-        // For localhost, try to get real IP from external service
-        if ($ip === '127.0.0.1' || $ip === '::1') {
-            $ip = $this->getRealIpFromExternal();
-        }
-
-        $countryCode = GeoIpHelper::getCountryCodeByIp($ip);
-
-        // If local GeoIP fails, try external API
-        if (!$countryCode && $ip) {
-            $countryCode = $this->getCountryFromExternalApi($ip);
+        // For localhost, get real IP from external service and always use external API
+        if ($isLocalhost) {
+            $realIp = $this->getRealIpFromExternal();
+            if ($realIp) {
+                // On localhost, prefer external API for accuracy
+                $countryCode = $this->getCountryFromExternalApi($realIp);
+                if (!$countryCode) {
+                    // Fallback to local GeoIP if external API fails
+                    $countryCode = GeoIpHelper::getCountryCodeByIp($realIp);
+                }
+            } else {
+                $countryCode = null;
+            }
+        } else {
+            // For production: try local GeoIP first, then external API
+            $countryCode = GeoIpHelper::getCountryCodeByIp($ip);
+            if (!$countryCode) {
+                $countryCode = $this->getCountryFromExternalApi($ip);
+            }
         }
 
         if (!$countryCode) {

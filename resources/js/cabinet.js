@@ -175,6 +175,125 @@ document.addEventListener('DOMContentLoaded', () => {
 // Инициализация Alpine.js - должна быть ДО загрузки DOM, но определение window.Alpine до start()
 window.Alpine = Alpine
 
+// Register global functions for Alpine.js components BEFORE Alpine.start()
+// These functions are called from x-data attributes in Blade templates
+window.phoneInputProfile = function(initialDialCode = '', initialPhone = '', initialIso = '', allCountries = []) {
+    return {
+        open: false,
+        countries: allCountries,
+        selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us' },
+        phone: initialPhone ? String(initialPhone).replace(/\D+/g, '') : '',
+        async init() {
+            if (this.countries.length === 0) {
+                try {
+                    const resp = await fetch('/api/geoip/countries');
+                    const data = await resp.json();
+                    if (data.success) {
+                        this.countries = data.countries;
+                    }
+                } catch (e) { console.error('Failed to load countries', e); }
+            }
+
+            // Try to find the best match
+            let picked = null;
+            if (this.countries.length > 0) {
+                if (initialIso) {
+                    picked = this.countries.find(c => c.code === initialIso);
+                }
+                if (!picked && initialDialCode) {
+                    // Normalize initialDialCode (ensure it has +)
+                    let searchCode = initialDialCode;
+                    if (searchCode && searchCode[0] !== '+') searchCode = '+' + searchCode;
+                    picked = this.countries.find(c => c.phone_code === searchCode);
+                }
+                if (!picked) {
+                    try {
+                        const resp2 = await fetch('/api/geoip/country');
+                        const d2 = await resp2.json();
+                        if (d2.success && d2.country) {
+                            picked = this.countries.find(c => c.code === d2.country.country_code);
+                        }
+                    } catch (e) {}
+                }
+            }
+            if (picked) this.selectedCountry = picked;
+        },
+        selectCountry(country) {
+            this.selectedCountry = country;
+            this.open = false;
+        },
+    }
+}
+
+window.countrySelector = function(initialCode = '', allCountries = []) {
+    return {
+        open: false,
+        countries: allCountries,
+        selected: allCountries.find(c => c.code === initialCode) || allCountries.find(c => c.code === 'US') || {code: '', name: 'Select Country', flag_class: ''},
+        select(country) {
+            this.selected = country;
+            this.open = false;
+        }
+    }
+}
+
+// Simple phone input for cabinet forms (feedback, etc.)
+window.phoneInput = function() {
+    return {
+        open: false,
+        phone: '',
+        countries: [],
+        selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us'},
+
+        async init() {
+            // Load countries
+            try {
+                const response = await fetch('/api/geoip/countries');
+                const data = await response.json();
+                if (data.success) {
+                    this.countries = data.countries;
+                }
+            } catch (error) {
+                console.error('Failed to load countries:', error);
+            }
+
+            // Auto-detect country by IP
+            try {
+                const response = await fetch('/api/geoip/country');
+                const data = await response.json();
+                if (data.success && data.country) {
+                    const country = this.countries.find(c => c.code === data.country.country_code);
+                    if (country) {
+                        this.selectedCountry = country;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to detect country:', error);
+            }
+        },
+
+        selectCountry(country) {
+            this.selectedCountry = country;
+            this.open = false;
+        },
+
+        formatPhone(event) {
+            let value = event.target.value.replace(/\D/g, '');
+            if (value.length > 15) {
+                value = value.slice(0, 15);
+            }
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 3 === 0) {
+                    formatted += ' ';
+                }
+                formatted += value[i];
+            }
+            this.phone = formatted;
+        }
+    }
+}
+
 // Alpine Store for global user data
 document.addEventListener('alpine:init', () => {
     Alpine.store('userBalance', {

@@ -111,7 +111,7 @@
                                    placeholder="Phone number" />
                         </div>
                         <input type="hidden" name="country_code" x-model="selectedCountry.phone_code">
-                        <input type="hidden" name="country" x-model="selectedCountry.code">
+                        <input type="hidden" x-model="selectedCountry.code">
                     </div>
                     @error('phone')
                         <p class="text-cabinet-red text-base mt-1">{{ $message }}</p>
@@ -408,7 +408,7 @@ function countrySelector(initialCode = '', allCountries = []) {
     return {
         open: false,
         countries: allCountries,
-        selected: allCountries.find(c => c.code === initialCode) || allCountries.find(c => c.code === 'US') || {code: '', name: 'Select Country', flag: ''},
+        selected: allCountries.find(c => c.code === initialCode) || allCountries.find(c => c.code === 'US') || {code: '', name: 'Select Country', flag_class: ''},
         select(country) {
             this.selected = country;
             this.open = false;

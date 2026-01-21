@@ -89,7 +89,7 @@ class GeoIpHelper
 
     /**
      * Get all countries with phone codes
-     * Returns array with: code, name, phone_code, flag_class (CSS class for flag-icons)
+     * Returns array with: code, name, phone_code, flag_class (CSS class for flag-icons), flag (emoji)
      */
     public static function getAllCountries(): array
     {
@@ -291,10 +291,21 @@ class GeoIpHelper
             ['code' => 'ZW', 'name' => 'Zimbabwe', 'phone_code' => '+263'],
         ];
 
-        // Add flag_class for each country (CSS class for flag-icons library)
+        // Add flag_class and emoji flag for each country
         return array_map(function ($country) {
             $country['flag_class'] = 'fi fi-' . strtolower($country['code']);
+            $country['flag'] = self::countryCodeToEmoji($country['code']);
             return $country;
         }, $rawCountries);
+    }
+
+    /**
+     * Convert ISO 3166-1 alpha-2 country code to Emoji flag
+     */
+    public static function countryCodeToEmoji(string $code): string
+    {
+        return implode('', array_map(function($char) {
+            return mb_chr(ord($char) + 127397);
+        }, str_split(strtoupper($code))));
     }
 }

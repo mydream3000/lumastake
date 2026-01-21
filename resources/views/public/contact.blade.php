@@ -182,29 +182,20 @@
             return {
                 open: false,
                 phone: @json(old('phone', '')),
-                countries: [],
+                countries: @json(\App\Helpers\GeoIpHelper::getAllCountries()),
                 selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸'},
 
                 async init() {
-                    try {
-                        const response = await fetch('/api/geoip/countries');
-                        const data = await response.json();
-                        if (data.success) {
-                            this.countries = data.countries;
-                        } else {
-                            // API fallback
-                            const resp = await fetch('/api/v1/geoip/countries');
-                            const d = await resp.json();
-                            if (d.success) this.countries = d.countries;
-                        }
-                    } catch (error) {
-                        console.error('Failed to load countries:', error);
-                        // Try v1 as fallback
+                    if (this.countries.length === 0) {
                         try {
-                            const resp = await fetch('/api/v1/geoip/countries');
-                            const d = await resp.json();
-                            if (d.success) this.countries = d.countries;
-                        } catch(e) {}
+                            const response = await fetch('/api/geoip/countries');
+                            const data = await response.json();
+                            if (data.success) {
+                                this.countries = data.countries;
+                            }
+                        } catch (error) {
+                            console.error('Failed to load countries:', error);
+                        }
                     }
 
                     const oldCountryCode = @json(old('country_code', ''));

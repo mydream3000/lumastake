@@ -296,25 +296,21 @@
             return {
                 open: false,
                 phone: '',
-                countries: [],
+                countries: @json(\App\Helpers\GeoIpHelper::getAllCountries()),
                 selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
 
                 async init() {
-                    // Load all countries
-                    try {
-                        const response = await fetch('/api/geoip/countries');
-                        const data = await response.json();
-                        if (data.success) {
-                            this.countries = data.countries;
-                        }
-                    } catch (error) {
-                        console.error('Failed to load countries:', error);
-                        // Fallback to v1
+                    // Load all countries if not preloaded
+                    if (this.countries.length === 0) {
                         try {
-                            const resp = await fetch('/api/v1/geoip/countries');
-                            const d = await resp.json();
-                            if (d.success) this.countries = d.countries;
-                        } catch(e) {}
+                            const response = await fetch('/api/geoip/countries');
+                            const data = await response.json();
+                            if (data.success) {
+                                this.countries = data.countries;
+                            }
+                        } catch (error) {
+                            console.error('Failed to load countries:', error);
+                        }
                     }
 
                     // Get country by IP

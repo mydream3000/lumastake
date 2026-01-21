@@ -136,7 +136,6 @@
                         @php
                             $phone = trim((string) ($user->phone ?? ''));
                             $allCountries = \App\Helpers\GeoIpHelper::getAllCountries();
-                            // Use country ISO code for more accurate flag matching
                             $phoneCountry = collect($allCountries)->firstWhere('code', $user->country);
                             if (!$phoneCountry && $user->country_code) {
                                 $phoneCountry = collect($allCountries)->firstWhere('phone_code', $user->country_code);
@@ -159,6 +158,10 @@
                 <div class="flex items-center justify-between gap-4">
                     <span class="shrink-0 font-poppins text-sm md:text-base xl:text-xl text-[#444444]">Country:</span>
                     <span class="min-w-0 grow text-right font-poppins text-sm md:text-base xl:text-xl text-black">
+                        @php
+                            $countryCode = $user->country;
+                            $country = collect($allCountries)->firstWhere('code', $countryCode);
+                        @endphp
                         @if($country)
                             {{ $country['flag'] }} {{ $country['name'] }}
                         @else

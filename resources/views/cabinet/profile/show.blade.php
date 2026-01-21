@@ -142,7 +142,7 @@
                             }
                         @endphp
                         @if($phone !== '')
-                            @if($phoneCountry) {{ $phoneCountry['flag'] }} @endif
+                            @if($phoneCountry) <span class="{{ $phoneCountry['flag_class'] }}"></span> @endif
                             @if(Str::startsWith($phone, '+'))
                                 {{ $phone }}
                             @else
@@ -163,7 +163,7 @@
                             $country = collect($allCountries)->firstWhere('code', $countryCode);
                         @endphp
                         @if($country)
-                            {{ $country['flag'] }} {{ $country['name'] }}
+                            <span class="{{ $country['flag_class'] }}"></span> {{ $country['name'] }}
                         @else
                             {{ $user->country ?? 'Not specified' }}
                         @endif

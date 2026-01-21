@@ -16,12 +16,17 @@ class GeoIpController extends Controller
     {
         $ip = $request->ip();
 
-        // For localhost testing, use a default IP
+        // For localhost, try to get real IP from external service
         if ($ip === '127.0.0.1' || $ip === '::1') {
-            $ip = '8.8.8.8'; // Google DNS as fallback
+            $ip = $this->getRealIpFromExternal();
         }
 
         $countryCode = GeoIpHelper::getCountryCodeByIp($ip);
+
+        // If local GeoIP fails, try external API
+        if (!$countryCode && $ip) {
+            $countryCode = $this->getCountryFromExternalApi($ip);
+        }
 
         if (!$countryCode) {
             return response()->json([
@@ -61,5 +66,44 @@ class GeoIpController extends Controller
             'success' => true,
             'countries' => GeoIpHelper::getAllCountries(),
         ]);
+    }
+
+    /**
+     * Get real IP from external service (for localhost development)
+     */
+    private function getRealIpFromExternal(): ?string
+    {
+        try {
+            $response = @file_get_contents('https://api.ipify.org?format=json', false, stream_context_create([
+                'http' => ['timeout' => 3]
+            ]));
+            if ($response) {
+                $data = json_decode($response, true);
+                return $data['ip'] ?? null;
+            }
+        } catch (\Exception $e) {
+            // Silently fail
+        }
+        return null;
+    }
+
+    /**
+     * Get country code from external API (fallback when local GeoIP fails)
+     */
+    private function getCountryFromExternalApi(?string $ip): ?string
+    {
+        if (!$ip) return null;
+
+        try {
+            $response = @file_get_contents("https://ipapi.co/{$ip}/country/", false, stream_context_create([
+                'http' => ['timeout' => 3]
+            ]));
+            if ($response && strlen($response) === 2) {
+                return strtoupper($response);
+            }
+        } catch (\Exception $e) {
+            // Silently fail
+        }
+        return null;
     }
 }

@@ -105,7 +105,7 @@
 
 <!-- Desktop Top Header -->
 <div class="hidden lg:flex flex-col  fixed left-[346px] right-0 z-30 {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
-    <div class="flex items-center justify-between p-6">
+    <div class="flex items-center justify-between p-6 bg-cabinet-bg">
         <div class="flex items-center gap-4">
             <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-14 h-14 rounded-full">
             <div>

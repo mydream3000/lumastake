@@ -10,7 +10,7 @@
                     <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
                 </div>
 
-                <div class="relative w-full h-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-32">
+                <div class="relative w-full h-full flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-2">
                     {{-- Left Card --}}
                     <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] transform -rotate-[6deg] lg:-rotate-[15deg] max-w-[440px] text-center hover:rotate-0 transition-transform duration-500 cursor-default">
                         <h2 class="text-4xl md:text-[50px] font-the-bold-font font-black text-[#3B4EFC] mb-4 leading-[0.9] uppercase tracking-tighter">

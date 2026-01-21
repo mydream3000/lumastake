@@ -160,8 +160,8 @@
         $activeTier = \App\Models\Tier::where('min_balance', '<=', $totalAmount)->orderBy('level', 'desc')->first() ?: $allTiers->first();
     @endphp
     <div class="px-6 pb-4 overflow-x-auto scrollbar-hide">
-        <div class="bg-[#101221]/5 border border-cabinet-border rounded-[10px] p-2">
-            <div class="flex items-center gap-0 min-w-max">
+        <div class="hidden lg:block bg-[rgba(16,18,33,0.1)] p-4 mb-6 rounded-lg border border-[rgba(16,18,33,0.15)] overflow-x-auto">
+            <div class="flex justify-between items-center text-sm font-semibold min-w-max gap-2">
                 @foreach($allTiers as $index => $tier)
                     @php
                         $isCurrent = $activeTier && $activeTier->id === $tier->id;

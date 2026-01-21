@@ -86,7 +86,7 @@
                                 <button type="button" @click="open = !open"
                                         class="py-2 md:py-3 xl:py-4 w-30 px-3 md:px-4 rounded-l-md bg-[#F8F8F8] border border-[rgba(68,68,68,0.6)] border-r-0 text-gray-600 focus:border-cabinet-green focus:outline-none font-poppins text-base md:text-base xl:text-lg flex items-center justify-between transition">
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xl" x-text="selectedCountry.flag"></span>
+                                        <span :class="selectedCountry.flag_class" class="text-base"></span>
                                         <span x-text="selectedCountry.phone_code"></span>
                                     </div>
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@
                                      class="absolute z-50 mt-1 w-[22rem] max-w-[calc(100vw-2rem)] bg-white border border-[rgba(68,68,68,0.6)] rounded-md shadow-lg max-h-80 overflow-y-auto">
                                     <template x-for="country in countries" :key="country.code">
                                         <button type="button" @click="selectCountry(country)" class="w-full px-4 py-2 text-left hover:bg-gray-100 flex items-center gap-3 font-poppins">
-                                            <span class="text-xl" x-text="country.flag"></span>
+                                            <span :class="country.flag_class" class="text-base"></span>
                                             <span class="font-medium" x-text="country.phone_code">+1</span>
                                             <span class="text-gray-600" x-text="country.name">United States</span>
                                         </button>
@@ -128,7 +128,7 @@
                         <button type="button" @click="open = !open"
                                 class="w-full bg-[#F8F8F8] border border-[rgba(68,68,68,0.6)] rounded-md px-3 py-2 md:px-4 md:py-3 xl:py-4 font-poppins text-sm md:text-base xl:text-lg flex items-center justify-between focus:outline-none focus:border-cabinet-green transition">
                             <div class="flex items-center gap-3">
-                                <span class="text-xl" x-text="selected.flag"></span>
+                                <span :class="selected.flag_class" class="text-base"></span>
                                 <span x-text="selected.name"></span>
                             </div>
                             <svg class="w-5 h-5 text-cabinet-orange transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@
                             <template x-for="c in countries" :key="c.code">
                                 <button type="button" @click="select(c)"
                                         class="w-full px-4 py-2 text-left hover:bg-gray-100 flex items-center gap-3 font-poppins transition-colors">
-                                    <span class="text-xl" x-text="c.flag"></span>
+                                    <span :class="c.flag_class" class="text-base"></span>
                                     <span x-text="c.name"></span>
                                 </button>
                             </template>
@@ -420,7 +420,7 @@ function phoneInputProfile(initialDialCode = '', initialPhone = '', initialIso =
     return {
         open: false,
         countries: allCountries,
-        selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag: '🇺🇸' },
+        selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us' },
         phone: initialPhone ? String(initialPhone).replace(/\D+/g, '') : '',
         async init() {
             if (this.countries.length === 0) {

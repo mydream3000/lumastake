@@ -206,7 +206,7 @@
                                 @click="nationalityDropdownOpen = !nationalityDropdownOpen"
                                 class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-6 py-4 text-xl focus:outline-none flex items-center justify-between"
                             >
-                                <span v-if="selectedNationality">{{ selectedNationality.flag }} {{ selectedNationality.name }}</span>
+                                <span v-if="selectedNationality" class="flex items-center gap-2"><span :class="selectedNationality.flag_class"></span> {{ selectedNationality.name }}</span>
                                 <span v-else class="text-gray-400">Select Nationality</span>
                                 <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="{'rotate-180': nationalityDropdownOpen}"></i>
                             </button>
@@ -218,7 +218,7 @@
                                     @click="selectNationality(c)"
                                     class="px-6 py-3 hover:bg-[#E5F3FF] cursor-pointer flex items-center gap-3 text-xl"
                                 >
-                                    <span>{{ c.flag }}</span>
+                                    <span :class="c.flag_class"></span>
                                     <span>{{ c.name }}</span>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                                     @click="countryCodeDropdownOpen = !countryCodeDropdownOpen"
                                     class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-4 py-4 text-xl focus:outline-none flex items-center justify-between"
                                 >
-                                    <span v-if="selectedCountryCode">{{ selectedCountryCode.flag }} {{ selectedCountryCode.phone_code }}</span>
+                                    <span v-if="selectedCountryCode" class="flex items-center gap-1"><span :class="selectedCountryCode.flag_class"></span> {{ selectedCountryCode.phone_code }}</span>
                                     <span v-else class="text-gray-400">Code</span>
                                     <i class="fas fa-chevron-down text-gray-400 text-xs transition-transform" :class="{'rotate-180': countryCodeDropdownOpen}"></i>
                                 </button>
@@ -265,7 +265,7 @@
                                         @click="selectCountryCode(c)"
                                         class="px-4 py-2 hover:bg-[#E5F3FF] cursor-pointer flex items-center gap-3 text-lg"
                                     >
-                                        <span>{{ c.flag }}</span>
+                                        <span :class="c.flag_class"></span>
                                         <span class="font-bold text-[#3b4efc] w-12">{{ c.phone_code }}</span>
                                         <span class="text-gray-600 truncate">{{ c.name }}</span>
                                     </div>

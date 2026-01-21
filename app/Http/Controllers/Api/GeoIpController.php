@@ -47,7 +47,7 @@ class GeoIpController extends Controller
                 'country_code' => $country['code'],
                 'name' => $country['name'],
                 'phone_code' => $country['phone_code'],
-                'flag' => $country['flag'],
+                'flag_class' => $country['flag_class'],
             ],
         ]);
     }

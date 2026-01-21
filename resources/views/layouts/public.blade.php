@@ -107,7 +107,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
 
     @php
         // Safety fallback: on production force using built assets even if a stray hot file exists

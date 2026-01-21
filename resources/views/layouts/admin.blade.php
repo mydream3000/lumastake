@@ -8,7 +8,7 @@
     <title>@yield('title', 'Admin Panel') - {{ config('app.name') }}</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

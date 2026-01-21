@@ -16,7 +16,7 @@
 {{--                        {{ __('Dashboard') }}--}}
 {{--                    </x-nav-link>--}}
 {{--                </div>--}}
-{{--            </div>--}}
+            </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -36,6 +36,10 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('cabinet.profile.show')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('cabinet.feedback')">
+                            {{ __('Contact us') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->

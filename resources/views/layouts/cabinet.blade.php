@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -92,6 +92,13 @@
             </div>
             <a href="{{ route('cabinet.rewards') }}" class="flex items-center gap-4 px-6 py-3 text-white hover:bg-white/10 transition-colors {{ request()->routeIs('cabinet.rewards') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Rewards</span></a>
             <a href="{{ route('cabinet.profile.show') }}" class="flex items-center gap-4 px-6 py-3 text-white hover:bg-white/10 transition-colors {{ request()->routeIs('cabinet.profile.*') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Profile</span></a>
+            <a href="{{ route('cabinet.feedback') }}" class="flex items-center gap-4 px-6 py-3 text-white hover:bg-white/10 transition-colors {{ request()->routeIs('cabinet.feedback') ? 'sidebar-active' : '' }}"><span class="text-lg font-medium">Contact us</span></a>
+            <form method="POST" action="{{ route('logout') }}" class="block">
+                @csrf
+                <button type="submit" class="flex items-center gap-4 px-6 py-3 text-white hover:bg-white/10 transition-colors w-full text-left">
+                    <span class="text-lg font-medium">Logout</span>
+                </button>
+            </form>
         </nav>
     </div>
 </div>
@@ -121,12 +128,29 @@
             @endif
             <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'deposit-sidebar'})" class="px-6 py-2.5 bg-cabinet-blue text-white rounded-md font-semibold text-sm uppercase hover:bg-cabinet-blue/90 transition">Deposit</button>
             <button type="button" x-on:click="$dispatch('open-rightbar', {name: 'withdraw-sidebar'})" class="px-6 py-2.5 bg-cabinet-lime text-cabinet-text-main rounded-md font-semibold text-sm uppercase hover:bg-cabinet-lime/90 transition">Withdraw</button>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-                @csrf
-                <button type="submit" class="p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 inline-block transition text-gray-500">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                </button>
-            </form>
+            <x-dropdown align="right" width="48">
+                <x-slot name="trigger">
+                    <button type="button" class="p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 inline-block transition text-gray-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </x-slot>
+
+                <x-slot name="content">
+                    <x-dropdown-link :href="route('cabinet.feedback')">
+                        {{ __('Contact us') }}
+                    </x-dropdown-link>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Logout') }}
+                        </x-dropdown-link>
+                    </form>
+                </x-slot>
+            </x-dropdown>
         </div>
     </div>
 

@@ -115,3 +115,7 @@ textarea:focus {
 nav a img, nav button img {
     filter: brightness(0) invert(1);
 }
+.bg-cabinet-orange{
+    background-color: var(--color-cabinet-lime);
+    color: var(--color-cabinet-text-main);
+}

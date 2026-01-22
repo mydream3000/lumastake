@@ -87,7 +87,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('faqs', FaqController::class);
 
     // Blog Management
-    Route::resource('blog', BlogController::class);
+    Route::resource('blog', BlogController::class)->except(['show']);
 
     // Telegram Bot Settings
     Route::prefix('bot-settings')->name('bot-settings.')->group(function () {

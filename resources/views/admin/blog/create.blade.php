@@ -91,7 +91,7 @@
             <!-- Color Scheme -->
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Color Scheme <span class="text-red-500">*</span>
+                    Color Scheme
                 </label>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <label class="flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">

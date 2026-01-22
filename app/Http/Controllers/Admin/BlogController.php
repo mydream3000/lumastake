@@ -64,7 +64,7 @@ class BlogController extends Controller
             'og_image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
             'published_at' => 'nullable|date',
             'is_active' => 'nullable|boolean',
-            'color_scheme' => 'required|string|in:#00ffa3,#ff451c,#ff00d8,#94c83e',
+            'color_scheme' => 'nullable|string|in:#00ffa3,#ff451c,#ff00d8,#94c83e',
         ]);
 
         // Auto-generate slug if not provided
@@ -125,7 +125,7 @@ class BlogController extends Controller
             'og_image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
             'published_at' => 'nullable|date',
             'is_active' => 'nullable|boolean',
-            'color_scheme' => 'required|string|in:#00ffa3,#ff451c,#ff00d8,#94c83e',
+            'color_scheme' => 'nullable|string|in:#00ffa3,#ff451c,#ff00d8,#94c83e',
         ]);
 
         // Auto-generate slug if not provided

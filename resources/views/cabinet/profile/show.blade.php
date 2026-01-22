@@ -136,7 +136,12 @@
                         @php
                             $phone = trim((string) ($user->phone ?? ''));
                             $allCountries = \App\Helpers\GeoIpHelper::getAllCountries();
-                            $phoneCountry = collect($allCountries)->firstWhere('code', $user->country);
+                            // First try phone_country (separate field for phone's country)
+                            $phoneCountry = null;
+                            if ($user->phone_country) {
+                                $phoneCountry = collect($allCountries)->firstWhere('code', $user->phone_country);
+                            }
+                            // Fallback: find by country_code (dial code like +1, +39)
                             if (!$phoneCountry && $user->country_code) {
                                 $phoneCountry = collect($allCountries)->firstWhere('phone_code', $user->country_code);
                             }

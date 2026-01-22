@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'google_id',
-        'phone', 'country_code', 'country', 'gender',
+        'phone', 'country_code', 'phone_country', 'country', 'gender',
         'balance', 'deposited', 'current_tier',
         'referral_code', 'referred_by', 'active', 'referral_level_id',
         'blocked', 'withdrawal_blocked', 'failed_login_attempts', 'account_locked_at',

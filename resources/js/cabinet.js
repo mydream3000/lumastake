@@ -189,27 +189,28 @@ window.phoneInputProfile = function() {
             // Read initial values from data attributes
             const initialDialCode = this.$el.dataset.dialCode || '';
             const initialPhone = this.$el.dataset.phone || '';
-            const initialIso = this.$el.dataset.country || '';
+            const initialPhoneCountry = this.$el.dataset.phoneCountry || ''; // Separate phone country
 
             this.phone = initialPhone ? String(initialPhone).replace(/\D+/g, '') : '';
 
             // Use preloaded countries from layout (no API call needed)
             this.countries = window.__GEOIP_COUNTRIES__ || [];
 
-            // Try to find the best match
+            // Try to find the best match - prioritize phone_country, then dial_code
             let picked = null;
             if (this.countries.length > 0) {
-                if (initialIso) {
-                    picked = this.countries.find(c => c.code === initialIso);
+                // First try to find by phone country ISO code (if stored separately)
+                if (initialPhoneCountry) {
+                    picked = this.countries.find(c => c.code === initialPhoneCountry);
                 }
+                // Then try to find by dial code
                 if (!picked && initialDialCode) {
-                    // Normalize initialDialCode (ensure it has +)
                     let searchCode = initialDialCode;
                     if (searchCode && searchCode[0] !== '+') searchCode = '+' + searchCode;
                     picked = this.countries.find(c => c.phone_code === searchCode);
                 }
+                // Default to US if nothing matches
                 if (!picked) {
-                    // Default to US if nothing matches
                     picked = this.countries.find(c => c.code === 'US');
                 }
             }

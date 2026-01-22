@@ -101,12 +101,18 @@
                         </select>
                     </div>
 
-                    {{-- Chart Container --}}
+                    {{-- Chart Container with Earned Badge --}}
                     <div class="relative w-[200px] h-[200px] mx-auto">
+                        {{-- Subtle background ring --}}
+                        <div class="absolute inset-0 rounded-full border-[12px] border-gray-100"></div>
                         <canvas id="profit-donut-chart"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                             <p class="text-gray-400 text-sm font-medium mb-0">Total</p>
                             <p class="text-cabinet-text-main text-2xl font-bold" id="total-profit">${{ number_format($profitChartData['completed'] + $profitChartData['expected'], 1) }}</p>
+                        </div>
+                        {{-- Earned Profit Badge (yellow) --}}
+                        <div class="absolute -right-2 top-1/2 -translate-y-1/2 bg-cabinet-lime text-cabinet-text-main text-xs font-bold px-2 py-1 rounded-md shadow-sm" id="earned-badge">
+                            ${{ number_format($profitChartData['completed'], 1) }}
                         </div>
                     </div>
                 </div>
@@ -115,6 +121,9 @@
                 <div class="pt-6 border-t border-gray-100">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-bold text-cabinet-text-main">Calculate Profit</h3>
+                        <span id="calc-tier-badge" class="px-3 py-1 text-xs font-bold rounded-md border border-cabinet-orange text-cabinet-orange">
+                            {{ $currentTier->name ?? 'Starter' }}
+                        </span>
                     </div>
 
                     <div class="space-y-4">
@@ -170,12 +179,15 @@
         function initChart(completed, expected) {
             if (profitChart) profitChart.destroy();
 
+            // If both are 0, show empty ring
+            const hasData = completed > 0 || expected > 0;
+
             profitChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
-                        data: [completed, expected],
-                        backgroundColor: ['#3B4EFC', '#D9EFFF'],
+                        data: hasData ? [completed, expected] : [0, 1],
+                        backgroundColor: hasData ? ['#3B4EFC', '#D9EFFF'] : ['transparent', 'rgba(0,0,0,0.05)'],
                         borderWidth: 0,
                         cutout: '85%'
                     }]
@@ -193,55 +205,128 @@
 
         initChart({{ $profitChartData['completed'] }}, {{ $profitChartData['expected'] }});
 
+        // All tiers data for dynamic calculator
+        const allTiers = @json($allTiers);
+
         // Calculator Logic
         const calcPoolDuration = document.getElementById('calc-pool-duration');
         const calcAmount = document.getElementById('calc-amount');
         const calcButton = document.getElementById('calc-button');
         const calcResult = document.getElementById('calc-result');
+        const calcTierBadge = document.getElementById('calc-tier-badge');
 
-        let pools = [];
+        let currentCalcTier = null;
+        let currentCalcPools = [];
 
-        async function loadPoolsForCalc() {
-            try {
-                const response = await fetch('{{ route('cabinet.pools.data') }}');
-                const data = await response.json();
-                pools = data.data;
-
-                calcPoolDuration.innerHTML = pools.map(pool =>
-                    `<option value="${pool.id}">${pool.name} (${pool.days} Days)</option>`
-                ).join('');
-            } catch (error) {
-                console.error('Failed to load pools for calculator:', error);
+        // Get tier by amount
+        function getTierByAmount(amount) {
+            let tier = allTiers[0]; // Default to first tier (Starter)
+            for (let i = allTiers.length - 1; i >= 0; i--) {
+                if (amount >= allTiers[i].min_balance) {
+                    tier = allTiers[i];
+                    break;
+                }
             }
+            return tier;
         }
 
-        loadPoolsForCalc();
+        // Update pools dropdown for tier
+        function updatePoolsDropdown(tier) {
+            currentCalcTier = tier;
+            currentCalcPools = tier.pools || [];
 
+            if (currentCalcPools.length === 0) {
+                calcPoolDuration.innerHTML = '<option value="">No pools available</option>';
+                return;
+            }
+
+            calcPoolDuration.innerHTML = currentCalcPools.map(pool => {
+                const percentLabel = pool.min_percentage !== undefined
+                    ? `${pool.min_percentage}% - ${pool.max_percentage}%`
+                    : `${pool.percentage}%`;
+                return `<option value="${pool.id}" data-percentage="${pool.percentage || ''}" data-min="${pool.min_percentage || ''}" data-max="${pool.max_percentage || ''}">${pool.name} (${pool.days} Days, ${percentLabel})</option>`;
+            }).join('');
+        }
+
+        // Update tier badge
+        function updateTierBadge(tierName) {
+            calcTierBadge.textContent = tierName;
+        }
+
+        // Handle amount input change - dynamic tier detection
+        calcAmount.addEventListener('input', function() {
+            const amount = parseFloat(this.value) || 0;
+            const tier = getTierByAmount(amount);
+
+            if (!currentCalcTier || currentCalcTier.name !== tier.name) {
+                updateTierBadge(tier.name);
+                updatePoolsDropdown(tier);
+            }
+        });
+
+        // Initialize with current user's tier
+        function initCalculator() {
+            const userTierName = '{{ $currentTier->name ?? "Starter" }}';
+            const userTier = allTiers.find(t => t.name === userTierName) || allTiers[0];
+            updateTierBadge(userTier.name);
+            updatePoolsDropdown(userTier);
+        }
+
+        initCalculator();
+
+        // Calculate button click
         calcButton.addEventListener('click', () => {
-            const poolId = parseInt(calcPoolDuration.value);
             const amount = parseFloat(calcAmount.value);
-            const pool = pools.find(p => p.id === poolId);
 
-            if (pool && amount > 0) {
-                let minProfit, maxProfit;
-
-                if (pool.profit.includes('-')) {
-                    minProfit = parseFloat(pool.profit.split('-')[0]) / 100;
-                    maxProfit = parseFloat(pool.profit.split('-')[1]) / 100;
-                } else {
-                    minProfit = maxProfit = parseFloat(pool.profit) / 100;
-                }
-
-                const minReturn = amount * minProfit;
-                const maxReturn = amount * maxProfit;
-
-                if (minReturn === maxReturn) {
-                    calcResult.innerText = `${minReturn.toFixed(2)} USDT`;
-                } else {
-                    calcResult.innerText = `${minReturn.toFixed(2)} USDT - ${maxReturn.toFixed(2)} USDT`;
-                }
-            } else {
+            if (!amount || amount <= 0) {
                 calcResult.innerText = 'Please enter a valid amount';
+                return;
+            }
+
+            const selectedOption = calcPoolDuration.selectedOptions[0];
+            if (!selectedOption || !selectedOption.value) {
+                calcResult.innerText = 'Please select a pool';
+                return;
+            }
+
+            const percentage = parseFloat(selectedOption.dataset.percentage);
+            const minPercentage = parseFloat(selectedOption.dataset.min);
+            const maxPercentage = parseFloat(selectedOption.dataset.max);
+
+            let minReturn, maxReturn;
+
+            if (!isNaN(percentage) && percentage > 0) {
+                // Standard pool with fixed percentage
+                minReturn = maxReturn = amount * percentage / 100;
+            } else if (!isNaN(minPercentage) && !isNaN(maxPercentage)) {
+                // Islamic pool with min-max range
+                minReturn = amount * minPercentage / 100;
+                maxReturn = amount * maxPercentage / 100;
+            } else {
+                calcResult.innerText = 'Unable to calculate';
+                return;
+            }
+
+            if (minReturn === maxReturn) {
+                calcResult.innerText = `${minReturn.toFixed(2)} USDT`;
+            } else {
+                calcResult.innerText = `${minReturn.toFixed(2)} USDT - ${maxReturn.toFixed(2)} USDT`;
+            }
+        });
+
+        // Period change for profit chart
+        document.getElementById('profit-period').addEventListener('change', async function() {
+            const period = this.value;
+            try {
+                const response = await fetch(`{{ route('cabinet.dashboard.profit-by-period') }}?period=${period}`);
+                const data = await response.json();
+                if (data.success) {
+                    initChart(data.data.completed, data.data.expected);
+                    document.getElementById('total-profit').textContent = '$' + data.data.total.toFixed(1);
+                    document.getElementById('earned-badge').textContent = '$' + data.data.completed.toFixed(1);
+                }
+            } catch (error) {
+                console.error('Failed to load profit data:', error);
             }
         });
     </script>

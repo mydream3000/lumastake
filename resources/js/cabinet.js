@@ -177,22 +177,29 @@ window.Alpine = Alpine
 
 // Register global functions for Alpine.js components BEFORE Alpine.start()
 // These functions are called from x-data attributes in Blade templates
-window.phoneInputProfile = function(initialDialCode = '', initialPhone = '', initialIso = '', allCountries = []) {
+// Data is passed via data-* attributes on the element
+window.phoneInputProfile = function() {
     return {
         open: false,
-        countries: allCountries,
+        countries: [],
         selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us' },
-        phone: initialPhone ? String(initialPhone).replace(/\D+/g, '') : '',
+        phone: '',
         async init() {
-            if (this.countries.length === 0) {
-                try {
-                    const resp = await fetch('/api/geoip/countries');
-                    const data = await resp.json();
-                    if (data.success) {
-                        this.countries = data.countries;
-                    }
-                } catch (e) { console.error('Failed to load countries', e); }
-            }
+            // Read initial values from data attributes
+            const initialDialCode = this.$el.dataset.dialCode || '';
+            const initialPhone = this.$el.dataset.phone || '';
+            const initialIso = this.$el.dataset.country || '';
+
+            this.phone = initialPhone ? String(initialPhone).replace(/\D+/g, '') : '';
+
+            // Load countries from API
+            try {
+                const resp = await fetch('/api/geoip/countries');
+                const data = await resp.json();
+                if (data.success) {
+                    this.countries = data.countries;
+                }
+            } catch (e) { console.error('Failed to load countries', e); }
 
             // Try to find the best match
             let picked = null;
@@ -225,11 +232,32 @@ window.phoneInputProfile = function(initialDialCode = '', initialPhone = '', ini
     }
 }
 
-window.countrySelector = function(initialCode = '', allCountries = []) {
+window.countrySelector = function() {
     return {
         open: false,
-        countries: allCountries,
-        selected: allCountries.find(c => c.code === initialCode) || allCountries.find(c => c.code === 'US') || {code: '', name: 'Select Country', flag_class: ''},
+        countries: [],
+        selected: { code: '', name: 'Select Country', flag_class: '' },
+        async init() {
+            // Read initial value from data attribute
+            const initialCode = this.$el.dataset.country || '';
+
+            // Load countries from API
+            try {
+                const resp = await fetch('/api/geoip/countries');
+                const data = await resp.json();
+                if (data.success) {
+                    this.countries = data.countries;
+                    // Set initial selection
+                    const found = this.countries.find(c => c.code === initialCode);
+                    if (found) {
+                        this.selected = found;
+                    } else {
+                        const us = this.countries.find(c => c.code === 'US');
+                        if (us) this.selected = us;
+                    }
+                }
+            } catch (e) { console.error('Failed to load countries', e); }
+        },
         select(country) {
             this.selected = country;
             this.open = false;

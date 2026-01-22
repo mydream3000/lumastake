@@ -79,7 +79,7 @@
                 {{-- Phone Number (with country dial code selector) --}}
                 <div class="col-span-1">
                     <label class="block font-poppins font-normal text-base md:text-lg xl:text-[28px] text-[#CCCCCC] mb-1 md:mb-2">Phone Number</label>
-                    <div class="relative" x-data="phoneInputProfile('{{ $user->country_code }}', '{{ $user->phone }}', '{{ $user->country }}', @json($countries))">
+                    <div class="relative" x-data="phoneInputProfile()" data-dial-code="{{ $user->country_code }}" data-phone="{{ $user->phone }}" data-country="{{ $user->country }}">
                         <div class="flex items-stretch gap-0">
                             <!-- Country selector -->
                             <div class="relative w-30 shrink-0">
@@ -122,7 +122,7 @@
                 </div>
 
                 {{-- Country --}}
-                <div class="col-span-1" x-data="countrySelector('{{ $user->country }}', @json($countries))">
+                <div class="col-span-1" x-data="countrySelector()" data-country="{{ $user->country }}">
                     <label class="block font-poppins font-normal text-base md:text-lg xl:text-[28px] text-[#CCCCCC] mb-1 md:mb-2">Country</label>
                     <div class="relative">
                         <button type="button" @click="open = !open"

@@ -64,7 +64,6 @@
                 <textarea id="content"
                           name="content"
                           rows="12"
-                          required
                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
                           placeholder="Enter post content">{{ old('content') }}</textarea>
                 @error('content')
@@ -221,10 +220,34 @@
 
 @push('scripts')
     <script>
-        tinymce.init({
-            selector: 'textarea#content',
-            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-            toolbar_mode: 'floating',
+        document.addEventListener('DOMContentLoaded', function() {
+            tinymce.init({
+                selector: 'textarea#content',
+                plugins: 'advlist autolink lists link image charmap preview hr anchor pagebreak code',
+                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+                toolbar_mode: 'floating',
+                height: 400,
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                }
+            });
+
+            // Sync TinyMCE content before form submit
+            document.querySelector('form').addEventListener('submit', function(e) {
+                if (tinymce.get('content')) {
+                    tinymce.get('content').save();
+                }
+
+                // Check if content is empty
+                var content = document.getElementById('content').value.trim();
+                if (!content) {
+                    e.preventDefault();
+                    alert('Content is required');
+                    return false;
+                }
+            });
         });
     </script>
 @endpush

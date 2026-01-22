@@ -178,13 +178,14 @@ window.Alpine = Alpine
 // Register global functions for Alpine.js components BEFORE Alpine.start()
 // These functions are called from x-data attributes in Blade templates
 // Data is passed via data-* attributes on the element
+// Countries are preloaded in window.__GEOIP_COUNTRIES__ from cabinet layout
 window.phoneInputProfile = function() {
     return {
         open: false,
         countries: [],
         selectedCountry: { code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us' },
         phone: '',
-        async init() {
+        init() {
             // Read initial values from data attributes
             const initialDialCode = this.$el.dataset.dialCode || '';
             const initialPhone = this.$el.dataset.phone || '';
@@ -192,14 +193,8 @@ window.phoneInputProfile = function() {
 
             this.phone = initialPhone ? String(initialPhone).replace(/\D+/g, '') : '';
 
-            // Load countries from API
-            try {
-                const resp = await fetch('/api/geoip/countries');
-                const data = await resp.json();
-                if (data.success) {
-                    this.countries = data.countries;
-                }
-            } catch (e) { console.error('Failed to load countries', e); }
+            // Use preloaded countries from layout (no API call needed)
+            this.countries = window.__GEOIP_COUNTRIES__ || [];
 
             // Try to find the best match
             let picked = null;
@@ -214,13 +209,8 @@ window.phoneInputProfile = function() {
                     picked = this.countries.find(c => c.phone_code === searchCode);
                 }
                 if (!picked) {
-                    try {
-                        const resp2 = await fetch('/api/geoip/country');
-                        const d2 = await resp2.json();
-                        if (d2.success && d2.country) {
-                            picked = this.countries.find(c => c.code === d2.country.country_code);
-                        }
-                    } catch (e) {}
+                    // Default to US if nothing matches
+                    picked = this.countries.find(c => c.code === 'US');
                 }
             }
             if (picked) this.selectedCountry = picked;
@@ -237,26 +227,23 @@ window.countrySelector = function() {
         open: false,
         countries: [],
         selected: { code: '', name: 'Select Country', flag_class: '' },
-        async init() {
+        init() {
             // Read initial value from data attribute
             const initialCode = this.$el.dataset.country || '';
 
-            // Load countries from API
-            try {
-                const resp = await fetch('/api/geoip/countries');
-                const data = await resp.json();
-                if (data.success) {
-                    this.countries = data.countries;
-                    // Set initial selection
-                    const found = this.countries.find(c => c.code === initialCode);
-                    if (found) {
-                        this.selected = found;
-                    } else {
-                        const us = this.countries.find(c => c.code === 'US');
-                        if (us) this.selected = us;
-                    }
+            // Use preloaded countries from layout (no API call needed)
+            this.countries = window.__GEOIP_COUNTRIES__ || [];
+
+            // Set initial selection
+            if (this.countries.length > 0) {
+                const found = this.countries.find(c => c.code === initialCode);
+                if (found) {
+                    this.selected = found;
+                } else {
+                    const us = this.countries.find(c => c.code === 'US');
+                    if (us) this.selected = us;
                 }
-            } catch (e) { console.error('Failed to load countries', e); }
+            }
         },
         select(country) {
             this.selected = country;
@@ -273,30 +260,14 @@ window.phoneInput = function() {
         countries: [],
         selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us'},
 
-        async init() {
-            // Load countries
-            try {
-                const response = await fetch('/api/geoip/countries');
-                const data = await response.json();
-                if (data.success) {
-                    this.countries = data.countries;
-                }
-            } catch (error) {
-                console.error('Failed to load countries:', error);
-            }
+        init() {
+            // Use preloaded countries from layout (no API call needed)
+            this.countries = window.__GEOIP_COUNTRIES__ || [];
 
-            // Auto-detect country by IP
-            try {
-                const response = await fetch('/api/geoip/country');
-                const data = await response.json();
-                if (data.success && data.country) {
-                    const country = this.countries.find(c => c.code === data.country.country_code);
-                    if (country) {
-                        this.selectedCountry = country;
-                    }
-                }
-            } catch (error) {
-                console.error('Failed to detect country:', error);
+            // Default to US
+            if (this.countries.length > 0) {
+                const us = this.countries.find(c => c.code === 'US');
+                if (us) this.selectedCountry = us;
             }
         },
 

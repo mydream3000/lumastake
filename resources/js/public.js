@@ -6,6 +6,7 @@ window.Alpine = Alpine;
 
 // Register global function for Alpine.js phone input component BEFORE Alpine.start()
 // This function is called from x-data attribute in Blade template
+// Countries are preloaded in window.__GEOIP_COUNTRIES__ from public layout
 window.phoneInput = function() {
     return {
         open: false,
@@ -13,30 +14,14 @@ window.phoneInput = function() {
         countries: [],
         selectedCountry: {code: 'US', name: 'United States', phone_code: '+1', flag_class: 'fi fi-us'},
 
-        async init() {
-            // Load countries
-            try {
-                const response = await fetch('/api/geoip/countries');
-                const data = await response.json();
-                if (data.success) {
-                    this.countries = data.countries;
-                }
-            } catch (error) {
-                console.error('Failed to load countries:', error);
-            }
+        init() {
+            // Use preloaded countries from layout (no API call needed)
+            this.countries = window.__GEOIP_COUNTRIES__ || [];
 
-            // Auto-detect country by IP
-            try {
-                const response = await fetch('/api/geoip/country');
-                const data = await response.json();
-                if (data.success && data.country) {
-                    const country = this.countries.find(c => c.code === data.country.country_code);
-                    if (country) {
-                        this.selectedCountry = country;
-                    }
-                }
-            } catch (error) {
-                console.error('Failed to detect country:', error);
+            // Default to US
+            if (this.countries.length > 0) {
+                const us = this.countries.find(c => c.code === 'US');
+                if (us) this.selectedCountry = us;
             }
         },
 

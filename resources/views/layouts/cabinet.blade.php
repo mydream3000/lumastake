@@ -278,6 +278,11 @@
 <x-toast />
 <x-universal-modal />
 
+{{-- Preload countries data for Alpine.js components --}}
+<script>
+    window.__GEOIP_COUNTRIES__ = @json(\App\Helpers\GeoIpHelper::getAllCountries());
+</script>
+
 @stack('scripts')
 
 </body>

@@ -5,20 +5,20 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between relative z-10">
         <div>
             <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Blog Posts</h1>
             <p class="text-gray-600 mt-1">Manage blog posts and articles</p>
         </div>
         <a href="{{ route('admin.blog.create') }}"
-           class="inline-flex items-center px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
+           class="inline-flex items-center px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors cursor-pointer">
             <i class="fas fa-plus mr-2"></i>
             Create Post
         </a>
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative z-0">
         <div class="js-blog-table" data-url="{{ route('admin.blog.index') }}"></div>
     </div>
 </div>

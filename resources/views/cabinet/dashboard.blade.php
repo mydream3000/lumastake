@@ -154,7 +154,7 @@
                         {{-- Result --}}
                         <div class="pt-4 text-left">
                             <p class="text-base font-bold text-cabinet-text-main inline-block mr-2">Expected Profit :</p>
-                            <p id="calc-result" class="text-base font-bold text-cabinet-lime block mt-1 bg-cabinet-text-main/5 p-2 rounded-md border border-cabinet-lime/20"></p>
+                            <p id="calc-result" class="text-base font-bold text-cabinet-lime stroke-black block mt-1 bg-cabinet-text-main/5 p-2 rounded-md border border-cabinet-lime/20 "></p>
                         </div>
                     </div>
                 </div>

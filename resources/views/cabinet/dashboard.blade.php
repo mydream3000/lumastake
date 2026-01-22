@@ -104,7 +104,7 @@
                     {{-- Chart Container with Earned Badge --}}
                     <div class="relative w-[200px] h-[200px] mx-auto">
                         {{-- Subtle background ring --}}
-                        <div class="absolute inset-0 rounded-full border-[12px] border-gray-100"></div>
+                        <div class="-z-10 absolute inset-0 rounded-full border-[12px] border-gray-100"></div>
                         <canvas id="profit-donut-chart"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                             <p class="text-gray-400 text-sm font-medium mb-0">Total</p>

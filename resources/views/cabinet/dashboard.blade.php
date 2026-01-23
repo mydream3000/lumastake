@@ -189,7 +189,7 @@
                         data: hasData ? [completed, expected] : [0, 1],
                         backgroundColor: hasData ? ['#3B4EFC', '#D9EFFF'] : ['transparent', 'rgba(0,0,0,0.05)'],
                         borderWidth: 0,
-                        cutout: '85%'
+                        cutout: '60%'
                     }]
                 },
                 options: {

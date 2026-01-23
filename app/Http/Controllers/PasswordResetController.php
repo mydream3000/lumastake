@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
 use App\Mail\PasswordResetCode;
+use App\Mail\TemplatedMail;
 
 class PasswordResetController extends BaseController
 {
@@ -90,7 +91,11 @@ class PasswordResetController extends BaseController
         // Send email with code
         try {
             // Use failover mailer (smtp -> log) to avoid hard failures on production
-            Mail::mailer('failover')->to($user->email)->send(new PasswordResetCode($resetCode, $user->name));
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'password_reset',
+                ['code' => $resetCode, 'userName' => $user->name],
+                $user->id
+            ));
 
             Log::info('Password reset email sent', [
                 'email' => $user->email,
@@ -345,7 +350,11 @@ class PasswordResetController extends BaseController
         // Send email
         try {
             // Use failover mailer (smtp -> log) to avoid hard failures on production
-            Mail::mailer('failover')->to($user->email)->send(new PasswordResetCode($resetCode, $user->name));
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'password_reset',
+                ['code' => $resetCode, 'userName' => $user->name],
+                $user->id
+            ));
 
             Log::info('Password reset code resent', [
                 'email' => $user->email,

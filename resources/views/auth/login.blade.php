@@ -71,7 +71,7 @@
 
                         {{-- Google Sign In --}}
                         <a href="{{ route('social.login', 'google') }}" class="w-full flex items-center justify-center gap-4 md:gap-6 py-4 md:py-6 bg-white border border-[#D5D5D5] rounded-xl text-xl md:text-2xl font-medium text-black hover:bg-gray-50 transition-all shadow-sm">
-                            <img src="{{ asset('img/login/e0065f7edb9ecd75cff6c9f4b3fb15948ce63d12.svg') }}" alt="Google" class="w-8 h-8 md:w-10 md:h-10">
+                            <img src="{{ asset('img/registration_redesign/fefa1c2e6f5c665029dc6d31c54c0577fef11aa5.svg') }}" alt="Google" class="w-8 h-8 md:w-10 md:h-10">
                             Sign in with Google
                         </a>
 

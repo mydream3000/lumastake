@@ -94,7 +94,7 @@
                     <h2 class="text-[#3b4efc] text-[40px] font-bold mb-4">Verification Code</h2>
                     <p class="text-[#989898] text-xl mb-12">We’ve sent a 6-digit verification code to {{ formData.email }}</p>
 
-                    <div class="flex gap-3 mb-12">
+                    <div class="flex gap-3 mb-6">
                         <input
                             v-for="(digit, index) in 6"
                             :key="index"
@@ -106,8 +106,21 @@
                             :class="codeDigits[index] ? 'bg-[#E5F3FF] border-[#3b4efc] text-[#3b4efc]' : 'bg-[#f8f8f8] border-gray-300'"
                             @input="focusNext(index)"
                             @keydown.backspace="focusPrev(index, $event)"
+                            @paste.prevent="handlePaste($event)"
                         >
                     </div>
+
+                    <!-- Paste from clipboard button -->
+                    <button
+                        @click="pasteFromClipboard"
+                        type="button"
+                        class="flex items-center gap-2 text-[#3b4efc] hover:text-[#2a3ed9] font-medium text-lg mb-8 transition-colors"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        Paste from clipboard
+                    </button>
 
                     <button
                         @click="handleCodeVerify"
@@ -481,6 +494,43 @@ export default {
         focusPrev(index, event) {
             if (!this.codeDigits[index] && index > 0) {
                 this.$refs.codeInputs[index - 1].focus()
+            }
+        },
+        async pasteFromClipboard() {
+            try {
+                // Use Clipboard API (works on both desktop and mobile with HTTPS)
+                const text = await navigator.clipboard.readText()
+                this.fillCodeFromText(text)
+            } catch (err) {
+                // Fallback: show message if clipboard access denied
+                console.error('Clipboard access denied:', err)
+                if (window.showToast) {
+                    window.showToast('Please allow clipboard access or paste manually', 'error')
+                }
+            }
+        },
+        handlePaste(event) {
+            // Handle paste event directly on input fields
+            const pastedText = event.clipboardData.getData('text')
+            this.fillCodeFromText(pastedText)
+        },
+        fillCodeFromText(text) {
+            // Extract only digits from pasted text
+            const digits = text.replace(/\D/g, '').slice(0, 6)
+            if (digits.length > 0) {
+                // Fill in the code digits
+                for (let i = 0; i < 6; i++) {
+                    this.codeDigits[i] = digits[i] || ''
+                }
+                // Focus last filled input or first empty one
+                const lastIndex = Math.min(digits.length, 6) - 1
+                if (this.$refs.codeInputs && this.$refs.codeInputs[lastIndex]) {
+                    this.$refs.codeInputs[lastIndex].focus()
+                }
+                // Auto-verify if all 6 digits are filled
+                if (digits.length === 6) {
+                    this.handleCodeVerify()
+                }
             }
         },
         async handleCodeVerify() {

@@ -118,19 +118,21 @@
                             Enter the 6-digit Verification Code sent to <span class="font-bold text-[#3B4EFC]" x-text="maskEmail(formData.email)"></span>.
                         </p>
 
-                        <div class="relative">
-                            <input type="text" x-model="formData.code" maxlength="6" placeholder="Email Verification Code"
-                                   @keydown.enter="verify2FA()"
-                                   class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl px-6 md:px-8 py-4 md:py-6 text-xl md:text-2xl text-[#262262] tracking-[0.2em] text-center focus:outline-none focus:ring-4 focus:ring-[#3B4EFC]/10 transition-all placeholder:text-[rgba(0,0,0,0.4)] placeholder:tracking-normal">
-
-                            <div class="absolute right-6 md:right-8 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
-                                <span class="text-[#3B4EFC] font-black text-xl uppercase">Code Sent</span>
-                            </div>
-
-                            <template x-if="errors.code">
-                                <p class="text-red-500 mt-2 md:mt-4 text-lg md:text-xl font-bold text-center" x-text="errors.code"></p>
+                        <div id="login-otp-container" class="flex gap-2 md:gap-4 mb-6 justify-center">
+                            <template x-for="(digit, index) in 6" :key="index">
+                                <input type="text" maxlength="1"
+                                       x-model="loginDigits[index]"
+                                       @input="handleOTPInput('loginDigits', index, 'login-otp-container', 'code')"
+                                       @keydown.backspace="handleOTPBackspace('loginDigits', index, 'login-otp-container', 'code')"
+                                       @paste="handleOTPPaste($event, 'loginDigits', 'login-otp-container', 'code')"
+                                       @keydown.enter="verify2FA()"
+                                       class="w-12 h-16 md:w-16 md:h-20 text-center text-2xl md:text-3xl font-bold rounded-xl border-2 transition-all focus:outline-none focus:ring-4 focus:ring-[#3B4EFC]/10"
+                                       :class="loginDigits[index] ? 'bg-[#E0F2FF] border-[#3B4EFC] text-[#3B4EFC]' : 'bg-white border-[#D5D5D5] text-[#262262]'">
                             </template>
                         </div>
+                        <template x-if="errors.code">
+                            <p class="text-red-500 mb-4 text-lg md:text-xl font-bold text-center" x-text="errors.code"></p>
+                        </template>
 
                         <div class="text-center">
                             <button @click="resend2FA()" :disabled="resendTimer > 0 || loading" class="text-[#3B4EFC] text-lg md:text-xl font-bold hover:underline disabled:text-gray-400 transition-colors">
@@ -217,14 +219,21 @@
                         <h2 class="text-3xl md:text-5xl font-semibold text-[#3B4EFC] mb-4 text-center">Reset Password</h2>
                         <p class="text-lg md:text-xl text-[#989898] text-center mb-8 max-w-[410px]">We’ve sent a 6-digit verification code</p>
 
-                        <div class="w-full relative mb-6">
-                            <input type="text" x-model="formData.forgot_code" maxlength="6" placeholder="Enter OTP"
-                                   @keydown.enter="verifyForgotOTP()"
-                                   class="w-full bg-[#E0F2FF] border border-[#2BA6FF] rounded-xl px-6 md:px-8 py-4 md:py-6 text-2xl md:text-3xl text-[#262262] tracking-[0.3em] text-center focus:outline-none focus:ring-4 focus:ring-[#3B4EFC]/10 transition-all placeholder:text-[rgba(0,0,0,0.4)] placeholder:tracking-normal">
-                            <template x-if="errors.forgot_code">
-                                <p class="text-red-500 mt-2 md:mt-4 text-lg md:text-xl font-bold text-center" x-text="errors.forgot_code"></p>
+                        <div id="otp-container" class="flex gap-2 md:gap-4 mb-6 justify-center">
+                            <template x-for="(digit, index) in 6" :key="index">
+                                <input type="text" maxlength="1"
+                                       x-model="forgotDigits[index]"
+                                       @input="handleOTPInput('forgotDigits', index, 'otp-container', 'forgot_code')"
+                                       @keydown.backspace="handleOTPBackspace('forgotDigits', index, 'otp-container', 'forgot_code')"
+                                       @paste="handleOTPPaste($event, 'forgotDigits', 'otp-container', 'forgot_code')"
+                                       @keydown.enter="verifyForgotOTP()"
+                                       class="w-12 h-16 md:w-16 md:h-20 text-center text-2xl md:text-3xl font-bold rounded-xl border-2 transition-all focus:outline-none focus:ring-4 focus:ring-[#3B4EFC]/10"
+                                       :class="forgotDigits[index] ? 'bg-[#E0F2FF] border-[#3B4EFC] text-[#3B4EFC]' : 'bg-white border-[#D5D5D5] text-[#262262]'">
                             </template>
                         </div>
+                        <template x-if="errors.forgot_code">
+                            <p class="text-red-500 mb-4 text-lg md:text-xl font-bold text-center" x-text="errors.forgot_code"></p>
+                        </template>
 
                         <div class="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-8">
                             <button @click="pasteFromClipboard()" type="button" class="text-[#3B4EFC] text-lg md:text-xl font-bold hover:underline flex items-center gap-2">
@@ -315,6 +324,8 @@ function loginForm() {
             new_password: '',
             new_password_confirmation: ''
         },
+        forgotDigits: ['', '', '', '', '', ''],
+        loginDigits: ['', '', '', '', '', ''],
         errors: {},
         redirectUrl: '',
 
@@ -394,6 +405,8 @@ function loginForm() {
                 if (data.success) {
                     if (data.two_fa_required) {
                         this.step = 'login-2fa';
+                        this.loginDigits = ['', '', '', '', '', ''];
+                        this.formData.code = '';
                         this.startResendTimer();
                         window.showToast(data.message, 'success');
                     } else {
@@ -496,6 +509,8 @@ function loginForm() {
                 if (data.success) {
                     if (data.code_sent) {
                         this.step = 'forgot-otp';
+                        this.forgotDigits = ['', '', '', '', '', ''];
+                        this.formData.forgot_code = '';
                         this.startResendTimer();
                         window.showToast(data.message, 'success');
                     } else {
@@ -582,12 +597,78 @@ function loginForm() {
             try {
                 const text = await navigator.clipboard.readText();
                 if (text) {
-                    this.formData.forgot_code = text.trim().substring(0, 6).replace(/[^0-9]/g, '');
+                    const digits = text.trim().substring(0, 6).replace(/[^0-9]/g, '').split('');
+
+                    // Clear current digits first
+                    this.forgotDigits = ['', '', '', '', '', ''];
+
+                    digits.forEach((d, i) => {
+                        if (i < 6) this.forgotDigits[i] = d;
+                    });
+                    this.formData.forgot_code = this.forgotDigits.join('');
+
+                    this.$nextTick(() => {
+                        const container = document.getElementById('otp-container');
+                        const nextIndex = Math.min(digits.length, 5);
+                        const nextInput = container.querySelectorAll('input')[nextIndex];
+                        if (nextInput) nextInput.focus();
+                    });
+
                     window.showToast('Code pasted from clipboard', 'success');
                 }
             } catch (err) {
                 window.showToast('Failed to paste from clipboard', 'error');
             }
+        },
+
+        handleOTPInput(digitsArrayName, index, containerId, codeFieldName) {
+            // Remove non-numeric
+            this[digitsArrayName][index] = this[digitsArrayName][index].replace(/[^0-9]/g, '');
+
+            // Sync with formData
+            this.formData[codeFieldName] = this[digitsArrayName].join('');
+
+            // Focus next
+            if (this[digitsArrayName][index] && index < 5) {
+                this.$nextTick(() => {
+                    const container = document.getElementById(containerId);
+                    const nextInput = container.querySelectorAll('input')[index + 1];
+                    if (nextInput) nextInput.focus();
+                });
+            }
+        },
+
+        handleOTPBackspace(digitsArrayName, index, containerId, codeFieldName) {
+            if (!this[digitsArrayName][index] && index > 0) {
+                const container = document.getElementById(containerId);
+                const prevInput = container.querySelectorAll('input')[index - 1];
+                if (prevInput) {
+                    prevInput.focus();
+                }
+            }
+            this.formData[codeFieldName] = this[digitsArrayName].join('');
+        },
+
+        handleOTPPaste(event, digitsArrayName, containerId, codeFieldName) {
+            event.preventDefault();
+            const text = (event.clipboardData || window.clipboardData).getData('text');
+            const digits = text.trim().substring(0, 6).replace(/[^0-9]/g, '').split('');
+
+            // Clear current digits first
+            this[digitsArrayName] = ['', '', '', '', '', ''];
+
+            digits.forEach((d, i) => {
+                if (i < 6) this[digitsArrayName][i] = d;
+            });
+            this.formData[codeFieldName] = this[digitsArrayName].join('');
+
+            // Focus last filled or next empty
+            this.$nextTick(() => {
+                const container = document.getElementById(containerId);
+                const nextIndex = Math.min(digits.length, 5);
+                const nextInput = container.querySelectorAll('input')[nextIndex];
+                if (nextInput) nextInput.focus();
+            });
         }
     }
 }

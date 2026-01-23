@@ -425,10 +425,10 @@ document.addEventListener('DOMContentLoaded', function() {
             label: 'User',
             sortable: true,
             render: (value, row) => `
-                <div>
-                    <p class="text-sm font-medium text-gray-900">${value}</p>
+                <a href="/admin/users/${row.user_id}" class="group block">
+                    <p class="text-sm font-medium text-gray-900 group-hover:text-cabinet-orange transition-colors">${value}</p>
                     <p class="text-xs text-gray-500">${row.user_email}</p>
-                </div>
+                </a>
             `
         },
         {

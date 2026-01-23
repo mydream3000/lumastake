@@ -267,6 +267,34 @@ class UserController extends Controller
     }
 
     /**
+     * Toggle admin status
+     */
+    public function toggleAdmin(User $user)
+    {
+        if (!Auth::user()->is_super_admin) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Only super admins can change admin privileges',
+            ], 403);
+        }
+
+        if ($user->id === Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot change your own status',
+            ], 403);
+        }
+
+        $user->update(['is_admin' => !$user->is_admin]);
+
+        return response()->json([
+            'success' => true,
+            'message' => $user->is_admin ? 'Admin access granted' : 'Admin access revoked',
+            'is_admin' => $user->is_admin,
+        ]);
+    }
+
+    /**
      * Login as user (impersonate)
      */
     public function loginAs(User $user)

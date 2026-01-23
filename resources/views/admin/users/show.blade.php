@@ -267,8 +267,30 @@
 
                 <div class="space-y-3">
                     <div>
+                        <a href="{{ route('admin.users.edit', $user) }}"
+                           class="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center font-medium">
+                            <i class="fas fa-edit mr-2"></i>
+                            Edit User Profile
+                        </a>
+                        <p class="text-xs text-gray-500 mt-1 px-2">Modify user details, password, and settings</p>
+                    </div>
+
+                    @if(!$user->is_admin)
+                        <div>
+                            <form action="{{ route('admin.users.login-as', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to login as this user?')">
+                                @csrf
+                                <button type="submit" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+                                    <i class="fas fa-sign-in-alt mr-2"></i>
+                                    Login As User
+                                </button>
+                            </form>
+                            <p class="text-xs text-gray-500 mt-1 px-2">Access the platform as this user (impersonation)</p>
+                        </div>
+                    @endif
+
+                    <div>
                         <button type="button" onclick="window.dispatchEvent(new CustomEvent('open-balance-modal', { detail: { userId: {{ $user->id }}, userName: '{{ addslashes($user->name) }}' } }))"
-                                class="w-full px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors">
+                                class="w-full px-4 py-2 bg-cabinet-orange text-white rounded-lg hover:bg-cabinet-orange/90 transition-colors font-medium">
                             <i class="fas fa-wallet mr-2"></i>
                             Adjust Balance
                         </button>
@@ -284,33 +306,42 @@
                         <p class="text-xs text-gray-500 mt-1 px-2">Filter payments by this user</p>
                     </div>
 
-                    @if(!$user->is_admin)
+                    @if(Auth::user()->is_super_admin && !$user->is_admin)
                         <div>
                             <button type="button" onclick="toggleAdminStatus({{ $user->id }})"
-                                    class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                                    class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
                                 <i class="fas fa-crown mr-2"></i>
                                 Grant Admin Access
                             </button>
                             <p class="text-xs text-gray-500 mt-1 px-2">Give administrator privileges to user</p>
                         </div>
+                    @elseif(Auth::user()->is_super_admin && $user->is_admin && $user->id !== Auth::id())
+                        <div>
+                            <button type="button" onclick="toggleAdminStatus({{ $user->id }})"
+                                    class="w-full px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium">
+                                <i class="fas fa-user-minus mr-2"></i>
+                                Revoke Admin Access
+                            </button>
+                            <p class="text-xs text-gray-500 mt-1 px-2">Remove administrator privileges from user</p>
+                        </div>
                     @endif
 
                     <div>
-                        @if(!$user->active)
-                            <button type="button" onclick="toggleActiveStatus({{ $user->id }})"
-                                    class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        @if($user->blocked)
+                            <button type="button" onclick="toggleBlockedStatus({{ $user->id }})"
+                                    class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
                                 <i class="fas fa-check-circle mr-2"></i>
                                 Activate Account
                             </button>
                             <p class="text-xs text-red-600 mt-1 px-2 font-medium">⚠️ User is currently BLOCKED and cannot login</p>
                         @else
-                            <button type="button" onclick="toggleActiveStatus({{ $user->id }})"
-                                    class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                            <button type="button" onclick="toggleBlockedStatus({{ $user->id }})"
+                                    class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium">
                                 <i class="fas fa-ban mr-2"></i>
                                 Block Account
                             </button>
                             <p class="text-xs text-green-600 mt-1 px-2 font-medium">✓ User can login and use the platform</p>
-                        @endif>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -349,13 +380,13 @@ async function toggleAdminStatus(userId) {
     }
 }
 
-async function toggleActiveStatus(userId) {
-    if (!confirm('Are you sure you want to change the active status of this user?')) {
+async function toggleBlockedStatus(userId) {
+    if (!confirm('Are you sure you want to change the blocked status of this user?')) {
         return;
     }
 
     try {
-        const response = await fetch(`/admin/users/${userId}/toggle-active`, {
+        const response = await fetch(`/admin/users/${userId}/toggle-status`, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,

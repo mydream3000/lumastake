@@ -495,10 +495,10 @@ document.addEventListener('DOMContentLoaded', function() {
             label: 'Name',
             sortable: true,
             render: (value, row) => `
-                <div>
-                    <p class="text-xs font-medium text-gray-900">${value}</p>
+                <a href="/admin/users/${row.id}" class="group block">
+                    <p class="text-xs font-medium text-gray-900 group-hover:text-cabinet-orange transition-colors">${value}</p>
                     <p class="text-[10px] text-gray-500">${row.email}</p>
-                </div>
+                </a>
             `
         },
         {
@@ -713,7 +713,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const editBtn = e.target.closest('[data-action="edit-user"]');
         if (editBtn) {
             const userId = parseInt(editBtn.getAttribute('data-id'));
-            window.location.href = `/admin/users/${userId}`;
+            window.location.href = `/admin/users/${userId}/edit`;
             return;
         }
 

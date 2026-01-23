@@ -294,10 +294,10 @@
                         @forelse($recentUsers as $user)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">{{ $user->name }}</p>
+                                    <a href="{{ route('admin.users.show', $user->id) }}" class="group">
+                                        <p class="text-sm font-medium text-gray-900 group-hover:text-cabinet-orange transition-colors">{{ $user->name }}</p>
                                         <p class="text-xs text-gray-500">{{ $user->email }}</p>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-900">${{ number_format($user->balance, 2) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $user->created_at->format('d, M, Y') }}</td>
@@ -346,12 +346,16 @@
                         @forelse($recentDeposits as $deposit)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">{{ $deposit->user->name }}</p>
+                                    <a href="{{ route('admin.users.show', $deposit->user_id) }}" class="group">
+                                        <p class="text-sm font-medium text-gray-900 group-hover:text-cabinet-orange transition-colors">{{ $deposit->user->name }}</p>
                                         <p class="text-xs text-gray-500">{{ $deposit->user->email }}</p>
-                                    </div>
+                                    </a>
                                 </td>
-                                <td class="px-6 py-4 text-sm font-semibold text-green-600">${{ number_format($deposit->amount, 2) }}</td>
+                                <td class="px-6 py-4 text-sm font-semibold text-green-600">
+                                    <a href="{{ route('admin.payments.show', $deposit->id) }}" class="hover:underline">
+                                        ${{ number_format($deposit->amount, 2) }}
+                                    </a>
+                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $deposit->created_at->format('d, M, Y') }}</td>
                                 <td class="px-6 py-4">
                                     @if($deposit->status === 'completed')
@@ -400,12 +404,16 @@
                         @forelse($recentWithdrawals as $withdrawal)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">{{ $withdrawal->user->name }}</p>
+                                    <a href="{{ route('admin.users.show', $withdrawal->user_id) }}" class="group">
+                                        <p class="text-sm font-medium text-gray-900 group-hover:text-cabinet-orange transition-colors">{{ $withdrawal->user->name }}</p>
                                         <p class="text-xs text-gray-500">{{ $withdrawal->user->email }}</p>
-                                    </div>
+                                    </a>
                                 </td>
-                                <td class="px-6 py-4 text-sm font-semibold text-red-600">${{ number_format($withdrawal->amount, 2) }}</td>
+                                <td class="px-6 py-4 text-sm font-semibold text-red-600">
+                                    <a href="{{ route('admin.payments.show', $withdrawal->id) }}" class="hover:underline">
+                                        ${{ number_format($withdrawal->amount, 2) }}
+                                    </a>
+                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $withdrawal->created_at->format('d, M, Y') }}</td>
                                 <td class="px-6 py-4">
                                     @if($withdrawal->status === 'completed')

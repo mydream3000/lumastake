@@ -105,7 +105,10 @@
                     <div class="relative w-[200px] h-[200px] mx-auto">
                         {{-- Subtle background ring --}}
                         <div class="-z-10 absolute inset-0 rounded-full border-[12px] border-gray-100"></div>
-                        <canvas id="profit-donut-chart"></canvas>
+                        {{-- Background ring (expected) - thinner --}}
+                        <canvas id="profit-donut-bg" class="absolute inset-0"></canvas>
+                        {{-- Foreground ring (completed) - thicker --}}
+                        <canvas id="profit-donut-chart" class="absolute inset-0"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                             <p class="text-gray-400 text-sm font-medium mb-0">Total</p>
                             <p class="text-cabinet-text-main text-2xl font-bold" id="total-profit">${{ number_format($profitChartData['completed'] + $profitChartData['expected'], 1) }}</p>
@@ -172,22 +175,48 @@
             window.dispatchEvent(new CustomEvent('show-toast', { detail: { message: 'Referral link copied!', type: 'success' } }));
         }
 
-        // Profit Chart Logic
-        let profitChart;
+        // Profit Chart Logic - Two layered charts for different ring thickness
+        let profitChartBg;  // Background ring (expected) - thinner
+        let profitChart;    // Foreground ring (completed) - thicker
+        const ctxBg = document.getElementById('profit-donut-bg').getContext('2d');
         const ctx = document.getElementById('profit-donut-chart').getContext('2d');
 
         function initChart(completed, expected) {
+            if (profitChartBg) profitChartBg.destroy();
             if (profitChart) profitChart.destroy();
 
             // If both are 0, show empty ring
             const hasData = completed > 0 || expected > 0;
+            const total = completed + expected;
 
+            // Background chart - full ring with #D9EFFF (thinner, 75% cutout)
+            profitChartBg = new Chart(ctxBg, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [1],
+                        backgroundColor: hasData ? ['#D9EFFF'] : ['rgba(0,0,0,0.05)'],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+
+            // Foreground chart - completed portion with #3B4EFC (thicker, 70% cutout)
             profitChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
                         data: hasData ? [completed, expected] : [0, 1],
-                        backgroundColor: hasData ? ['#3B4EFC', '#D9EFFF'] : ['transparent', 'rgba(0,0,0,0.05)'],
+                        backgroundColor: hasData ? ['#3B4EFC', 'transparent'] : ['transparent', 'transparent'],
                         borderWidth: 0,
                         cutout: '70%'
                     }]
@@ -202,7 +231,6 @@
                 }
             });
         }
-
         initChart({{ $profitChartData['completed'] }}, {{ $profitChartData['expected'] }});
 
         // All tiers data for dynamic calculator

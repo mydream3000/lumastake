@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\PromoCode;
 use App\Models\Transaction;
 use App\Mail\EmailVerificationCode;
+use App\Mail\TemplatedMail;
 use Illuminate\Validation\Rule;
 
 class RegisterController extends BaseController
@@ -201,9 +202,10 @@ class RegisterController extends BaseController
             ]);
 
             // Use failover mailer (smtp -> log) to avoid hard failures
-            Mail::mailer('failover')->to($user->email)->send(new EmailVerificationCode(
-                $user->email_verification_code,
-                $user->name
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'email_verification',
+                ['code' => $user->email_verification_code, 'userName' => $user->name],
+                $user->id
             ));
 
             Log::info('Verification email sent successfully', [
@@ -337,7 +339,11 @@ class RegisterController extends BaseController
             ]);
 
             // Use failover mailer (smtp -> log) to avoid hard failures
-            Mail::mailer('failover')->to($user->email)->send(new EmailVerificationCode($verificationCode, $user->name));
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'email_verification',
+                ['code' => $verificationCode, 'userName' => $user->name],
+                $user->id
+            ));
 
             Log::info('Verification email resent successfully', [
                 'email' => $user->email,
@@ -398,7 +404,10 @@ class RegisterController extends BaseController
         \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(60));
 
         try {
-            Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));
+            Mail::mailer('failover')->to($data['email'])->send(new TemplatedMail(
+                'email_verification',
+                ['code' => $code, 'userName' => 'User']
+            ));
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             Log::error('Failed to send reg code', ['error' => $e->getMessage()]);
@@ -432,7 +441,10 @@ class RegisterController extends BaseController
         \Illuminate\Support\Facades\Cache::put('reg_code_' . $data['email'], $code, now()->addMinutes(60));
 
         try {
-            Mail::mailer('failover')->to($data['email'])->send(new EmailVerificationCode($code, 'User'));
+            Mail::mailer('failover')->to($data['email'])->send(new TemplatedMail(
+                'email_verification',
+                ['code' => $code, 'userName' => 'User']
+            ));
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Failed to send email.']);

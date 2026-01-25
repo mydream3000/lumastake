@@ -96,7 +96,7 @@
 
                 rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)]
                 flex flex-col relative transition-transform hover:scale-[1.02]
-                min-h-[500px]
+                min-h-[400px]
             "
                     >
 
@@ -105,7 +105,7 @@
                         </h3>
 
                         <div
-                            class="inline-block px-4 py-2 border-2
+                            class="inline-block px-4 py-1 border-2
                 {{ $isBlue ? 'border-white/50 text-white' : 'border-[#3B4EFC] text-[#3B4EFC]' }}
                 font-bold text-[20px] mb-12 text-left self-start rounded-[4px] tracking-tight"
                         >
@@ -116,7 +116,7 @@
                             @endif
                         </div>
 
-                        <div class="space-y-3 flex-grow">
+                        <div class="space-y-2 flex-grow">
                             @foreach($percentages as $p)
                                 <div class="flex justify-between items-center">
                         <span class="{{ $isBlue ? 'text-white' : 'text-black' }} font-bold uppercase text-[18px]">

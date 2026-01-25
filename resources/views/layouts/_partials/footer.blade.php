@@ -1,7 +1,10 @@
 ﻿<footer class="bg-[#E0F2FF] w-full relative overflow-hidden pt-24 pb-12">
     {{-- Background Image --}}
-    <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
-        <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">
+{{--    <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">--}}
+{{--        <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Background" class="w-full h-full object-cover">--}}
+{{--    </div>--}}
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('img/footer_bg.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
 
     <div class="max-w-[1280px] mx-auto px-6 relative z-10">

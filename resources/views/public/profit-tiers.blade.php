@@ -63,7 +63,7 @@
             </div>
 
             {{-- Tiers Grid --}}
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 @foreach($tiers as $tier)
                     @php
                         $isBlue = $loop->index % 2 !== 0;

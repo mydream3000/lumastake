@@ -116,9 +116,9 @@
                             @endif
                         </div>
 
-                        <div class="space-y-6 flex-grow">
+                        <div class="space-y-3 flex-grow">
                             @foreach($percentages as $p)
-                                <div class="flex justify-between items-center pb-2 {{ $isBlue ? 'border-b border-white/20' : 'border-b border-[#2BA6FF]/20' }} last:border-0">
+                                <div class="flex justify-between items-center">
                         <span class="{{ $isBlue ? 'text-white' : 'text-black' }} font-bold uppercase text-[18px]">
                             {{ $accountType === 'islamic' ? $p->duration_days : $p->days }} Days
                         </span>

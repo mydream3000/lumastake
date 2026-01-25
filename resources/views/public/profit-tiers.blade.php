@@ -63,57 +63,45 @@
             </div>
 
             {{-- Tiers Grid --}}
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                @php
-                    $tiersCount = count($tiers);
-                    $hasSingleLast = $tiersCount % 3 === 1; // для lg:grid-cols-3
-                @endphp
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($tiers as $tier)
+                    @php
+                        $isBlue = $loop->index % 2 !== 0;
+                        $percentages = $accountType === 'islamic' ? $tier->islamicPercentages : $tier->percentages;
+                    @endphp
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                    @foreach($tiers as $tier)
-                        @php
-                            $isBlue = $loop->index % 2 !== 0;
-                            $percentages = $accountType === 'islamic' ? $tier->islamicPercentages : $tier->percentages;
-                            $centerLastOnLg = $loop->last && $hasSingleLast; // последняя карточка одна в строке
-                        @endphp
+                    <div class="{{ $isBlue ? 'bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] text-white' : 'bg-white border border-[#2BA6FF] text-[#3B4EFC]' }} rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col relative transition-transform hover:scale-[1.02] min-h-[500px]">
 
-                        <div class="{{ $isBlue ? 'bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] text-white' : 'bg-white border border-[#2BA6FF] text-[#3B4EFC]' }}
-                {{ $centerLastOnLg ? 'lg:col-start-2' : '' }}
-                rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col relative transition-transform hover:scale-[1.02] min-h-[500px]">
+                        <h3 class="text-[40px] font-the-bold-font font-black mb-6 uppercase leading-[0.9] text-left tracking-tighter">
+                            {{ $tier->name }}
+                        </h3>
 
-                            <h3 class="text-[40px] font-the-bold-font font-black mb-6 uppercase leading-[0.9] text-left tracking-tighter">
-                                {{ $tier->name }}
-                            </h3>
-
-                            <div class="inline-block px-4 py-2 border-2 {{ $isBlue ? 'border-white/50 text-white' : 'border-[#3B4EFC] text-[#3B4EFC]' }} font-bold text-[20px] mb-12 text-left self-start rounded-[4px] tracking-tight">
-                                @if($tier->max_balance)
-                                    ${{ number_format($tier->min_balance, 0) }} – ${{ number_format($tier->max_balance, 0) }} USD
-                                @else
-                                    ${{ number_format($tier->min_balance, 0) }}+ USD
-                                @endif
-                            </div>
-
-                            <div class="space-y-6 flex-grow">
-                                @foreach($percentages as $p)
-                                    <div class="flex justify-between items-center pb-2 {{ $isBlue ? 'border-b border-white/20' : 'border-b border-[#2BA6FF]/20' }} last:border-0">
-            <span class="{{ $isBlue ? 'text-white' : 'text-black' }} font-bold uppercase text-[18px]">
-              {{ $accountType === 'islamic' ? $p->duration_days : $p->days }} Days
-            </span>
-                                        <span class="{{ $isBlue ? 'text-white' : 'text-[#262262]' }} font-black text-[24px]">
-              @if($accountType === 'islamic')
-                                                {{ number_format($p->min_percentage, 1) }}% – {{ number_format($p->max_percentage, 1) }}%
-                                            @else
-                                                {{ number_format($p->percentage, 1) }}%
-                                            @endif
-            </span>
-                                    </div>
-                                @endforeach
-                            </div>
-
+                        <div class="inline-block px-4 py-2 border-2 {{ $isBlue ? 'border-white/50 text-white' : 'border-[#3B4EFC] text-[#3B4EFC]' }} font-bold text-[20px] mb-12 text-left self-start rounded-[4px] tracking-tight">
+                            @if($tier->max_balance)
+                                ${{ number_format($tier->min_balance, 0) }} – ${{ number_format($tier->max_balance, 0) }} USD
+                            @else
+                                ${{ number_format($tier->min_balance, 0) }}+ USD
+                            @endif
                         </div>
-                    @endforeach
-                </div>
 
+                        <div class="space-y-6 flex-grow">
+                            @foreach($percentages as $p)
+                                <div class="flex justify-between items-center pb-2 {{ $isBlue ? 'border-b border-white/20' : 'border-b border-[#2BA6FF]/20' }} last:border-0">
+                                    <span class="{{ $isBlue ? 'text-white' : 'text-black' }} font-bold uppercase text-[18px]">
+                                        {{ $accountType === 'islamic' ? $p->duration_days : $p->days }} Days
+                                    </span>
+                                    <span class="{{ $isBlue ? 'text-white' : 'text-[#262262]' }} font-black text-[24px]">
+                                        @if($accountType === 'islamic')
+                                            {{ number_format($p->min_percentage, 1) }}% – {{ number_format($p->max_percentage, 1) }}%
+                                        @else
+                                            {{ number_format($p->percentage, 1) }}%
+                                        @endif
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

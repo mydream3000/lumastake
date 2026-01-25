@@ -126,7 +126,7 @@ nav a img, nav button img {
     border-radius: 10px;
     box-shadow: 0 4px 5px -25px rgba(0, 0, 0, 0.25);
 }
-.right-card .bg-cabinet-blue, .left-card .bg-cabinet-lime{
+.right-card .svg-cont, .left-card .svg-cont{
     height: 59px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

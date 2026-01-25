@@ -16,7 +16,7 @@
                 <div class="relative card right-card p-6 pb-4 lg:min-h-[230px]">
                     <div class="flex items-center justify-between mb-8">
                         <h3 class="font-bold text-2xl text-cabinet-text-main">Balance</h3>
-                        <div class="bg-cabinet-blue p-2 rounded-lg">
+                        <div class="bg-cabinet-blue svg-cont p-2 rounded-lg">
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <mask id="mask0_1_7016" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
                                     <rect width="32" height="32" fill="url(#pattern0_1_7016)"/>
@@ -52,7 +52,7 @@
                 <div class="lg:min-h-[230px] relative card left-card p-6 pb-4">
                     <div class="flex items-center justify-between mb-8">
                         <h3 class="font-bold text-2xl text-cabinet-text-main">Amount Staked</h3>
-                        <div class="bg-cabinet-lime p-2 rounded-lg">
+                        <div class="bg-cabinet-lime svg-cont p-2 rounded-lg">
                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <mask id="mask0_1_6999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
                                     <rect width="34" height="34" fill="url(#pattern0_1_6999)"/>

@@ -111,6 +111,12 @@
             class="w-48 bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 text-center text-2xl font-black tracking-[0.5em] text-cabinet-blue focus:ring-2 focus:ring-cabinet-blue/20 outline-none transition-all"
           >
         </div>
+        <button @click="pasteFromClipboard" type="button" class="text-cabinet-blue text-xs font-bold hover:underline flex items-center justify-center gap-1 mx-auto mt-3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+          </svg>
+          Paste from clipboard
+        </button>
       </div>
 
       <!-- Error Message -->
@@ -152,6 +158,23 @@ const loading = ref(false)
 const resending = ref(false)
 const error = ref(null)
 const confirmCode = ref('')
+
+const pasteFromClipboard = async () => {
+  try {
+    const text = await navigator.clipboard.readText()
+    if (text) {
+      const code = text.trim().substring(0, 6).replace(/[^0-9]/g, '')
+      if (code) {
+        confirmCode.value = code
+        if (window.showToast) {
+          window.showToast('Code pasted from clipboard', 'success')
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Failed to paste:', err)
+  }
+}
 
 const form = ref({
   token: 'USDT',

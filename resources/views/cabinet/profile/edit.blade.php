@@ -299,7 +299,7 @@
                 </p>
 
                 <!-- Code Input -->
-                <div class="mb-4">
+                <div class="mb-6">
                     <label class="block text-base font-medium text-gray-700 mb-2">Verification Code</label>
                     <div class="relative">
                         <input
@@ -309,36 +309,33 @@
                             pattern="[0-9]*"
                             inputmode="numeric"
                             placeholder="Enter 6-digit code"
-                            class="w-full px-4 py-3 pr-24 border border-gray-300 rounded-lg text-center text-2xl tracking-widest focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-2xl tracking-widest focus:outline-none focus:ring-2 focus:ring-cabinet-orange"
                             @input="code = code.replace(/[^0-9]/g, '')"
                         >
-                        <button
-                            type="button"
-                            @click="async () => {
-                                try {
-                                    const text = await navigator.clipboard.readText();
-                                    const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
-                                    if (digits.length === 6) {
-                                        code = digits;
-                                        window.dispatchEvent(new CustomEvent('show-toast', {
-                                            detail: { message: 'Code inserted from clipboard', type: 'success' }
-                                        }));
-                                    } else {
-                                        window.dispatchEvent(new CustomEvent('show-toast', {
-                                            detail: { message: 'Invalid code format in clipboard', type: 'error' }
-                                        }));
-                                    }
-                                } catch (err) {
-                                    window.dispatchEvent(new CustomEvent('show-toast', {
-                                        detail: { message: 'Failed to read clipboard', type: 'error' }
-                                    }));
-                                }
-                            }"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-cabinet-green hover:bg-cabinet-green/90 text-white text-xs font-semibold rounded transition-colors"
-                        >
-                            Paste
-                        </button>
                     </div>
+                    <button
+                        @click="async () => {
+                            try {
+                                const text = await navigator.clipboard.readText();
+                                const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
+                                if (digits.length > 0) {
+                                    code = digits;
+                                    window.showToast('Code pasted from clipboard', 'success');
+                                } else {
+                                    window.showToast('No digits found in clipboard', 'error');
+                                }
+                            } catch (err) {
+                                window.showToast('Failed to read clipboard', 'error');
+                            }
+                        }"
+                        type="button"
+                        class="mt-3 text-cabinet-blue text-sm font-bold hover:underline flex items-center justify-center gap-2 mx-auto"
+                    >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+                        </svg>
+                        Paste from clipboard
+                    </button>
                 </div>
 
                 <!-- Status Message -->

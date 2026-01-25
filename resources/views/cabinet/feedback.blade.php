@@ -2,7 +2,7 @@
     <div class="max-w-[1030px] mx-auto">
         {{-- Header with Logo --}}
         <div class="mb-8">
-            <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-16 h-16 mb-6">
+            <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-16 h-16 mb-6 mx-auto">
             <div class="flex items-center gap-4">
                 <a href="{{ route('cabinet.dashboard') }}" class="text-cabinet-text-main hover:opacity-70 transition">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

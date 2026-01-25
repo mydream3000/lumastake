@@ -13,7 +13,8 @@
                 @php
                     $progressPercent = min(max($progress * 100, 0), 100);
                 @endphp
-                <div class="card p-6 pb-4 bg-cabinet-light-blue border-cabinet-blue/20">
+                <div class="card p-6 pb-4 bg-[#D9EEFF]
+ border-cabinet-blue">
                     <div class="flex items-center justify-between mb-8">
                         <h3 class="font-bold text-2xl text-cabinet-text-main">Balance</h3>
                         <div class="bg-cabinet-blue p-2 rounded-lg">
@@ -36,7 +37,8 @@
                 </div>
 
                 {{-- Amount Staked Card --}}
-                <div class="card p-6 pb-4 bg-cabinet-light-yellow border-cabinet-lime/20">
+                <div class="card p-6 pb-4 bg-[#F6FFD6]
+ border-cabinet-lime">
                     <div class="flex items-center justify-between mb-8">
                         <h3 class="font-bold text-2xl text-cabinet-text-main">Amount Staked</h3>
                         <div class="bg-cabinet-lime p-2 rounded-lg">

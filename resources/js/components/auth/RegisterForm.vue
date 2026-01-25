@@ -2,7 +2,7 @@
     <div class="registration-container min-h-screen flex items-center justify-center p-4 md:p-12 font-poppins relative overflow-hidden bg-white">
         <!-- Background elements from Figma -->
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('img/login/login-bg.png') }}" alt="Background" class="w-full h-full object-cover">
+            <img src="/img/login/login-bg.png" alt="Background" class="w-full h-full object-cover">
         </div>
         <div class="absolute left-[-530px] top-[-264px] w-[1189px] h-[1189px] opacity-20 pointer-events-none">
             <div class="absolute inset-0 bg-blue-100 rounded-full blur-[100px]"></div>

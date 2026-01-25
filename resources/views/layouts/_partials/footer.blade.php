@@ -41,7 +41,7 @@
                     @endphp
                     @if($icon)
                         <a href="{{ $link->url }}" target="_blank" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                            <img src="{{ asset($icon) }}" alt="{{ $link->platform }}" class="w-8 h-8 opacity-80 hover:opacity-100">
+                            <img src="{{ asset($icon) }}" alt="{{ $link->platform }}" class="w-12 h-12 opacity-100 hover:opacity-80">
                         </a>
                     @endif
                 @endforeach

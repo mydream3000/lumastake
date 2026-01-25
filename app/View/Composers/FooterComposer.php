@@ -11,7 +11,7 @@ class FooterComposer
     {
         $socialLinks = SocialLink::where('is_active', true)
             ->whereNotNull('url')
-            ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok')")
+            ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok', 'Telegram', 'YouTube')")
             ->get();
 
         $view->with('socialLinks', $socialLinks);

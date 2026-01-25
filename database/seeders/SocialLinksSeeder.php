@@ -15,11 +15,13 @@ class SocialLinksSeeder extends Seeder
         $platforms = ['Instagram', 'Facebook', 'Twitter', 'TikTok', 'YouTube', 'Telegram'];
 
         foreach ($platforms as $platform) {
-            SocialLink::create([
-                'platform' => $platform,
-                'url' => null,
-                'is_active' => false,
-            ]);
+            SocialLink::updateOrCreate(
+                ['platform' => $platform],
+                [
+                    'url' => null,
+                    'is_active' => false,
+                ]
+            );
         }
     }
 }

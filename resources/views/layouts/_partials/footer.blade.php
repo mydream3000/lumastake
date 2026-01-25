@@ -27,18 +27,24 @@
             <p class="text-lumastake-navy text-xl font-medium opacity-70">© 2026 Lumastake. All rights reserved.</p>
 
             <div class="flex space-x-6">
-                <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/instagram.svg') }}" alt="Instagram" class="w-8 h-8 opacity-80 hover:opacity-100">
-                </a>
-                <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/facebook.svg') }}" alt="Facebook" class="w-8 h-8 opacity-80 hover:opacity-100">
-                </a>
-                <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/xlink.svg') }}" alt="Twitter" class="w-8 h-8 opacity-80 hover:opacity-100">
-                </a>
-                <a href="#" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
-                    <img src="{{ asset('img/tiktok.svg') }}" alt="TikTok" class="w-8 h-8 opacity-80 hover:opacity-100">
-                </a>
+                @foreach($socialLinks as $link)
+                    @php
+                        $icon = match($link->platform) {
+                            'Instagram' => 'img/instagram.svg',
+                            'Facebook' => 'img/facebook.svg',
+                            'Twitter' => 'img/xlink.svg',
+                            'TikTok' => 'img/tiktok.svg',
+                            'YouTube' => 'img/youtube.svg',
+                            'Telegram' => 'img/telegram.svg',
+                            default => null
+                        };
+                    @endphp
+                    @if($icon)
+                        <a href="{{ $link->url }}" target="_blank" class="text-lumastake-navy hover:text-lumastake-blue transition-all transform hover:scale-110">
+                            <img src="{{ asset($icon) }}" alt="{{ $link->platform }}" class="w-8 h-8 opacity-80 hover:opacity-100">
+                        </a>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

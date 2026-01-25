@@ -1,72 +1,77 @@
 <x-cabinet-layout>
-    <div class="max-w-3xl mx-auto px-4 py-6">
-        {{-- Header --}}
-        <div class="flex items-center gap-3 mb-8">
-            <a href="{{ route('cabinet.dashboard') }}" class="text-gray-600 hover:text-gray-900 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-            </a>
-            <h1 class="font-poppins font-semibold text-xl text-[#222222]">Contact Us</h1>
+    <div class="max-w-[1030px] mx-auto">
+        {{-- Header with Logo --}}
+        <div class="mb-8">
+            <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-16 h-16 mb-6">
+            <div class="flex items-center gap-4">
+                <a href="{{ route('cabinet.dashboard') }}" class="text-cabinet-text-main hover:opacity-70 transition">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <h1 class="font-poppins font-semibold text-[24px] text-[#222222]">Contact Us</h1>
+            </div>
         </div>
 
         {{-- Contact Form --}}
-        <form action="{{ route('cabinet.contact.store') }}" method="POST" class="space-y-5" x-data="contactForm()">
+        <form action="{{ route('cabinet.contact.store') }}" method="POST" class="space-y-6" x-data="contactForm()">
             @csrf
 
-            {{-- Row 1: First Name + Last Name --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{-- First Name --}}
+                <div class="relative">
                     <input
                         type="text"
                         name="first_name"
                         x-model="form.first_name"
                         placeholder="First Name"
-                        class="w-full px-4 py-3 bg-[#FFFDE7] border border-[#E0E0E0] rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-cabinet-green transition font-poppins"
+                        class="w-full h-[65px] px-6 bg-[#f8f8f8] border border-[#444444]/60 rounded-[6px] text-gray-900 placeholder-[#CCCCCC] text-[18px] focus:ring-1 focus:ring-cabinet-blue focus:border-cabinet-blue outline-none transition font-poppins"
                         required
                     >
                 </div>
-                <div>
+                {{-- Last Name --}}
+                <div class="relative">
                     <input
                         type="text"
                         name="last_name"
                         x-model="form.last_name"
                         placeholder="Last Name"
-                        class="w-full px-4 py-3 bg-[#FFFDE7] border border-[#E0E0E0] rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-cabinet-green transition font-poppins"
+                        class="w-full h-[65px] px-6 bg-[#f8f8f8] border border-[#444444]/60 rounded-[6px] text-gray-900 placeholder-[#CCCCCC] text-[18px] focus:ring-1 focus:ring-cabinet-blue focus:border-cabinet-blue outline-none transition font-poppins"
                         required
                     >
                 </div>
             </div>
 
-            {{-- Row 2: Email + Phone --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {{-- Email --}}
-                <div>
+                <div class="relative">
                     <input
                         type="email"
                         name="email"
                         x-model="form.email"
                         placeholder="Email"
-                        class="w-full px-4 py-3 bg-[#FFFDE7] border border-[#E0E0E0] rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-cabinet-green transition font-poppins"
+                        class="w-full h-[65px] px-6 bg-[#f8f8f8] border border-[#444444]/60 rounded-[6px] text-gray-900 placeholder-[#CCCCCC] text-[18px] focus:ring-1 focus:ring-cabinet-blue focus:border-cabinet-blue outline-none transition font-poppins"
                         required
                     >
+                    {{-- Figma shows a chevron for Email? Maybe it's a dropdown? If it's just a design element, we can add it or skip. The user said 'точныый ридизайн'. --}}
+                    <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <svg width="13" height="22" viewBox="0 0 13 22" fill="none" class="rotate-90">
+                            <path d="M1 1L11 11L1 21" stroke="#3B4EFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
 
-                {{-- Phone with country code --}}
+                {{-- Phone number --}}
                 <div x-data="phoneInput()">
-                    <div class="flex w-full items-stretch rounded-md border border-[#E0E0E0] bg-[#FFFDE7] overflow-hidden focus-within:border-cabinet-green">
+                    <div class="relative flex items-center h-[65px] bg-[#f8f8f8] border border-[#444444]/60 rounded-[6px] px-6 focus-within:ring-1 focus-within:ring-cabinet-blue focus-within:border-cabinet-blue transition">
                         <button
                             type="button"
                             @click="open = !open"
-                            class="px-3 py-3 bg-[#FFFDE7] text-gray-700 flex items-center gap-2 select-none hover:bg-[#FFF9C4] transition border-r border-[#E0E0E0]"
+                            class="flex items-center gap-1 text-cabinet-blue text-[18px] font-poppins font-regular focus:outline-none"
                         >
-                            <span :class="selectedCountry.flag_class" class="text-base"></span>
-                            <span class="text-sm font-medium" x-text="selectedCountry.phone_code"></span>
-                            <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <span x-text="selectedCountry.phone_code"></span>
                         </button>
-
+                        <span class="mx-2 text-black text-[18px]">|</span>
                         <input
                             type="tel"
                             x-model="phone"
@@ -74,7 +79,7 @@
                             name="phone"
                             maxlength="19"
                             placeholder="Phone number"
-                            class="px-3 py-3 flex-1 min-w-0 bg-transparent border-0 outline-none text-gray-900 placeholder-gray-400 font-poppins"
+                            class="flex-1 bg-transparent border-0 outline-none text-gray-900 placeholder-[#CCCCCC] text-[18px] font-poppins p-0 focus:ring-0"
                         />
                     </div>
 
@@ -105,57 +110,56 @@
                 </div>
             </div>
 
-            {{-- Row 3: Message --}}
-            <div>
+            {{-- Message --}}
+            <div class="relative">
                 <textarea
                     name="message"
                     x-model="form.message"
                     placeholder="Message"
-                    rows="5"
-                    class="w-full px-4 py-3 bg-[#FFFDE7] border border-[#E0E0E0] rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-cabinet-green transition resize-none font-poppins"
+                    rows="8"
+                    class="w-full px-6 py-4 bg-[#f8f8f8] border border-[#444444]/60 rounded-[6px] text-gray-900 placeholder-[#CCCCCC] text-[18px] focus:ring-1 focus:ring-cabinet-blue focus:border-cabinet-blue outline-none transition resize-none font-poppins"
                     required
                 ></textarea>
             </div>
 
-            {{-- Row 4: Email link (right aligned) --}}
-            <div class="flex justify-end">
-                <a href="mailto:lumastake@gmail.com" class="inline-flex items-center gap-2 text-gray-500 hover:text-cabinet-green transition text-sm font-poppins">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
-                    lumastake@gmail.com
-                </a>
-            </div>
-
-            {{-- Row 5: Submit button + Social icons --}}
-            <div class="flex items-center justify-between gap-4 pt-2">
+            {{-- Footer of the form --}}
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 pt-4">
+                {{-- Submit Button --}}
                 <button
                     type="submit"
-                    class="px-12 py-3 bg-[#3F51B5] text-white rounded-full text-base font-semibold hover:bg-[#303F9F] transition font-poppins"
+                    class="w-full md:w-[453px] h-[49px] bg-cabinet-lime text-[#262262] rounded-[6px] text-[22px] font-poppins font-semibold hover:opacity-90 transition shadow-sm flex items-center justify-center"
                 >
                     Submit
                 </button>
 
-                {{-- Social icons - blue with white icons --}}
-                <div class="flex items-center gap-3">
-                    <a href="#" class="w-9 h-9 bg-[#3F51B5] rounded-full flex items-center justify-center text-white hover:bg-[#303F9F] transition">
-                        {{-- Instagram --}}
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                {{-- Email and Socials --}}
+                <div class="flex flex-col items-end gap-4">
+                    <div class="flex items-center gap-3 text-[#444444] text-[22px] font-poppins">
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30 6H6C4.35 6 3 7.35 3 9V27C3 28.65 4.35 30 6 30H30C31.65 30 33 28.65 33 27V9C33 7.35 31.65 6 30 6ZM30 9V10.23L18 18.225L6 10.23V9H30ZM6 27V13.77L18 21.765L30 13.77V27H6Z" fill="#444444"/>
                         </svg>
-                    </a>
-                    <a href="#" class="w-9 h-9 bg-[#3F51B5] rounded-full flex items-center justify-center text-white hover:bg-[#303F9F] transition">
-                        {{-- Facebook --}}
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="w-9 h-9 bg-[#3F51B5] rounded-full flex items-center justify-center text-white hover:bg-[#303F9F] transition">
-                        {{-- X (Twitter) --}}
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                    </a>
+                        <a href="mailto:lumastake@gmail.com">lumastake@gmail.com</a>
+                    </div>
+
+                    {{-- Dynamic Social Links --}}
+                    <div class="flex items-center gap-3">
+                        @foreach($socialLinks as $link)
+                            @php
+                                $icon = '';
+                                if ($link->platform === 'Instagram') $icon = 'fab fa-instagram';
+                                elseif ($link->platform === 'Facebook') $icon = 'fab fa-facebook-f';
+                                elseif ($link->platform === 'Twitter') $icon = 'fab fa-twitter';
+                                elseif ($link->platform === 'Telegram') $icon = 'fab fa-telegram-plane';
+                                elseif ($link->platform === 'YouTube') $icon = 'fab fa-youtube';
+                                elseif ($link->platform === 'TikTok') $icon = 'fab fa-tiktok';
+                            @endphp
+                            @if($icon)
+                                <a href="{{ $link->url }}" target="_blank" class="w-[37px] h-[37px] bg-[#3B4EFC] rounded-full flex items-center justify-center text-white hover:opacity-80 transition">
+                                    <i class="{{ $icon }} text-[20px]"></i>
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </form>
@@ -209,19 +213,9 @@
                 <button
                     @click="show = false"
                     type="button"
-                    class="w-full px-4 py-2.5 bg-[#3F51B5] text-white text-sm font-semibold rounded-lg hover:bg-[#303F9F] transition"
+                    class="w-full px-4 py-2.5 bg-cabinet-blue text-white text-sm font-semibold rounded-lg hover:opacity-90 transition"
                 >
                     Close
-                </button>
-
-                <button
-                    @click="show = false"
-                    type="button"
-                    class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
                 </button>
             </div>
         </div>
@@ -242,6 +236,26 @@
             }
         }
 
+        function phoneInput() {
+            const countries = window.__GEOIP_COUNTRIES__ || [];
+            // Default to UK as in Figma (+44)
+            const defaultCountry = countries.find(c => c.phone_code === '+44') || countries[0] || {phone_code: '+44', code: 'GB', flag_class: 'fi fi-gb'};
+
+            return {
+                open: false,
+                phone: '',
+                countries: countries,
+                selectedCountry: defaultCountry,
+                selectCountry(country) {
+                    this.selectedCountry = country;
+                    this.open = false;
+                },
+                formatPhone() {
+                    // Basic formatting if needed
+                }
+            }
+        }
+
         @if(session('success'))
             window.addEventListener('DOMContentLoaded', () => {
                 showToast('{{ session('success') }}', 'success');
@@ -254,5 +268,7 @@
             });
         @endif
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
     @endpush
 </x-cabinet-layout>

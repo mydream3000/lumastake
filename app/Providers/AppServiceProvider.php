@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         StakingDeposit::observe(StakingDepositObserver::class);
         ReferralLevel::observe(ReferralLevelObserver::class);
 
-        View::composer(['layouts._partials.footer', 'layouts._partials.header', 'cabinet.feedback'], FooterComposer::class);
+        View::composer(['layouts._partials.footer', 'layouts._partials.header', 'cabinet.feedback', 'public.blog.show'], FooterComposer::class);
         View::composer('layouts.public', SeoComposer::class);
     }
 }

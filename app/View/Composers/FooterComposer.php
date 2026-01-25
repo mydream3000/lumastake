@@ -9,11 +9,21 @@ class FooterComposer
 {
     public function compose(View $view): void
     {
-        $socialLinks = SocialLink::where('is_active', true)
-            ->whereNotNull('url')
+        // Footer links (for footer + blog sharing)
+        $footerLinks = SocialLink::footer()
+            ->active()
             ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok', 'Telegram', 'YouTube')")
             ->get();
 
-        $view->with('socialLinks', $socialLinks);
+        // Cabinet links (for contact form)
+        $cabinetLinks = SocialLink::cabinet()
+            ->active()
+            ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok', 'Telegram', 'YouTube')")
+            ->get();
+
+        // Keep backward compatibility with old $socialLinks variable
+        $view->with('socialLinks', $footerLinks);
+        $view->with('footerLinks', $footerLinks);
+        $view->with('cabinetLinks', $cabinetLinks);
     }
 }

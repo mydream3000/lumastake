@@ -141,9 +141,9 @@
                         <a href="mailto:lumastake@gmail.com">lumastake@gmail.com</a>
                     </div>
 
-                    {{-- Dynamic Social Links --}}
+                    {{-- Dynamic Social Links (Cabinet type) --}}
                     <div class="flex items-center gap-3">
-                        @foreach($socialLinks as $link)
+                        @foreach($cabinetLinks as $link)
                             @php
                                 $icon = '';
                                 if ($link->platform === 'Instagram') $icon = 'fab fa-instagram';

@@ -10,9 +10,15 @@ class SocialLinksController extends Controller
 {
     public function index()
     {
-        $socialLinks = SocialLink::orderBy('id')->get();
+        $footerLinks = SocialLink::footer()
+            ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok', 'YouTube', 'Telegram')")
+            ->get();
 
-        return view('admin.social-links.index', compact('socialLinks'));
+        $cabinetLinks = SocialLink::cabinet()
+            ->orderByRaw("FIELD(platform, 'Instagram', 'Facebook', 'Twitter', 'TikTok', 'YouTube', 'Telegram')")
+            ->get();
+
+        return view('admin.social-links.index', compact('footerLinks', 'cabinetLinks'));
     }
 
     public function update(Request $request, SocialLink $socialLink)

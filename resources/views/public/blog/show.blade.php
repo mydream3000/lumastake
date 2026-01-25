@@ -39,6 +39,45 @@
             <div class="prose prose-2xl max-w-none prose-headings:font-the-bold-font prose-headings:text-[#3B4EFC] prose-headings:uppercase prose-headings:tracking-tighter prose-p:text-[22px] prose-p:text-black/70 prose-p:leading-normal">
                 {!! $post->content !!}
             </div>
+
+            {{-- Share Article Section --}}
+            @if(isset($footerLinks) && $footerLinks->count() > 0)
+                <div class="mt-16 pt-8 border-t border-gray-200">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <h3 class="text-2xl font-the-bold-font font-black text-[#262262] uppercase tracking-tighter">Share this article</h3>
+                        <div class="flex items-center gap-4">
+                            @php
+                                $shareUrl = urlencode(request()->url());
+                                $shareTitle = urlencode($post->title);
+                            @endphp
+                            @foreach($footerLinks as $link)
+                                @php
+                                    $shareLink = match($link->platform) {
+                                        'Facebook' => "https://www.facebook.com/sharer/sharer.php?u={$shareUrl}",
+                                        'Twitter' => "https://twitter.com/intent/tweet?url={$shareUrl}&text={$shareTitle}",
+                                        'Telegram' => "https://t.me/share/url?url={$shareUrl}&text={$shareTitle}",
+                                        default => null
+                                    };
+                                    $icon = match($link->platform) {
+                                        'Facebook' => 'img/facebook.svg',
+                                        'Twitter' => 'img/xlink.svg',
+                                        'Telegram' => 'img/telegram.svg',
+                                        default => null
+                                    };
+                                @endphp
+                                @if($shareLink && $icon)
+                                    <a href="{{ $shareLink }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="w-12 h-12 bg-[#3B4EFC] rounded-full flex items-center justify-center hover:bg-[#3B4EFC]/80 transition shadow-lg">
+                                        <img src="{{ asset($icon) }}" alt="Share on {{ $link->platform }}" class="w-6 h-6 brightness-0 invert">
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 

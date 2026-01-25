@@ -64,13 +64,34 @@
 
             {{-- Tiers Grid --}}
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($tiers as $tier)
-                    @php
-                        $isBlue = $loop->index % 2 !== 0;
-                        $percentages = $accountType === 'islamic' ? $tier->islamicPercentages : $tier->percentages;
-                    @endphp
+                @php
+                    $tiersCount = count($tiers);
+                    $centerLast = $tiersCount % 3 === 1; // для lg:grid-cols-3
+                @endphp
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($tiers as $tier)
+                        @php
+                            $isBlue = $loop->index % 2 !== 0;
+                            $percentages = $accountType === 'islamic'
+                                ? $tier->islamicPercentages
+                                : $tier->percentages;
 
-                    <div class="{{ $isBlue ? 'bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] text-white' : 'bg-white border border-[#2BA6FF] text-[#3B4EFC]' }} rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col relative transition-transform hover:scale-[1.02] min-h-[500px]">
+                            $moveToCenter = $loop->last && $centerLast;
+                        @endphp
+
+                        <div
+                            class="
+                {{ $isBlue
+                    ? 'bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] text-white'
+                    : 'bg-white border border-[#2BA6FF] text-[#3B4EFC]' }}
+
+                {{ $moveToCenter ? 'lg:col-start-2' : '' }}
+
+                rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)]
+                flex flex-col relative transition-transform hover:scale-[1.02]
+                min-h-[500px]
+            "
+                        >
 
                         <h3 class="text-[40px] font-the-bold-font font-black mb-6 uppercase leading-[0.9] text-left tracking-tighter">
                             {{ $tier->name }}

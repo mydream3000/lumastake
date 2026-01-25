@@ -65,9 +65,80 @@
             {{-- Tiers Grid --}}
             @php
                 $tiersCount = count($tiers);
-                // На lg:grid-cols-3, если остаток 1 — последняя строка содержит 1 элемент, его нужно поставить в центр (колонка 2)
+                // для lg:grid-cols-3 — если в последней строке 1 элемент
                 $centerLastOnLg = ($tiersCount % 3 === 1);
             @endphp
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($tiers as $tier)
+                    @php
+                        // базовая логика цвета
+                        $isBlueBase = $loop->index % 2 !== 0;
+
+                        // нужно ли центрировать последний
+                        $moveToCenter = $loop->last && $centerLastOnLg;
+
+                        // ❗ если элемент последний и центрируется — ОН ДОЛЖЕН БЫТЬ БЕЛЫМ
+                        $isBlue = $moveToCenter ? false : $isBlueBase;
+
+                        // percentages — НЕ ТРОГАЕМ
+                        $percentages = $accountType === 'islamic'
+                            ? $tier->islamicPercentages
+                            : $tier->percentages;
+                    @endphp
+
+                    <div
+                        class="
+                {{ $isBlue
+                    ? 'bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] text-white'
+                    : 'bg-white border border-[#2BA6FF] text-[#3B4EFC]' }}
+
+                {{ $moveToCenter ? 'lg:col-start-2' : '' }}
+
+                rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)]
+                flex flex-col relative transition-transform hover:scale-[1.02]
+                min-h-[500px]
+            "
+                    >
+
+                        <h3 class="text-[40px] font-the-bold-font font-black mb-6 uppercase leading-[0.9] text-left tracking-tighter">
+                            {{ $tier->name }}
+                        </h3>
+
+                        <div
+                            class="inline-block px-4 py-2 border-2
+                {{ $isBlue ? 'border-white/50 text-white' : 'border-[#3B4EFC] text-[#3B4EFC]' }}
+                font-bold text-[20px] mb-12 text-left self-start rounded-[4px] tracking-tight"
+                        >
+                            @if($tier->max_balance)
+                                ${{ number_format($tier->min_balance, 0) }} – ${{ number_format($tier->max_balance, 0) }} USD
+                            @else
+                                ${{ number_format($tier->min_balance, 0) }}+ USD
+                            @endif
+                        </div>
+
+                        <div class="space-y-6 flex-grow">
+                            @foreach($percentages as $p)
+                                <div class="flex justify-between items-center pb-2 {{ $isBlue ? 'border-b border-white/20' : 'border-b border-[#2BA6FF]/20' }} last:border-0">
+                        <span class="{{ $isBlue ? 'text-white' : 'text-black' }} font-bold uppercase text-[18px]">
+                            {{ $accountType === 'islamic' ? $p->duration_days : $p->days }} Days
+                        </span>
+
+                                    <span class="{{ $isBlue ? 'text-white' : 'text-[#262262]' }} font-black text-[24px]">
+                            @if($accountType === 'islamic')
+                                            {{ number_format($p->min_percentage, 1) }}% – {{ number_format($p->max_percentage, 1) }}%
+                                        @else
+                                            {{ number_format($p->percentage, 1) }}%
+                                        @endif
+                        </span>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($tiers as $tier)

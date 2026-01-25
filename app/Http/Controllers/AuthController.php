@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AccountLockedMail;
-use App\Mail\Login2FACode;
+use App\Mail\TemplatedMail;
 use App\Models\ToastMessage;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
@@ -169,9 +169,13 @@ class AuthController extends BaseController
             // Send verification email
             $emailSent = false;
             try {
-                Mail::mailer('failover')->to($user->email)->send(new Login2FACode(
-                    $verificationCode,
-                    $user->name
+                Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                    'password_code_remainder',
+                    [
+                        'code' => $verificationCode,
+                        'userName' => $user->name ?: $user->email,
+                    ],
+                    $user->id
                 ));
                 $emailSent = true;
             } catch (\Exception $e) {
@@ -321,7 +325,14 @@ class AuthController extends BaseController
                 'code' => $verificationCode,
             ]);
 
-            Mail::mailer('failover')->to($user->email)->send(new Login2FACode($verificationCode, $user->name));
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'password_code_remainder',
+                [
+                    'code' => $verificationCode,
+                    'userName' => $user->name ?: $user->email,
+                ],
+                $user->id
+            ));
 
             Log::info('2FA login code resent successfully', [
                 'email' => $user->email,

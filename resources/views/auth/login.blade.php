@@ -134,7 +134,14 @@
                             <p class="text-red-500 mb-4 text-lg md:text-xl font-bold text-center" x-text="errors.code"></p>
                         </template>
 
-                        <div class="text-center">
+                        <div class="text-center flex flex-col items-center gap-4">
+                            <button @click="pasteFromClipboard()" type="button" class="text-[#3B4EFC] text-lg md:text-xl font-bold hover:underline flex items-center gap-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                                    <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+                                </svg>
+                                Paste from clipboard
+                            </button>
+
                             <button @click="resend2FA()" :disabled="resendTimer > 0 || loading" class="text-[#3B4EFC] text-lg md:text-xl font-bold hover:underline disabled:text-gray-400 transition-colors">
                                 <span x-show="resendTimer === 0">Resend Code</span>
                                 <span x-show="resendTimer > 0" x-text="'Resend in ' + resendTimer + 's'"></span>
@@ -599,16 +606,28 @@ function loginForm() {
                 if (text) {
                     const digits = text.trim().substring(0, 6).replace(/[^0-9]/g, '').split('');
 
+                    let digitsArrayName, containerId, codeFieldName;
+
+                    if (this.step === 'login-2fa') {
+                        digitsArrayName = 'loginDigits';
+                        containerId = 'login-otp-container';
+                        codeFieldName = 'code';
+                    } else {
+                        digitsArrayName = 'forgotDigits';
+                        containerId = 'otp-container';
+                        codeFieldName = 'forgot_code';
+                    }
+
                     // Clear current digits first
-                    this.forgotDigits = ['', '', '', '', '', ''];
+                    this[digitsArrayName] = ['', '', '', '', '', ''];
 
                     digits.forEach((d, i) => {
-                        if (i < 6) this.forgotDigits[i] = d;
+                        if (i < 6) this[digitsArrayName][i] = d;
                     });
-                    this.formData.forgot_code = this.forgotDigits.join('');
+                    this.formData[codeFieldName] = this[digitsArrayName].join('');
 
                     this.$nextTick(() => {
-                        const container = document.getElementById('otp-container');
+                        const container = document.getElementById(containerId);
                         const nextIndex = Math.min(digits.length, 5);
                         const nextInput = container.querySelectorAll('input')[nextIndex];
                         if (nextInput) nextInput.focus();

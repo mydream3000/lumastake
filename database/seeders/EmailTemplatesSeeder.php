@@ -242,6 +242,18 @@ class EmailTemplatesSeeder extends Seeder
                     'lockedAt' => 'Lock timestamp',
                 ],
             ],
+
+            // Password Code Remainder (Login 2FA)
+            [
+                'key' => 'password_code_remainder',
+                'name' => 'Password Code Remainder',
+                'subject' => 'Login Verification Code',
+                'content' => $this->getPasswordCodeRemainderContent(),
+                'variables' => [
+                    'userName' => 'User name',
+                    'code' => '6-digit verification code',
+                ],
+            ],
         ];
 
         foreach ($templates as $template) {
@@ -559,6 +571,69 @@ HTML;
         <p style="color: #8f8f8f; font-size: 13px; line-height: 1.6; margin: 0 0 10px;">
             Staking period: {{ $staking_days }} days.
         </p>
+    </td>
+</tr>
+@endsection
+HTML;
+    }
+
+    private function getPasswordCodeRemainderContent(): string
+    {
+        return <<<'HTML'
+@extends('emails.layouts.base')
+
+@section('title', 'LOGIN VERIFICATION')
+
+@section('content')
+<!-- Content Section -->
+<tr>
+    <td style="padding: 0 40px;">
+        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">Hi {{ $userName }},</p>
+
+        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 30px;">
+            We detected a login attempt on your account. To continue, please verify your identity using the code below:
+        </p>
+    </td>
+</tr>
+
+<!-- Verification Code Section -->
+<tr>
+    <td align="center" style="padding: 0 40px 30px;">
+        <table cellpadding="0" cellspacing="0" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px;">
+            <tr>
+                <td align="center">
+                    <p style="margin: 0 0 10px; color: #999999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Your Verification Code</p>
+                    <h2 style="margin: 0; color: #ffffff; font-size: 48px; font-weight: 700; letter-spacing: 12px; font-family: 'Courier New', monospace;">{{ $code }}</h2>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+<!-- Copy Button Section -->
+<tr>
+    <td align="center" style="padding: 0 40px 30px;">
+        <div style="display: inline-block; background-color: #E3FF3B; color: #262262; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer;">
+            Copy Code
+        </div>
+        <p style="color: #666666; font-size: 12px; margin-top: 10px;">
+            (Click the "Paste from clipboard" button on the login page after copying)
+        </p>
+    </td>
+</tr>
+
+<!-- Important Notice -->
+<tr>
+    <td style="padding: 0 40px 40px;">
+        <table cellpadding="0" cellspacing="0" style="background: rgba(255, 69, 28, 0.1); border-left: 3px solid #FF451C; border-radius: 4px; padding: 15px 20px;">
+            <tr>
+                <td>
+                    <p style="margin: 0; color: #ffffff; font-size: 14px; line-height: 1.5;">
+                        <strong style="color: #FF451C;">Important:</strong> This code will expire in 10 minutes. If you did not attempt to login to Lumastake, please ignore this email and secure your account.
+                    </p>
+                </td>
+            </tr>
+        </table>
     </td>
 </tr>
 @endsection

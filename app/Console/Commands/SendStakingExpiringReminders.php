@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\StakingExpiringSoonMail;
+use App\Mail\TemplatedMail;
 use App\Models\EmailNotificationLog;
 use App\Models\StakingDeposit;
 use Illuminate\Console\Command;
@@ -54,22 +54,25 @@ class SendStakingExpiringReminders extends Command
             }
 
             try {
-                // Send email using dedicated Mailable
-                Mail::to($staking->user->email)->send(new StakingExpiringSoonMail(
-                    $staking->user,
-                    $staking,
-                    1
-                ));
+                // Calculate expected profit
+                $expectedProfit = round($staking->amount * $staking->percentage / 100, 2);
 
-                // Log the notification to prevent duplicates
-                EmailNotificationLog::logSent(
-                    $staking->user_id,
+                // Send email using TemplatedMail (editable template from DB)
+                Mail::to($staking->user->email)->send(new TemplatedMail(
                     'staking_expiring_soon',
-                    $staking->user->email,
-                    'Your Staking is Expiring Soon',
+                    [
+                        'userName' => $staking->user->name,
+                        'amount' => $staking->amount,
+                        'days' => $staking->days,
+                        'percentage' => $staking->percentage,
+                        'profitAmount' => $expectedProfit,
+                        'endDate' => $staking->end_date->format('M d, Y'),
+                        'autoRenewal' => $staking->auto_renewal,
+                    ],
+                    $staking->user_id,
                     'staking_deposit',
                     $staking->id
-                );
+                ));
 
                 $sent++;
                 $this->info("✓ Sent reminder to {$staking->user->email} for staking #{$staking->id}");

@@ -32,7 +32,8 @@
     --color-cabinet-orange: #F59E0B;
 
     --color-cabinet-border: #CCCCCC;
-    --color-cabinet-card-bg: #FFFFFF;
+    --color-cabinet-card-bg: #D9EEFF;
+    --color-cabinet-card-yellow: #F6FFD6;
 
     /* Fonts */
     --font-manrope: 'Manrope', sans-serif;
@@ -94,11 +95,17 @@ textarea:focus {
 }
 
 /* General card styling */
-.card {
-    background-color: var(--color-cabinet-card-bg);
-    border: 1px solid var(--color-cabinet-border);
+.card.right-card {
+    background-color: #D9EEFF);
+    border: 1px solid #3B4EFC;
     border-radius: 10px;
-    box-shadow: 0px 4px 5px -25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 5px -25px rgba(0, 0, 0, 0.25);
+}
+.card.left-card {
+    background-color: #F6FFD6;
+    border: 1px solid #E3FF3B;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px -25px rgba(0, 0, 0, 0.25);
 }
 
 /* Sidebar active link style */

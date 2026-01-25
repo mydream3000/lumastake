@@ -18,32 +18,34 @@
             </div>
 
             <!-- Main Card -->
-            <div class="w-full bg-white border border-[#2ba6ff] rounded-[13px] shadow-[0px_4px_4px_0px_rgba(43,166,255,0.25)] p-8 md:p-16 flex flex-col items-center min-h-[600px] transition-all duration-300">
-                <!-- Logo -->
-                <img :src="'/img/home/logo-final.png'" alt="Luma Stake" class="h-20 w-auto">
+            <div class="w-full max-w-[980px] bg-white border border-[#2ba6ff] rounded-[13px] shadow-[0px_4px_4px_0px_rgba(43,166,255,0.25)]
+            px-6 py-10 md:px-12 md:py-12 flex flex-col items-center min-h-[480px] transition-all duration-300 mx-auto">
+
+            <!-- Logo -->
+                <img :src="'/img/home/logo-final.png'" alt="Luma Stake" class="h-16 md:h-18 w-auto mb-6">
 
                 <!-- Step 1: Start -->
-                <div v-if="step === 1" class="w-full max-w-md flex flex-col items-center">
-                    <button @click="nextStep(2)" class="w-full bg-[#E6FF00] text-[#262262] py-4 rounded-md font-medium text-2xl mb-6 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity">
-                        <span class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-[#262262]">
+                <div v-if="step === 1" class="w-full max-w-[520px] flex flex-col items-center">
+                    <button @click="nextStep(2)" class="w-full max-w-[420px] bg-[#E6FF00] text-[#262262] h-[56px] px-6 rounded-md font-medium text-2xl mb-4 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity">
+                        <span class="flex items-center justify-center w-7 h-7 rounded-full border-2 border-[#262262]">
                             <i class="fas fa-user text-sm"></i>
                         </span>
                         Sign up with Email
                     </button>
 
-                    <div class="flex items-center w-full mb-6">
+                    <div class="flex items-center w-full max-w-[420px] mb-4">
                         <div class="flex-1 h-px bg-[#d5d5d5]"></div>
                         <span class="px-4 text-[#000000] text-opacity-70 text-[28px]">or</span>
                         <div class="flex-1 h-px bg-[#d5d5d5]"></div>
                     </div>
 
-                    <a href="/auth/google" class="w-full border border-gray-300 py-4 rounded-md flex items-center justify-center gap-3 text-2xl font-medium mb-12 hover:bg-gray-50 transition-colors">
+                    <a href="/auth/google" class="w-full max-w-[420px] border border-gray-300 h-[56px] px-6 rounded-md flex items-center justify-center gap-3 text-2xl font-medium mb-8 hover:bg-gray-50 transition-colors">
                         <img :src="'/img/registration_redesign/fefa1c2e6f5c665029dc6d31c54c0577fef11aa5.svg'" alt="Google" class="w-6 h-6">
                         Sign in with Google
                     </a>
 
-                    <p class="text-[28px] text-[#ccc]">
-                        Do have an account?
+                    <p class="text-[28px] text-[#ccc] mt-2">
+                    Do have an account?
                         <a href="/login" class="text-[#3b4efc] font-semibold hover:underline">Login</a>
                     </p>
                 </div>

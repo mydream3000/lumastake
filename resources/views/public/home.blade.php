@@ -36,32 +36,32 @@
     {{-- 2. WHY CHOOSE SECTION --}}
     <section class="py-32 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
-            <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-xl p-10 md:p-20 relative overflow-hidden">
-                <div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-xl p-8 md:p-12 relative overflow-hidden">
+                <div class="grid lg:grid-cols-2 gap-8 items-center relative z-10">
                     <div>
-                        <h2 class="text-6xl md:text-[100px] font-black text-lumastake-blue leading-[0.9] uppercase mb-10">
-                            WHY CHOOSE <br> LUMA STAKE
+                        <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-lumastake-blue leading-[0.9] uppercase">
+                            WHY<br>CHOOSE<br>LUMA STAKE
                         </h2>
-                        <p class="text-xl md:text-2xl text-black leading-relaxed max-w-xl">
-                            Luma stake is designed for clarity, safety, and real returns. No complex charts. No price speculation. Just stablecoin staking that delivers.
-                        </p>
                     </div>
                     <div>
-                        <ul class="space-y-8">
-                            <li class="flex items-start text-2xl font-medium text-black">
-                                <span class="w-2 h-2 rounded-full bg-black mt-3 mr-4 flex-shrink-0"></span>
+                        <p class="text-base md:text-lg text-black leading-relaxed mb-6">
+                            Luma stake is designed for clarity, safety, and real returns. No complex charts. No price speculation. Just stablecoin staking that delivers.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start text-base md:text-lg font-medium text-black">
+                                <span class="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0"></span>
                                 100% staking-based income
                             </li>
-                            <li class="flex items-start text-2xl font-medium text-black">
-                                <span class="w-2 h-2 rounded-full bg-black mt-3 mr-4 flex-shrink-0"></span>
+                            <li class="flex items-start text-base md:text-lg font-medium text-black">
+                                <span class="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0"></span>
                                 Zero exposure to trading or leverage
                             </li>
-                            <li class="flex items-start text-2xl font-medium text-black">
-                                <span class="w-2 h-2 rounded-full bg-black mt-3 mr-4 flex-shrink-0"></span>
+                            <li class="flex items-start text-base md:text-lg font-medium text-black">
+                                <span class="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0"></span>
                                 Transparent returns — always visible
                             </li>
-                            <li class="flex items-start text-2xl font-medium text-black">
-                                <span class="w-2 h-2 rounded-full bg-black mt-3 mr-4 flex-shrink-0"></span>
+                            <li class="flex items-start text-base md:text-lg font-medium text-black">
+                                <span class="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0"></span>
                                 Built for everyday users, not just tech experts
                             </li>
                         </ul>
@@ -194,32 +194,33 @@
                 <div class="lg:w-1/2">
                     <h2 class="text-6xl md:text-[100px] font-black text-lumastake-blue leading-[0.9] uppercase mb-10">HOW IT WORKS</h2>
                     <p class="text-xl md:text-2xl text-black leading-relaxed">
-                        Get started in minutes with a simple, intuitive setup—no delays, no complicated onboarding. Jump straight into sign-up to action and start seeing value right away.
+                        Get started in minutes with a simple, intuitive setup—no delays, no complicated onboarding. Jump straight from sign-up to action and start seeing value right away.
                     </p>
                 </div>
-                <div class="lg:w-1/2 space-y-10 relative">
-                    {{-- Step 1 --}}
-                    <div class="bg-white border border-[#2BA6FF] rounded-2xl p-10 flex items-center relative z-10">
-                        <div class="text-[200px] font-audiowide text-[#E0F2FF] absolute left-[-40px] top-1/2 -translate-y-1/2 opacity-50 z-0 select-none">1</div>
-                        <div class="relative z-10 pl-20">
-                            <h3 class="text-4xl md:text-[52px] font-black text-lumastake-navy mb-2 uppercase">SIGN UP</h3>
-                            <p class="text-xl text-gray-600">Create your account. It's fast, simple, and free.</p>
+                <div class="lg:w-1/2 space-y-6 relative">
+                    {{-- Step 1 - SIGN UP --}}
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
+                        <div class="bg-white rounded-2xl p-8">
+                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2 uppercase">SIGN UP</h3>
+                            <p class="text-lg text-gray-500">Create your account<br>it's fast, simple, and free.</p>
                         </div>
                     </div>
-                    {{-- Step 2 --}}
-                    <div class="bg-lumastake-blue rounded-2xl p-10 flex items-center shadow-2xl relative z-20">
-                        <div class="text-[200px] font-audiowide text-white/10 absolute left-[-40px] top-1/2 -translate-y-1/2 select-none">2</div>
-                        <div class="relative z-10 pl-20">
-                            <h3 class="text-3xl md:text-[40px] font-black text-white mb-2 uppercase">Choose a Staking Platform</h3>
-                            <p class="text-xl text-white/80">Pick your duration, your USDT starts working immediately.</p>
+                    {{-- Step 2 - Choose a Staking Platform --}}
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
+                        <div class="bg-white rounded-2xl p-8 relative">
+                            {{-- Decorative star icon --}}
+                            <svg class="absolute top-4 right-4 w-6 h-6 text-lumastake-blue" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z"/>
+                            </svg>
+                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2">Choose a<br>Staking<br>Platform</h3>
+                            <p class="text-lg text-gray-500">Pick your duration. Your USDT<br>starts working immediately.</p>
                         </div>
                     </div>
-                    {{-- Step 3 --}}
-                    <div class="bg-white border border-[#2BA6FF] rounded-2xl p-10 flex items-center relative z-10">
-                        <div class="text-[200px] font-audiowide text-[#E0F2FF] absolute left-[-40px] top-1/2 -translate-y-1/2 opacity-50 z-0 select-none">3</div>
-                        <div class="relative z-10 pl-20">
-                            <h3 class="text-4xl md:text-[52px] font-black text-lumastake-navy mb-2 uppercase">Deposit USDT</h3>
-                            <p class="text-xl text-gray-600">Add funds quickly and securely.</p>
+                    {{-- Step 3 - Deposit USDT --}}
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
+                        <div class="bg-white rounded-2xl p-8">
+                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2">Deposit USDT</h3>
+                            <p class="text-lg text-gray-500">Add funds quickly and securely.</p>
                         </div>
                     </div>
                 </div>

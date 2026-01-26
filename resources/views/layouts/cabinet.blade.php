@@ -277,6 +277,7 @@
 @endforeach
 <x-toast />
 <x-universal-modal />
+<x-google-user-setup-alert />
 
 {{-- Preload countries data for Alpine.js components --}}
 <script>

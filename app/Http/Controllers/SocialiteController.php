@@ -153,6 +153,8 @@ class SocialiteController extends Controller
 
             Auth::login($user, true);
 
+            session(['show_google_setup_alert' => true]);
+
             Log::info('Social login existing user', [
                 'user_id' => $user->id,
                 'email' => $user->email,
@@ -264,6 +266,8 @@ class SocialiteController extends Controller
                 }
 
                 Auth::login($user, true);
+
+                session(['show_google_setup_alert' => true]);
             } catch (\Exception $e) {
                 Log::error('Failed to create social user', [
                     'provider' => $provider,

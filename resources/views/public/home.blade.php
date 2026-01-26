@@ -188,39 +188,37 @@
     </section>
 
     {{-- 4. STEPS SECTION (How it works) --}}
-    <section class="py-32 bg-white overflow-hidden">
+    <section class="py-24 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col lg:flex-row gap-20 items-center">
-                <div class="lg:w-1/2">
-                    <h2 class="text-6xl md:text-[100px] font-black text-lumastake-blue leading-[0.9] uppercase mb-10">HOW IT WORKS</h2>
-                    <p class="text-xl md:text-2xl text-black leading-relaxed">
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+                <div class="lg:w-2/5">
+                    <h2 class="text-5xl md:text-6xl font-black text-lumastake-navy leading-[0.9] uppercase mb-6">HOW IT WORKS</h2>
+                    <p class="text-base md:text-lg text-black leading-relaxed">
                         Get started in minutes with a simple, intuitive setup—no delays, no complicated onboarding. Jump straight from sign-up to action and start seeing value right away.
                     </p>
                 </div>
-                <div class="lg:w-1/2 space-y-6 relative">
+                <div class="lg:w-3/5 space-y-4 relative">
                     {{-- Step 1 - SIGN UP --}}
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
-                        <div class="bg-white rounded-2xl p-8">
-                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2 uppercase">SIGN UP</h3>
-                            <p class="text-lg text-gray-500">Create your account<br>it's fast, simple, and free.</p>
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent">
+                        <div class="bg-white rounded-2xl p-6">
+                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1 uppercase">SIGN UP</h3>
+                            <p class="text-sm md:text-base text-gray-500">Create your account<br>it's fast, simple, and free.</p>
                         </div>
                     </div>
                     {{-- Step 2 - Choose a Staking Platform --}}
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
-                        <div class="bg-white rounded-2xl p-8 relative">
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent">
+                        <div class="bg-white rounded-2xl p-6 relative">
                             {{-- Decorative star icon --}}
-                            <svg class="absolute top-4 right-4 w-6 h-6 text-lumastake-blue" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z"/>
-                            </svg>
-                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2">Choose a<br>Staking<br>Platform</h3>
-                            <p class="text-lg text-gray-500">Pick your duration. Your USDT<br>starts working immediately.</p>
+                            <img src="{{ asset('img/home/stars-how.svg') }}" alt="" class="absolute top-4 right-4 w-8 h-auto">
+                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Choose a<br>Staking<br>Platform</h3>
+                            <p class="text-sm md:text-base text-gray-500">Pick your duration. Your USDT<br>starts working immediately.</p>
                         </div>
                     </div>
                     {{-- Step 3 - Deposit USDT --}}
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/30 to-transparent">
-                        <div class="bg-white rounded-2xl p-8">
-                            <h3 class="text-3xl md:text-4xl font-black text-lumastake-navy mb-2">Deposit USDT</h3>
-                            <p class="text-lg text-gray-500">Add funds quickly and securely.</p>
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent">
+                        <div class="bg-white rounded-2xl p-6">
+                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Deposit USDT</h3>
+                            <p class="text-sm md:text-base text-gray-500">Add funds quickly and securely.</p>
                         </div>
                     </div>
                 </div>

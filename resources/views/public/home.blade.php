@@ -5,13 +5,14 @@
     <section class="relative min-h-[850px] lg:min-h-[1000px] flex items-center justify-center overflow-hidden bg-white pt-32 lg:pt-0">
         {{-- Background Elements --}}
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('img/home/hero-trade.png') }}" alt="" class="absolute top-[20%] lg:top-[166px] left-1/2 -translate-x-1/2 max-w-none w-[1200px] lg:w-[1589px] h-auto opacity-60 lg:opacity-100">
+            <img src="{{ asset('img/home/hero-trade.png') }}" alt="" class="absolute bottom-0 lg:top-[166px] left-1/2 -translate-x-1/2 max-w-none w-[800px] lg:w-[1589px] h-auto opacity-100">
             <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="absolute bottom-0 left-0 w-full h-auto object-cover z-10">
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 relative z-20 text-center mt-[-100px] lg:mt-[-50px]">
-            <h1 class="text-5xl lg:text-[100px] font-black text-lumastake-blue mb-8 leading-[0.95] uppercase tracking-tighter">
-                The Smarter Way <br class="hidden lg:block"> to Grow Your USDT
+        <div class="max-w-7xl mx-auto px-4 relative z-20 text-center mt-[-150px] lg:mt-[-50px]">
+            <h1 class="text-[44px] lg:text-[100px] font-the-bold-font text-lumastake-blue mb-8 leading-[0.9] lg:leading-[0.95] uppercase tracking-tighter">
+                <span class="lg:hidden">The Smarter Way <br> to Grow <br> Your USDT</span>
+                <span class="hidden lg:block">The Smarter Way <br> to Grow Your USDT</span>
             </h1>
             <p class="text-xl lg:text-[28px] text-lumastake-navy mb-6 max-w-4xl mx-auto leading-tight lg:leading-normal font-medium">
                 LumaStake removes the noise of trading and offers a clean, secure path to passive rewards.

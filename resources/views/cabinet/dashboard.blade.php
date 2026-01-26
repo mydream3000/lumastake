@@ -87,7 +87,7 @@
 
             {{-- Investment Pools --}}
             <div class="card p-6">
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between mb-1">
                     <h2 class="text-xl font-bold text-cabinet-text-main">Investment Pools</h2>
                 </div>
                 <div class="js-pools-list" data-url="{{ route('cabinet.pools.data') }}" data-balance="{{ $user->available_balance }}"></div>

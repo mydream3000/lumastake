@@ -161,7 +161,7 @@
     @endphp
     <div class="px-6 overflow-x-auto scrollbar-hide">
         <div class="hidden lg:block bg-[#ECECEC] p-4  rounded-lg border border-[rgba(16,18,33,0.15)] overflow-x-auto">
-            <div class="flex justify-between items-center text-sm font-semibold min-w-max gap-2">
+            <div class="flex justify-center items-center text-sm font-semibold min-w-max gap-2">
                 @foreach($allTiers as $index => $tier)
                     @php
                         $isCurrent = $activeTier && $activeTier->id === $tier->id;

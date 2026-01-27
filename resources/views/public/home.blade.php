@@ -409,7 +409,7 @@
 
 
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Alan Campbell</h3>
+                    <h3 class="mt-5 text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Alan Campbell</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">CEO</p>
                     <p class="text-sm text-gray-500 leading-relaxed px-4">Responsible for the overall vision, strategy, and direction of the organization. Ensures alignment between all departments and represents the company to stakeholders, investors, and the public.</p>
                 </div>
@@ -447,7 +447,7 @@
                         </svg>
 
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Emily Rossi</h3>
+                    <h3 class="mt-5 text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Emily Rossi</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">CFO</p>
                     <p class="text-sm text-gray-500 leading-relaxed px-4">Manages the financial aspects, including budgeting, forecasting, and financial reporting. Ensures the platform's financial health and compliance with regulatory standards.</p>
                 </div>
@@ -485,7 +485,7 @@
                         </svg>
 
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Christopher Taylor</h3>
+                    <h3 class="mt-5 text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Christopher Taylor</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">COO</p>
                     <p class="text-sm text-gray-500 leading-relaxed px-4">Responsible for optimizing operational processes and ensuring efficient day-to-day functioning. Manages teams to enhance productivity and streamline services.</p>
                 </div>

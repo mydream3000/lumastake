@@ -3,7 +3,55 @@
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
+    <!-- Mobile Version -->
+    <div class="lg:hidden space-y-4">
+      <div v-for="row in history" :key="row.id" class="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between mb-4 relative">
+              <div class="text-sm font-black text-cabinet-text-main leading-tight">{{ row.pool_name }}</div>
+              <span
+                class="px-2 py-1 rounded-lg text-[10px] font-black inline-block uppercase"
+                :class="getStatusClass(row.status)"
+              >
+                {{ row.status }}
+              </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-x-4 gap-y-4 relative">
+              <div class="bg-gray-50 p-3 rounded-2xl">
+                  <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Amount</div>
+                  <div class="text-xs font-black text-cabinet-text-main">{{ row.amount }}</div>
+              </div>
+              <div class="bg-gray-50 p-3 rounded-2xl">
+                  <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Earned</div>
+                  <div
+                    class="text-xs font-black"
+                    :class="{
+                        'text-red-600': row.earned_profit_raw < 0,
+                        'text-green-600': row.earned_profit_raw > 0 && row.status !== 'active'
+                    }"
+                  >
+                    {{ row.earned_profit }}
+                  </div>
+              </div>
+              <div>
+                  <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Start Date</div>
+                  <div class="text-[11px] font-bold text-gray-500">{{ formatDateShort(row.start_date) }}</div>
+              </div>
+              <div class="text-right">
+                  <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-0.5">End Date</div>
+                  <div class="text-[11px] font-bold text-gray-500">{{ formatDateShort(row.end_date) }}</div>
+              </div>
+          </div>
+      </div>
+
+      <div v-if="!history.length" class="text-center py-12 bg-white rounded-[32px] border border-gray-100 shadow-sm">
+          <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No history found</p>
+      </div>
+    </div>
+
+    <!-- Desktop Version -->
     <data-table
+      class="hidden lg:block"
       :data="history"
       :columns="columns"
       :grid-cols="20"

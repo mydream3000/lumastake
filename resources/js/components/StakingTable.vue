@@ -3,7 +3,72 @@
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
+    <!-- Mobile Version -->
+    <div class="lg:hidden space-y-4">
+      <div v-for="row in stakes" :key="row.id" class="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+          <div class="absolute top-0 right-0 -mt-8 -mr-8 w-24 h-24 bg-cabinet-blue/5 rounded-full blur-2xl"></div>
+
+          <div class="flex items-center justify-between mb-6 relative">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Pool Name</div>
+                  <div class="text-lg font-black text-cabinet-text-main leading-tight">{{ row.pool_name }}</div>
+              </div>
+              <div class="text-right">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Auto Stake</div>
+                  <label class="inline-flex items-center cursor-pointer mt-1">
+                      <input
+                        type="checkbox"
+                        :checked="row.auto_renewal"
+                        @change="toggleAutoRenewal(row.id, $event.target.checked)"
+                        class="hidden peer"
+                      >
+                      <div class="relative w-10 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-cabinet-blue after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+                  </label>
+              </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6 mb-8 relative">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Duration</div>
+                  <div class="text-sm font-bold text-cabinet-text-main">{{ row.duration }}</div>
+              </div>
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1 text-right">Profit</div>
+                  <div class="text-sm font-black text-cabinet-blue text-right">{{ row.profit }}</div>
+              </div>
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Amount Staked</div>
+                  <div class="text-sm font-black text-cabinet-text-main">{{ row.amount }}</div>
+              </div>
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1 text-right">Time Left</div>
+                  <div class="flex justify-end mt-1">
+                      <time-left :seconds="row.time_left" />
+                  </div>
+              </div>
+          </div>
+
+          <button
+            @click="unstakeConfirm(row)"
+            class="w-full py-4 bg-gradient-to-r from-cabinet-blue to-[#5D6DFF] text-white text-[11px] font-black rounded-2xl hover:shadow-lg transition-all duration-300 uppercase tracking-[0.2em]"
+          >
+            Unstake
+          </button>
+      </div>
+
+      <div v-if="!stakes.length" class="text-center py-12 bg-white rounded-[32px] border border-gray-100 shadow-sm">
+          <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4" />
+              </svg>
+          </div>
+          <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No active stakings</p>
+      </div>
+    </div>
+
+    <!-- Desktop Version -->
     <data-table
+      class="hidden lg:block"
       :data="stakes"
       :columns="columns"
       :grid-cols="20"

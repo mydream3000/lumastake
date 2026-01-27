@@ -5,28 +5,46 @@
   <div v-else class="relative">
 
     <!-- Mobile Version (Cards) - visible only on small screens -->
-    <div class="block lg:hidden space-y-0">
+    <div class="block lg:hidden space-y-4">
       <div
         v-for="pool in pools"
         :key="pool.id"
-        class="flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0"
+        class="bg-gray-50 rounded-3xl p-6 border border-gray-100"
       >
-        <div>
-          <div class="text-sm font-semibold text-cabinet-text-main">{{ pool.name }}</div>
-          <div class="text-xs text-cabinet-blue font-medium">{{ pool.profit }}</div>
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="text-lg font-black text-cabinet-text-main tracking-tight">{{ pool.name }}</div>
+            <div class="text-sm font-bold text-cabinet-blue mt-1">{{ pool.profit }}</div>
+          </div>
+          <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+             <svg class="w-6 h-6 text-cabinet-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+             </svg>
+          </div>
         </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm">
+            <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Days</div>
+            <div class="text-sm font-black text-cabinet-text-main">{{ pool.days }}</div>
+          </div>
+          <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm">
+            <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Min. Stake</div>
+            <div class="text-sm font-black text-cabinet-text-main">{{ pool.min_stake }}</div>
+          </div>
+        </div>
+
         <button
           @click="openStakeModal(pool)"
           :disabled="!isEligible(pool)"
-          :title="!isEligible(pool) ? `Available from ${formatCurrency(minStakeVal(pool))} USDT` : 'Stake'"
           :class="[
-            'px-4 py-1.5 text-xs rounded-md font-semibold uppercase transition',
+            'w-full py-4 text-[11px] rounded-2xl font-black uppercase tracking-[0.2em] transition-all duration-300',
             isEligible(pool)
-              ? 'bg-cabinet-lime text-cabinet-text-main hover:bg-cabinet-lime/90'
+              ? 'bg-cabinet-lime text-cabinet-text-main shadow-[0_10px_20px_-5px_rgba(227,255,59,0.5)] active:scale-95'
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           ]"
         >
-          Stake
+          Stake Now
         </button>
       </div>
     </div>

@@ -3,7 +3,58 @@
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
+    <!-- Mobile Version -->
+    <div class="lg:hidden space-y-4">
+      <div v-for="row in transactions" :key="row.id" class="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between mb-6 relative">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Type</div>
+                  <div class="text-sm font-black text-cabinet-text-main leading-tight">{{ row.type }}</div>
+              </div>
+              <span
+                class="px-2 py-1 rounded-lg text-[10px] font-black inline-block uppercase"
+                :class="getStatusClass(row.status)"
+              >
+                {{ getStatusLabel(row.status) }}
+              </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6 relative">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Amount</div>
+                  <div class="text-base font-black text-cabinet-blue">{{ row.amount }}</div>
+              </div>
+              <div class="text-right">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Date</div>
+                  <div class="text-xs font-bold text-gray-500">{{ formatDateShort(row.created_at) }}</div>
+              </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button
+              @click="showDetails(row)"
+              class="flex-1 py-3.5 bg-gray-50 text-cabinet-text-main text-[11px] font-black rounded-2xl border border-gray-100 transition-all active:scale-95 uppercase tracking-[0.2em]"
+            >
+              View Details
+            </button>
+            <button
+              v-if="row.can_cancel"
+              @click="cancelWithdraw(row.id)"
+              class="flex-1 py-3.5 bg-white text-cabinet-red text-[11px] font-black rounded-2xl border border-cabinet-red/20 transition-all active:scale-95 uppercase tracking-[0.2em]"
+            >
+              Cancel
+            </button>
+          </div>
+      </div>
+
+      <div v-if="!transactions.length" class="text-center py-12 bg-white rounded-[32px] border border-gray-100 shadow-sm">
+          <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No withdrawals found</p>
+      </div>
+    </div>
+
+    <!-- Desktop Version -->
     <data-table
+      class="hidden lg:block"
       :data="transactions"
       :columns="columns"
       :grid-cols="15"
@@ -228,7 +279,7 @@ async function fetchTransactions() {
 function getStatusClass(status) {
   const classes = {
     'confirmed': 'bg-cabinet-lime text-cabinet-text-main',
-    'pending': 'bg-cabinet-lime text-cabinet-text-main',
+    'pending': 'bg-cabinet-blue text-white',
     'failed': 'bg-cabinet-red/20 text-cabinet-red',
     'cancelled': 'bg-gray-200 text-gray-500'
   }

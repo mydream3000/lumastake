@@ -9,6 +9,9 @@
     $earningsRoutes = ['cabinet.earnings.profit', 'cabinet.earnings.rewards'];
     $isTransactionActive = in_array($currentRoute, $transactionRoutes);
     $isEarningsActive = in_array($currentRoute, $earningsRoutes);
+
+    $totalAmountForTier = $user->balance + $user->stakingDeposits()->where('status', 'active')->sum('amount');
+    $activeTierForBar = \App\Models\Tier::where('min_balance', '<=', $totalAmountForTier)->orderBy('level', 'desc')->first() ?: $allTiers->first();
 @endphp
 
 <!DOCTYPE html>
@@ -103,6 +106,38 @@
     </div>
 </div>
 
+<!-- Mobile Tiers Bar -->
+<div class="lg:hidden fixed left-0 right-0 bg-cabinet-bg z-20 overflow-x-auto scrollbar-hide {{ ($impersonating ?? false) ? 'top-[110px]' : 'top-[52px]' }}">
+    <div class="px-4 py-2">
+        <div class="bg-[#ECECEC] p-2 rounded-lg border border-[rgba(16,18,33,0.15)] overflow-x-auto scrollbar-hide">
+            <div class="flex justify-between items-center text-[11px] font-semibold min-w-max gap-1">
+                @foreach($allTiers as $index => $tier)
+                    @php
+                        $isCurrent = $activeTierForBar && $activeTierForBar->id === $tier->id;
+                        $isCompleted = $activeTierForBar && $activeTierForBar->level > $tier->level;
+                    @endphp
+                    <div class="flex items-center">
+                        <button
+                            type="button"
+                            x-on:click="$dispatch('open-rightbar', {name: 'tier-{{ $tier->id }}'})"
+                            class="flex items-center gap-1 px-2 py-1 transition-all hover:bg-black/5 rounded-md {{ $isCurrent ? 'text-cabinet-blue font-bold' : ($isCompleted ? 'text-cabinet-text-main' : 'text-gray-400') }}"
+                        >
+                            <span class="leading-none text-[10px]">{{ $tier->name }}</span>
+                            <svg class="w-1.5 h-1.5 {{ $isCurrent ? 'text-cabinet-blue' : 'text-gray-400' }}" viewBox="0 0 8 8" fill="currentColor">
+                                <path d="M0 0L8 4L0 8V0Z" />
+                            </svg>
+                        </button>
+
+                        @if(!$loop->last)
+                            <div class="h-4 w-px bg-cabinet-border mx-0.5"></div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Desktop Top Header -->
 <div class="hidden lg:flex flex-col  fixed left-[346px] right-0 z-30 {{ ($impersonating ?? false) ? 'top-14' : 'top-0' }}">
     <div class="flex items-center justify-between p-6 bg-cabinet-bg">
@@ -155,17 +190,13 @@
     </div>
 
     {{-- Tiers Bar (Header Version) --}}
-    @php
-        $totalAmount = $user->balance + $user->stakingDeposits()->where('status', 'active')->sum('amount');
-        $activeTier = \App\Models\Tier::where('min_balance', '<=', $totalAmount)->orderBy('level', 'desc')->first() ?: $allTiers->first();
-    @endphp
     <div class="px-6 overflow-x-auto scrollbar-hide">
         <div class="hidden lg:block bg-[#ECECEC] p-4  rounded-lg border border-[rgba(16,18,33,0.15)] overflow-x-auto">
             <div class="flex justify-evenly items-center text-sm font-semibold min-w-max gap-2">
                 @foreach($allTiers as $index => $tier)
                     @php
-                        $isCurrent = $activeTier && $activeTier->id === $tier->id;
-                        $isCompleted = $activeTier && $activeTier->level > $tier->level;
+                        $isCurrent = $activeTierForBar && $activeTierForBar->id === $tier->id;
+                        $isCompleted = $activeTierForBar && $activeTierForBar->level > $tier->level;
                     @endphp
                     <div class="flex items-center">
                         <button
@@ -196,7 +227,7 @@
 
     <div class="flex-1 flex flex-col min-w-0">
         <!-- Page Content -->
-        <main class="flex-1 bg-cabinet-bg pt-[52px] lg:pt-[158px] w-full">
+        <main class="flex-1 bg-cabinet-bg pt-[110px] lg:pt-[158px] w-full">
             <div class="px-4 lg:px-8 py-4 lg:py-8">
                 {{ $slot }}
             </div>

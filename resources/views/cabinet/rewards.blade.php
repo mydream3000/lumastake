@@ -20,8 +20,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {{-- Left Column --}}
             <div class="lg:col-span-2 space-y-8">
-                {{-- Level Cards (Scrollable on Mobile) --}}
-                <div class="flex lg:grid lg:grid-cols-5 gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0">
+                {{-- Level Cards (Grid on Mobile 2x2 + 1) --}}
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
                     @php
                         $levelColors = [
                             1 => ['bg' => '#D9EEFF', 'border' => '#3B4EFC', 'shadow' => 'rgba(59, 78, 252, 0.4)'],
@@ -37,7 +37,7 @@
                             $colors = $levelColors[$level->level] ?? ['bg' => '#F3F4F6', 'border' => '#E5E7EB', 'shadow' => 'none'];
                         @endphp
                         <div
-                            class="min-w-[160px] lg:min-w-0 rounded-[24px] lg:rounded-[15px] p-5 border-2 transition-all duration-300 {{ $isActive ? 'active-level-card' : '' }}"
+                            class="rounded-[24px] lg:rounded-[15px] p-5 border-2 transition-all duration-300 {{ $isActive ? 'active-level-card' : '' }} {{ $level->level == 5 ? 'col-span-2 lg:col-span-1' : '' }}"
                             style="background-color: {{ $colors['bg'] }}; border-color: {{ $colors['border'] }}; --active-shadow: {{ $colors['shadow'] }};"
                         >
                             <h3 class="text-xl font-black lg:font-bold text-cabinet-text-main mb-6">Level {{ $level->level }}</h3>

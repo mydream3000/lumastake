@@ -41,30 +41,48 @@ button#backToTop {
     border-radius: 2px;
 }
 
-/* Team cards with rounded pill shape and border */
-.team-card-wrapper {
-    width: 280px;
-    height: 320px;
+/* Team photo with horizontal pill frame */
+.team-photo-container {
+    width: 100%;
+    max-width: 340px;
+    height: 220px;
     position: relative;
 }
 
-.team-card {
-    width: 100%;
-    height: 100%;
-    border-radius: 140px;
-    border: 2px solid #E5E7EB;
-    overflow: hidden;
-    background: #f9fafb;
+.team-photo {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 290px;
+    width: auto;
+    z-index: 2;
+}
+
+.team-photo-frame {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 130px;
+    border: 2px solid #D1D5DB;
+    border-radius: 9999px;
+    background: white;
+    z-index: 1;
 }
 
 @media (max-width: 768px) {
-    .team-card-wrapper {
-        width: 220px;
-        height: 260px;
+    .team-photo-container {
+        max-width: 280px;
+        height: 180px;
     }
 
-    .team-card {
-        border-radius: 110px;
+    .team-photo {
+        height: 240px;
+    }
+
+    .team-photo-frame {
+        height: 110px;
     }
 }
 

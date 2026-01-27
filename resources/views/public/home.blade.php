@@ -376,10 +376,9 @@
             <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
                 {{-- Alan Campbell --}}
                 <div class="text-center">
-                    <div class="team-card-wrapper mx-auto mb-6">
-                        <div class="team-card">
-                            <img src="{{ asset('img/home/team-1.png') }}" alt="Alan Campbell" class="w-full h-full object-cover object-top">
-                        </div>
+                    <div class="team-photo-container mx-auto mb-6">
+                        <img src="{{ asset('img/home/team-1.png') }}" alt="Alan Campbell" class="team-photo">
+                        <div class="team-photo-frame"></div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Alan Campbell</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">CEO</p>
@@ -387,10 +386,9 @@
                 </div>
                 {{-- Emily Rossi --}}
                 <div class="text-center">
-                    <div class="team-card-wrapper mx-auto mb-6">
-                        <div class="team-card">
-                            <img src="{{ asset('img/home/team-2.png') }}" alt="Emily Rossi" class="w-full h-full object-cover object-top">
-                        </div>
+                    <div class="team-photo-container mx-auto mb-6">
+                        <img src="{{ asset('img/home/team-2.png') }}" alt="Emily Rossi" class="team-photo">
+                        <div class="team-photo-frame"></div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Emily Rossi</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">CFO</p>
@@ -398,10 +396,9 @@
                 </div>
                 {{-- Christopher Taylor --}}
                 <div class="text-center">
-                    <div class="team-card-wrapper mx-auto mb-6">
-                        <div class="team-card">
-                            <img src="{{ asset('img/home/team-3.png') }}" alt="Christopher Taylor" class="w-full h-full object-cover object-top">
-                        </div>
+                    <div class="team-photo-container mx-auto mb-6">
+                        <img src="{{ asset('img/home/team-3.png') }}" alt="Christopher Taylor" class="team-photo">
+                        <div class="team-photo-frame"></div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Christopher Taylor</h3>
                     <p class="text-lg font-bold text-lumastake-blue mb-3">COO</p>

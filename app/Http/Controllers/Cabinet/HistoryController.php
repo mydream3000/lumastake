@@ -12,7 +12,7 @@ class HistoryController extends Controller
     {
         $query = StakingDeposit::with('tier')
             ->where('user_id', auth()->id())
-            ->orderByRaw("CASE WHEN status = 'active' THEN 1 ELSE 0 END")
+            ->whereIn('status', ['completed', 'unstaked', 'cancelled'])
             ->latest();
 
         if ($request->status) {

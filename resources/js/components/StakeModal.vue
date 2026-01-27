@@ -21,7 +21,7 @@
 
       <!-- Available Balance -->
       <div class="mb-3">
-        <span class="text-sm font-semibold text-cabinet-lime">Available Balance - {{ formatCurrency(availableBalance) }}</span>
+        <span class="text-sm font-semibold text-cabinet-blue">Available Balance - {{ formatCurrency(availableBalance) }}</span>
       </div>
 
       <!-- Input -->
@@ -54,14 +54,14 @@
           <button
             @click="toggleAutoStake"
             class="relative inline-flex items-center h-8 rounded-full transition-all duration-300 focus:outline-none"
-            :class="autoStake ? 'w-24 bg-cabinet-lime' : 'w-14 bg-gray-200'"
+            :class="autoStake ? 'w-24 bg-cabinet-blue' : 'w-14 bg-gray-200'"
           >
             <span
               class="absolute left-1 inline-block h-6 w-6 transform rounded-full bg-white transition-all duration-300 shadow-sm z-10"
-              :class="autoStake ? 'translate-x-[60px]' : 'translate-x-0'"
+              :class="autoStake ? 'translate-x-[70px]' : 'translate-x-0'"
             ></span>
             <span
-              class="absolute left-2.5 text-[10px] font-bold text-cabinet-text-main transition-all duration-300 whitespace-nowrap"
+              class="absolute left-2.5 text-[10px] font-bold text-white transition-all duration-300 whitespace-nowrap"
               :class="autoStake ? 'opacity-100' : 'opacity-0'"
             >
               Auto Stake

@@ -28,7 +28,7 @@
 
                 <div class="border border-gray-100 rounded-xl p-6 bg-gray-50/50">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold text-cabinet-text-main">{{ $deposit->investmentPool->name ?? 'Pool' }}</h3>
+                        <h3 class="text-lg font-bold text-cabinet-text-main">{{ $deposit->tier->name ?? 'Pool' }}</h3>
                         <span class="px-3 py-1 {{ $statusBadge['bg'] }} {{ $statusBadge['text'] }} text-xs font-bold rounded-full uppercase">
                             {{ $statusBadge['label'] }}
                         </span>

@@ -10,7 +10,8 @@ class HistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $query = StakingDeposit::where('user_id', auth()->id())
+        $query = StakingDeposit::with('tier')
+            ->where('user_id', auth()->id())
             ->orderByRaw("CASE WHEN status = 'active' THEN 1 ELSE 0 END")
             ->latest();
 

@@ -41,3 +41,30 @@ button#backToTop {
     border-radius: 2px;
 }
 
+/* Team cards with rounded pill shape and border */
+.team-card-wrapper {
+    width: 280px;
+    height: 320px;
+    position: relative;
+}
+
+.team-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 140px;
+    border: 2px solid #E5E7EB;
+    overflow: hidden;
+    background: #f9fafb;
+}
+
+@media (max-width: 768px) {
+    .team-card-wrapper {
+        width: 220px;
+        height: 260px;
+    }
+
+    .team-card {
+        border-radius: 110px;
+    }
+}
+

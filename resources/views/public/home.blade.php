@@ -346,56 +346,66 @@
     </section>
 
     {{-- 8. NEWS & INSIGHTS --}}
-    <section class="py-32 bg-white">
+    <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-lumastake-light-blue rounded-[3rem] p-12 lg:p-24 relative overflow-hidden min-h-[600px] flex items-center">
+            <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-2xl p-8 md:p-12 relative overflow-hidden">
                 <div class="relative z-10 w-full lg:w-2/3">
-                    <h2 class="text-6xl md:text-[100px] font-black text-lumastake-navy uppercase mb-10 leading-[0.9]">News & Insights</h2>
-                    <p class="text-2xl md:text-[32px] text-gray-600 mb-20 leading-tight">Stay ahead with the latest in staking and stablecoins.</p>
+                    <h2 class="text-4xl md:text-6xl font-black text-lumastake-navy mb-4 leading-tight">News & Insights</h2>
+                    <p class="text-lg md:text-xl text-black mb-8">Stay ahead with the latest in staking and stablecoins.</p>
 
                     <div>
-                        <h3 class="text-5xl md:text-[60px] font-black text-lumastake-blue uppercase mb-6 leading-none">COMING SOON</h3>
-                        <p class="text-xl md:text-2xl text-gray-600 max-w-xl leading-relaxed">
-                            Lumastake Academy — tips, guides and expert interviews to help you make smarter crypto moves.
+                        <h3 class="text-3xl md:text-5xl font-black uppercase mb-4 leading-none">
+                            <span class="bg-gradient-to-r from-[#D4FC04] to-[#00E5A0] bg-clip-text text-transparent">COMING SOON</span>
+                        </h3>
+                        <p class="text-base md:text-lg text-gray-600 max-w-lg leading-relaxed">
+                            Lumastake Academy — tips, guides, and expert interviews to help you make smarter crypto moves.
                         </p>
                     </div>
                 </div>
-                {{-- Decorative Circle --}}
-                <div class="absolute right-[-100px] bottom-[-100px] w-[600px] h-[600px] rounded-full border-[80px] border-white opacity-40 z-0"></div>
+                {{-- Logo icon --}}
+                <div class="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-40 md:w-64 h-40 md:h-64">
+                    <img src="{{ asset('favicon.svg') }}" alt="" class="w-full h-full">
+                </div>
             </div>
         </div>
     </section>
 
     {{-- 9. TEAM --}}
-    <section class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="grid md:grid-cols-3 gap-16">
-                <div class="space-y-8">
-                    <div class="relative inline-block">
-                        <img src="{{ asset('img/home/team-1.png') }}" alt="Alan Campbell" class="w-80 h-80 object-cover rounded-[3rem] shadow-xl">
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                {{-- Alan Campbell --}}
+                <div class="text-center">
+                    <div class="team-card-wrapper mx-auto mb-6">
+                        <div class="team-card">
+                            <img src="{{ asset('img/home/team-1.png') }}" alt="Alan Campbell" class="w-full h-full object-cover object-top">
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-4xl font-black text-lumastake-navy">Alan Campbell</h3>
-                        <p class="text-2xl font-bold text-lumastake-blue">CEO</p>
-                    </div>
+                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Alan Campbell</h3>
+                    <p class="text-lg font-bold text-lumastake-blue mb-3">CEO</p>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">Responsible for the overall vision, strategy, and direction of the organization. Ensures alignment between all departments and represents the company to stakeholders, investors, and the public.</p>
                 </div>
-                <div class="space-y-8">
-                    <div class="relative inline-block">
-                        <img src="{{ asset('img/home/team-2.png') }}" alt="Emily Rossi" class="w-80 h-80 object-cover rounded-[3rem] shadow-xl">
+                {{-- Emily Rossi --}}
+                <div class="text-center">
+                    <div class="team-card-wrapper mx-auto mb-6">
+                        <div class="team-card">
+                            <img src="{{ asset('img/home/team-2.png') }}" alt="Emily Rossi" class="w-full h-full object-cover object-top">
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-4xl font-black text-lumastake-navy">Emily Rossi</h3>
-                        <p class="text-2xl font-bold text-lumastake-blue">CFO</p>
-                    </div>
+                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Emily Rossi</h3>
+                    <p class="text-lg font-bold text-lumastake-blue mb-3">CFO</p>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">Manages the financial aspects, including budgeting, forecasting, and financial reporting. Ensures the platform's financial health and compliance with regulatory standards.</p>
                 </div>
-                <div class="space-y-8">
-                    <div class="relative inline-block">
-                        <img src="{{ asset('img/home/team-3.png') }}" alt="Christopher Taylor" class="w-80 h-80 object-cover rounded-[3rem] shadow-xl">
+                {{-- Christopher Taylor --}}
+                <div class="text-center">
+                    <div class="team-card-wrapper mx-auto mb-6">
+                        <div class="team-card">
+                            <img src="{{ asset('img/home/team-3.png') }}" alt="Christopher Taylor" class="w-full h-full object-cover object-top">
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-4xl font-black text-lumastake-navy">Christopher Taylor</h3>
-                        <p class="text-2xl font-bold text-lumastake-blue">COO</p>
-                    </div>
+                    <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Christopher Taylor</h3>
+                    <p class="text-lg font-bold text-lumastake-blue mb-3">COO</p>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">Responsible for optimizing operational processes and ensuring efficient day-to-day functioning. Manages teams to enhance productivity and streamline services.</p>
                 </div>
             </div>
         </div>

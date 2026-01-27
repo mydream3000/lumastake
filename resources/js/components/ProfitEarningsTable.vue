@@ -3,7 +3,51 @@
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
   <div v-else>
+    <!-- Mobile Version -->
+    <div class="lg:hidden space-y-4">
+      <div v-for="row in earnings" :key="row.id" class="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between mb-6 relative">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Date</div>
+                  <div class="text-sm font-bold text-gray-500">{{ row.created_at }}</div>
+              </div>
+              <div class="text-right">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Tier</div>
+                  <div class="text-sm font-black text-cabinet-text-main">{{ row.tier }}</div>
+              </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6 relative">
+              <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Principal</div>
+                  <div class="text-sm font-black text-cabinet-text-main">${{ row.invested_amount }}</div>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">APR %</div>
+                  <div class="text-sm font-black text-cabinet-blue">{{ row.profit }}%</div>
+              </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-0.5">Duration</div>
+                  <div class="text-xs font-bold text-gray-500">{{ row.duration }}</div>
+              </div>
+              <div class="text-right">
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-0.5">Profit Earned</div>
+                  <div class="text-lg font-black text-green-600">${{ row.earned }}</div>
+              </div>
+          </div>
+      </div>
+
+      <div v-if="!earnings.length" class="text-center py-12 bg-white rounded-[32px] border border-gray-100 shadow-sm">
+          <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No profit earnings found</p>
+      </div>
+    </div>
+
+    <!-- Desktop Version -->
     <data-table
+      class="hidden lg:block"
       :data="earnings"
       :columns="columns"
       :grid-cols="23"

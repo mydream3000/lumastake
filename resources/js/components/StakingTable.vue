@@ -42,31 +42,33 @@
     </data-table>
 
     <!-- Unstake Confirmation Modal -->
-    <div v-if="showUnstakeModal" class="fixed inset-0 z-50 flex items-center justify-center px-4" @click.self="showUnstakeModal = false">
-      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
-      <div class="relative bg-white rounded-xl max-w-md w-full p-8 shadow-2xl border border-gray-200">
-        <div class="text-center">
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-6">
-            <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+    <div v-if="showUnstakeModal" class="fixed inset-0 z-[100] flex items-center justify-center px-4 transition-opacity duration-300" @click.self="showUnstakeModal = false">
+      <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
+      <div class="relative bg-white rounded-[32px] p-10 max-w-md w-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/20 overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-red-500/5 rounded-full blur-3xl"></div>
+
+        <div class="text-center relative">
+          <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-3xl bg-red-50 mb-8 shadow-inner">
+            <svg class="h-10 w-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-cabinet-text-main mb-2">Unstake Confirmation</h3>
-          <p class="text-base text-gray-500 mb-4">Note: If you unstake before the time ends, a fee of <span class="font-bold text-red-600">10%</span> will be applied.</p>
-          <p class="text-lg font-medium text-cabinet-text-main mb-8">Are you sure you want to unstake?</p>
+          <h3 class="text-3xl font-extrabold text-cabinet-text-main mb-3 tracking-tight">Unstake Confirmation</h3>
+          <p class="text-gray-400 font-medium mb-6 leading-relaxed">Note: If you unstake before the time ends, a fee of <span class="font-bold text-red-500 underline decoration-2 underline-offset-4">10%</span> will be applied.</p>
+          <p class="text-lg font-bold text-cabinet-text-main mb-10">Are you sure you want to unstake your funds now?</p>
 
-          <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-3">
             <button
               @click="performUnstake"
-              class="px-6 py-3 bg-cabinet-blue text-white font-bold rounded-lg hover:bg-cabinet-blue/90 transition shadow-lg uppercase"
+              class="w-full px-8 py-5 bg-red-500 text-white text-xs font-black rounded-2xl hover:bg-red-600 hover:shadow-[0_10px_30px_-5px_rgba(239,68,68,0.4)] hover:-translate-y-0.5 transition-all duration-300 uppercase tracking-[0.2em]"
             >
-              Yes, Unstake
+              Yes, Unstake Now
             </button>
             <button
               @click="showUnstakeModal = false"
-              class="px-6 py-3 bg-gray-100 text-gray-600 font-bold rounded-lg hover:bg-gray-200 transition uppercase"
+              class="w-full py-3 text-gray-400 hover:text-gray-600 text-[10px] font-black transition-colors uppercase tracking-[0.2em]"
             >
-              No, Cancel
+              No, Keep Staking
             </button>
           </div>
         </div>

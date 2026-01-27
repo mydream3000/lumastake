@@ -121,15 +121,15 @@ nav a img, nav button img {
     box-shadow: 0 4px 5px -25px rgba(0, 0, 0, 0.25);
 }
 .right-card::after {
-    content: '';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 80%;
-    background-color: #3B4EFC;
+    content: "";
+    background-color: #3b4efc;
     border-radius: 3px;
+    width: 7px;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: -7px;
+    transform: translateY(-50%);
 }
 .left-card {
     background-color: #F6FFD6;
@@ -139,14 +139,14 @@ nav a img, nav button img {
 }
 .left-card::after {
     content: '';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 80%;
     background-color: #E3FF3B;
     border-radius: 3px;
+    width: 7px;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: -7px;
+    transform: translateY(-50%);
 }
 .right-card .svg-cont, .left-card .svg-cont{
     height: 59px;

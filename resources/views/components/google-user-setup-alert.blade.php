@@ -1,11 +1,17 @@
-@if(session('show_google_setup_alert') && auth()->check() && (empty(auth()->user()->phone) || empty(auth()->user()->country)))
+@if(auth()->check() && auth()->user()->google_id && (empty(auth()->user()->phone) || empty(auth()->user()->country)))
     <div
-        x-data="{ open: true }"
+        x-data="{
+            open: !sessionStorage.getItem('google_setup_dismissed'),
+            dismiss() {
+                sessionStorage.setItem('google_setup_dismissed', '1');
+                this.open = false;
+            }
+        }"
         x-show="open"
         x-cloak
         class="fixed inset-0 z-[100] overflow-y-auto"
     >
-        <div class="fixed inset-0 bg-black/70 transition-opacity" @click="open = false"></div>
+        <div class="fixed inset-0 bg-black/70 transition-opacity" @click="dismiss()"></div>
 
         <div class="flex min-h-full items-center justify-center p-4">
             <div @click.stop
@@ -31,7 +37,7 @@
                        class="w-full py-4 bg-cabinet-blue text-white rounded-xl font-bold text-lg hover:bg-cabinet-blue/90 transition-all shadow-lg shadow-cabinet-blue/20">
                         Go to Profile
                     </a>
-                    <button @click="open = false"
+                    <button @click="dismiss()"
                             class="w-full py-3 text-gray-400 font-medium hover:text-gray-600 transition-colors">
                         Maybe later
                     </button>
@@ -39,5 +45,4 @@
             </div>
         </div>
     </div>
-    @php session()->forget('show_google_setup_alert'); @endphp
 @endif

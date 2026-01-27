@@ -188,8 +188,11 @@
     </section>
 
     {{-- 4. STEPS SECTION (How it works) --}}
-    <section class="py-24 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4">
+    <section class="py-24 bg-white overflow-hidden relative">
+        {{-- Background spheres --}}
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-20 bottom-0 w-64 h-64 opacity-80 pointer-events-none">
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute -right-20 top-0 w-64 h-64 opacity-80 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="grid lg:grid-cols-12 gap-6 items-start">
                 {{-- Left: Title + Description --}}
                 <div class="lg:col-span-4">
@@ -308,29 +311,35 @@
     </section>
 
     {{-- 7. SECURE YOUR FUTURE --}}
-    <section class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-6xl md:text-[100px] font-black text-lumastake-blue uppercase mb-10 leading-[0.9]">SECURE YOUR FUTURE</h2>
-            <p class="text-2xl md:text-[32px] text-gray-600 mb-24">Your money stays protected. Always.</p>
+    <section class="py-24 relative overflow-hidden">
+        {{-- Gradient background --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-[#E8F4FC] via-white to-[#FDF9E2]"></div>
+        {{-- Background spheres --}}
+        <img src="{{ asset('img/home/secure-blue.svg') }}" alt="" class="absolute -left-32 top-1/2 -translate-y-1/2 w-80 h-80 opacity-60 pointer-events-none">
+        <img src="{{ asset('img/home/secure-yellow.svg') }}" alt="" class="absolute -right-32 top-1/2 -translate-y-1/2 w-80 h-80 opacity-60 pointer-events-none">
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-10 rounded-2xl bg-[#FFFFF0] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">Strong encryption protects your wallet</p>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <h2 class="text-5xl md:text-6xl font-black text-[#3B4EFC] uppercase mb-4 leading-[0.9]">SECURE YOUR FUTURE</h2>
+            <p class="text-xl md:text-2xl text-black mb-12">Your money stays protected. Always.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">Strong encryption<br>protects your wallet</p>
                 </div>
-                <div class="p-10 rounded-2xl bg-[#F0F9FF] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">Two-factor authentication (2FA)</p>
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">Two-factor<br>authentication (2FA)</p>
                 </div>
-                <div class="p-10 rounded-2xl bg-[#FDF2F2] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">All deposits and withdrawals in USDT</p>
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">All deposits and<br>withdrawals in USDT</p>
                 </div>
-                <div class="p-10 rounded-2xl bg-[#F0FDF4] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">Cold wallet storage for most funds</p>
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">Cold wallet storage<br>for most funds</p>
                 </div>
-                <div class="p-10 rounded-2xl bg-[#F5F3FF] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">Regular system checks and audits</p>
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">Regular system<br>checks and audits</p>
                 </div>
-                <div class="p-10 rounded-2xl bg-[#FFF7ED] text-left border-l-[12px] border-lumastake-blue shadow-sm">
-                    <p class="text-2xl font-medium text-black">Instant withdrawals, just minutes away</p>
+                <div class="secure-card bg-white rounded-xl p-6 shadow-sm">
+                    <p class="text-base md:text-lg font-medium text-black">Instant withdrawals,<br>just minutes away</p>
                 </div>
             </div>
         </div>

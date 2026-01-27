@@ -24,3 +24,20 @@ button#backToTop {
     right: 15px;
 }
 
+/* Secure Your Future cards with left border pseudo-element */
+.secure-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.secure-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 4px;
+    background-color: #2BA6FF;
+    border-radius: 2px;
+}
+

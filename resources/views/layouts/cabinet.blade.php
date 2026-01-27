@@ -317,5 +317,25 @@
 
 @stack('scripts')
 
+@if(config('services.intercom.app_id'))
+{{-- Intercom Live Chat Widget --}}
+<script>
+  window.intercomSettings = {
+    api_base: "https://api-iam.intercom.io",
+    app_id: "{{ config('services.intercom.app_id') }}",
+    user_id: {{ auth()->id() }},
+    name: @json(auth()->user()->name),
+    email: @json(auth()->user()->email),
+    @if(auth()->user()->phone)
+    phone: @json(auth()->user()->phone),
+    @endif
+    created_at: {{ auth()->user()->created_at->timestamp }},
+  };
+</script>
+<script>
+  (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/{{ config('services.intercom.app_id') }}';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>
+@endif
+
 </body>
 </html>

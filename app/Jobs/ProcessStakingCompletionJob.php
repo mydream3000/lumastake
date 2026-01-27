@@ -128,10 +128,30 @@ class ProcessStakingCompletionJob implements ShouldQueue
                 $referralService->activateUser($user);
             }
 
-            // Обновляем стейкинг
+            // ВАЖНО: Начисляем реферальную награду ДО смены статуса на completed
+            // чтобы реферал ещё считался активным партнёром при подсчёте уровня реферера
+            if ($user->referred_by) {
+                $referralService->processReferralRewardFromProfit($user, $profit, $stakingDeposit->id, $stakingDeposit->days);
+            }
+
+            // Обновляем стейкинг (теперь статус меняется на completed)
             $stakingDeposit->earned_profit = $profit;
             $stakingDeposit->status = 'completed';
             $stakingDeposit->save();
+
+            // После смены статуса пересчитываем уровень реферера (активные партнёры изменились)
+            if ($user->referred_by) {
+                try {
+                    if ($referrer = \App\Models\User::find($user->referred_by)) {
+                        app(\App\Services\ReferralService::class)->recalculateReferralLevel($referrer);
+                    }
+                } catch (\Throwable $e) {
+                    \Log::warning('Failed to recalculate referral level on staking completion', [
+                        'referrer_id' => $user->referred_by,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+            }
 
             // Создаем транзакцию возврата тела
             Transaction::create([
@@ -160,22 +180,6 @@ class ProcessStakingCompletionJob implements ShouldQueue
                     'tier_name' => $stakingDeposit->tier->name,
                 ],
             ]);
-
-            // Начисляем реферальную награду рефереру от профита стейкинга
-            if ($user->referred_by) {
-                $referralService->processReferralRewardFromProfit($user, $profit, $stakingDeposit->id, $stakingDeposit->days);
-                // После завершения стейка у реферала пересчитаем уровень реферера (активные партнёры могли измениться)
-                try {
-                    if ($referrer = \App\Models\User::find($user->referred_by)) {
-                        app(\App\Services\ReferralService::class)->recalculateReferralLevel($referrer);
-                    }
-                } catch (\Throwable $e) {
-                    \Log::warning('Failed to recalculate referral level on staking completion', [
-                        'referrer_id' => $user->referred_by,
-                        'error' => $e->getMessage(),
-                    ]);
-                }
-            }
 
             // Создаем уведомление в зависимости от auto-renewal
             if ($stakingDeposit->auto_renewal) {

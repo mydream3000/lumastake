@@ -4,7 +4,7 @@
         <div class="hidden lg:flex items-center justify-between mb-8">
             <h2 class="text-3xl font-extrabold text-cabinet-text-main">Rewards</h2>
             <div class="text-cabinet-blue font-bold text-lg bg-cabinet-blue/5 px-4 py-2 rounded-lg">
-                Current Level: <span class="text-2xl">{{ $currentLevel ?? 1 }}</span>
+                Current Level: <span class="text-2xl">{{ $currentLevel ?? 0 }}</span>
             </div>
         </div>
 
@@ -13,7 +13,7 @@
             <h2 class="text-2xl font-black text-cabinet-text-main mb-4 tracking-tight">Rewards</h2>
             <div class="flex items-center justify-between bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                 <span class="text-sm font-bold text-gray-400 uppercase tracking-wider">Current Level</span>
-                <span class="text-xl font-black text-cabinet-blue">{{ $currentLevel ?? 1 }}</span>
+                <span class="text-xl font-black text-cabinet-blue">{{ $currentLevel ?? 0 }}</span>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                         @endphp
                         <div
                             class="min-w-[160px] lg:min-w-0 rounded-[24px] lg:rounded-[15px] p-5 border-2 transition-all duration-300 {{ $isActive ? 'active-level-card' : '' }}"
-                            style="background-color: {{ $colors['bg'] }}; border-color: {{ $isActive ? $colors['border'] : 'transparent' }}; --active-shadow: {{ $colors['shadow'] }};"
+                            style="background-color: {{ $colors['bg'] }}; border-color: {{ $colors['border'] }}; --active-shadow: {{ $colors['shadow'] }};"
                         >
                             <h3 class="text-xl font-black lg:font-bold text-cabinet-text-main mb-6">Level {{ $level->level }}</h3>
 
@@ -62,8 +62,10 @@
                             <img src="{{ asset('img/Group-ref-users.svg') }}" class="w-7 h-7" alt="Icon">
                             <h3 class="text-xl font-black lg:font-bold text-cabinet-text-main tracking-tight">Referral Link</h3>
                         </div>
-                        <div class="text-sm lg:text-base font-bold text-cabinet-text-main/60">
-                            Total Referred Partners: <span class="text-cabinet-blue lg:text-cabinet-lime font-black text-lg">{{ $totalReferrals }} users</span>
+                        <div class="flex items-center gap-4 text-sm lg:text-base font-bold">
+                            <span class="text-cabinet-text-main/60">Active: <span class="text-green-500 font-black">{{ $activeReferrals }}</span></span>
+                            <span class="text-cabinet-text-main/60">Inactive: <span class="text-gray-400 font-black">{{ $totalReferrals - $activeReferrals }}</span></span>
+                            <span class="text-cabinet-text-main/60">Total: <span class="text-cabinet-blue font-black">{{ $totalReferrals }}</span></span>
                         </div>
                     </div>
 

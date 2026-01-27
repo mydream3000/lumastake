@@ -26,19 +26,19 @@ class ReferralLevelSeeder extends Seeder
                 'level' => 3,
                 'name' => '11–15',
                 'min_partners' => 11,
-                'reward_percentage' => 14.00,
+                'reward_percentage' => 15.00,
             ],
             [
                 'level' => 4,
                 'name' => '16–20',
                 'min_partners' => 16,
-                'reward_percentage' => 16.00,
+                'reward_percentage' => 17.00,
             ],
             [
                 'level' => 5,
-                'name' => '21+',
+                'name' => '21 & Above',
                 'min_partners' => 21,
-                'reward_percentage' => 18.00,
+                'reward_percentage' => 20.00,
             ],
         ];
 

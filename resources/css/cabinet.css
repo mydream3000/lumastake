@@ -157,5 +157,6 @@ nav a img, nav button img {
     left: 83%;
 }
 .romb-tier{
-
+    left: 2px;
+    transform: scale(1.5);
 }

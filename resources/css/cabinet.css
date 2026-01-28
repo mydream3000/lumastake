@@ -160,3 +160,8 @@ nav a img, nav button img {
     left: 2px;
     transform: scale(1.5);
 }
+.romb-border {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 7px;
+}

@@ -283,7 +283,7 @@
                 @endphp
                 <div class="relative rounded-lg " style="background-color: {{ $tierColor }}1A;">
                     {{-- Left accent bar with diamond --}}
-                    <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
+                    <div class="romb-border absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
                     <div class="romb-tier absolute -left-[2px] top-1/2 -translate-y-1/2 -translate-x-1/2">
                         <div class="w-3 h-3 rotate-45 border-2 border-white" style="background-color: {{ $tierColor }};"></div>
                     </div>

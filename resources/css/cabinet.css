@@ -88,11 +88,15 @@ button:focus,
 a:focus,
 input:focus,
 textarea:focus {
-    border-radius: 100px;
+    outline: 2px solid #3B4EFC;
+    outline-offset: 2px;
+
+}
+.max-button{
     background: #3B4EFC;
+    border-radius: 100px;
     color: whitesmoke;
 }
-
 /* General card styling */
 .card {
     background-color: var(--color-cabinet-card-bg);

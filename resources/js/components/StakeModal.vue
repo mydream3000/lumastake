@@ -37,7 +37,7 @@
         >
         <button
           @click="setMaxAmount"
-          class="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1.5 text-sm font-bold text-cabinet-blue hover:text-cabinet-blue/70 transition-colors"
+          class="max-button absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1.5 text-sm font-bold text-cabinet-blue hover:text-cabinet-blue/70 transition-colors"
         >
           Max
         </button>

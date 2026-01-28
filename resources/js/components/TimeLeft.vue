@@ -23,7 +23,7 @@ let intervalId = null
 const isPast = computed(() => currentDiff.value < 0)
 
 const badgeClass = computed(() => {
-  const baseClass = 'px-3 py-1 rounded-full text-sm font-medium inline-block'
+  const baseClass = 'px-3 py-1 rounded-full text-sm font-medium inline-flex items-center'
   if (isPast.value) {
     return `${baseClass} bg-cabinet-green/20 text-black`
   }

@@ -5,7 +5,7 @@
   <div v-else class="relative">
 
     <!-- Mobile Version (Cards) - visible only on small screens -->
-    <div class="block space-y-4">
+    <div class="lg:hidden block space-y-4">
       <div
         v-for="pool in pools"
         :key="pool.id"

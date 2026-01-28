@@ -51,7 +51,7 @@
 
     <!-- Desktop Version (Table) - visible only on large screens -->
     <div class="hidden max-w-lg lg:block overflow-x-auto">
-      <table class="w-full">
+      <table class="">
         <thead>
           <tr class="border-b border-gray-200">
             <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Name</th>

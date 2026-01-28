@@ -192,7 +192,6 @@ const visiblePages = computed(() => {
 
 async function fetchData() {
   loading.value = true
-  console.log('AjaxDataTable: Fetching data from:', props.dataUrl)
 
   try {
     const params = new URLSearchParams({
@@ -204,7 +203,6 @@ async function fetchData() {
     })
 
     const url = `${props.dataUrl}?${params}`
-    console.log('AjaxDataTable: Full URL:', url)
 
     const response = await fetch(url, {
       headers: {
@@ -213,27 +211,19 @@ async function fetchData() {
       }
     })
 
-    console.log('AjaxDataTable: Response status:', response.status)
     const result = await response.json()
-    console.log('AjaxDataTable: Response data:', result)
 
     data.value = result.data || []
     total.value = result.total || 0
-    // НЕ перезаписываем perPage из ответа сервера, используем локальное значение
     currentPage.value = result.current_page || 1
     lastPage.value = result.last_page || 1
-
-    console.log('AjaxDataTable: Parsed - rows:', data.value.length, 'total:', total.value)
-    console.log('AjaxDataTable: data array:', data.value)
   } catch (error) {
     console.error('AjaxDataTable: Error fetching data:', error)
   } finally {
     loading.value = false
     await nextTick()
     renderKey.value++
-    console.log('AjaxDataTable: Finished - loading:', loading.value, 'data.length:', data.value.length, 'renderKey:', renderKey.value)
     await nextTick()
-    console.log('AjaxDataTable: After nextTick, DOM should be updated')
 
     // Emit event with current page data (ids and meta) after DOM updated
     try {

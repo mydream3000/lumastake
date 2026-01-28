@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\DepositReplenishedMail;
+use App\Mail\TemplatedMail;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\CryptoTransaction;
@@ -112,13 +112,17 @@ class ProcessDepositJob implements ShouldQueue
                 route('cabinet.dashboard')
             );
 
-            // Email пользователю о пополнении
+            // Email пользователю о пополнении (используем шаблон из БД)
             try {
-                Mail::mailer('failover')->to($user->email)->send(new DepositReplenishedMail(
-                    $user->name,
-                    $this->amount,
-                    $this->token,
-                    $this->network
+                Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                    'deposit_replenished',
+                    [
+                        'userName' => $user->name,
+                        'amount' => number_format($this->amount, 2),
+                        'token' => $this->token,
+                        'network' => $this->network,
+                    ],
+                    $this->userId
                 ));
             } catch (\Throwable $e) {
                 Log::warning('Failed to send deposit replenished email', [

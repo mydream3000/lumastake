@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\PaymentsExport;
 use App\Http\Controllers\Controller;
-use App\Mail\WithdrawRejectedMail;
-use App\Mail\WithdrawalApprovedMail;
+use App\Mail\TemplatedMail;
 use App\Models\CryptoTransaction;
 use App\Models\Transaction;
 use App\Services\TelegramBotService;
@@ -279,14 +278,18 @@ class PaymentController extends Controller
             ]);
         }
 
-        // Отправляем email пользователю об одобрении вывода
+        // Отправляем email пользователю об одобрении вывода (используем шаблон из БД)
         try {
             Mail::mailer('failover')
                 ->to($payment->user->email)
-                ->send(new WithdrawalApprovedMail(
-                    $payment->user->name,
-                    $payment->amount,
-                    $validated['comment'] ?? null
+                ->send(new TemplatedMail(
+                    'withdrawal_approved',
+                    [
+                        'userName' => $payment->user->name,
+                        'amount' => number_format($payment->amount, 2),
+                        'comment' => $validated['comment'] ?? null,
+                    ],
+                    $payment->user_id
                 ));
         } catch (\Throwable $e) {
             \Log::error('Failed to send withdrawal approved email', [
@@ -347,11 +350,19 @@ class PaymentController extends Controller
         // Отправляем уведомление в Telegram об отмене
         $telegramBotService->sendWithdrawRejected($payment, $validated['reason']);
 
-        // Отправляем email пользователю с причиной отказа
+        // Отправляем email пользователю с причиной отказа (используем шаблон из БД)
         try {
             Mail::mailer('failover')
                 ->to($payment->user->email)
-                ->send(new WithdrawRejectedMail($payment->user->name, $validated['reason']));
+                ->send(new TemplatedMail(
+                    'withdrawal_rejected',
+                    [
+                        'userName' => $payment->user->name,
+                        'amount' => number_format($payment->amount, 2),
+                        'reason' => $validated['reason'],
+                    ],
+                    $payment->user_id
+                ));
         } catch (\Throwable $e) {
             \Log::error('Failed to send withdraw rejection email', [
                 'payment_id' => $payment->id,

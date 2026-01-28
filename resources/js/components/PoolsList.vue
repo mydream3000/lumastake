@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 import StakeModal from './StakeModal.vue'
 
@@ -186,13 +186,33 @@ function closeStakeModal() {
 }
 
 function handleStakeSuccess() {
-  // Show lightweight overlay to prevent visual jumps on mobile and navigate
-  isNavigating.value = true
-  // Use replace to avoid extra history entry and ensure faster transition
-  window.location.replace('/dashboard/staking')
+  if (window.Alpine) {
+    // Ждем немного пока стор обновится (хотя он уже должен быть обновлен из StakeModal)
+    setTimeout(() => {
+      availableBalance.value = window.Alpine.store('userBalance').availableBalance
+    }, 500)
+  }
+
+  if (window.showToast) {
+    window.showToast('Stake created successfully', 'success')
+  }
+
+  closeStakeModal()
 }
 
 onMounted(() => {
   fetchPools()
+
+  // Sync with Alpine store if available to handle balance changes from other components
+  if (window.Alpine) {
+    const checkBalance = () => {
+      const storeBalance = window.Alpine.store('userBalance').availableBalance
+      if (Math.abs(availableBalance.value - storeBalance) > 0.001) {
+        availableBalance.value = storeBalance
+      }
+    }
+    const interval = setInterval(checkBalance, 1000)
+    onUnmounted(() => clearInterval(interval))
+  }
 })
 </script>

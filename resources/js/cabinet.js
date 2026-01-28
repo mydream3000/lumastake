@@ -20,15 +20,10 @@ function mountComponent(selector, component, props = {}) {
     if (typeof component === 'string') {
         import(`./components/${component}.vue`)
             .then(module => {
-                console.log(`Component ${component} loaded successfully`)
-
-                // Создаем новый div внутри контейнера
                 const mountPoint = document.createElement('div')
                 element.appendChild(mountPoint)
-
                 const app = createApp(module.default, props)
-                const instance = app.mount(mountPoint)
-                console.log(`Component ${component} mounted to ${selector}`, instance)
+                app.mount(mountPoint)
             })
             .catch(err => {
                 console.error(`Failed to load component ${component}:`, err)
@@ -112,17 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    // InvestmentPoolTable (old version for full pools page)
-    const investmentPoolTableEl = document.querySelector('.js-investment-pool-table')
-    if (investmentPoolTableEl) {
-        import('./components/InvestmentPoolTable.vue').then(module => {
-            const dataUrl = investmentPoolTableEl.dataset.url || '/dashboard/pools/data'
-            const balance = parseFloat(investmentPoolTableEl.dataset.balance || 0)
-            mountComponent('.js-investment-pool-table', module.default, { dataUrl, balance })
-        })
-    }
-
-    // PoolsList (simplified for dashboard)
+    // PoolsList
     const poolsListEl = document.querySelector('.js-pools-list')
     if (poolsListEl) {
         import('./components/PoolsList.vue').then(module => {
@@ -299,6 +284,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('userBalance', {
         balance: window.userBalance?.balance || 0,
         availableBalance: window.userBalance?.availableBalance || 0,
+        totalStaked: window.userBalance?.totalStaked || 0,
         hasPendingWithdraw: window.userBalance?.hasPendingWithdraw || false,
         pendingWithdrawAmount: window.userBalance?.pendingWithdrawAmount || 0,
 
@@ -315,6 +301,7 @@ document.addEventListener('alpine:init', () => {
                 if (response.data.success) {
                     this.balance = response.data.balance;
                     this.availableBalance = response.data.available_balance;
+                    this.totalStaked = response.data.total_staked;
                     this.hasPendingWithdraw = response.data.has_pending_withdraw;
                     this.pendingWithdrawAmount = response.data.pending_withdraw_amount;
                 }

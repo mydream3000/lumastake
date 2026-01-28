@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\StakingCompletedMail;
 use App\Mail\TemplatedMail;
 use App\Models\InvestmentPoolIslamic;
 use App\Models\StakingDeposit;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Cabinet;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\WithdrawRequest;
 use App\Jobs\ProcessWithdrawJob;
-use App\Mail\WithdrawCodeMail;
+use App\Mail\TemplatedMail;
 use App\Models\PendingWithdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -48,8 +48,15 @@ class WithdrawController extends Controller
             'code_expires_at' => now()->addSeconds(60),
         ]);
 
-        // Отправка email
-        Mail::mailer('failover')->to($user->email)->send(new WithdrawCodeMail($code, $user->name));
+        // Отправка email (используем шаблон из БД)
+        Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+            'withdraw_code',
+            [
+                'code' => $code,
+                'userName' => $user->name,
+            ],
+            $user->id
+        ));
 
         return response()->json([
             'success' => true,
@@ -131,7 +138,14 @@ class WithdrawController extends Controller
             'code_expires_at' => now()->addSeconds(60),
         ]);
 
-        Mail::mailer('failover')->to($user->email)->send(new WithdrawCodeMail($code, $user->name));
+        Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+            'withdraw_code',
+            [
+                'code' => $code,
+                'userName' => $user->name,
+            ],
+            $user->id
+        ));
 
         return response()->json([
             'success' => true,

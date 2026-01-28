@@ -126,10 +126,7 @@ function removeToast(id) {
 }
 
 function handleToastClick(toast) {
-  console.log('Toast clicked:', toast)
   if (toast.redirect_url) {
-    console.log('Redirecting to:', toast.redirect_url)
-    // Перенаправляем
     window.location.href = toast.redirect_url
   }
 }

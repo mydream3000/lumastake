@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\PromoCode;
 use App\Models\Transaction;
-use App\Mail\EmailVerificationCode;
 use App\Mail\TemplatedMail;
 use Illuminate\Validation\Rule;
 

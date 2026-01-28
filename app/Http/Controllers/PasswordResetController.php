@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
-use App\Mail\PasswordResetCode;
 use App\Mail\TemplatedMail;
 
 class PasswordResetController extends BaseController

@@ -221,6 +221,7 @@ class DashboardController extends Controller
             'available_balance' => (float) $user->available_balance,
             'has_pending_withdraw' => $pendingAmount > 0,
             'pending_withdraw_amount' => $pendingAmount,
+            'total_staked' => (float) $user->stakingDeposits()->where('status', 'active')->sum('amount'),
         ]);
     }
 }

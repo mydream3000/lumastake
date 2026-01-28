@@ -182,6 +182,10 @@ async function confirmDeposit() {
       if (window.showToast) {
         window.showToast('We are looking for your deposit. It will appear in history soon.', 'success')
       }
+      // Refresh balance
+      if (window.Alpine) {
+        window.Alpine.store('userBalance').refresh()
+      }
       // Close sidebar
       window.dispatchEvent(new CustomEvent('close-rightbar'))
     }

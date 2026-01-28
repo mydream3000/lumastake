@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AccountLockedMail;
 use App\Mail\TemplatedMail;
 use App\Models\ToastMessage;
 use Illuminate\Routing\Controller as BaseController;
@@ -57,9 +56,16 @@ class AuthController extends BaseController
                             'account_locked_at' => now(),
                         ]);
 
-                        // Send account locked email notification
+                        // Send account locked email notification (используем шаблон из БД)
                         try {
-                            Mail::to($user->email)->queue(new AccountLockedMail($user));
+                            Mail::to($user->email)->queue(new TemplatedMail(
+                                'account_locked',
+                                [
+                                    'userName' => $user->name,
+                                    'lockedAt' => now()->format('d M Y, H:i'),
+                                ],
+                                $user->id
+                            ));
                         } catch (\Exception $e) {
                             Log::error('Failed to send account locked email: ' . $e->getMessage());
                         }

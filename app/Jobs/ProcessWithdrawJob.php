@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\WithdrawalCreatedMail;
+use App\Mail\TemplatedMail;
 use App\Models\ToastMessage;
 use App\Models\Transaction;
 use App\Models\User;
@@ -103,16 +103,20 @@ class ProcessWithdrawJob implements ShouldQueue
             // Отправляем уведомление в Telegram о создании заявки на вывод
             $telegramBotService->sendWithdrawCreated($transaction);
 
-            // Отправляем email пользователю о создании заявки на вывод
+            // Отправляем email пользователю о создании заявки на вывод (используем шаблон из БД)
             try {
                 Mail::mailer('failover')
                     ->to($user->email)
-                    ->send(new WithdrawalCreatedMail(
-                        $user->name,
-                        $this->amount,
-                        $this->receiverAddress,
-                        $this->token,
-                        $this->network ?? 'tron'
+                    ->send(new TemplatedMail(
+                        'withdrawal_created',
+                        [
+                            'userName' => $user->name,
+                            'amount' => number_format($this->amount, 2),
+                            'walletAddress' => $this->receiverAddress,
+                            'token' => $this->token,
+                            'network' => $this->network ?? 'tron',
+                        ],
+                        $this->userId
                     ));
             } catch (\Throwable $e) {
                 Log::error('Failed to send withdrawal created email', [

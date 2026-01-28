@@ -33,7 +33,7 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2" x-text="$store.userBalance.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' USDT'">
+                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2" x-text="$store.userBalance.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' USDT'">
                         {{ number_format($user->available_balance, 0) }} USDT
                     </p>
                     <div class="w-full rounded-full h-2 mb-2 overflow-hidden" style="background-color: rgba(59, 78, 252, 0.2);" x-data="{ width: 0 }" x-init="setTimeout(() => width = {{ $progressPercent }}, 100)">
@@ -69,7 +69,7 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2">
+                    <p class="font-manrope font-bold text-4xl text-cabinet-text-main mb-2" x-text="$store.userBalance.totalStaked.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' USDT'">
                         {{ number_format($totalStaked, 2) }} USDT
                     </p>
                     <div class="w-full rounded-full h-2 mb-2 overflow-hidden" style="background-color: rgba(227, 255, 59, 0.3);" x-data="{ width: 0 }" x-init="setTimeout(() => width = {{ $progressPercent }}, 100)">

@@ -184,6 +184,10 @@ async function confirmStake() {
       auto_stake: autoStake.value
     })
 
+    if (window.Alpine) {
+      window.Alpine.store('userBalance').refresh()
+    }
+
     emit('success')
     close()
   } catch (error) {

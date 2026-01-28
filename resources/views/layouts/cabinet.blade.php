@@ -316,6 +316,7 @@
     window.userBalance = {
         balance: {{ (float)$user->balance }},
         availableBalance: {{ (float)$user->available_balance }},
+        totalStaked: {{ (float)$user->stakingDeposits()->where('status', 'active')->sum('amount') }},
         hasPendingWithdraw: {{ $user->reserved_by_withdrawals > 0 ? 'true' : 'false' }},
         pendingWithdrawAmount: {{ (float)$user->reserved_by_withdrawals }}
     };

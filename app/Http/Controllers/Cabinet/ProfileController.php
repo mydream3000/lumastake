@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\ProfileUpdateRequest;
-use App\Mail\EmailVerificationCode;
+use App\Mail\TemplatedMail;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -140,11 +140,14 @@ class ProfileController extends Controller
                 $user->email_change_code_expires_at = now()->addMinutes(60);
                 $user->save();
 
-                // Отправляем код на НОВУЮ почту
-                Mail::mailer('failover')->to($user->new_email)->send(new EmailVerificationCode(
-                    $code,
-                    $user->name,
-                    'email_change'
+                // Отправляем код на НОВУЮ почту (используем шаблон из БД)
+                Mail::mailer('failover')->to($user->new_email)->send(new TemplatedMail(
+                    'email_verification',
+                    [
+                        'code' => $code,
+                        'userName' => $user->name,
+                    ],
+                    $user->id
                 ));
 
                 \App\Models\ToastMessage::create([
@@ -292,11 +295,14 @@ class ProfileController extends Controller
         $user->email_change_code_expires_at = now()->addMinutes(60);
         $user->save();
 
-        // Отправляем код на НОВУЮ почту
-        Mail::mailer('failover')->to($user->new_email)->send(new EmailVerificationCode(
-            $code,
-            $user->name,
-            'email_change'
+        // Отправляем код на НОВУЮ почту (используем шаблон из БД)
+        Mail::mailer('failover')->to($user->new_email)->send(new TemplatedMail(
+            'email_verification',
+            [
+                'code' => $code,
+                'userName' => $user->name,
+            ],
+            $user->id
         ));
 
         return response()->json([

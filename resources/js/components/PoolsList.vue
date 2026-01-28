@@ -2,7 +2,7 @@
   <div v-if="loading" class="text-center py-8">
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
-  <div v-else class="relative max-w-lg">
+  <div v-else class="relative">
 
     <!-- Mobile Version (Cards) - visible only on small screens -->
     <div class="lg:hidden block space-y-4">
@@ -50,8 +50,8 @@
     </div>
 
     <!-- Desktop Version (Table) - visible only on large screens -->
-    <div class="hidden max-w-lg lg:block overflow-x-auto">
-      <table class="">
+    <div class="hidden lg:block overflow-x-auto">
+      <table class="w-full">
         <thead>
           <tr class="border-b border-gray-200">
             <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Name</th>

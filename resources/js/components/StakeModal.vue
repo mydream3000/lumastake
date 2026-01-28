@@ -58,7 +58,7 @@
           >
             <span
               class="absolute left-1 inline-block h-6 w-6 transform rounded-full bg-white transition-all duration-300 shadow-sm z-10"
-              :class="autoStake ? 'translate-x-[70px]' : 'translate-x-0'"
+              :class="autoStake ? 'translate-x-[60px]' : 'translate-x-0'"
             ></span>
             <span
               class="absolute left-2.5 text-[10px] font-bold text-white transition-all duration-300 whitespace-nowrap"

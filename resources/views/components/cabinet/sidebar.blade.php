@@ -6,7 +6,7 @@
     $isEarningsActive = in_array($currentRoute, $earningsRoutes);
 @endphp
 
-<div class="hidden lg:flex flex-col w-[346px] bg-gradient-to-b from-cabinet-sidebar-start to-cabinet-sidebar-end to-[30%] pr-8" style="min-height: max(100vh, 100%)">
+<div class="hidden lg:flex flex-col w-[346px] bg-gradient-to-b from-cabinet-sidebar-start to-cabinet-sidebar-end to-[70%] pr-8" style="min-height: max(100vh, 100%)">
     {{-- Logo --}}
     <div class="flex items-center justify-center pt-12 pb-11">
         <a href="{{ route('cabinet.dashboard') }}">

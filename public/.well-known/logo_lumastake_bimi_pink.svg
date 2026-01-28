@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" baseProfile="tiny-ps" version="1.2">
-  <title>Lumastake BIMI pink triangle logo</title>
-  <desc>Vector BIMI logo: pink triangle on dark circle background.</desc>
-  <circle cx="128" cy="128" r="124" fill="#111111"/>
-  <polygon points="128,40 210,210 46,210" fill="#FF69B4"/>
-</svg>

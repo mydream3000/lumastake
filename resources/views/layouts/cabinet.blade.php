@@ -313,6 +313,12 @@
 {{-- Preload countries data for Alpine.js components --}}
 <script>
     window.__GEOIP_COUNTRIES__ = @json(\App\Helpers\GeoIpHelper::getAllCountries());
+    window.userBalance = {
+        balance: {{ (float)$user->balance }},
+        availableBalance: {{ (float)$user->available_balance }},
+        hasPendingWithdraw: {{ $user->reserved_by_withdrawals > 0 ? 'true' : 'false' }},
+        pendingWithdrawAmount: {{ (float)$user->reserved_by_withdrawals }}
+    };
 </script>
 
 @stack('scripts')

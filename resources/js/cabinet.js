@@ -297,12 +297,13 @@ window.phoneInput = function() {
 // Alpine Store for global user data
 document.addEventListener('alpine:init', () => {
     Alpine.store('userBalance', {
-        balance: 0,
-        availableBalance: 0,
-        hasPendingWithdraw: false,
-        pendingWithdrawAmount: 0,
+        balance: window.userBalance?.balance || 0,
+        availableBalance: window.userBalance?.availableBalance || 0,
+        hasPendingWithdraw: window.userBalance?.hasPendingWithdraw || false,
+        pendingWithdrawAmount: window.userBalance?.pendingWithdrawAmount || 0,
 
         init() {
+            // Initial refresh only if we don't have data yet or to be sure
             this.refresh();
             // Refresh balance every 60 seconds
             setInterval(() => this.refresh(), 60000);

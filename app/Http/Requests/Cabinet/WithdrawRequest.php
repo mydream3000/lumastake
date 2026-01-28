@@ -22,7 +22,15 @@ class WithdrawRequest extends FormRequest
     public function rules(): array
     {
         $user = auth()->user();
-        $availableBalance = $user->balance;
+
+        // Для валидации суммы мы игнорируем PendingWithdrawal (коды), так как они будут удалены в контроллере
+        // Учитываем только реальные транзакции со статусом pending
+        $reservedPendingTransactions = (float) \App\Models\Transaction::where('user_id', $user->id)
+            ->where('type', 'withdraw')
+            ->where('status', 'pending')
+            ->sum('amount');
+
+        $availableBalance = max(0, (float)$user->balance - $reservedPendingTransactions);
         $minAmount = config('pools.min_withdraw_amount', 10);
 
         $network = $this->input('network', 'tron');

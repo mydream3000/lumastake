@@ -243,6 +243,10 @@ async function requestWithdraw() {
       if (window.showToast) {
         window.showToast(response.data.message, 'success')
       }
+      // Refresh balance as it's now reserved by pending withdrawal
+      if (window.Alpine) {
+        window.Alpine.store('userBalance').refresh()
+      }
     }
   } catch (err) {
     error.value = err.response?.data?.message || 'Failed to request withdrawal. Please check your inputs.'

@@ -157,11 +157,14 @@ nav a img, nav button img {
     left: 83%;
 }
 .romb-tier{
-    left: 2px;
+    left: 4px;
     transform: scale(1.5);
 }
 .romb-border {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     width: 7px;
+}
+.card-tier{
+    padding: 10px;
 }

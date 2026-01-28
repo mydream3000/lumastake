@@ -281,7 +281,7 @@
                         ? $percentage->min_percentage . '% - ' . $percentage->max_percentage . '%'
                         : $percentage->percentage . '%';
                 @endphp
-                <div class="relative rounded-lg " style="background-color: {{ $tierColor }}1A;">
+                <div class="card-tier relative rounded-lg " style="background-color: {{ $tierColor }}1A; border: 1px solid {{ $tierColor }};">
                     {{-- Left accent bar with diamond --}}
                     <div class="romb-border absolute left-0 top-0 bottom-0 w-1" style="background-color: {{ $tierColor }};"></div>
                     <div class="romb-tier absolute -left-[2px] top-1/2 -translate-y-1/2 -translate-x-1/2">

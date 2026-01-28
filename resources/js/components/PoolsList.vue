@@ -50,7 +50,7 @@
     </div>
 
     <!-- Desktop Version (Table) - visible only on large screens -->
-    <div class="hidden lg:block overflow-x-auto">
+    <div class="hidden max-w-lg lg:block overflow-x-auto">
       <table class="w-full">
         <thead>
           <tr class="border-b border-gray-200">

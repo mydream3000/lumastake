@@ -2,7 +2,7 @@
   <div v-if="loading" class="text-center py-8">
     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cabinet-blue"></div>
   </div>
-  <div v-else class="relative">
+  <div v-else class="relative max-w-lg">
 
     <!-- Mobile Version (Cards) - visible only on small screens -->
     <div class="lg:hidden block space-y-4">

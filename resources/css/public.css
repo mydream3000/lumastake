@@ -8,12 +8,23 @@
 @theme {
     --font-poppins: 'Poppins', sans-serif;
     --font-audiowide: 'Audiowide', cursive;
-    --font-the-bold-font: 'The Bold Font', 'Poppins', sans-serif;
+    --font-the-bold-font: 'Poppins', sans-serif;
     --color-lumastake-blue: #3B4EFC;
     --color-lumastake-navy: #262262;
     --color-lumastake-light-blue: #E0F2FF;
     --color-lumastake-lime: #D9FF00;
     --color-lumastake-dark: #101221;
+}
+
+/* Heading styles */
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
 }
 
 [x-cloak] {

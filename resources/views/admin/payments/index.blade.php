@@ -13,7 +13,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-4">
+    <div id="stats-cards" class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-4">
         <!-- Total Real Deposits -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div class="flex items-center justify-between mb-2">
@@ -24,7 +24,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="text-3xl font-bold text-gray-900">${{ number_format($totalRealDeposits, 2) }}</div>
+            <div class="text-3xl font-bold text-gray-900" data-stat="real-total">${{ number_format($totalRealDeposits, 2) }}</div>
             <p class="text-xs text-gray-500 mt-1">On-chain confirmed (USDT + USDC)</p>
         </div>
 
@@ -38,7 +38,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="text-3xl font-bold text-gray-900">${{ number_format($realDepositsToday, 2) }}</div>
+            <div class="text-3xl font-bold text-gray-900" data-stat="real-today">${{ number_format($realDepositsToday, 2) }}</div>
             <p class="text-xs text-gray-500 mt-1">Today's on-chain deposits</p>
         </div>
 
@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
             date_to: dateToFilter.value,
         };
         window.dispatchEvent(new CustomEvent('datatable-filter-change', { detail: filters }));
+        loadStats();
     }
 
     // Apply filters on button click
@@ -546,51 +547,105 @@ async function loadStats() {
         const stats = await response.json();
 
         const statsContainer = document.getElementById('stats-cards');
-        statsContainer.innerHTML = `
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-gray-600">Total Deposits</p>
-                        <p class="text-xl font-bold text-green-600 mt-1">$${parseFloat(stats.deposits.total).toFixed(2)}</p>
-                        <p class="text-xs text-gray-500 mt-1">${stats.deposits.count} transactions</p>
+        if (statsContainer) {
+            statsContainer.innerHTML = `
+                <!-- Total Real Deposits -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Total Real Deposits</h3>
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <i class="fas fa-arrow-down text-green-400 text-2xl"></i>
+                    <div class="text-3xl font-bold text-gray-900">$${parseFloat(stats.deposits.real_total).toFixed(2)}</div>
+                    <p class="text-xs text-gray-500 mt-1">On-chain confirmed (USDT + USDC)</p>
                 </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-gray-600">Total Withdrawals</p>
-                        <p class="text-xl font-bold text-orange-600 mt-1">$${parseFloat(stats.withdrawals.total).toFixed(2)}</p>
-                        <p class="text-xs text-gray-500 mt-1">${stats.withdrawals.count} transactions</p>
+
+                <!-- Real Deposits Today -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Real Deposits Today</h3>
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <i class="fas fa-arrow-up text-orange-400 text-2xl"></i>
+                    <div class="text-3xl font-bold text-gray-900">$${parseFloat(stats.deposits.real_today).toFixed(2)}</div>
+                    <p class="text-xs text-gray-500 mt-1">Today's on-chain deposits</p>
                 </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-gray-600">Pending Withdrawals</p>
-                        <p class="text-xl font-bold text-yellow-600 mt-1">${stats.withdrawals.pending}</p>
-                        <p class="text-xs text-gray-500 mt-1">Awaiting approval</p>
+
+                <!-- Total Deposits -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Total Deposits</h3>
+                        <div class="p-2 bg-emerald-100 rounded-lg">
+                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <i class="fas fa-clock text-yellow-400 text-2xl"></i>
+                    <div class="text-3xl font-bold text-gray-900">$${parseFloat(stats.deposits.total).toFixed(2)}</div>
+                    <p class="text-xs text-gray-500 mt-1">All confirmed deposits</p>
                 </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-gray-600">Confirmed</p>
-                        <p class="text-xl font-bold text-blue-600 mt-1">${stats.withdrawals.confirmed}</p>
-                        <p class="text-xs text-gray-500 mt-1">Approved by admin</p>
+
+                <!-- Total Withdrawals -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Total Withdrawals</h3>
+                        <div class="p-2 bg-red-100 rounded-lg">
+                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <i class="fas fa-check text-blue-400 text-2xl"></i>
+                    <div class="text-3xl font-bold text-gray-900">$${parseFloat(stats.withdrawals.total).toFixed(2)}</div>
+                    <p class="text-xs text-gray-500 mt-1">All confirmed withdrawals</p>
                 </div>
-            </div>
-        `;
+
+                <!-- Pending Deposits -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Pending Deposits</h3>
+                        <div class="p-2 bg-yellow-100 rounded-lg">
+                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">${stats.deposits.pending}</div>
+                    <p class="text-xs text-gray-500 mt-1">Awaiting confirmation</p>
+                </div>
+
+                <!-- Pending Withdrawals -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium text-gray-600">Pending Withdrawals</h3>
+                        <div class="p-2 bg-orange-100 rounded-lg">
+                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">${stats.withdrawals.pending}</div>
+                    <p class="text-xs text-gray-500 mt-1">Awaiting approval</p>
+                </div>
+            `;
+        }
     } catch (error) {
         console.error('Failed to load stats:', error);
     }
+}
+
+function updateStaticCards(stats) {
+    // Helper to update static elements if stats-cards is not used
+    const realTotalEl = document.querySelector('[data-stat="real-total"]');
+    if (realTotalEl) realTotalEl.textContent = '$' + parseFloat(stats.deposits.real_total).toFixed(2);
+
+    const realTodayEl = document.querySelector('[data-stat="real-today"]');
+    if (realTodayEl) realTodayEl.textContent = '$' + parseFloat(stats.deposits.real_today).toFixed(2);
 }
 
 // Open modals (triggered from DataTable actions)

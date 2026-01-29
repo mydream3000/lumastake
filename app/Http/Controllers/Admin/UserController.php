@@ -214,7 +214,29 @@ class UserController extends Controller
     {
         $user->load(['stakingDeposits', 'transactions', 'earnings']);
 
-        return view('admin.users.show', compact('user'));
+        // Минимальные подтверждения для сетей
+        $minConf = config('crypto.min_confirmations', []);
+        $confirmedOnChain = function ($q) use ($minConf) {
+            $q->where(function ($netQ) use ($minConf) {
+                if (empty($minConf)) {
+                    $netQ->where('confirmations', '>=', 1);
+                    return;
+                }
+                foreach ($minConf as $net => $min) {
+                    $netQ->orWhere(function ($qq) use ($net, $min) {
+                        $qq->where('network', $net)->where('confirmations', '>=', (int) $min);
+                    });
+                }
+            });
+        };
+
+        $realDeposits = CryptoTransaction::where('user_id', $user->id)
+            ->where('processed', true)
+            ->whereIn('token', ['USDT', 'USDC'])
+            ->where($confirmedOnChain)
+            ->sum('amount');
+
+        return view('admin.users.show', compact('user', 'realDeposits'));
     }
 
     /**

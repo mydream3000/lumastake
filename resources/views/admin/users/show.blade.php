@@ -50,6 +50,12 @@
                         <p class="text-xl font-semibold text-gray-900">${{ number_format($user->deposited, 2) }}</p>
                     </div>
 
+                    <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                        <label class="block text-sm font-medium text-green-800 mb-1">Real Deposit</label>
+                        <p class="text-xl font-bold text-green-900">${{ number_format($realDeposits, 2) }}</p>
+                        <p class="text-[10px] text-green-600 mt-1 uppercase font-semibold">On-chain confirmed</p>
+                    </div>
+
                     <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
                         <label class="block text-sm font-medium text-gray-600 mb-1">Current Tier</label>
                         @if($user->current_tier)

@@ -482,15 +482,46 @@ class PaymentController extends Controller
      */
     public function stats()
     {
+        // Минимальные подтверждения для сетей
+        $minConf = config('crypto.min_confirmations', []);
+        $confirmedOnChain = function ($q) use ($minConf) {
+            $q->where(function ($netQ) use ($minConf) {
+                if (empty($minConf)) {
+                    $netQ->where('confirmations', '>=', 1);
+                    return;
+                }
+                foreach ($minConf as $net => $min) {
+                    $netQ->orWhere(function ($qq) use ($net, $min) {
+                        $qq->where('network', $net)->where('confirmations', '>=', (int) $min);
+                    });
+                }
+            });
+        };
+
+        $totalRealDeposits = CryptoTransaction::query()
+            ->where('processed', true)
+            ->whereIn('token', ['USDT', 'USDC'])
+            ->where($confirmedOnChain)
+            ->sum('amount');
+
+        $realDepositsToday = CryptoTransaction::query()
+            ->where('processed', true)
+            ->whereIn('token', ['USDT', 'USDC'])
+            ->where($confirmedOnChain)
+            ->whereDate('created_at', today())
+            ->sum('amount');
+
         $stats = [
             'deposits' => [
-                'total' => Transaction::where('type', 'deposit')->sum('amount'),
+                'total' => Transaction::where('type', 'deposit')->where('status', 'confirmed')->sum('amount'),
                 'count' => Transaction::where('type', 'deposit')->count(),
                 'pending' => Transaction::where('type', 'deposit')->where('status', 'pending')->count(),
                 'confirmed' => Transaction::where('type', 'deposit')->where('status', 'confirmed')->count(),
+                'real_total' => (float) $totalRealDeposits,
+                'real_today' => (float) $realDepositsToday,
             ],
             'withdrawals' => [
-                'total' => Transaction::where('type', 'withdraw')->sum('amount'),
+                'total' => Transaction::where('type', 'withdraw')->where('status', 'confirmed')->sum('amount'),
                 'count' => Transaction::where('type', 'withdraw')->count(),
                 'pending' => Transaction::where('type', 'withdraw')->where('status', 'pending')->count(),
                 'confirmed' => Transaction::where('type', 'withdraw')->where('status', 'confirmed')->count(),

@@ -228,7 +228,7 @@
     <div class="flex-1 flex flex-col min-w-0">
         <!-- Page Content -->
         <main class="flex-1 bg-cabinet-bg pt-[110px] lg:pt-[158px] w-full">
-            <div class="px-4 lg:px-8 py-4 lg:py-8 max-w-[1300px]">
+            <div class="px-4 lg:px-8 py-4 lg:py-8">
                 {{ $slot }}
             </div>
         </main>

@@ -49,63 +49,62 @@
       </div>
     </div>
 
-    <!-- Desktop Version (Table) - visible only on large screens -->
-    <div class="hidden lg:block overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr class="border-b border-gray-200">
-            <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Name</th>
-            <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Days</th>
-            <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Min - Stake</th>
-            <th class="text-left py-3 px-4 font-semibold text-sm text-gray-400">Profit</th>
-            <th class="text-right py-3 px-4 font-semibold text-sm text-gray-400">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="pool in pools"
-            :key="pool.id"
-            class="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition"
-          >
-            <!-- Pool Name -->
-            <td class="py-2 px-2">
-              <div class="font-medium text-base text-gray-500">{{ pool.name }}</div>
-            </td>
+    <!-- Desktop Version (Card Rows) - visible only on large screens -->
+    <div class="hidden lg:block">
+      <!-- Table Header -->
+      <div class="grid grid-cols-12 gap-4 px-6 py-3 text-sm font-semibold text-gray-400 border-b border-gray-100">
+        <div class="col-span-3">Name</div>
+        <div class="col-span-2 text-center">Duration</div>
+        <div class="col-span-2 text-center">Min - Stake</div>
+        <div class="col-span-3 text-center">Profit</div>
+        <div class="col-span-2 text-right">Action</div>
+      </div>
 
-            <!-- Days -->
-            <td class="py-2 px-2">
-              <div class="text-base text-cabinet-text-main font-medium">{{ pool.days }}</div>
-            </td>
+      <!-- Pool Rows as Cards -->
+      <div class="space-y-3 mt-4">
+        <div
+          v-for="pool in pools"
+          :key="pool.id"
+          class="grid grid-cols-12 gap-4 items-center px-6 py-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+        >
+          <!-- Pool Name -->
+          <div class="col-span-3">
+            <span class="font-medium text-cabinet-text-main">{{ pool.name }}</span>
+          </div>
 
-            <!-- Min Stake -->
-            <td class="py-2 px-2">
-              <div class="text-base text-cabinet-text-main font-medium">{{ pool.min_stake }}</div>
-            </td>
+          <!-- Duration -->
+          <div class="col-span-2 text-center">
+            <span class="text-cabinet-text-main font-medium">{{ pool.days }}</span>
+          </div>
 
-            <!-- Profit -->
-            <td class="py-2 px-2">
-              <div class="text-base font-medium text-[#2BA6FF]">{{ pool.profit }}</div>
-            </td>
+          <!-- Min Stake -->
+          <div class="col-span-2 text-center">
+            <span class="text-cabinet-text-main font-medium">{{ minStakeVal(pool) }}</span>
+          </div>
 
-            <!-- Stake Button -->
-            <td class="py-2 px-2 text-right">
-              <button
-                @click="openStakeModal(pool)"
-                :disabled="!isEligible(pool)"
-                :title="!isEligible(pool) ? `Available from ${formatCurrency(minStakeVal(pool))} USDT` : 'Stake'"
-                :class="[
-                  'px-5 py-1 text-sm rounded-md font-bold uppercase transition',
-                  isEligible(pool)
-                    ? 'bg-cabinet-lime text-cabinet-text-main hover:bg-cabinet-lime/90 shadow-sm'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                ]"
-              >
-                Stake
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <!-- Profit -->
+          <div class="col-span-3 text-center">
+            <span class="text-[#2BA6FF] font-medium">{{ pool.profit }}</span>
+          </div>
+
+          <!-- Stake Button -->
+          <div class="col-span-2 text-right">
+            <button
+              @click="openStakeModal(pool)"
+              :disabled="!isEligible(pool)"
+              :title="!isEligible(pool) ? `Available from ${formatCurrency(minStakeVal(pool))} USDT` : 'Stake'"
+              :class="[
+                'px-6 py-2 text-sm rounded-lg font-bold transition',
+                isEligible(pool)
+                  ? 'bg-cabinet-lime text-cabinet-text-main hover:bg-cabinet-lime/90'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              ]"
+            >
+              Stake
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <stake-modal

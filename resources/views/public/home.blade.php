@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- 1. HERO SECTION --}}
-    <section class="relative min-h-[850px] lg:min-h-[1000px] flex items-center justify-center overflow-hidden bg-white pt-32 lg:pt-0">
+    <section class="relative min-h-[850px] lg:min-h-[1000px] flex items-center justify-center bg-white pt-32 lg:pt-0">
         {{-- Background Elements --}}
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('img/home/hero-trade.png') }}" alt="" class="absolute bottom-0 lg:top-[166px] left-1/2 -translate-x-1/2 max-w-none w-[800px] lg:w-[1589px] h-auto opacity-100">

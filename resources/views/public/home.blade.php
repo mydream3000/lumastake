@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 relative z-20 text-center pt-16 lg:pt-32">
             <h1 class="text-[44px] lg:text-[100px] text-lumastake-blue mb-8 leading-[0.9] lg:leading-[0.95] tracking-tighter">
                 <span class="lg:hidden">The Smarter Way <br> to Grow <br> Your USDT</span>
-                <span class="hidden lg:block">The Smarter Way <br> to Grow Your USDT</span>
+                <span class="hidden lg:block font-black">The Smarter Way to Grow Your USDT</span>
             </h1>
             <p class="text-xl lg:text-[28px] text-lumastake-navy mb-6 max-w-4xl mx-auto leading-tight lg:leading-normal font-medium">
                 LumaStake removes the noise of trading and offers a clean, secure path to passive rewards.

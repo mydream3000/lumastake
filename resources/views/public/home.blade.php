@@ -190,8 +190,8 @@
     {{-- 4. STEPS SECTION (How it works) --}}
     <section class="py-24 bg-white overflow-hidden relative">
         {{-- Background spheres --}}
-        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-20 bottom-0 w-64 h-64 opacity-80 pointer-events-none">
-        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute -right-20 top-0 w-64 h-64 opacity-80 pointer-events-none">
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-0 bottom-0 w-[500px] h-[500px] opacity-50 pointer-events-none">
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute -right-0 top-0 w-[500px] h-[500px] opacity-50 pointer-events-none">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="grid lg:grid-cols-12 gap-6 items-start">
                 {{-- Left: Title + Description --}}

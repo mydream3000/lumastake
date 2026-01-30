@@ -286,6 +286,88 @@
             </div>
         </div>
     </section>
+    <section class="relative py-24 bg-white">
+        {{-- Background spheres (это и есть "градиенты") --}}
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}"
+             alt=""
+             class="pointer-events-none select-none absolute left-0 bottom-0 w-[600px] h-[600px]">
+
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}"
+             alt=""
+             class="pointer-events-none select-none absolute right-0 top-0 w-[1000px] h-[1000px]">
+
+        <div class="relative z-10 mx-auto max-w-7xl px-4">
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+                {{-- LEFT --}}
+                <div class="lg:col-span-4">
+                    <h2 class="text-[52px] md:text-[64px] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#3B4EFC]">
+                        HOW IT WORKS
+                    </h2>
+
+                    <p class="mt-6 max-w-[340px] text-[16px] leading-relaxed text-[#7B7F8A]">
+                        Get started in minutes with a simple, intuitive setup—no delays,
+                        no complicated onboarding. Jump straight from sign-up to action
+                        and start seeing value right away.
+                    </p>
+                </div>
+
+                {{-- MIDDLE spacer + floating SIGN UP --}}
+                <div class="lg:col-span-3 relative">
+                    <div class="lg:absolute lg:left-1/2 lg:top-[120px] lg:-translate-x-1/2">
+                        <div class="w-[280px] rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)]">
+                            <div class="p-7">
+                                <h3 class="text-[34px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
+                                    SIGN UP
+                                </h3>
+                                <p class="mt-5 text-[15px] leading-[1.6] text-[#6F7686]">
+                                    Create your account<br>
+                                    it’s fast, simple, and free.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- RIGHT --}}
+                <div class="lg:col-span-5 lg:pl-6">
+                    <div class="flex flex-col gap-6">
+                        {{-- Choose a Staking Platform --}}
+                        <div class="relative rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)]">
+                            <img src="{{ asset('img/home/stars-how.svg') }}"
+                                 alt=""
+                                 class="absolute right-6 top-6 w-9 h-auto">
+
+                            <div class="p-8">
+                                <h3 class="text-[40px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
+                                    Choose a<br>
+                                    Staking<br>
+                                    Platform
+                                </h3>
+                                <p class="mt-6 text-[15px] leading-[1.6] text-[#6F7686] max-w-[320px]">
+                                    Pick your duration. Your USDT<br>
+                                    starts working immediately.
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Deposit USDT --}}
+                        <div class="rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)] max-w-[520px]">
+                            <div class="p-8">
+                                <h3 class="text-[40px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
+                                    Deposit USDT
+                                </h3>
+                                <p class="mt-5 text-[15px] leading-[1.6] text-[#6F7686]">
+                                    Add funds quickly and securely.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 
     {{-- 6. CTA MIDDLE --}}
     <section class="py-24 bg-white">

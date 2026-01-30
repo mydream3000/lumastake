@@ -28,7 +28,7 @@
 
             {{-- Hero Image --}}
             <div class="flex justify-center ">
-                <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="bag-money absolute bottom-0 w-full max-w-[600px] lg:max-w-[800px] h-auto">
+                <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="bag-money absolute bottom-0 w-full max-w-[800px] lg:max-w-[1000px] h-auto">
             </div>
         </div>
     </section>

@@ -263,8 +263,7 @@
                 <div class="lg:col-span-4 flex justify-center lg:justify-start mt-12 lg:mt-0">
                     <div class="lg:ml-6 lg:mt-[110px]">
                         <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
-                            <div class="bg-white/10
-            shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)] w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px]">
+                            <div class="bg-white w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px]">
                                 <div class="h-full p-8 flex flex-col">
                                     <h3 class="text-[38px] lg:text-[44px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
                                         SIGN UP

@@ -260,16 +260,22 @@
                 </div>
 
                 {{-- MIDDLE (SIGN UP — квадрат) --}}
-                <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
-                    <div class="w-[360px] h-[360px] rounded-[22px] p-8 flex flex-col">
-                        <h3 class="text-[44px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
-                            SIGN UP
-                        </h3>
+                <div class="lg:col-span-4 flex justify-center lg:justify-start mt-12 lg:mt-0">
+                    <div class="lg:ml-6 lg:mt-[110px]">
+                        <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
+                            <div class="w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px]">
+                                <div class="h-full p-8 flex flex-col">
+                                    <h3 class="text-[38px] lg:text-[44px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
+                                        SIGN UP
+                                    </h3>
 
-                        <p class="mt-auto text-[18px] leading-[1.6] text-[#3B3F56]">
-                            Create your account<br>
-                            it’s fast, simple, and free.
-                        </p>
+                                    <p class="mt-auto text-[18px] leading-[1.6] text-[#3B3F56]">
+                                        Create your account<br>
+                                        it’s fast, simple, and free.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

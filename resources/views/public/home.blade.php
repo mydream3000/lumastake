@@ -188,10 +188,10 @@
     </section>
 
     {{-- 4. STEPS SECTION (How it works) --}}
-    <section class="py-24 bg-white overflow-hidden relative">
+    <section class="py-24 bg-white relative">
         {{-- Background spheres --}}
-        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-0 bottom-0 w-[500px] h-[500px]  pointer-events-none">
-        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute right-0 top-0 w-[500px] h-[500px]  pointer-events-none">
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-0 bottom-0 w-[1000px] h-[1000px]  pointer-events-none">
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute right-0 top-0 w-[800px] h-[800px]  pointer-events-none">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="grid lg:grid-cols-12 gap-6 items-start">
                 {{-- Left: Title + Description --}}

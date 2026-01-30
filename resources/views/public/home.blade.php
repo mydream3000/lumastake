@@ -188,49 +188,6 @@
     </section>
 
     {{-- 4. STEPS SECTION (How it works) --}}
-    <section class="py-24 bg-white relative">
-        {{-- Background spheres --}}
-        <img src="{{ asset('img/home/how-it-works-blue.svg') }}" alt="" class="absolute -left-0 bottom-0 w-[600px] h-[600px]  pointer-events-none">
-        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}" alt="" class="absolute right-0 top-0 w-[1000px] h-[1000px]  pointer-events-none">
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="grid lg:grid-cols-12 gap-6 items-start">
-                {{-- Left: Title + Description --}}
-                <div class="lg:col-span-4">
-                    <h2 class="text-5xl md:text-6xl font-black text-[#3B4EFC] leading-[0.9] uppercase mb-6">HOW IT WORKS</h2>
-                    <p class="text-base md:text-lg text-black leading-relaxed">
-                        Get started in minutes with a simple, intuitive setup—no delays, no complicated onboarding. Jump straight from sign-up to action and start seeing value right away.
-                    </p>
-                </div>
-                {{-- Center: SIGN UP --}}
-                <div class="lg:col-span-4 lg:self-center">
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent max-w-[380px] lg:mx-auto">
-                        <div class="bg-white rounded-2xl p-6">
-                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1 uppercase">SIGN UP</h3>
-                            <p class="text-sm md:text-base text-gray-500">Create your account<br>it's fast, simple, and free.</p>
-                        </div>
-                    </div>
-                </div>
-                {{-- Right: Choose + Deposit --}}
-                <div class="lg:col-span-4 flex flex-col gap-4">
-                    {{-- Choose a Staking Platform --}}
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent">
-                        <div class="bg-white rounded-2xl p-6 relative">
-                            <img src="{{ asset('img/home/stars-how.svg') }}" alt="" class="absolute top-4 right-4 w-8 h-auto">
-                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Choose a<br>Staking<br>Platform</h3>
-                            <p class="text-sm md:text-base text-gray-500">Pick your duration. Your USDT<br>starts working immediately.</p>
-                        </div>
-                    </div>
-                    {{-- Deposit USDT --}}
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent">
-                        <div class="bg-white rounded-2xl p-6">
-                            <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1">Deposit USDT</h3>
-                            <p class="text-sm md:text-base text-gray-500">Add funds quickly and securely.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="relative py-24 bg-white">
         {{-- Background spheres (они и дают мягкий фон) --}}
         <img src="{{ asset('img/home/how-it-works-blue.svg') }}"

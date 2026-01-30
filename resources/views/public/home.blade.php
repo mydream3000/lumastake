@@ -27,7 +27,7 @@
             </div>
 
             {{-- Hero Image --}}
-            <div class="flex justify-center">
+            <div class="flex justify-center absolute bottom-0 left-[40%] w-full">
                 <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="w-full max-w-[600px] lg:max-w-[800px] h-auto">
             </div>
         </div>

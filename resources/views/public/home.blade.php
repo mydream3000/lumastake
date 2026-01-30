@@ -203,7 +203,7 @@
                 </div>
                 {{-- Center: SIGN UP --}}
                 <div class="lg:col-span-4 lg:self-center">
-                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent max-w-[240px] lg:mx-auto">
+                    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-[#2BA6FF] via-[#2BA6FF]/20 to-transparent max-w-[380px] lg:mx-auto">
                         <div class="bg-white rounded-2xl p-6">
                             <h3 class="text-2xl md:text-3xl font-black text-lumastake-navy mb-1 uppercase">SIGN UP</h3>
                             <p class="text-sm md:text-base text-gray-500">Create your account<br>it's fast, simple, and free.</p>

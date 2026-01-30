@@ -231,6 +231,96 @@
             </div>
         </div>
     </section>
+    <section class="relative py-24 bg-white">
+        {{-- Background spheres (они и дают мягкий фон) --}}
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}"
+             alt=""
+             class="absolute left-0 bottom-0 w-[620px] h-[620px] pointer-events-none select-none">
+
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}"
+             alt=""
+             class="absolute right-0 top-0 w-[1050px] h-[1050px] pointer-events-none select-none">
+
+        <div class="relative z-10 mx-auto max-w-7xl px-4">
+            <div class="grid lg:grid-cols-12 items-start">
+                {{-- LEFT --}}
+                <div class="lg:col-span-4 pt-2">
+                    <h2 class="text-[56px] md:text-[64px] lg:text-[80px] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#3B4EFC] lg:whitespace-nowrap">
+                        HOW IT WORKS
+                    </h2>
+
+                    <p class="mt-6 max-w-[360px] text-[18px] leading-[1.65] text-[#8A909E]">
+                        Get started in minutes with a
+                        simple, intuitive setup—no delays,
+                        no complicated onboarding.
+                        Jump straight from sign-up to
+                        action and start seeing value
+                        right away.
+                    </p>
+                </div>
+
+                {{-- MIDDLE (SIGN UP — квадрат) --}}
+                <div class="lg:col-span-4 flex justify-center lg:justify-start mt-12 lg:mt-0">
+                    <div class="lg:ml-6 lg:mt-[110px]">
+                        <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
+                            <div class="w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px] bg-white/55 backdrop-blur-[2px]">
+                                <div class="h-full p-8 flex flex-col">
+                                    <h3 class="text-[38px] lg:text-[44px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
+                                        SIGN UP
+                                    </h3>
+
+                                    <p class="mt-auto text-[18px] leading-[1.6] text-[#3B3F56]">
+                                        Create your account<br>
+                                        it’s fast, simple, and free.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- RIGHT --}}
+                <div class="lg:col-span-4 mt-12 lg:mt-0">
+                    <div class="flex flex-col gap-10 lg:gap-12 lg:ml-2">
+                        {{-- Choose a Staking Platform --}}
+                        <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
+                            <div class="rounded-[22px] bg-white/55 backdrop-blur-[2px] px-10 pt-10 pb-12 relative">
+                                <img src="{{ asset('img/home/stars-how.svg') }}"
+                                     alt=""
+                                     class="absolute right-8 top-8 w-10 h-auto opacity-90">
+
+                                <h3 class="text-[44px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
+                                    Choose a<br>
+                                    Staking<br>
+                                    Platform
+                                </h3>
+
+                                <p class="mt-10 max-w-[320px] text-[18px] leading-[1.6] text-[#3B3F56]">
+                                    Pick your duration. Your USDT<br>
+                                    starts working immediately.
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Deposit USDT --}}
+                        <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
+                            <div class="rounded-[22px] bg-white/55 backdrop-blur-[2px] px-10 pt-10 pb-10">
+                                <h3 class="text-[44px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
+                                    Deposit USDT
+                                </h3>
+
+                                <p class="mt-8 text-[18px] leading-[1.6] text-[#3B3F56]">
+                                    Add funds quickly and securely.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 
     {{-- 5. BENEFITS SECTION --}}
     <section class="py-24 bg-white">
@@ -283,87 +373,6 @@
                     </div>
                     <p class="text-base md:text-lg text-gray-600 leading-snug">Transparent from<br>day one</p>
                 </div>
-            </div>
-        </div>
-    </section>
-    <section class="relative py-24 bg-white">
-        {{-- Background spheres (это и есть "градиенты") --}}
-        <img src="{{ asset('img/home/how-it-works-blue.svg') }}"
-             alt=""
-             class="pointer-events-none select-none absolute left-0 bottom-0 w-[600px] h-[600px]">
-
-        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}"
-             alt=""
-             class="pointer-events-none select-none absolute right-0 top-0 w-[1000px] h-[1000px]">
-
-        <div class="relative z-10 mx-auto max-w-7xl px-4">
-            <div class="grid lg:grid-cols-12 gap-10 items-start">
-                {{-- LEFT --}}
-                <div class="lg:col-span-4">
-                    <h2 class="text-[52px] md:text-[64px] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#3B4EFC]">
-                        HOW IT WORKS
-                    </h2>
-
-                    <p class="mt-6 max-w-[340px] text-[16px] leading-relaxed text-[#7B7F8A]">
-                        Get started in minutes with a simple, intuitive setup—no delays,
-                        no complicated onboarding. Jump straight from sign-up to action
-                        and start seeing value right away.
-                    </p>
-                </div>
-
-                {{-- MIDDLE spacer + floating SIGN UP --}}
-                <div class="lg:col-span-3 relative">
-                    <div class="lg:absolute lg:left-1/2 lg:top-[120px] lg:-translate-x-1/2">
-                        <div class="w-[280px] rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)]">
-                            <div class="p-7">
-                                <h3 class="text-[34px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
-                                    SIGN UP
-                                </h3>
-                                <p class="mt-5 text-[15px] leading-[1.6] text-[#6F7686]">
-                                    Create your account<br>
-                                    it’s fast, simple, and free.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- RIGHT --}}
-                <div class="lg:col-span-5 lg:pl-6">
-                    <div class="flex flex-col gap-6">
-                        {{-- Choose a Staking Platform --}}
-                        <div class="relative rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)]">
-                            <img src="{{ asset('img/home/stars-how.svg') }}"
-                                 alt=""
-                                 class="absolute right-6 top-6 w-9 h-auto">
-
-                            <div class="p-8">
-                                <h3 class="text-[40px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
-                                    Choose a<br>
-                                    Staking<br>
-                                    Platform
-                                </h3>
-                                <p class="mt-6 text-[15px] leading-[1.6] text-[#6F7686] max-w-[320px]">
-                                    Pick your duration. Your USDT<br>
-                                    starts working immediately.
-                                </p>
-                            </div>
-                        </div>
-
-                        {{-- Deposit USDT --}}
-                        <div class="rounded-2xl border border-[#BFD7FF] bg-white shadow-[0_10px_30px_rgba(20,60,120,0.10)] max-w-[520px]">
-                            <div class="p-8">
-                                <h3 class="text-[40px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
-                                    Deposit USDT
-                                </h3>
-                                <p class="mt-5 text-[15px] leading-[1.6] text-[#6F7686]">
-                                    Add funds quickly and securely.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

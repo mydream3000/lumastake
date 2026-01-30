@@ -8,7 +8,7 @@
             <img src="{{ asset('img/home/hero-trade.png') }}" alt="" class="absolute bottom-0 lg:top-[166px] left-1/2 -translate-x-1/2 max-w-none w-[800px] lg:w-[1589px] h-auto opacity-100">
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 relative z-20 text-center">
+        <div class="max-w-7xl mx-auto px-4 relative z-20 text-center pt-16 lg:pt-32">
             <h1 class="text-[44px] lg:text-[60px] text-lumastake-blue mb-8 leading-[0.9] lg:leading-[0.95] tracking-tighter">
                 <span class="lg:hidden">The Smarter Way <br> to Grow <br> Your USDT</span>
                 <span class="hidden lg:block font-black">The Smarter Way to Grow Your USDT</span>
@@ -27,8 +27,8 @@
             </div>
 
             {{-- Hero Image --}}
-            <div class="flex justify-center absolute bottom-0 left-[40%] w-full">
-                <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="w-full max-w-[600px] lg:max-w-[800px] h-auto">
+            <div class="flex justify-center ">
+                <img src="{{ asset('img/home/hero-design.png') }}" alt="" class="absolute bottom-0 left-[40%] w-full max-w-[600px] lg:max-w-[800px] h-auto">
             </div>
         </div>
     </section>

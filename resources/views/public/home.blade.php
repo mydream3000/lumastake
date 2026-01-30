@@ -9,7 +9,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 relative z-20 text-center">
-            <h1 class="text-[44px] lg:text-[60px] text-lumastake-blue mb-8 leading-[0.9] lg:leading-[0.95] tracking-tighter">
+            <h1 class="text-[44px] lg:text-[60px] text-lumastake-blue mb-8 leading-[0.9] lg:leading-[0.95] tracking-normal">
                 <span class="lg:hidden">The Smarter Way <br> to Grow <br> Your USDT</span>
                 <span class="hidden lg:block font-black">The Smarter Way to Grow Your USDT</span>
             </h1>

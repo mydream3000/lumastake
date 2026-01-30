@@ -263,7 +263,7 @@
                 <div class="lg:col-span-4 flex justify-center lg:justify-start mt-12 lg:mt-0">
                     <div class="lg:ml-6 lg:mt-[110px]">
                         <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
-                            <div class="w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px] bg-white/55 backdrop-blur-[2px]">
+                            <div class="w-[320px] h-[320px] lg:w-[360px] lg:h-[360px] rounded-[22px]">
                                 <div class="h-full p-8 flex flex-col">
                                     <h3 class="text-[38px] lg:text-[44px] font-black uppercase leading-none tracking-[-0.03em] text-[#151A55]">
                                         SIGN UP
@@ -284,7 +284,7 @@
                     <div class="flex flex-col gap-10 lg:gap-12 lg:ml-2">
                         {{-- Choose a Staking Platform --}}
                         <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
-                            <div class="rounded-[22px] bg-white/55 backdrop-blur-[2px] px-10 pt-10 pb-12 relative">
+                            <div class="rounded-[22px] px-10 pt-10 pb-12 relative">
                                 <img src="{{ asset('img/home/stars-how.svg') }}"
                                      alt=""
                                      class="absolute right-8 top-8 w-10 h-auto opacity-90">
@@ -304,7 +304,7 @@
 
                         {{-- Deposit USDT --}}
                         <div class="p-[1px] rounded-[22px] bg-gradient-to-br from-[#3B4EFC]/40 via-[#3B4EFC]/18 to-transparent">
-                            <div class="rounded-[22px] bg-white/55 backdrop-blur-[2px] px-10 pt-10 pb-10">
+                            <div class="rounded-[22px]  px-10 pt-10 pb-10">
                                 <h3 class="text-[44px] font-black leading-[0.95] tracking-[-0.03em] text-[#151A55]">
                                     Deposit USDT
                                 </h3>

@@ -61,7 +61,6 @@ button#backToTop {
 /* Secure Your Future cards with left border pseudo-element */
 .secure-card {
     position: relative;
-    overflow: hidden;
 }
 
 .secure-card::before {

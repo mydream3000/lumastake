@@ -30,7 +30,8 @@
     <section class="pt-0 pb-12 bg-white relative">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8 -mt-24 md:-mt-32 relative z-30">
             {{-- Process --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+            <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)]
+ flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
                 <div class="w-[70px] h-[70px] mb-6">
                     <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-full h-full object-contain">
                 </div>
@@ -41,7 +42,8 @@
             </div>
 
             {{-- Mission --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+            <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)]
+ flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
                 <div class="w-[70px] h-[70px] mb-6">
                     <img src="{{ asset('img/about/icon-mission.png') }}" alt="Mission" class="w-full h-full object-contain">
                 </div>
@@ -52,7 +54,8 @@
             </div>
 
             {{-- Vision --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+            <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)]
+ flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
                 <div class="w-[70px] h-[70px] mb-6">
                     <img src="{{ asset('img/about/icon-vision.png') }}" alt="Vision" class="w-full h-full object-contain">
                 </div>

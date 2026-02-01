@@ -53,7 +53,7 @@
                     <div class="bg-green-50 rounded-lg p-4 border border-green-200">
                         <label class="block text-sm font-medium text-green-800 mb-1">Real Deposit</label>
                         <p class="text-xl font-bold text-green-900">${{ number_format($realDeposits, 2) }}</p>
-                        <p class="text-[10px] text-green-600 mt-1 uppercase font-semibold">On-chain confirmed</p>
+                        <p class="text-[10px] text-green-600 mt-1 uppercase font-semibold">Real money confirmed</p>
                     </div>
 
                     <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
@@ -108,6 +108,9 @@
                                             <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
                                                 <i class="fas fa-arrow-down mr-1"></i> Deposit
                                             </span>
+                                            @if((isset($transaction->meta['is_real']) && $transaction->meta['is_real']) || !empty($transaction->tx_hash))
+                                                <span class="inline-flex ml-1 px-2 py-0.5 text-[10px] font-black rounded-full bg-red-600 text-white uppercase italic tracking-wider">REAL</span>
+                                            @endif
                                         @else
                                             <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-800">
                                                 <i class="fas fa-arrow-up mr-1"></i> Withdrawal

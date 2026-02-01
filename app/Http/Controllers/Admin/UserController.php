@@ -236,6 +236,13 @@ class UserController extends Controller
             ->where($confirmedOnChain)
             ->sum('amount');
 
+        // Добавляем ручные "Real Money" депозиты
+        $realDeposits += Transaction::where('user_id', $user->id)
+            ->where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('meta->is_real', true)
+            ->sum('amount');
+
         return view('admin.users.show', compact('user', 'realDeposits'));
     }
 

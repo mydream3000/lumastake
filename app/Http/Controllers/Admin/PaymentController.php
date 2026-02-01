@@ -102,6 +102,21 @@ class PaymentController extends Controller
                     ->pluck('total', 'user_id')
                     ->toArray();
 
+                // Добавляем ручные "Real Money" депозиты
+                $manualRealDepositsByUser = Transaction::query()
+                    ->selectRaw('user_id, SUM(amount) as total')
+                    ->whereIn('user_id', $userIds)
+                    ->where('type', 'deposit')
+                    ->where('status', 'confirmed')
+                    ->where('meta->is_real', true)
+                    ->groupBy('user_id')
+                    ->pluck('total', 'user_id')
+                    ->toArray();
+
+                foreach ($manualRealDepositsByUser as $uid => $amount) {
+                    $realDepositsByUser[$uid] = ($realDepositsByUser[$uid] ?? 0) + $amount;
+                }
+
                 $realDepositsTodayByUser = CryptoTransaction::query()
                     ->selectRaw('user_id, SUM(amount) as total')
                     ->whereIn('user_id', $userIds)
@@ -112,6 +127,22 @@ class PaymentController extends Controller
                     ->groupBy('user_id')
                     ->pluck('total', 'user_id')
                     ->toArray();
+
+                // Добавляем ручные "Real Money" депозиты за сегодня
+                $manualRealDepositsTodayByUser = Transaction::query()
+                    ->selectRaw('user_id, SUM(amount) as total')
+                    ->whereIn('user_id', $userIds)
+                    ->where('type', 'deposit')
+                    ->where('status', 'confirmed')
+                    ->where('meta->is_real', true)
+                    ->whereDate('created_at', today())
+                    ->groupBy('user_id')
+                    ->pluck('total', 'user_id')
+                    ->toArray();
+
+                foreach ($manualRealDepositsTodayByUser as $uid => $amount) {
+                    $realDepositsTodayByUser[$uid] = ($realDepositsTodayByUser[$uid] ?? 0) + $amount;
+                }
 
                 // Сумма выводов за сегодня по пользователям (любой статус)
                 $todayWithdrawalsByUser = Transaction::query()
@@ -134,6 +165,7 @@ class PaymentController extends Controller
                         'type' => $payment->type,
                         'amount' => $payment->amount,
                         'status' => $payment->status,
+                        'is_real' => (isset($payment->meta['is_real']) && $payment->meta['is_real']) || !empty($payment->tx_hash),
                         'tx_hash' => $payment->tx_hash,
                         'wallet_address' => $payment->wallet_address,
                         'real_total_deposits' => $realDepositsByUser[$payment->user_id] ?? 0,
@@ -175,10 +207,23 @@ class PaymentController extends Controller
             ->where($confirmedOnChain)
             ->sum('amount');
 
+        // Добавляем ручные "Real Money" депозиты
+        $totalRealDeposits += Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('meta->is_real', true)
+            ->sum('amount');
+
         $realDepositsToday = CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
+            ->whereDate('created_at', today())
+            ->sum('amount');
+
+        // Добавляем ручные "Real Money" депозиты за сегодня
+        $realDepositsToday += Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('meta->is_real', true)
             ->whereDate('created_at', today())
             ->sum('amount');
 
@@ -504,10 +549,23 @@ class PaymentController extends Controller
             ->where($confirmedOnChain)
             ->sum('amount');
 
+        // Добавляем ручные "Real Money" депозиты
+        $totalRealDeposits += Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('meta->is_real', true)
+            ->sum('amount');
+
         $realDepositsToday = CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
+            ->whereDate('created_at', today())
+            ->sum('amount');
+
+        // Добавляем ручные "Real Money" депозиты за сегодня
+        $realDepositsToday += Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('meta->is_real', true)
             ->whereDate('created_at', today())
             ->sum('amount');
 

@@ -50,7 +50,7 @@ button#backToTop {
     left: 56px;
     transform: translateY(-50%);
     z-index: -1;
-    background: linear-gradient(to bottom, #2BA6FF 0%, #2BA6FF 30%, #2BA6FF 70%, #2BA6FF 100%);
+    background: #E0F2FF;
 }
 
 @media (max-width: 1023px) {

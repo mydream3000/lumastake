@@ -131,7 +131,7 @@
             </button>
             <button
               @click="showUnstakeModal = false"
-              class="w-full py-3 text-gray-400 hover:text-gray-600 text-[10px] font-black transition-colors uppercase tracking-[0.2em]"
+              class="w-full py-3 text-gray-800 hover:text-gray-600 text-[13px] font-black transition-colors uppercase tracking-[0.2em]"
             >
               No, Keep Staking
             </button>

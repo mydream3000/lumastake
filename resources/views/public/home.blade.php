@@ -359,7 +359,7 @@
     </section>
 
     {{-- 7. SECURE YOUR FUTURE --}}
-    <section class="py-24 relative">
+    <section class="py-24 relative overflow-visible">
         {{-- Gradient background --}}
         <div class="absolute inset-0 bg-gradient-to-r from-[#E8F4FC] via-white to-[#FDF9E2]"></div>
         {{-- Background spheres --}}

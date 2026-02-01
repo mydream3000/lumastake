@@ -55,7 +55,7 @@
           >
           <button
             @click="form.amount = availableBalance"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-cabinet-blue hover:underline"
+            class="max-button absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-cabinet-blue hover:underline"
           >
             MAX
           </button>

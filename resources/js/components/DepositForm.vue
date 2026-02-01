@@ -1,94 +1,120 @@
 <template>
   <div class="flex flex-col h-full bg-white">
-    <!-- Header/Selection -->
-    <div class="mb-8">
-      <label class="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Select Asset & Network</label>
-      <div class="grid grid-cols-2 gap-4 mb-4">
+    <!-- Step 1: Asset Selection -->
+    <div v-if="step === 1" class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-6 uppercase tracking-wider">Select Asset</label>
+      <div class="grid grid-cols-2 gap-4">
         <button
           v-for="token in tokens"
           :key="token.id"
-          @click="selectedToken = token.id; fetchAddress()"
-          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm flex items-center justify-center gap-2"
-          :class="selectedToken === token.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400 hover:border-gray-200'"
+          @click="selectToken(token.id)"
+          class="py-6 px-4 rounded-2xl border-2 font-bold transition-all flex flex-col items-center justify-center gap-3 hover:border-cabinet-blue hover:bg-cabinet-blue/5"
+          :class="selectedToken === token.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400'"
         >
-          <img :src="token.icon" :alt="token.id" class="w-5 h-5">
-          {{ token.id }}
+          <img :src="token.icon" :alt="token.id" class="w-10 h-10">
+          <span class="text-lg">{{ token.id }}</span>
         </button>
       </div>
+    </div>
 
-      <div class="grid grid-cols-2 gap-4">
+    <!-- Step 2: Network Selection -->
+    <div v-if="step === 2" class="flex-1">
+      <div class="flex items-center gap-4 mb-6">
+        <button @click="goBack" class="p-2 -ml-2 text-gray-400 hover:text-cabinet-blue transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wider">Select Network for {{ selectedToken }}</label>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4">
         <button
           v-for="net in availableNetworks"
           :key="net.id"
-          @click="selectedNetwork = net.id; fetchAddress()"
-          class="py-3 px-4 rounded-xl border-2 font-bold transition-all text-sm uppercase flex items-center justify-center gap-2"
-          :class="selectedNetwork === net.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-400 hover:border-gray-200'"
+          @click="selectNetwork(net.id)"
+          class="py-4 px-6 rounded-2xl border-2 font-bold transition-all flex items-center justify-between hover:border-cabinet-blue hover:bg-cabinet-blue/5"
+          :class="selectedNetwork === net.id ? 'border-cabinet-blue bg-cabinet-blue/5 text-cabinet-blue' : 'border-gray-100 text-gray-500'"
         >
-          <span v-html="net.icon" class="w-5 h-5 flex-shrink-0"></span>
-          {{ net.name }}
+          <div class="flex items-center gap-3">
+            <span v-html="net.icon" class="w-8 h-8 flex-shrink-0"></span>
+            <span class="text-base uppercase">{{ net.name }}</span>
+          </div>
+          <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
         </button>
       </div>
     </div>
 
-    <!-- Loading State -->
-    <div v-if="loading" class="flex-1 flex items-center justify-center">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cabinet-blue"></div>
-    </div>
-
-    <!-- Error State -->
-    <div v-else-if="error" class="flex-1 flex flex-col items-center justify-center text-center p-6">
-      <div class="text-red-500 mb-4">
-        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 15c-.77 1.333.192 3 1.732 3z"></path>
-        </svg>
-      </div>
-      <p class="text-gray-600 font-medium">{{ error }}</p>
-      <button @click="fetchAddress" class="mt-4 text-cabinet-blue font-bold hover:underline uppercase text-sm">Retry</button>
-    </div>
-
-    <!-- Address Display -->
-    <div v-else class="flex-1 flex flex-col items-center">
-      <div class="w-full text-left mb-4">
-        <p class="text-[17px] font-bold text-[#222]">Wallet Address</p>
+    <!-- Step 3: Address Display -->
+    <div v-if="step === 3" class="flex-1 flex flex-col">
+      <div class="flex items-center gap-4 mb-6">
+        <button @click="goBack" class="p-2 -ml-2 text-gray-400 hover:text-cabinet-blue transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wider">Deposit Details</label>
       </div>
 
-      <!-- QR Code -->
-      <div class="mb-8 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm">
-        <div v-html="qrCode" class="w-[200px] h-[200px]"></div>
+      <!-- Loading State -->
+      <div v-if="loading" class="flex-1 flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cabinet-blue"></div>
       </div>
 
-      <!-- Address Input -->
-      <div class="w-full relative mb-4">
-        <input
-          type="text"
-          readonly
-          :value="address"
-          class="w-full bg-gray-50 border border-[#ccc] rounded-[6px] h-[50px] px-4 text-sm font-medium text-[#444] text-center"
+      <!-- Error State -->
+      <div v-else-if="error" class="flex-1 flex flex-col items-center justify-center text-center p-6">
+        <div class="text-red-500 mb-4">
+          <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 15c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-600 font-medium">{{ error }}</p>
+        <button @click="fetchAddress" class="mt-4 text-cabinet-blue font-bold hover:underline uppercase text-sm">Retry</button>
+      </div>
+
+      <!-- Address Content -->
+      <div v-else class="flex-1 flex flex-col items-center">
+        <!-- QR Code -->
+        <div class="mb-8 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm">
+          <div v-html="qrCode" class="w-[200px] h-[200px]"></div>
+        </div>
+
+        <!-- Address Input -->
+        <div class="w-full relative mb-4">
+          <p class="text-xs font-bold text-gray-400 uppercase mb-2 ml-1">Your {{ selectedNetworkName }} Address</p>
+          <input
+            type="text"
+            readonly
+            :value="address"
+            class="w-full bg-gray-50 border border-[#ccc] rounded-[6px] h-[50px] px-4 text-sm font-medium text-[#444] text-center"
+          >
+        </div>
+
+        <!-- Copy Button -->
+        <button
+          @click="copyAddress"
+          class="w-full bg-[#e3ff3b] hover:bg-[#d4ee30] h-[42px] rounded-[6px] font-black text-[#262262] uppercase text-sm transition-colors shadow-sm"
         >
-      </div>
+          Copy Address
+        </button>
 
-      <!-- Copy Button -->
-      <button
-        @click="copyAddress"
-        class="w-full bg-[#e3ff3b] hover:bg-[#d4ee30] h-[42px] rounded-[6px] font-black text-[#262262] uppercase text-sm transition-colors shadow-sm"
-      >
-        Copy
-      </button>
-
-      <!-- Instructions -->
-      <p class="mt-8 text-center text-[16px] text-[#101221]/70 leading-relaxed px-4">
-        Please transfer <span class="font-bold text-cabinet-blue">{{ selectedToken }}</span>
-        (<span class="uppercase font-bold">{{ selectedNetworkName }}</span>)
-        from your preferred exchange to the above wallet address
-      </p>
-
-      <!-- Status Notice -->
-      <div class="mt-auto pt-6 border-t border-gray-50">
-        <p class="text-[13px] text-gray-400 font-medium leading-relaxed text-center italic">
-          If you have sent the funds, please don't worry, your balance will be updated shortly.
-          If more than 20 confirmations have passed and the balance has not been topped up,
-          please contact technical support with the hash of this transaction.
+        <!-- Instructions -->
+        <p class="mt-8 text-center text-[15px] text-[#101221]/70 leading-relaxed px-4">
+          Please transfer <span class="font-bold text-cabinet-blue">{{ selectedToken }}</span>
+          (<span class="uppercase font-bold">{{ selectedNetworkName }}</span>)
+          to the above wallet address
         </p>
+
+        <!-- Status Notice -->
+        <div class="mt-auto pt-6 border-t border-gray-50">
+          <p class="text-[12px] text-gray-400 font-medium leading-relaxed text-center italic">
+            If you have sent the funds, please don't worry, your balance will be updated shortly.
+            If more than 20 confirmations have passed and the balance has not been topped up,
+            please contact technical support with the hash of this transaction.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -98,11 +124,12 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
 
+const step = ref(1)
 const selectedToken = ref('USDT')
 const selectedNetwork = ref('tron')
 const address = ref('')
 const qrCode = ref('')
-const loading = ref(true)
+const loading = ref(false)
 const error = ref(null)
 
 // Network icons (inline SVG)
@@ -135,13 +162,25 @@ const selectedNetworkName = computed(() => {
   return net ? net.name : selectedNetwork.value
 })
 
-// Если при смене токена текущая сеть не поддерживается, выбираем первую доступную
-watch(selectedToken, (newToken) => {
-  const supported = networks[newToken].some(n => n.id === selectedNetwork.value)
-  if (!supported) {
-    selectedNetwork.value = networks[newToken][0].id
+function selectToken(tokenId) {
+  selectedToken.value = tokenId
+  // Если у токена только одна сеть, можно сразу выбрать её и перейти к шагу 3 (но пока оставим выбор)
+  step.value = 2
+}
+
+function selectNetwork(netId) {
+  selectedNetwork.value = netId
+  step.value = 3
+  fetchAddress()
+}
+
+function goBack() {
+  if (step.value === 3) {
+    step.value = 2
+  } else if (step.value === 2) {
+    step.value = 1
   }
-})
+}
 
 async function fetchAddress() {
   loading.value = true
@@ -174,7 +213,4 @@ function copyAddress() {
   })
 }
 
-onMounted(() => {
-  fetchAddress()
-})
 </script>

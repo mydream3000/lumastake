@@ -398,7 +398,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-2xl p-8 md:p-12 relative overflow-hidden">
                 <div class="relative z-10 w-full lg:w-2/3">
-                    <h2 class="text-4xl md:text-6xl font-black text-lumastake-navy mb-4 leading-tight">News & Insights</h2>
+                    <h2 class="text-[54px] lg:text-[70px] font-black text-lumastake-navy mb-4 leading-tight">News & Insights</h2>
                     <p class="text-lg md:text-xl text-black mb-8">Stay ahead with the latest in staking and stablecoins.</p>
 
                     <div>

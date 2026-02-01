@@ -18,6 +18,10 @@ class TransactionController extends Controller
     {
         $query = Transaction::where('user_id', auth()->id())
             ->where('type', 'deposit')
+            ->where(function($q) {
+                $q->whereNotNull('tx_hash')
+                  ->orWhere('meta->is_real', true);
+            })
             ->latest();
 
         if ($request->status) {

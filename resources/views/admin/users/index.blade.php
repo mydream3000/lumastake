@@ -172,8 +172,12 @@
                         <textarea name="comment" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange"></textarea>
                     </div>
                     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-                        <input type="checkbox" name="email" class="rounded border-gray-300">
+                        <input type="checkbox" name="email" class="rounded border-gray-300" checked>
                         <span>Send email notification</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                        <input type="checkbox" name="is_real" class="rounded border-gray-300">
+                        <span class="font-bold text-red-600 italic">Real money (visible in deposit history)</span>
                     </label>
                 </div>
                 <div class="flex gap-3 mt-6">
@@ -218,6 +222,7 @@
          type: 'add',
          amount: 0,
          reason: '',
+         isReal: false,
 
          async adjustBalance() {
              try {
@@ -230,7 +235,8 @@
                      body: JSON.stringify({
                          type: this.type,
                          amount: parseFloat(this.amount),
-                         reason: this.reason
+                         reason: this.reason,
+                         is_real: this.isReal
                      })
                  });
 
@@ -252,7 +258,7 @@
      }"
      x-show="open"
      x-cloak
-     @open-balance-modal.window="open = true; userId = $event.detail.userId; userName = $event.detail.userName"
+     @open-balance-modal.window="open = true; userId = $event.detail.userId; userName = $event.detail.userName; isReal = false"
      @close-balance-modal.window="open = false">
     <div class="bg-white rounded-lg max-w-md w-full p-6" @click.outside="open = false">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">Adjust Balance</h3>
@@ -276,6 +282,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
                     <textarea x-model="reason" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange"></textarea>
+                </div>
+
+                <div x-show="type === 'add'">
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                        <input type="checkbox" x-model="isReal" class="rounded border-gray-300">
+                        <span class="font-bold text-red-600 italic">Real money (visible in deposit history)</span>
+                    </label>
                 </div>
             </div>
 

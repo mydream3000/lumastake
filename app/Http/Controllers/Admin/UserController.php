@@ -376,12 +376,44 @@ class UserController extends Controller
             'amount' => 'required|numeric',
             'type' => 'required|in:add,subtract',
             'reason' => 'required|string|max:255',
+            'is_real' => 'sometimes|boolean',
         ]);
 
         $oldBalance = $user->balance;
+        $isReal = $request->boolean('is_real');
 
         if ($validated['type'] === 'add') {
             $user->increment('balance', $validated['amount']);
+
+            // Create transaction
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'deposit',
+                'status' => 'confirmed',
+                'amount' => $validated['amount'],
+                'description' => $validated['reason'],
+                'meta' => [
+                    'comment' => $validated['reason'],
+                    'admin_id' => Auth::id(),
+                    'is_real' => $isReal
+                ],
+            ]);
+
+            // Send email notification (as requested: use Mass Credit Notification template even for individual credit)
+            try {
+                Mail::to($user->email)->send(new TemplatedMail(
+                    'mass_credit_notification',
+                    [
+                        'userName' => $user->name ?? $user->email,
+                        'amount' => number_format($validated['amount'], 2),
+                        'comment' => $validated['reason'],
+                    ],
+                    $user->id,
+                    'admin_credit'
+                ));
+            } catch (\Exception $e) {
+                Log::error('Failed to send adjustment email', ['error' => $e->getMessage()]);
+            }
 
             // Активируем пользователя при пополнении баланса
             $referralService = app(ReferralService::class);
@@ -511,11 +543,13 @@ class UserController extends Controller
             'amount' => 'required|numeric|min:0.01',
             'comment' => 'required|string|max:255',
             'email' => 'boolean',
+            'is_real' => 'sometimes|boolean',
         ]);
 
         $amount = (float)$validated['amount'];
         $comment = $validated['comment'];
         $sendEmail = (bool)($validated['email'] ?? false);
+        $isReal = $request->boolean('is_real');
         $isAll = $request->boolean('all');
 
         $processedIds = [];
@@ -527,8 +561,8 @@ class UserController extends Controller
                 return response()->json(['success' => false, 'message' => 'No users match current filters'], 422);
             }
 
-            $baseQuery->select('id')->orderBy('id')->chunkById(200, function ($chunk) use ($amount, $comment, &$processedIds) {
-                DB::transaction(function () use ($chunk, $amount, $comment, &$processedIds) {
+            $baseQuery->select('id')->orderBy('id')->chunkById(200, function ($chunk) use ($amount, $comment, $isReal, &$processedIds) {
+                DB::transaction(function () use ($chunk, $amount, $comment, $isReal, &$processedIds) {
                     foreach ($chunk as $u) {
                         // Lock row and apply
                         $user = User::lockForUpdate()->find($u->id);
@@ -544,8 +578,12 @@ class UserController extends Controller
                             'type' => 'deposit',
                             'status' => 'confirmed',
                             'amount' => $amount,
-                            'description' => 'Admin mass credit',
-                            'meta' => ['comment' => $comment, 'admin_id' => Auth::id()],
+                            'description' => $comment,
+                            'meta' => [
+                                'comment' => $comment,
+                                'admin_id' => Auth::id(),
+                                'is_real' => $isReal
+                            ],
                         ]);
 
                         Log::info('Bulk credit applied', [
@@ -564,7 +602,7 @@ class UserController extends Controller
         } else {
             $ids = $validated['user_ids'];
 
-            DB::transaction(function () use ($ids, $amount, $comment, &$processedIds) {
+            DB::transaction(function () use ($ids, $amount, $comment, $isReal, &$processedIds) {
                 $users = User::whereIn('id', $ids)->lockForUpdate()->get();
                 foreach ($users as $u) {
                     $before = $u->balance;
@@ -578,8 +616,12 @@ class UserController extends Controller
                         'type' => 'deposit',
                         'status' => 'confirmed',
                         'amount' => $amount,
-                        'description' => 'Admin mass credit',
-                        'meta' => ['comment' => $comment, 'admin_id' => Auth::id()],
+                        'description' => $comment,
+                        'meta' => [
+                            'comment' => $comment,
+                            'admin_id' => Auth::id(),
+                            'is_real' => $isReal
+                        ],
                     ]);
 
                     Log::info('Bulk credit applied', [

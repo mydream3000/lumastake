@@ -272,7 +272,7 @@
                                     class="w-full bg-[#E5F3FF] border border-[#2BA6FF] border-opacity-30 rounded-[10px] px-4 py-4 text-xl focus:outline-none flex items-center justify-between"
                                 >
                                     <span v-if="selectedCountryCode" class="flex items-center gap-1"><span :class="selectedCountryCode.flag_class"></span> {{ selectedCountryCode.phone_code }}</span>
-                                    <span v-else class="text-gray-400">Code</span>
+                                    <span v-else class="text-gray-400">Country</span>
                                     <i class="fas fa-chevron-down text-gray-400 text-xs transition-transform" :class="{'rotate-180': countryCodeDropdownOpen}"></i>
                                 </button>
 

@@ -34,7 +34,7 @@ class FaqSeeder extends Seeder
             ['question' => 'Can I change my registered email address?', 'answer' => 'Yes, by submitting a request to our support team for verification.'],
             ['question' => 'How do I delete my account?', 'answer' => 'You can request account deletion via customer support after clearing all balances.'],
             ['question' => 'What currencies can I deposit?', 'answer' => 'We currently accept only USDT via the TRON (TRC20) network.'],
-            ['question' => 'What is the minimum deposit amount?', 'answer' => 'The minimum deposit is based on your chosen staking tier, starting from Tier 1.'],
+            ['question' => 'What is the minimum deposit amount?', 'answer' => 'The minimum deposit starts from 1 USDT.'],
             ['question' => 'Does Lumastake support multiple networks?', 'answer' => 'No, we only support TRON TRC20 to ensure low fees and fast transactions.'],
             ['question' => 'How do I deposit funds into my account?', 'answer' => 'Log in, go to Deposit, copy your TRC20 wallet address, and transfer USDT from your personal wallet.'],
             ['question' => 'How long does it take for a deposit to reflect?', 'answer' => 'Deposits typically reflect within minutes, depending on network speed.'],

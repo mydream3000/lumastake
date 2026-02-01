@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class ReferralService
 {
     /**
-     * Активирует пользователя после достижения баланса >= 50 USD и пересчитывает реферальный уровень реферера
+     * Активирует пользователя после достижения баланса >= 1 USD и пересчитывает реферальный уровень реферера
      */
     public function activateUser(User $user): void
     {
@@ -20,8 +20,8 @@ class ReferralService
             return; // Уже активирован
         }
 
-        // Проверяем, что баланс >= 50 USD для активации
-        if ($user->balance < 50) {
+        // Проверяем, что баланс >= 1 USD для активации
+        if ($user->balance < 1) {
             return; // Недостаточно баланса для активации
         }
 

@@ -82,14 +82,14 @@
         from your preferred exchange to the above wallet address
       </p>
 
-      <!-- Confirmation Button -->
-      <button
-        @click="confirmDeposit"
-        :disabled="confirming"
-        class="mt-auto w-full border-2 border-cabinet-blue text-cabinet-blue py-3 rounded-xl font-bold uppercase hover:bg-cabinet-blue hover:text-white transition-all disabled:opacity-50"
-      >
-        {{ confirming ? 'Confirming...' : 'I have sent funds' }}
-      </button>
+      <!-- Status Notice -->
+      <div class="mt-auto pt-6 border-t border-gray-50">
+        <p class="text-[13px] text-gray-400 font-medium leading-relaxed text-center italic">
+          If you have sent the funds, please don't worry, your balance will be updated shortly.
+          If more than 20 confirmations have passed and the balance has not been topped up,
+          please contact technical support with the hash of this transaction.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -104,7 +104,6 @@ const address = ref('')
 const qrCode = ref('')
 const loading = ref(true)
 const error = ref(null)
-const confirming = ref(false)
 
 // Network icons (inline SVG)
 const networkIcons = {
@@ -164,38 +163,6 @@ async function fetchAddress() {
     error.value = err.response?.data?.message || 'Connection error. Please try again.'
   } finally {
     loading.value = false
-  }
-}
-
-async function confirmDeposit() {
-  if (confirming.value) return
-
-  confirming.value = true
-  try {
-    const response = await axios.post('/dashboard/deposit/confirm-payment', {
-      token: selectedToken.value,
-      network: selectedNetwork.value,
-      address: address.value
-    })
-
-    if (response.data.success) {
-      if (window.showToast) {
-        window.showToast('We are looking for your deposit. It will appear in history soon.', 'success')
-      }
-      // Refresh balance
-      if (window.Alpine) {
-        window.Alpine.store('userBalance').refresh()
-      }
-      // Close sidebar
-      window.dispatchEvent(new CustomEvent('close-rightbar'))
-    }
-  } catch (err) {
-    console.error('Confirm deposit error:', err)
-    if (window.showToast) {
-      window.showToast('Failed to confirm. Please contact support.', 'error')
-    }
-  } finally {
-    confirming.value = false
   }
 }
 

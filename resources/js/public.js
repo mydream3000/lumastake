@@ -7,6 +7,98 @@ window.Alpine = Alpine;
 // Register global function for Alpine.js phone input component BEFORE Alpine.start()
 // This function is called from x-data attribute in Blade template
 // Countries are preloaded in window.__GEOIP_COUNTRIES__ from public layout
+// Team Carousel component
+window.teamCarousel = function() {
+    return {
+        currentIndex: 0,
+        autoplayInterval: null,
+        slidesPerView: 3,
+        team: [
+            {
+                name: 'Alan Campbell',
+                role: 'CEO',
+                image: '/img/home/team-1.svg',
+                description: 'Responsible for the overall vision, strategy, and direction of the organization. Ensures alignment between all departments and represents the company to stakeholders, investors, and the public.'
+            },
+            {
+                name: 'Emily Rossi',
+                role: 'CFO',
+                image: '/img/home/team-2.svg',
+                description: 'Manages the financial aspects, including budgeting, forecasting, and financial reporting. Ensures the platform\'s financial health and compliance with regulatory standards.'
+            },
+            {
+                name: 'Christopher Taylor',
+                role: 'COO',
+                image: '/img/home/team-3.svg',
+                description: 'Responsible for optimizing operational processes and ensuring efficient day-to-day functioning. Manages teams to enhance productivity and streamline services.'
+            },
+            {
+                name: 'Fawzi Khabaz',
+                role: 'CMO',
+                image: '/img/home/team-4.svg',
+                description: 'Develops and implements marketing strategies to promote the platform, attract users, and build brand presence. Focuses on community engagement and user retention.'
+            },
+            {
+                name: 'Daniel Craig',
+                role: 'CTO',
+                image: '/img/home/team-5.svg',
+                description: 'Oversees the technological development and infrastructure of the platform. Ensures robust security, scalability, and innovative technological solutions that drive the platform\'s success.'
+            }
+        ],
+
+        init() {
+            this.updateSlidesPerView();
+            window.addEventListener('resize', () => this.updateSlidesPerView());
+            this.startAutoplay();
+        },
+
+        updateSlidesPerView() {
+            this.slidesPerView = window.innerWidth < 768 ? 1 : 3;
+        },
+
+        get totalDots() {
+            return Math.ceil(this.team.length - this.slidesPerView + 1);
+        },
+
+        get maxIndex() {
+            return Math.max(0, this.team.length - this.slidesPerView);
+        },
+
+        goTo(index) {
+            this.currentIndex = Math.max(0, Math.min(index, this.maxIndex));
+            this.restartAutoplay();
+        },
+
+        next() {
+            if (this.currentIndex < this.maxIndex) {
+                this.currentIndex++;
+            } else {
+                this.currentIndex = 0;
+            }
+        },
+
+        startAutoplay() {
+            this.autoplayInterval = setInterval(() => this.next(), 4000);
+        },
+
+        stopAutoplay() {
+            if (this.autoplayInterval) {
+                clearInterval(this.autoplayInterval);
+            }
+        },
+
+        restartAutoplay() {
+            this.stopAutoplay();
+            this.startAutoplay();
+        },
+
+        get translateX() {
+            const slideWidth = 100 / this.slidesPerView;
+            return this.currentIndex * slideWidth;
+        }
+    }
+}
+
 window.phoneInput = function() {
     return {
         open: false,

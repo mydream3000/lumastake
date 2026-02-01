@@ -43,14 +43,14 @@ button#backToTop {
 
 .benefit-divider::before {
     content: '';
+    width: 8px;
+    height: 109px;
     position: absolute;
-    left: 0;
     top: 50%;
+    left: 56px;
     transform: translateY(-50%);
-    width: 3px;
-    height: 80px;
+    z-index: -1;
     background: linear-gradient(to bottom, #2BA6FF 0%, #2BA6FF 30%, #2BA6FF 70%, #2BA6FF 100%);
-    border-radius: 2px;
 }
 
 @media (max-width: 1023px) {

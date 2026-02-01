@@ -67,16 +67,16 @@
                         <img src="{{ asset('img/about/icon-mission.png') }}"
                              alt="Mission"
                              class="w-full h-full object-contain">
-
+                    </div>
                         <h3 class="text-2xl md:text-3xl font-black text-[#3B4EFC] leading-[1]">
                             Mission</h3>
-                    </div>
+                </div>
                     <p class="text-[#262262] text-sm md:text-base leading-relaxed">
                         To provide a secure and structured environment where users can stake with confidence, earn
                         passively, and grow their portfolios in a sustainable way.
                     </p>
-                </div>
 
+            </div>
                 {{-- Vision --}}
                 <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)] transition-transform hover:scale-[1.02]">
 
@@ -86,17 +86,18 @@
                             <img src="{{ asset('img/about/icon-vision.png') }}"
                                  alt="Vision"
                                  class="w-full h-full object-contain">
-
+                        </div>
                             <h3 class="text-2xl md:text-3xl font-black text-[#3B4EFC] leading-[1]">
                                 Vision</h3>
-                        </div>
+                    </div>
                         <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">
                             To become a global leader in decentralized wealth solutions by consistently delivering
                             results,
                             building trust, and prioritizing user experience.
                         </p>
-                    </div>
+
                 </div>
+        </div>
     </section>
 
     {{-- WHY LUMA STAKE --}}

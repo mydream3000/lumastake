@@ -2,9 +2,9 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-10 pb-0 overflow-visible bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
-            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center text-center">
+            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 pb-32 md:pb-48 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center text-center">
                 {{-- Background Chart Image --}}
                 <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
                     <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
@@ -19,42 +19,45 @@
                         At <span class="font-bold text-[#E3FF3B]">Luma Stake</span>, we provide a secure, transparent staking solution for those who value consistency, clarity, and long-term growth.
                     </p>
                 </div>
+
+                {{-- Yellow Arrow --}}
+                <img src="{{ asset('img/about/hero_arrow.svg') }}" alt="" class="absolute bottom-20 md:bottom-32 left-1/2 -translate-x-1/2 w-[300px] md:w-[500px] lg:w-[700px] h-auto z-20 pointer-events-none">
             </div>
         </div>
     </section>
 
     {{-- PROCESS / MISSION / VISION --}}
-    <section class="py-12 bg-white relative">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8">
+    <section class="pt-0 pb-12 bg-white relative">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8 -mt-24 md:-mt-32 relative z-30">
             {{-- Process --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
-                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
-                    <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-12 h-12">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[70px] h-[70px] mb-6">
+                    <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-full h-full object-contain">
                 </div>
-                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Process</h3>
-                <p class="text-[#262262] text-[18px] leading-relaxed">
+                <h3 class="text-[32px] md:text-[40px] font-black text-[#3B4EFC] mb-4 capitalize leading-[1]">Process</h3>
+                <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">
                     Luma Stake bridges complex blockchain technology with practical wealth generation—using advanced staking and real-time automation to deliver stable, efficient earnings without speculation or constant market monitoring.
                 </p>
             </div>
 
             {{-- Mission --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
-                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
-                    <img src="{{ asset('img/about/icon-mission.png') }}" alt="Mission" class="w-12 h-12">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[70px] h-[70px] mb-6">
+                    <img src="{{ asset('img/about/icon-mission.png') }}" alt="Mission" class="w-full h-full object-contain">
                 </div>
-                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Mission</h3>
-                <p class="text-[#262262] text-[18px] leading-relaxed">
+                <h3 class="text-[32px] md:text-[40px] font-black text-[#3B4EFC] mb-4 capitalize leading-[1]">Mission</h3>
+                <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">
                     To provide a secure and structured environment where users can stake with confidence, earn passively, and grow their portfolios in a sustainable way.
                 </p>
             </div>
 
             {{-- Vision --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
-                <div class="w-[84px] h-[84px] mb-8 bg-[#3B4EFC] rounded-full flex items-center justify-center shadow-lg">
-                    <img src="{{ asset('img/about/icon-vision.png') }}" alt="Vision" class="w-12 h-12">
+            <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 md:p-10 shadow-[0_4px_20px_0_rgba(43,166,255,0.25)] flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
+                <div class="w-[70px] h-[70px] mb-6">
+                    <img src="{{ asset('img/about/icon-vision.png') }}" alt="Vision" class="w-full h-full object-contain">
                 </div>
-                <h3 class="text-[40px] font-black text-[#3B4EFC] mb-6 uppercase leading-[0.9]">Vision</h3>
-                <p class="text-[#262262] text-[18px] leading-relaxed">
+                <h3 class="text-[32px] md:text-[40px] font-black text-[#3B4EFC] mb-4 capitalize leading-[1]">Vision</h3>
+                <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">
                     To become a global leader in decentralized wealth solutions by consistently delivering results, building trust, and prioritizing user experience.
                 </p>
             </div>

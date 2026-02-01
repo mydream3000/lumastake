@@ -351,7 +351,7 @@
                         Start Staking
                     </a>
                 </div>
-                <div class="lg:w-1/2 lg:absolute lg:right-0 lg:bottom-0 flex justify-center lg:justify-end">
+                <div class="relative lg:w-1/2 lg:absolute lg:right-0 lg:bottom-0 flex justify-center lg:justify-end">
                     <img src="{{ asset('img/home/pyramid.png') }}" alt="Lumastake Ecosystem" class="lumaecosystem w-full h-auto">
                 </div>
             </div>

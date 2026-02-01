@@ -64,14 +64,14 @@ button#backToTop {
 }
 
 .secure-card::before {
-    content: '';
+    content: "";
+    background-color: #2ba6ff;
+    border-radius: 10px;
+    width: 5px;
     position: absolute;
-    left: 0;
-    top: 12px;
-    bottom: 12px;
-    width: 4px;
-    background-color: #2BA6FF;
-    border-radius: 2px;
+    top: 13px;
+    bottom: 48px;
+    left: -5px;
 }
 
 /* Team photo with horizontal pill frame */

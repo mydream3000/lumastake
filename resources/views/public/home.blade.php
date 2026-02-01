@@ -352,7 +352,7 @@
                     </a>
                 </div>
                 <div class="lg:w-1/2 lg:absolute lg:right-0 lg:bottom-0 flex justify-center lg:justify-end">
-                    <img src="{{ asset('img/home/pyramid.png') }}" alt="Lumastake Ecosystem" class="w-full max-w-md h-auto">
+                    <img src="{{ asset('img/home/pyramid.png') }}" alt="Lumastake Ecosystem" class="lumaecosystem w-full max-w-md h-auto">
                 </div>
             </div>
         </div>

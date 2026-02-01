@@ -102,7 +102,7 @@
 
     {{-- WHY LUMA STAKE --}}
     <section class="py-24 bg-white overflow-hidden relative">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
+        <div class="max-w-6xl mx-auto px-4 md:px-12">
             <h2 class="text-5xl md:text-[80px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[0.9] tracking-tighter">
                 WHY LUMA STAKE ?
             </h2>

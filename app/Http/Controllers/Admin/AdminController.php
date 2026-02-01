@@ -48,19 +48,36 @@ class AdminController extends Controller
             });
         };
 
-        // Реальные депозиты (USDT + USDC) — всего и за сегодня
-        $totalRealDeposits = CryptoTransaction::query()
+        // Реальные депозиты — всего и за сегодня
+        // Источник 1: Ручные депозиты админом с чекбоксом is_real
+        $manualRealDeposits = Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('is_real', true)
+            ->sum('amount');
+
+        $manualRealDepositsToday = Transaction::where('type', 'deposit')
+            ->where('status', 'confirmed')
+            ->where('is_real', true)
+            ->whereDate('created_at', today())
+            ->sum('amount');
+
+        // Источник 2: Депозиты через блокчейн (CryptoTransaction)
+        $cryptoRealDeposits = CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
             ->sum('amount');
 
-        $realDepositsToday = CryptoTransaction::query()
+        $cryptoRealDepositsToday = CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
             ->whereDate('created_at', today())
             ->sum('amount');
+
+        // Суммируем оба источника
+        $totalRealDeposits = $manualRealDeposits + $cryptoRealDeposits;
+        $realDepositsToday = $manualRealDepositsToday + $cryptoRealDepositsToday;
 
         // Статистика транзакций (оставляем выводы пэндингов)
         $pendingDeposits = 0; // заменено на $totalRealDeposits в интерфейсе

@@ -158,6 +158,21 @@ class UserController extends Controller
                         ->groupBy('user_id')
                         ->pluck('total', 'user_id')
                         ->toArray();
+
+                    // Add manual "Real Money" deposits
+                    $manualRealDepositsByUser = Transaction::query()
+                        ->selectRaw('user_id, SUM(amount) as total')
+                        ->whereIn('user_id', $userIds)
+                        ->where('type', 'deposit')
+                        ->where('status', 'confirmed')
+                        ->where('is_real', true)
+                        ->groupBy('user_id')
+                        ->pluck('total', 'user_id')
+                        ->toArray();
+
+                    foreach ($manualRealDepositsByUser as $uid => $amount) {
+                        $realDepositsByUser[$uid] = (float)($realDepositsByUser[$uid] ?? 0) + (float)$amount;
+                    }
                 }
             } catch (\Throwable $e) {
                 \Log::warning('Could not compute real deposits per user: ' . $e->getMessage());
@@ -230,17 +245,17 @@ class UserController extends Controller
             });
         };
 
-        $realDeposits = CryptoTransaction::where('user_id', $user->id)
+        $realDeposits = (float) CryptoTransaction::where('user_id', $user->id)
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
             ->sum('amount');
 
         // Добавляем ручные "Real Money" депозиты
-        $realDeposits += Transaction::where('user_id', $user->id)
+        $realDeposits += (float) Transaction::where('user_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', true)
+            ->where('is_real', 1)
             ->sum('amount');
 
         return view('admin.users.show', compact('user', 'realDeposits'));

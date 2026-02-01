@@ -57,6 +57,12 @@ button#backToTop {
     .benefit-divider::before {
         display: none;
     }
+.hero_arrow{
+    top: 270px;
+    left: 20%;
+    z-index: 4;
+    opacity: 0.8;
+}
 }
 
 /* Secure Your Future cards with left border pseudo-element */

@@ -92,7 +92,15 @@ button#backToTop {
     z-index: 2;
 }
 
-
+@media(min-width: 1024px){
+    img.lumaecosystem.w-full.h-auto {
+        position: absolute;
+        bottom: -94px;
+        left: 40px;
+        width: 750px;
+        max-width: 750px;
+    }
+}
 @media (max-width: 768px) {
     .team-photo-container {
         max-width: 280px;

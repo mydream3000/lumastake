@@ -60,11 +60,11 @@ button#backToTop {
 
 }
 img.hero_arrow{
-    top: 270px;
-    left: 20%;
-    max-width: 800px;
     z-index: 4;
-    opacity: 0.8;
+    opacity: .8;
+    max-width: 900px;
+    top: 270px;
+    left: 18%;
 }
 /* Secure Your Future cards with left border pseudo-element */
 .secure-card {

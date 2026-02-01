@@ -412,7 +412,7 @@
                 </div>
                 {{-- Logo icon --}}
                 <div class="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-40 md:w-64 h-40 md:h-64">
-                    <img src="{{ asset('favicon.svg') }}" alt="" class="w-full h-full">
+                    <img src="{{ asset('favicon.svg') }}" alt="" class="w-[259px] h-[258px]">
                 </div>
             </div>
         </div>

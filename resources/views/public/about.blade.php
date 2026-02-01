@@ -26,7 +26,7 @@
                 {{-- Yellow Arrow --}}
                 <img src="{{ asset('img/about/hero_arrow.svg') }}"
                      alt=""
-                     class="absolute bottom-20 md:bottom-32 left-1/2 -translate-x-1/2 w-[300px] md:w-[500px] lg:w-[700px] h-auto z-20 pointer-events-none">
+                     class="hero_arrow absolute bottom-20 md:bottom-32 left-1/2 md:w-[600px] lg:w-[800px] h-auto z-20 pointer-events-none">
             </div>
         </div>
     </section>

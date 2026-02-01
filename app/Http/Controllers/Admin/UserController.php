@@ -255,7 +255,7 @@ class UserController extends Controller
         $realDeposits += (float) Transaction::where('user_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', 1)
+            ->where('is_real', true)
             ->sum('amount');
 
         return view('admin.users.show', compact('user', 'realDeposits'));

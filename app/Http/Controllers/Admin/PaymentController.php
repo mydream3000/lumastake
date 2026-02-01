@@ -108,7 +108,7 @@ class PaymentController extends Controller
                     ->whereIn('user_id', $userIds)
                     ->where('type', 'deposit')
                     ->where('status', 'confirmed')
-                    ->where('is_real', 1)
+                    ->where('is_real', true)
                     ->groupBy('user_id')
                     ->pluck('total', 'user_id')
                     ->toArray();
@@ -210,7 +210,7 @@ class PaymentController extends Controller
         // Добавляем ручные "Real Money" депозиты
         $totalRealDeposits += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', 1)
+            ->where('is_real', true)
             ->sum('amount');
 
         $realDepositsToday = (float) CryptoTransaction::query()
@@ -223,7 +223,7 @@ class PaymentController extends Controller
         // Добавляем ручные "Real Money" депозиты за сегодня
         $realDepositsToday += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', 1)
+            ->where('is_real', true)
             ->whereDate('created_at', today())
             ->sum('amount');
 
@@ -552,7 +552,7 @@ class PaymentController extends Controller
         // Добавляем ручные "Real Money" депозиты
         $totalRealDeposits += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', 1)
+            ->where('is_real', true)
             ->sum('amount');
 
         $realDepositsToday = (float) CryptoTransaction::query()
@@ -565,7 +565,7 @@ class PaymentController extends Controller
         // Добавляем ручные "Real Money" депозиты за сегодня
         $realDepositsToday += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('is_real', 1)
+            ->where('is_real', true)
             ->whereDate('created_at', today())
             ->sum('amount');
 

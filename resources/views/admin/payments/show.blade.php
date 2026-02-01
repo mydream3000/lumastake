@@ -44,7 +44,7 @@
                                 <span class="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800">
                                     <i class="fas fa-arrow-down mr-1"></i> Deposit
                                 </span>
-                                @if((isset($payment->meta['is_real']) && $payment->meta['is_real']) || !empty($payment->tx_hash))
+                                @if((bool)$payment->is_real || !empty($payment->tx_hash))
                                     <span class="inline-flex px-3 py-1 text-xs font-black rounded-full bg-red-600 text-white uppercase italic tracking-wider ml-2">Real Money</span>
                                 @endif
                             @else

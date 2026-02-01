@@ -20,7 +20,7 @@ class TransactionController extends Controller
             ->where('type', 'deposit')
             ->where(function($q) {
                 $q->whereNotNull('tx_hash')
-                  ->orWhere('meta->is_real', true);
+                  ->orWhere('is_real', true);
             })
             ->latest();
 

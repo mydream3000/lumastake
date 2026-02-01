@@ -240,7 +240,7 @@ class UserController extends Controller
         $realDeposits += Transaction::where('user_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'confirmed')
-            ->where('meta->is_real', true)
+            ->where('is_real', true)
             ->sum('amount');
 
         return view('admin.users.show', compact('user', 'realDeposits'));
@@ -398,6 +398,7 @@ class UserController extends Controller
                 'type' => 'deposit',
                 'status' => 'confirmed',
                 'amount' => $validated['amount'],
+                'is_real' => $isReal,
                 'description' => $validated['reason'],
                 'meta' => [
                     'comment' => $validated['reason'],
@@ -585,6 +586,7 @@ class UserController extends Controller
                             'type' => 'deposit',
                             'status' => 'confirmed',
                             'amount' => $amount,
+                            'is_real' => $isReal,
                             'description' => $comment,
                             'meta' => [
                                 'comment' => $comment,
@@ -623,6 +625,7 @@ class UserController extends Controller
                         'type' => 'deposit',
                         'status' => 'confirmed',
                         'amount' => $amount,
+                        'is_real' => $isReal,
                         'description' => $comment,
                         'meta' => [
                             'comment' => $comment,

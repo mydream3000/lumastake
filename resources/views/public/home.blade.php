@@ -417,7 +417,6 @@
             </div>
         </div>
     </section>
-
     {{-- 9. TEAM --}}
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4" x-data="teamCarousel()" x-init="init()">

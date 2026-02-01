@@ -30,15 +30,23 @@
     <section class="pt-0 pb-12 bg-white relative">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8 -mt-24 md:-mt-32 relative z-30">
             {{-- Process --}}
-            <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)]
- flex flex-col items-center text-center transition-transform hover:scale-[1.02]">
-                <div class="w-[70px] h-[70px] mb-6">
-                    <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-full h-full object-contain">
+            <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)] transition-transform hover:scale-[1.02]">
+
+                <!-- ICON + TITLE -->
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 md:w-14 md:h-14 flex-shrink-0">
+                        <img src="{{ asset('img/about/icon-process.png') }}" alt="Process" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-black text-[#3B4EFC] leading-[1]">
+                        Process
+                    </h3>
                 </div>
-                <h3 class="text-[32px] md:text-[40px] font-black text-[#3B4EFC] mb-4 capitalize leading-[1]">Process</h3>
-                <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">
+
+                <!-- TEXT -->
+                <p class="text-[#262262] text-sm md:text-base leading-relaxed">
                     Luma Stake bridges complex blockchain technology with practical wealth generation—using advanced staking and real-time automation to deliver stable, efficient earnings without speculation or constant market monitoring.
                 </p>
+
             </div>
 
             {{-- Mission --}}

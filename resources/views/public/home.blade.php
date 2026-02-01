@@ -338,7 +338,7 @@
     {{-- 6. CTA MIDDLE --}}
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8 relative overflow-hidden">
+            <div class="bg-lumastake-light-blue border border-[#2BA6FF] rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8 relative">
                 <div class="lg:w-1/2 space-y-6 relative z-10">
                     <p class="text-base md:text-lg font-bold text-lumastake-navy">Turning Crypto Complexity into Opportunity</p>
                     <h2 class="text-3xl md:text-5xl font-black leading-[1.1] uppercase">

@@ -87,7 +87,7 @@
                                  alt="Vision"
                                  class="w-full h-full object-contain">
 
-                            <h3 class="text-[32px] md:text-[40px] font-black text-[#3B4EFC] mb-4 capitalize leading-[1]">
+                            <h3 class="text-2xl md:text-3xl font-black text-[#3B4EFC] leading-[1]">
                                 Vision</h3>
                         </div>
                         <p class="text-[#262262] text-base md:text-[18px] leading-relaxed">

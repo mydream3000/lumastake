@@ -1,39 +1,6 @@
 ﻿@extends('layouts.public')
 
 @section('content')
-    {{-- HERO SECTION --}}
-    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
-            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center">
-                {{-- Background Chart Image --}}
-                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
-                    <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
-                </div>
-
-                <div class="relative w-full h-full flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-2">
-                    {{-- Left Card --}}
-                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] transform -rotate-[6deg] lg:-rotate-[15deg] max-w-[440px] text-center hover:rotate-0 transition-transform duration-500 cursor-default">
-                        <h2 class="text-4xl md:text-[50px] font-the-bold-font font-black text-[#3B4EFC] mb-4 leading-[0.9] uppercase tracking-tighter">
-                            Rise Through <br> <span class="text-5xl md:text-[75px]">Every Stake</span>
-                        </h2>
-                        <p class="text-[20px] text-[#262262] leading-relaxed font-medium mt-6">
-                            Your Journey to Smarter Crypto Earnings Starts Here with Luma Stake
-                        </p>
-                    </div>
-
-                    {{-- Right Card --}}
-                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] transform rotate-[6deg] lg:rotate-[18deg] max-w-[440px] text-center hover:rotate-0 transition-transform duration-500 cursor-default">
-                        <h2 class="text-4xl md:text-[50px] font-the-bold-font font-black text-[#3B4EFC] mb-4 leading-[0.9] uppercase tracking-tighter">
-                            Dynamic <br> <span class="text-5xl md:text-[70px]">Earning Tiers</span>
-                        </h2>
-                        <p class="text-[20px] text-[#262262] leading-relaxed font-medium mt-6">
-                            Maximize Returns at Every Level of Your Luma Stake Staking Experience
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     {{-- PROFIT TIERS SECTION --}}
     <section class="py-20 bg-white relative overflow-hidden" id="tiers">
@@ -141,5 +108,37 @@
 
         </div>
     </section>
+    {{-- HERO SECTION --}}
+    <section class="relative pt-10 pb-20 overflow-hidden bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
+            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center">
+                {{-- Background Chart Image --}}
+                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
+                    <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
+                </div>
 
+                <div class="relative w-full h-full flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-2">
+                    {{-- Left Card --}}
+                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] transform -rotate-[6deg] lg:-rotate-[15deg] max-w-[440px] text-center hover:rotate-0 transition-transform duration-500 cursor-default">
+                        <h2 class="text-4xl md:text-[50px] font-the-bold-font font-black text-[#3B4EFC] mb-4 leading-[0.9] uppercase tracking-tighter">
+                            Rise Through <br> <span class="text-5xl md:text-[75px]">Every Stake</span>
+                        </h2>
+                        <p class="text-[20px] text-[#262262] leading-relaxed font-medium mt-6">
+                            Your Journey to Smarter Crypto Earnings Starts Here with Luma Stake
+                        </p>
+                    </div>
+
+                    {{-- Right Card --}}
+                    <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-10 shadow-[0_4px_4px_0_rgba(43,166,255,1)] transform rotate-[6deg] lg:rotate-[18deg] max-w-[440px] text-center hover:rotate-0 transition-transform duration-500 cursor-default">
+                        <h2 class="text-4xl md:text-[50px] font-the-bold-font font-black text-[#3B4EFC] mb-4 leading-[0.9] uppercase tracking-tighter">
+                            Dynamic <br> <span class="text-5xl md:text-[70px]">Earning Tiers</span>
+                        </h2>
+                        <p class="text-[20px] text-[#262262] leading-relaxed font-medium mt-6">
+                            Maximize Returns at Every Level of Your Luma Stake Staking Experience
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

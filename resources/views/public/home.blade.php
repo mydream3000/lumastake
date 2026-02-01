@@ -288,7 +288,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-10">
                 {{-- Row 1 --}}
                 {{-- Fixed returns --}}
-                <div class="flex items-center gap-4 pr-8">
+                <div class="flex items-center gap-4 pr-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-fixed-returns.svg') }}" alt="" class="w-7 h-7">
                     </div>
@@ -310,7 +310,7 @@
                 </div>
                 {{-- Row 2 --}}
                 {{-- Hands-off --}}
-                <div class="flex items-center gap-4 pr-8">
+                <div class="flex items-center gap-4 pr-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-hands-off.svg') }}" alt="" class="w-7 h-7">
                     </div>

@@ -35,6 +35,29 @@ button#backToTop {
     right: 15px;
 }
 
+/* Benefits section vertical dividers */
+.benefit-divider {
+    position: relative;
+}
+
+.benefit-divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent 0%, #2BA6FF 30%, #2BA6FF 70%, transparent 100%);
+    border-radius: 2px;
+}
+
+@media (max-width: 1023px) {
+    .benefit-divider::before {
+        display: none;
+    }
+}
+
 /* Secure Your Future cards with left border pseudo-element */
 .secure-card {
     position: relative;

@@ -295,14 +295,14 @@
                     <p class="text-base md:text-lg text-gray-600 leading-snug">Fixed returns, no<br>price swings</p>
                 </div>
                 {{-- Tier-based --}}
-                <div class="flex items-center gap-4 px-8 border-l border-gray-200">
+                <div class="flex items-center gap-4 px-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-tier-based.svg') }}" alt="" class="w-7 h-7">
                     </div>
                     <p class="text-base md:text-lg text-gray-600 leading-snug">Tier-based<br>rewards system</p>
                 </div>
                 {{-- Clean --}}
-                <div class="flex items-center gap-4 pl-8 border-l border-gray-200">
+                <div class="flex items-center gap-4 pl-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-clean.svg') }}" alt="" class="w-7 h-7">
                     </div>
@@ -317,14 +317,14 @@
                     <p class="text-base md:text-lg text-gray-600 leading-snug">Hands-off experience<br>no trading needed</p>
                 </div>
                 {{-- Mobile --}}
-                <div class="flex items-center gap-4 px-8 border-l border-gray-200">
+                <div class="flex items-center gap-4 px-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-mobile.svg') }}" alt="" class="w-7 h-7">
                     </div>
                     <p class="text-base md:text-lg text-gray-600 leading-snug">Mobile<br>friendly interface</p>
                 </div>
                 {{-- Transparent --}}
-                <div class="flex items-center gap-4 pl-8 border-l border-gray-200">
+                <div class="flex items-center gap-4 pl-8 benefit-divider">
                     <div class="w-14 h-14 bg-lumastake-navy rounded-full flex items-center justify-center flex-shrink-0">
                         <img src="{{ asset('img/home/icon-transparent.svg') }}" alt="" class="w-7 h-7">
                     </div>
@@ -342,7 +342,7 @@
                 <div class="lg:w-1/2 space-y-6 relative z-10">
                     <p class="text-base md:text-lg font-bold text-lumastake-navy">Turning Crypto Complexity into Opportunity</p>
                     <h2 class="text-3xl md:text-5xl font-black leading-[1.1] uppercase">
-                        <span class="bg-gradient-to-r from-[#D4FC04] to-[#00E5A0] bg-clip-text text-transparent">LESS CONFUSION. MORE CONTROL</span>
+                        <span class="bg-gradient-to-r from-[#3B4EFC] to-[#2BA6FF] bg-clip-text text-transparent">LESS CONFUSION. MORE CONTROL</span>
                     </h2>
                     <p class="text-base md:text-lg text-gray-600 leading-relaxed">
                         We built Lumastake to remove the noise from crypto. No tokens to flip. No coins to trade. Just one goal: make your stablecoins earn more, safely and smoothly.
@@ -351,7 +351,7 @@
                         Start Staking
                     </a>
                 </div>
-                <div class="lg:w-1/2 flex justify-center lg:justify-end">
+                <div class="lg:w-1/2 lg:absolute lg:right-0 lg:bottom-0 flex justify-center lg:justify-end">
                     <img src="{{ asset('img/home/pyramid.png') }}" alt="Lumastake Ecosystem" class="w-full max-w-md h-auto">
                 </div>
             </div>
@@ -403,7 +403,7 @@
 
                     <div>
                         <h3 class="text-3xl md:text-5xl font-black uppercase mb-4 leading-none">
-                            <span class="bg-gradient-to-r from-[#D4FC04] to-[#00E5A0] bg-clip-text text-transparent">COMING SOON</span>
+                            <span class="bg-gradient-to-r from-[#3B4EFC] to-[#2BA6FF] bg-clip-text text-transparent">COMING SOON</span>
                         </h3>
                         <p class="text-base md:text-lg text-gray-600 max-w-lg leading-relaxed">
                             Lumastake Academy — tips, guides, and expert interviews to help you make smarter crypto moves.

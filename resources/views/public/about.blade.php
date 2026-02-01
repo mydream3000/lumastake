@@ -33,7 +33,7 @@
 
     {{-- PROCESS / MISSION / VISION --}}
     <section class="pt-0 pb-12 bg-white relative">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8 -mt-24 md:-mt-32 relative z-30">
+        <div class="max-w-6xl mx-auto px-4 md:px-12 grid md:grid-cols-3 gap-8 -mt-24 md:-mt-32 relative z-30">
             {{-- Process --}}
             <div class="bg-white border border-[#2BA6FF] rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_rgba(43,166,255,0.18)] transition-transform hover:scale-[1.02]">
 
@@ -102,7 +102,7 @@
 
     {{-- WHY LUMA STAKE --}}
     <section class="py-24 bg-white overflow-hidden relative">
-        <div class="max-w-6xl mx-auto px-4 md:px-12">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
             <h2 class="text-5xl md:text-[80px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[0.9] tracking-tighter">
                 WHY LUMA STAKE ?
             </h2>

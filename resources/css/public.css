@@ -38,6 +38,7 @@ button#backToTop {
 /* Benefits section vertical dividers */
 .benefit-divider {
     position: relative;
+    z-index: 9;
 }
 
 .benefit-divider::before {
@@ -48,7 +49,7 @@ button#backToTop {
     transform: translateY(-50%);
     width: 3px;
     height: 80px;
-    background: linear-gradient(to bottom, transparent 0%, #2BA6FF 30%, #2BA6FF 70%, transparent 100%);
+    background: linear-gradient(to bottom, #2BA6FF 0%, #2BA6FF 30%, #2BA6FF 70%, #2BA6FF 100%);
     border-radius: 2px;
 }
 

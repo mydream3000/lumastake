@@ -422,16 +422,16 @@
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4" x-data="teamCarousel()" x-init="init()">
             {{-- Carousel Container --}}
-            <div class="overflow-hidden">
+            <div class="overflow-hidden" @mouseenter="pause()" @mouseleave="resume()">
                 <div
-                    class="flex transition-transform duration-500 ease-out"
+                    class="flex items-end transition-transform duration-500 ease-out"
                     :style="'transform: translateX(-' + translateX + '%)'"
                 >
                     <template x-for="(member, index) in team" :key="index">
                         <div class="w-full md:w-1/3 flex-shrink-0 px-4">
                             <div class="text-center">
-                                <div class="team-photo-container mx-auto mb-6">
-                                    <img :src="member.image" :alt="member.name" class="w-full h-auto">
+                                <div class="team-photo-container mx-auto mb-6 h-[280px] flex items-end justify-center">
+                                    <img :src="member.image" :alt="member.name" class="w-full h-auto max-h-full object-contain">
                                 </div>
                                 <h3 class="mt-5 text-2xl md:text-3xl font-black text-lumastake-navy mb-1" x-text="member.name"></h3>
                                 <p class="text-lg font-bold text-lumastake-blue mb-3" x-text="member.role"></p>

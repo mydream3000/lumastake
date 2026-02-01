@@ -78,18 +78,29 @@ window.teamCarousel = function() {
         },
 
         startAutoplay() {
-            this.autoplayInterval = setInterval(() => this.next(), 4000);
+            this.autoplayInterval = setInterval(() => this.next(), 20000);
         },
 
         stopAutoplay() {
             if (this.autoplayInterval) {
                 clearInterval(this.autoplayInterval);
+                this.autoplayInterval = null;
             }
         },
 
         restartAutoplay() {
             this.stopAutoplay();
             this.startAutoplay();
+        },
+
+        pause() {
+            this.stopAutoplay();
+        },
+
+        resume() {
+            if (!this.autoplayInterval) {
+                this.startAutoplay();
+            }
         },
 
         get translateX() {

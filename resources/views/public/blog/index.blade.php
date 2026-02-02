@@ -175,7 +175,7 @@
                     </div>
 
 {{--                    <!-- Декоративная картинка -->--}}
-                    <div class="absolute right-[-60px] md:right-[-40px] bottom-[-70px] md:bottom-[-100px] z-0 pointer-events-none opacity-40 md:opacity-70">
+                    <div class="absolute right-[-60px] md:right-[-40px] bottom-[-70px] md:bottom-[-100px] z-0 pointer-events-none">
                         <img src="{{ asset('img/blog/blog-what-is.png') }}" alt="" class="w-[300px] md:w-[380px] lg:w-[460px] h-auto">
                     </div>
                 </div>
@@ -240,7 +240,7 @@
             {{-- CONCLUSION --}}
             <div class="mb-32">
                 <div class="bg-white/47 border border-[#2BA6FF] rounded-[8px] p-12 relative shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex flex-col justify-center min-h-[311px]">
-                    <div class="absolute left-0 top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
+                    <div class="absolute left-[-8px] top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
                     <h2 class="text-4xl md:text-[40px] font-the-bold-font font-black text-[#3B4EFC] mb-8 uppercase leading-[0.9] ml-4 tracking-tighter">CONCLUSION</h2>
                     <div class="text-2xl md:text-[28px] text-[#22253B]/79 leading-normal ml-4 space-y-6">
                         <p>Crypto arbitrage remains one of the most reliable strategies in a volatile market, offering the potential for steady, low-risk returns. With Luma Stake, the complexities of arbitrage are handled for you, allowing you to benefit from proven market strategies while focusing on your broader investment goals.</p>

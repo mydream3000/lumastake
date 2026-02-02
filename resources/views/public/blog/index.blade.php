@@ -155,8 +155,6 @@
                         <h2 class="text-4xl md:text-[64px] lg:text-[72px] font-the-bold-font font-black text-[#3B4EFC] uppercase leading-[1.05] tracking-tighter">
                             WHAT IS <br> CRYPTO <br> ARBITRAGE ?
                         </h2>
-                    </div>
-                    <div class="lg:w-1/2 relative z-10">
                         <p class="text-xl md:text-[26px] text-black leading-normal">
                             An arbitrage trader purchases Bitcoin on Exchange A and sells it on Exchange B, securing the price difference after accounting for any fees.
                         </p>

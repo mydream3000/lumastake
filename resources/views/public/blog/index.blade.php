@@ -25,7 +25,7 @@
                         THE FUNDAMENTALS OF
                     </h3>
 
-                    <h1 class="text-5xl md:text-7xl lg:text-[130px] font-the-bold-font font-black text-white leading-[0.9] mb-8 md:mb-10 uppercase tracking-tighter">
+                    <h1 class="text-5xl md:text-7xl lg:text-[100px] font-bold text-white leading-[0.9] mb-8 md:mb-10 uppercase tracking-tighter">
                         CRYPTO ARBITRAGE
                     </h1>
 

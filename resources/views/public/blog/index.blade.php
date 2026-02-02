@@ -149,8 +149,8 @@
 
             {{-- WHAT IS CRYPTO ARBITRAGE --}}
             <div class="mb-32">
-                <div class="bg-[#E0F2FF] border border-[#2BA6FF] rounded-[12px] p-10 md:p-16 lg:p-20 pb-[220px] md:pb-[260px] relative overflow-hidden min-h-[620px] flex flex-col lg:flex-row items-start gap-12">
-                    <!-- Заголовок -->
+                <div class="bg-[#E0F2FF] border border-[#2BA6FF] rounded-[12px] p-10 md:p-16 lg:p-20 pb-[220px] md:pb-[260px] relative min-h-[620px] flex flex-col lg:flex-row items-start gap-12">
+{{--                    <!-- Заголовок -->--}}
                     <div class="lg:w-1/2 relative z-10">
                         <h2 class="text-4xl md:text-[64px] lg:text-[72px] font-the-bold-font font-black text-[#3B4EFC] uppercase leading-[1.05] tracking-tighter">
                             WHAT IS <br> CRYPTO <br> ARBITRAGE ?
@@ -162,7 +162,7 @@
                             This is fundamentally different from speculative trading. Arbitrage does not rely on predicting future price movements it is designed to exploit market inefficiencies for measurable, low-exposure returns.
                         </p>
                     </div>
-                    <!-- Текст -->
+{{--                    <!-- Текст -->--}}
                     <div class="lg:w-1/2 space-y-8 relative z-10">
                         <p class="text-xl md:text-[26px] text-black leading-normal font-medium">
                             Crypto arbitrage is the practice of profiting from price discrepancies of the same digital asset across different exchanges or markets.
@@ -174,8 +174,8 @@
 
                     </div>
 
-                    <!-- Декоративная картинка -->
-                    <div class="absolute right-[-60px] md:right-[-40px] bottom-[-70px] md:bottom-[-40px] z-0 pointer-events-none opacity-40 md:opacity-70">
+{{--                    <!-- Декоративная картинка -->--}}
+                    <div class="absolute right-[-60px] md:right-[-40px] bottom-[-70px] md:bottom-[-100px] z-0 pointer-events-none opacity-40 md:opacity-70">
                         <img src="{{ asset('img/blog/blog-what-is.png') }}" alt="" class="w-[300px] md:w-[380px] lg:w-[460px] h-auto">
                     </div>
                 </div>

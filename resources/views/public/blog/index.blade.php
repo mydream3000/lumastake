@@ -196,7 +196,7 @@
                 </div>
 
                 {{-- Advantages --}}
-                <div class="lg:col-span-2 bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="lg:w-[calc(50%+1rem)] bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Advantages of Arbitrage as an Investment Strategy</h2>
                     <p class="text-lg md:text-[24px] text-black mb-8">Arbitrage provides several advantages over traditional trading methods:</p>
                     <div class="space-y-6 text-lg md:text-[18px] text-black/70">

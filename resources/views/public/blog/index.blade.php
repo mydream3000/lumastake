@@ -9,7 +9,7 @@
              bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF]
              pt-12 md:pt-24
              px-6 md:px-16
-             pb-[220px] md:pb-[300px] lg:pb-[360px]
+             pb-[300px] md:pb-[360px] lg:pb-[360px]
              min-h-[640px] md:min-h-[760px]
              flex flex-col items-center text-center"
             >
@@ -37,7 +37,7 @@
                 <!-- Bottom image (overlapping) -->
                 <div
                     class="absolute left-1/2 -translate-x-1/2
-               bottom-[-90px] md:bottom-[-120px] lg:bottom-[-150px]
+               bottom-[-170px] md:bottom-[-190px] lg:bottom-[-280px]
                z-20
                w-[92%] md:w-[86%] lg:w-[78%]
                max-w-[1200px]"

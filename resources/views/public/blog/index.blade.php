@@ -30,7 +30,7 @@
                     </h1>
 
                     <p class="text-lg md:text-[28px] text-white/95 leading-normal max-w-[939px] mx-auto">
-                        The cryptocurrency market operates around the clock, with prices fluctuating by the second. This constant movement creates opportunities for those who know where to look. Among the many strategies available, <span class="font-bold text-cabinet-lime"> crypto arbitrage </span> stands out as a disciplined, market-neutral approach designed to capture consistent returns from temporary price inefficiencies.
+                        The cryptocurrency market operates around the clock, with prices fluctuating by the second. This constant movement creates opportunities for those who know where to look. Among the many strategies available, <span class="font-bold text-shadow-yellow-300"> crypto arbitrage </span> stands out as a disciplined, market-neutral approach designed to capture consistent returns from temporary price inefficiencies.
                     </p>
                 </div>
 

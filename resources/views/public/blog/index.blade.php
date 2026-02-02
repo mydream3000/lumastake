@@ -156,7 +156,14 @@
                             WHAT IS <br> CRYPTO <br> ARBITRAGE ?
                         </h2>
                     </div>
-
+                    <div class="lg:w-1/2 relative z-10">
+                        <p class="text-xl md:text-[26px] text-black leading-normal">
+                            An arbitrage trader purchases Bitcoin on Exchange A and sells it on Exchange B, securing the price difference after accounting for any fees.
+                        </p>
+                        <p class="text-xl md:text-[26px] text-black leading-normal">
+                            This is fundamentally different from speculative trading. Arbitrage does not rely on predicting future price movements it is designed to exploit market inefficiencies for measurable, low-exposure returns.
+                        </p>
+                    </div>
                     <!-- Текст -->
                     <div class="lg:w-1/2 space-y-8 relative z-10">
                         <p class="text-xl md:text-[26px] text-black leading-normal font-medium">
@@ -166,12 +173,7 @@
                             <li>Bitcoin may be trading at $28,000 on Exchange A.</li>
                             <li>At the same moment, it is priced at $28,500 on Exchange B.</li>
                         </ul>
-                        <p class="text-xl md:text-[26px] text-black leading-normal">
-                            An arbitrage trader purchases Bitcoin on Exchange A and sells it on Exchange B, securing the price difference after accounting for any fees.
-                        </p>
-                        <p class="text-xl md:text-[26px] text-black leading-normal">
-                            This is fundamentally different from speculative trading. Arbitrage does not rely on predicting future price movements it is designed to exploit market inefficiencies for measurable, low-exposure returns.
-                        </p>
+
                     </div>
 
                     <!-- Декоративная картинка -->

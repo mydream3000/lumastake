@@ -62,39 +62,85 @@
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
             {{-- WHY DO PRICE DIFFERENCES OCCUR --}}
             <div class="mb-32">
-                <h2 class="text-4xl md:text-[70px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[1.07] tracking-tighter">
+                <img src="{{ asset('img/home/how-it-works-blue.svg') }}"
+                     alt=""
+                     class="absolute left-0 bottom-0 w-[820px] h-[820px] pointer-events-none select-none">
+
+                <img src="{{ asset('img/home/how-it-works-yellow.svg') }}"
+                     alt=""
+                     class="absolute right-0 top-0 w-[1150px] h-[1150px] pointer-events-none select-none">
+                <h2 class="text-4xl md:text-[70px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[1.07] tracking-tighter max-w-[900px]">
                     WHY DO PRICE DIFFERENCE OCCOUR ?
                 </h2>
 
-                <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                <div class="grid lg:grid-cols-12 gap-8 items-start relative">
                     {{-- Liquidity Variations --}}
-                    <div class="lg:col-span-7 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[267px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
-                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Liquidity Variations</h3>
-                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                    <div
+                        class="lg:col-span-7
+             bg-white/40 backdrop-blur-sm border border-[#2BA6FF]
+             p-10 rounded-[18px]
+             min-h-[240px] lg:min-h-[260px]
+             flex flex-col justify-center
+             shadow-[0_4px_20px_rgba(43,166,255,0.10)]"
+                    >
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">
+                            Liquidity Variations
+                        </h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal max-w-[620px]">
                             Some exchanges have deeper order books and more trading activity than others.
                         </p>
                     </div>
 
-                    {{-- Geographic Demand --}}
-                    <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[371px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
-                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Geographic Demand</h3>
-                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                    {{-- Geographic Demand (поднимаем вверх на lg) --}}
+                    <div
+                        class="lg:col-span-5
+             bg-white/40 backdrop-blur-sm border border-[#2BA6FF]
+             p-10 rounded-[18px]
+             min-h-[260px] lg:min-h-[300px]
+             flex flex-col justify-center
+             shadow-[0_4px_20px_rgba(43,166,255,0.10)]
+             lg:translate-y-[-28px]"
+                    >
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">
+                            Geographic<br class="hidden md:block" /> Demand
+                        </h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal max-w-[420px]">
                             Regional demand differences can influence pricing.
                         </p>
                     </div>
 
-                    {{-- Transfer Delays --}}
-                    <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[371px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
-                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Transfer Delays</h3>
-                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                    {{-- Transfer Delays (опускаем вниз на lg) --}}
+                    <div
+                        class="lg:col-span-5
+             bg-white/40 backdrop-blur-sm border border-[#2BA6FF]
+             p-10 rounded-[18px]
+             min-h-[260px] lg:min-h-[320px]
+             flex flex-col justify-center
+             shadow-[0_4px_20px_rgba(43,166,255,0.10)]
+             lg:translate-y-[20px]"
+                    >
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">
+                            Transfer<br class="hidden md:block" /> Delays
+                        </h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal max-w-[420px]">
                             Network congestion can delay transactions, creating temporary price gaps.
                         </p>
                     </div>
 
-                    {{-- Exchange Policies --}}
-                    <div class="lg:col-span-7 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[334px] flex flex-col justify-center shadow-[0_4px_4px_0_rgba(43,166,255,0.1)]">
-                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Exchange Policies</h3>
-                        <p class="text-xl md:text-[28px] text-black/70 leading-normal">
+                    {{-- Exchange Policies (чуть ниже/ровнее, широкая) --}}
+                    <div
+                        class="lg:col-span-7
+             bg-white/40 backdrop-blur-sm border border-[#2BA6FF]
+             p-10 rounded-[18px]
+             min-h-[240px] lg:min-h-[300px]
+             flex flex-col justify-center
+             shadow-[0_4px_20px_rgba(43,166,255,0.10)]
+             lg:translate-y-[10px]"
+                    >
+                        <h3 class="text-3xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">
+                            Exchange Policies
+                        </h3>
+                        <p class="text-xl md:text-[28px] text-black/70 leading-normal max-w-[740px]">
                             Different fee structures, withdrawal restrictions, and trading limits impact price formation.
                         </p>
                     </div>

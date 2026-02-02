@@ -99,7 +99,9 @@ img.hero_arrow{
     width: auto;
     z-index: 2;
 }
-
+span.font-bold.text-shadow-yellow-300 {
+    color: yellow;
+}
 @media(min-width: 1024px){
     img.lumaecosystem.w-full.h-auto {
         position: absolute;

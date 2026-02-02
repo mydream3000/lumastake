@@ -185,7 +185,7 @@
             {{-- CORE TYPES & ADVANTAGES --}}
             <div class="grid lg:grid-cols-3 gap-6 mb-10">
                 {{-- Core Types --}}
-                <div class="lg:w-[500px] bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF] border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="lg:w-[500px] lg:max-w-[511px] bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF] border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Core Types of Crypto Arbitrage</h2>
                     <p class="text-lg md:text-[20px] text-black mb-8">While there are many variations, the three primary forms are:</p>
                     <ol class="list-decimal pl-6 space-y-6 text-lg md:text-[18px] text-black/70">
@@ -196,7 +196,7 @@
                 </div>
 
                 {{-- Advantages --}}
-                <div class="lg:w-[720px] bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="lg:w-[720px] lg:max-w-[732px] bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Advantages of Arbitrage as an Investment Strategy</h2>
                     <p class="text-lg md:text-[24px] text-black mb-8">Arbitrage provides several advantages over traditional trading methods:</p>
                     <div class="space-y-6 text-lg md:text-[18px] text-black/70">

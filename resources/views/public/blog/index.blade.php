@@ -22,15 +22,15 @@
                 <!-- Text -->
                 <div class="relative z-10 max-w-[1000px] mx-auto">
                     <h3 class="text-3xl md:text-[52px] font-the-bold-font font-black text-white mb-4 uppercase tracking-tighter leading-[0.9]">
-                        STAY UPDATED WITH
+                        THE FUNDAMENTALS OF
                     </h3>
 
                     <h1 class="text-5xl md:text-7xl lg:text-[130px] font-the-bold-font font-black text-white leading-[0.9] mb-8 md:mb-10 uppercase tracking-tighter">
-                        LUMA BLOG
+                        CRYPTO ARBITRAGE
                     </h1>
 
                     <p class="text-lg md:text-[28px] text-white/95 leading-normal max-w-[939px] mx-auto">
-                        Explore the latest insights, strategies, and updates from the world of digital asset staking and crypto arbitrage.
+                        The cryptocurrency market operates around the clock, with prices fluctuating by the second. This constant movement creates opportunities for those who know where to look. Among the many strategies available, <span class="font-bold text-cabinet-lime"> crypto arbitrage </span> stands out as a disciplined, market-neutral approach designed to capture consistent returns from temporary price inefficiencies.
                     </p>
                 </div>
 

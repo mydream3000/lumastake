@@ -3,30 +3,55 @@
 @section('content')
     {{-- HERO SECTION --}}
     <section class="relative pt-32 pb-20 overflow-hidden bg-white">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative z-10">
-            <div class="bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] rounded-[34px] p-12 md:p-24 relative overflow-hidden min-h-[700px] flex flex-col items-center justify-center text-center">
-                {{-- Background Chart Image --}}
-                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
-                    <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart" class="w-full h-full object-cover">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative">
+            <div
+                class="relative overflow-visible rounded-[34px]
+             bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF]
+             pt-12 md:pt-24
+             px-6 md:px-16
+             pb-[220px] md:pb-[300px] lg:pb-[360px]
+             min-h-[640px] md:min-h-[760px]
+             flex flex-col items-center text-center"
+            >
+                <!-- Background chart -->
+                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none rounded-[34px] overflow-hidden">
+                    <img src="{{ asset('img/about/about-hero-bg.png') }}" alt="Chart"
+                         class="w-full h-full object-cover" />
                 </div>
 
-                <div class="relative z-10">
+                <!-- Text -->
+                <div class="relative z-10 max-w-[1000px] mx-auto">
                     <h3 class="text-3xl md:text-[52px] font-the-bold-font font-black text-white mb-4 uppercase tracking-tighter leading-[0.9]">
                         STAY UPDATED WITH
                     </h3>
-                    <h1 class="text-5xl md:text-7xl lg:text-[130px] font-the-bold-font font-black text-white leading-[0.9] mb-12 uppercase tracking-tighter">
+
+                    <h1 class="text-5xl md:text-7xl lg:text-[130px] font-the-bold-font font-black text-white leading-[0.9] mb-8 md:mb-10 uppercase tracking-tighter">
                         LUMA BLOG
                     </h1>
 
-                    <div class="max-w-[939px] mx-auto">
-                        <p class="text-xl md:text-[28px] text-white leading-normal">
-                            Explore the latest insights, strategies, and updates from the world of digital asset staking and crypto arbitrage.
-                        </p>
+                    <p class="text-lg md:text-[28px] text-white/95 leading-normal max-w-[939px] mx-auto">
+                        Explore the latest insights, strategies, and updates from the world of digital asset staking and crypto arbitrage.
+                    </p>
+                </div>
+
+                <!-- Bottom image (overlapping) -->
+                <div
+                    class="absolute left-1/2 -translate-x-1/2
+               bottom-[-90px] md:bottom-[-120px] lg:bottom-[-150px]
+               z-20
+               w-[92%] md:w-[86%] lg:w-[78%]
+               max-w-[1200px]"
+                >
+                    <div class="rounded-[28px] overflow-hidden shadow-2xl">
+                        <img src="{{ asset('img/blog/blog-article-main.png') }}" alt="Crypto arbitrage"
+                             class="w-full h-auto object-cover" />
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     {{-- ARTICLES GRID SECTION --}}
     <section class="py-20 bg-white relative overflow-hidden">

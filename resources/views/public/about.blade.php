@@ -198,7 +198,7 @@
     <section class="py-20 bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12">
             <div class="bg-white/47 border border-[#2BA6FF] rounded-[8px] p-12 relative shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex flex-col justify-center min-h-[311px]">
-                <div class="absolute left-0 top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
+                <div class="absolute left-[-6px] top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
                 <h2 class="text-4xl md:text-[40px] font-the-bold-font font-black text-[#3B4EFC] mb-8 uppercase leading-[0.9] ml-4 tracking-tighter">
                     Who we serve</h2>
                 <p class="text-2xl md:text-[24px] text-[#22253B]/79 leading-normal ml-4">

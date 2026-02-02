@@ -146,6 +146,68 @@
         <div class="absolute right-[-100px] top-[10%] w-[500px] h-[500px] bg-[#3B4EFC]/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute left-[-100px] bottom-[10%] w-[400px] h-[400px] bg-[#3B4EFC]/5 rounded-full blur-[80px] pointer-events-none"></div>
     </section>
+    <section class="py-24 bg-white relative">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
+            <!-- Title (чуть меньше) -->
+            <h2
+                class="font-the-bold-font font-black uppercase tracking-tighter leading-[0.9]
+             text-[#3B4EFC] mb-14
+             text-[56px] md:text-[72px]"
+            >
+                WHY LUMA STAKE ?
+            </h2>
+
+            <!-- Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Row 1 / Left (wide) -->
+                <div class="lg:col-span-8">
+                    <div
+                        class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF]
+                 p-10 rounded-[8px] min-h-[260px] flex flex-col justify-center"
+                    >
+                        <h3 class="font-bold text-[#262262] mb-6 leading-[0.93] text-[44px] md:text-[56px]">
+                            Predictable Returns
+                        </h3>
+                        <p class="text-[22px] text-[#22253B]/79 leading-normal max-w-[52ch]">
+                            Our staking system is designed for performance, not promises. Earnings are based on clear terms and transparent structures.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Row 1 / Right (narrow) -->
+                <div class="lg:col-span-4">
+                    <div
+                        class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF]
+                 p-10 rounded-[8px] min-h-[260px] flex flex-col justify-center"
+                    >
+                        <h3 class="font-bold text-[#262262] mb-6 leading-[0.93] text-[44px] md:text-[56px]">
+                            Capital Protection
+                        </h3>
+                        <p class="text-[22px] text-black/70 leading-normal">
+                            Security is our foundation. We follow strict protocols and maintain a risk-managed approach to staking.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Row 2 / Centered -->
+                <div class="lg:col-span-8 lg:col-start-3">
+                    <div
+                        class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF]
+                 p-10 rounded-[8px] min-h-[320px] flex flex-col justify-center"
+                    >
+                        <h3 class="font-bold text-[#262262] mb-6 leading-[0.93] text-[44px] md:text-[56px] text-center">
+                            User Centric Design
+                        </h3>
+                        <p class="text-[22px] text-[#22253B]/79 leading-normal text-center mx-auto max-w-[68ch]">
+                            The Luma stake interface is built to remove confusion. With easy onboarding, straightforward tiers, and live earnings tracking, users stay in control at every step.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PNG blobs/шарики: оставь свои absolute <img> тут, если они у тебя есть -->
+    </section>
 
     {{-- HOW WE GENERATE PROFIT --}}
     <section class="py-20 bg-white">

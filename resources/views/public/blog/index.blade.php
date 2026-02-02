@@ -185,7 +185,7 @@
             {{-- CORE TYPES & ADVANTAGES --}}
             <div class="grid lg:grid-cols-3 gap-6 mb-10">
                 {{-- Core Types --}}
-                <div class="bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF] border-10 border-[#F5F5F5] rounded-[23px] p-12 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF] border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Core Types of Crypto Arbitrage</h2>
                     <p class="text-lg md:text-[20px] text-black mb-8">While there are many variations, the three primary forms are:</p>
                     <ol class="list-decimal pl-6 space-y-6 text-lg md:text-[18px] text-black/70">
@@ -196,7 +196,7 @@
                 </div>
 
                 {{-- Advantages --}}
-                <div class="lg:col-span-2 bg-white border-10 border-[#F5F5F5] rounded-[23px] p-12 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="lg:col-span-2 bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Advantages of Arbitrage as an Investment Strategy</h2>
                     <p class="text-lg md:text-[24px] text-black mb-8">Arbitrage provides several advantages over traditional trading methods:</p>
                     <div class="space-y-6 text-lg md:text-[18px] text-black/70">
@@ -211,7 +211,7 @@
             {{-- HOW WE SIMPLIFY & BARRIERS --}}
             <div class="grid lg:grid-cols-2 gap-6 mb-32">
                 {{-- How Luma Stake Simplifies --}}
-                <div class="bg-gradient-to-b from-[#A2D0BF] to-[#F5F5F5]/70 border-10 border-[#F5F5F5] rounded-[23px] p-12 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
+                <div class="bg-gradient-to-b from-[#A2D0BF] to-[#F5F5F5]/70 border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">How Luma Stake Simplifies Arbitrage</h2>
                     <p class="text-lg md:text-[20px] text-black mb-8">Arbitex bridges the gap between opportunity and execution by combining professional-grade arbitrage strategies with a straightforward staking model:</p>
                     <ol class="list-decimal pl-6 space-y-6 text-lg md:text-[18px] text-black/70">
@@ -240,7 +240,7 @@
 
             {{-- CONCLUSION --}}
             <div class="mb-32">
-                <div class="bg-white/47 border border-[#2BA6FF] rounded-[8px] p-12 relative shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex flex-col justify-center min-h-[311px]">
+                <div class="bg-white/47 border border-[#2BA6FF] rounded-[8px] p-6 relative shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] flex flex-col justify-center min-h-[311px]">
                     <div class="absolute left-[-8px] top-[40px] bottom-[40px] w-[6px] bg-[#2BA6FF] rounded-[6px]"></div>
                     <h2 class="text-4xl md:text-[40px] font-the-bold-font font-black text-[#3B4EFC] mb-8 uppercase leading-[0.9] ml-4 tracking-tighter">CONCLUSION</h2>
                     <div class="text-2xl md:text-[28px] text-[#22253B]/79 leading-normal ml-4 space-y-6">

@@ -101,52 +101,15 @@
     </section>
 
     {{-- WHY LUMA STAKE --}}
-    <section class="py-24 bg-white overflow-hidden relative">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12">
-            <h2 class="text-5xl md:text-[80px] font-the-bold-font font-black text-[#3B4EFC] mb-16 uppercase leading-[0.9] tracking-tighter">
-                WHY LUMA STAKE ?
-            </h2>
 
-            <div class="grid lg:grid-cols-12 gap-8 items-stretch">
-                <div class="lg:col-span-7 space-y-8">
-                    {{-- Predictable Returns --}}
-                    <div class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] relative min-h-[267px] flex flex-col justify-center">
-                        <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Predictable
-                            Returns</h3>
-                        <p class="text-[22px] text-[#22253B]/79 leading-normal">
-                            Our staking system is designed for performance, not promises. Earnings are based on clear
-                            terms and transparent structures.
-                        </p>
-                    </div>
-
-                    {{-- User Centric Design --}}
-                    <div class="bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] min-h-[334px] flex flex-col justify-center">
-                        <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">User Centric
-                            Design</h3>
-                        <p class="text-[22px] text-[#22253B]/79 leading-normal">
-                            The Luma stake interface is built to remove confusion. With easy onboarding, straightforward
-                            tiers, and live earnings tracking, users stay in control at every step.
-                        </p>
-                    </div>
-                </div>
-
-                {{-- Capital Protection --}}
-                <div class="lg:col-span-5 bg-white/47 backdrop-blur-sm border border-[#2BA6FF] p-10 rounded-[8px] flex flex-col justify-center min-h-[371px]">
-                    <h3 class="text-4xl md:text-[50px] font-bold text-[#262262] mb-6 leading-[0.93]">Capital
-                        Protection</h3>
-                    <p class="text-[22px] text-black/70 leading-normal">
-                        Security is our foundation. We follow strict protocols and maintain a risk-managed approach to
-                        staking.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        {{-- Decorative Images --}}
-        <div class="absolute right-[-100px] top-[10%] w-[500px] h-[500px] bg-[#3B4EFC]/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute left-[-100px] bottom-[10%] w-[400px] h-[400px] bg-[#3B4EFC]/5 rounded-full blur-[80px] pointer-events-none"></div>
-    </section>
     <section class="py-24 bg-white relative">
+        <img src="{{ asset('img/home/how-it-works-blue.svg') }}"
+             alt=""
+             class="absolute left-0 bottom-0 w-[620px] h-[620px] pointer-events-none select-none">
+
+        <img src="{{ asset('img/home/how-it-works-yellow.svg') }}"
+             alt=""
+             class="absolute right-0 top-0 w-[1050px] h-[1050px] pointer-events-none select-none">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12">
             <!-- Title (чуть меньше) -->
             <h2

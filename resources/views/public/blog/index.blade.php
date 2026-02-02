@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative pt-32 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-32 pb-[250px] md:pb-[280px] lg:pb-[360px] overflow-hidden bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12 relative">
             <div
                 class="relative overflow-visible rounded-[34px]

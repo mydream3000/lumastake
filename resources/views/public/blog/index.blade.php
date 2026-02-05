@@ -183,29 +183,55 @@
 
 
             {{-- CORE TYPES & ADVANTAGES --}}
-            <div class="grid lg:grid-cols-3 gap-6 mb-10">
-                {{-- Core Types --}}
-                <div class="lg:w-[500px] lg:max-w-[511px] bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF] border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
-                    <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Core Types of Crypto Arbitrage</h2>
-                    <p class="text-lg md:text-[20px] text-black mb-8">While there are many variations, the three primary forms are:</p>
-                    <ol class="list-decimal pl-6 space-y-6 text-lg md:text-[18px] text-black/70">
-                        <li><span class="font-bold text-black">Spatial Arbitrage</span> – Buying on one exchange and selling on another.</li>
-                        <li><span class="font-bold text-black">Triangular Arbitrage</span> – Exploiting differences between three cryptocurrencies within a single exchange.</li>
-                        <li><span class="font-bold text-black">Statistical Arbitrage</span> – Using algorithmic models to identify and execute on multiple small discrepancies across markets.</li>
-                    </ol>
-                </div>
+            <div class="mb-10">
+                <div class="grid gap-6 lg:flex lg:items-stretch lg:justify-between">
+                    {{-- Core Types --}}
+                    <div
+                        class="w-full lg:w-[511px]
+             bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF]
+             border-10 border-[#F5F5F5]
+             rounded-[23px]
+             p-6 md:p-10
+             shadow-[0_10px_24px_rgba(0,0,0,0.20)]"
+                    >
+                        <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-6 uppercase tracking-[2px] leading-[1.08]">
+                            Core Types of Crypto Arbitrage
+                        </h2>
+                        <p class="text-lg md:text-[20px] text-black mb-6">
+                            While there are many variations, the three primary forms are:
+                        </p>
+                        <ol class="list-decimal pl-6 space-y-5 text-lg md:text-[18px] text-black/70">
+                            <li><span class="font-bold text-black">Spatial Arbitrage</span> – Buying on one exchange and selling on another.</li>
+                            <li><span class="font-bold text-black">Triangular Arbitrage</span> – Exploiting differences between three cryptocurrencies within a single exchange.</li>
+                            <li><span class="font-bold text-black">Statistical Arbitrage</span> – Using algorithmic models to identify and execute on multiple small discrepancies across markets.</li>
+                        </ol>
+                    </div>
 
-                {{-- Advantages --}}
-                <div class="lg:w-[720px] lg:max-w-[732px] bg-white border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
-                    <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">Advantages of Arbitrage as an Investment Strategy</h2>
-                    <p class="text-lg md:text-[24px] text-black mb-8">Arbitrage provides several advantages over traditional trading methods:</p>
-                    <div class="space-y-6 text-lg md:text-[18px] text-black/70">
-                        <p><span class="font-bold text-black block">Lower Market Risk:</span> Positions are typically opened and closed within seconds or minutes.</p>
-                        <p><span class="font-bold text-black block">Consistent Potential Returns:</span> Profit is generated from inefficiencies, not market direction.</p>
-                        <p><span class="font-bold text-black block">Market Neutrality:</span> Arbitrage remains effective in both rising and falling markets.</p>
+                    {{-- Advantages --}}
+                    <div
+                        class="w-full lg:w-[732px]
+             bg-gradient-to-b from-[#F7F7F7] via-[#F3FFD5] to-[#E8FF9E]
+             border-10 border-[#F5F5F5]
+             rounded-[23px]
+             p-6 md:p-10
+             shadow-[0_10px_24px_rgba(0,0,0,0.20)]"
+                    >
+                        <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-6 uppercase tracking-[2px] leading-[1.08]">
+                            Advantages of Arbitrage as an Investment Strategy
+                        </h2>
+                        <p class="text-lg md:text-[24px] text-black mb-6">
+                            Arbitrage provides several advantages over traditional trading methods:
+                        </p>
+
+                        <div class="space-y-6 text-lg md:text-[18px] text-black/70">
+                            <p><span class="font-bold text-black block">Lower Market Risk:</span> Positions are typically opened and closed within seconds or minutes.</p>
+                            <p><span class="font-bold text-black block">Consistent Potential Returns:</span> Profit is generated from inefficiencies, not market direction.</p>
+                            <p><span class="font-bold text-black block">Market Neutrality:</span> Arbitrage remains effective in both rising and falling markets.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
 
             {{-- HOW WE SIMPLIFY & BARRIERS --}}

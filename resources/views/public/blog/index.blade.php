@@ -187,7 +187,7 @@
                 <div class="grid gap-6 lg:flex lg:items-stretch lg:justify-between">
                     {{-- Core Types --}}
                     <div
-                        class="w-full lg:w-[511px]
+                        class="w-full lg:w-[575px]
              bg-gradient-to-b from-[#78A6DB]/80 to-[#E8F1FF]
              border-10 border-[#F5F5F5]
              rounded-[23px]
@@ -209,7 +209,7 @@
 
                     {{-- Advantages --}}
                     <div
-                        class="w-full lg:w-[732px]
+                        class="w-full lg:w-[742px]
              bg-gradient-to-b from-[#F7F7F7] via-[#F3FFD5] to-[#E8FF9E]
              border-10 border-[#F5F5F5]
              rounded-[23px]

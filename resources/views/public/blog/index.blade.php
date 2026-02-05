@@ -183,7 +183,7 @@
 
 
             {{-- CORE TYPES & ADVANTAGES --}}
-            <div class="mb-10">
+            <div class="mb-6">
                 <div class="grid gap-6 lg:flex lg:items-stretch lg:justify-between">
                     {{-- Core Types --}}
                     <div

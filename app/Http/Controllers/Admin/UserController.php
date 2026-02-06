@@ -149,6 +149,9 @@ class UserController extends Controller
                         });
                     };
 
+                    // tx_hash блокчейн-транзакций, чтобы не считать их дважды
+                    $cryptoTxHashes = CryptoTransaction::where('processed', true)->pluck('tx_hash')->filter()->all();
+
                     $realDepositsByUser = CryptoTransaction::query()
                         ->selectRaw('user_id, SUM(amount) as total')
                         ->whereIn('user_id', $userIds)
@@ -159,13 +162,14 @@ class UserController extends Controller
                         ->pluck('total', 'user_id')
                         ->toArray();
 
-                    // Add manual "Real Money" deposits
+                    // Add manual "Real Money" deposits (исключаем блокчейн-депозиты)
                     $manualRealDepositsByUser = Transaction::query()
                         ->selectRaw('user_id, SUM(amount) as total')
                         ->whereIn('user_id', $userIds)
                         ->where('type', 'deposit')
                         ->where('status', 'confirmed')
                         ->where('is_real', true)
+                        ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
                         ->groupBy('user_id')
                         ->pluck('total', 'user_id')
                         ->toArray();

@@ -49,15 +49,20 @@ class AdminController extends Controller
         };
 
         // Реальные депозиты — всего и за сегодня
-        // Источник 1: Ручные депозиты админом с чекбоксом is_real
+        // tx_hash блокчейн-транзакций, чтобы не считать их дважды
+        $cryptoTxHashes = CryptoTransaction::where('processed', true)->pluck('tx_hash')->filter()->all();
+
+        // Источник 1: Ручные депозиты админом с чекбоксом is_real (исключаем блокчейн-депозиты)
         $manualRealDeposits = Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->sum('amount');
 
         $manualRealDepositsToday = Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->whereDate('created_at', today())
             ->sum('amount');
 
@@ -75,7 +80,7 @@ class AdminController extends Controller
             ->whereDate('created_at', today())
             ->sum('amount');
 
-        // Суммируем оба источника
+        // Суммируем оба источника (без дублирования)
         $totalRealDeposits = $manualRealDeposits + $cryptoRealDeposits;
         $realDepositsToday = $manualRealDepositsToday + $cryptoRealDepositsToday;
 

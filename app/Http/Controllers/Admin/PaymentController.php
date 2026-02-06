@@ -92,6 +92,9 @@ class PaymentController extends Controller
             $todayWithdrawalsByUser = [];
 
             if (!empty($userIds)) {
+                // tx_hash блокчейн-транзакций, чтобы не считать их дважды
+                $cryptoTxHashes = CryptoTransaction::where('processed', true)->pluck('tx_hash')->filter()->all();
+
                 $realDepositsByUser = CryptoTransaction::query()
                     ->selectRaw('user_id, SUM(amount) as total')
                     ->whereIn('user_id', $userIds)
@@ -102,13 +105,14 @@ class PaymentController extends Controller
                     ->pluck('total', 'user_id')
                     ->toArray();
 
-                // Добавляем ручные "Real Money" депозиты
+                // Добавляем ручные "Real Money" депозиты (исключаем блокчейн-депозиты)
                 $manualRealDepositsByUser = Transaction::query()
                     ->selectRaw('user_id, SUM(amount) as total')
                     ->whereIn('user_id', $userIds)
                     ->where('type', 'deposit')
                     ->where('status', 'confirmed')
                     ->where('is_real', true)
+                    ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
                     ->groupBy('user_id')
                     ->pluck('total', 'user_id')
                     ->toArray();
@@ -128,13 +132,14 @@ class PaymentController extends Controller
                     ->pluck('total', 'user_id')
                     ->toArray();
 
-                // Добавляем ручные "Real Money" депозиты за сегодня
+                // Добавляем ручные "Real Money" депозиты за сегодня (исключаем блокчейн-депозиты)
                 $manualRealDepositsTodayByUser = Transaction::query()
                     ->selectRaw('user_id, SUM(amount) as total')
                     ->whereIn('user_id', $userIds)
                     ->where('type', 'deposit')
                     ->where('status', 'confirmed')
                     ->where('is_real', true)
+                    ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
                     ->whereDate('created_at', today())
                     ->groupBy('user_id')
                     ->pluck('total', 'user_id')

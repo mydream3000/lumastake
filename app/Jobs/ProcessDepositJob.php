@@ -80,7 +80,16 @@ class ProcessDepositJob implements ShouldQueue
                 return;
             }
 
-            $user = User::lockForUpdate()->findOrFail($this->userId);
+            $user = User::lockForUpdate()->find($this->userId);
+
+            if (!$user) {
+                Log::error('ProcessDepositJob: User not found, skipping deposit.', [
+                    'user_id' => $this->userId,
+                    'tx_hash' => $this->txHash,
+                    'amount' => $this->amount,
+                ]);
+                return;
+            }
 
             // Увеличиваем balance
             $user->balance += $this->amount;

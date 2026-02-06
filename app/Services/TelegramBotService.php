@@ -69,18 +69,20 @@ class TelegramBotService
     /**
      * Отправить уведомление о подтверждении депозита
      */
-    public function sendDepositConfirmed(Transaction $transaction, CryptoTransaction $cryptoTransaction): bool
+    public function sendDepositConfirmed(Transaction $transaction, ?CryptoTransaction $cryptoTransaction = null): bool
     {
         $message = "✅ <b>Пополнение подтверждено!</b>\n\n";
         $message .= "👤 Пользователь: {$transaction->user->name}\n";
-        $token = $cryptoTransaction->token ?? 'USDT';
-        $net = $cryptoTransaction->network ?? null;
+        $meta = is_array($transaction->meta) ? $transaction->meta : [];
+        $token = $cryptoTransaction?->token ?? ($meta['token'] ?? 'USDT');
+        $net = $cryptoTransaction?->network ?? ($transaction->network ?? ($meta['network'] ?? null));
         $message .= "💵 Сумма: \$" . number_format($transaction->amount, 2) . " " . $this->formatTokenWithNetwork($token, $net) . "\n";
         $message .= "📅 Время: " . $transaction->updated_at->format('d.m.Y H:i') . "\n";
 
-        if ($cryptoTransaction->tx_hash) {
-            $link = $this->explorerUrl($net, $cryptoTransaction->tx_hash);
-            $message .= "🔗 TxID: <a href=\"{$link}\">{$this->shortHash($cryptoTransaction->tx_hash)}</a>\n";
+        $txHash = $cryptoTransaction?->tx_hash ?? $transaction->tx_hash;
+        if ($txHash) {
+            $link = $this->explorerUrl($net, $txHash);
+            $message .= "🔗 TxID: <a href=\"{$link}\">{$this->shortHash($txHash)}</a>\n";
         }
 
         $message .= "\n✨ <i>Средства зачислены на счет пользователя</i>";

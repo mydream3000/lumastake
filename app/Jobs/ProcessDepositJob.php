@@ -99,6 +99,11 @@ class ProcessDepositJob implements ShouldQueue
                 ->where('user_id', $this->userId)
                 ->first();
 
+            // Если не нашли по user_id, ищем только по tx_hash (может быть другой user_id из-за бага)
+            if (!$cryptoTransaction) {
+                $cryptoTransaction = CryptoTransaction::where('tx_hash', $this->txHash)->first();
+            }
+
             // Обновляем/создаем транзакцию: если была pending по tx_hash — переводим в confirmed
             $transaction = Transaction::updateOrCreate(
                 [
@@ -122,9 +127,19 @@ class ProcessDepositJob implements ShouldQueue
                 ]
             );
 
+            // Помечаем CryptoTransaction как обработанную и отправляем Telegram
             if ($cryptoTransaction) {
                 $cryptoTransaction->update(['processed' => true]);
+            }
+
+            // Отправляем Telegram уведомление всегда (даже если CryptoTransaction не найдена)
+            try {
                 $telegramBotService->sendDepositConfirmed($transaction, $cryptoTransaction);
+            } catch (\Throwable $e) {
+                Log::warning('Failed to send Telegram deposit notification', [
+                    'tx_hash' => $this->txHash,
+                    'error' => $e->getMessage(),
+                ]);
             }
 
             // Создаем успешное уведомление

@@ -102,6 +102,83 @@ img.hero_arrow{
 span.font-bold.text-shadow-yellow-300 {
     color: yellow;
 }
+
+/* Blog pagination */
+.blog-pagination nav {
+    display: flex;
+    justify-content: center;
+}
+
+.blog-pagination nav > div:first-child {
+    display: none;
+}
+
+.blog-pagination nav > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.blog-pagination nav > div:last-child > div:first-child p {
+    color: #262262;
+    font-weight: 500;
+}
+
+.blog-pagination nav > div:last-child > div:first-child p span {
+    color: #3B4EFC;
+    font-weight: 700;
+}
+
+.blog-pagination span.relative.z-0 {
+    display: inline-flex;
+    gap: 4px;
+    box-shadow: none;
+}
+
+.blog-pagination span.relative.z-0 a,
+.blog-pagination span.relative.z-0 span span {
+    border-radius: 12px !important;
+    border: 2px solid #3B4EFC !important;
+    background: white !important;
+    color: #262262 !important;
+    font-weight: 700 !important;
+    min-width: 44px;
+    height: 44px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
+    transition: all 0.2s ease;
+}
+
+.blog-pagination span.relative.z-0 a:hover {
+    background: #3B4EFC !important;
+    color: white !important;
+}
+
+/* Active page */
+.blog-pagination span.relative.z-0 span[aria-current="page"] span {
+    background: #3B4EFC !important;
+    color: #D9FF00 !important;
+    border-color: #3B4EFC !important;
+}
+
+/* Disabled prev/next */
+.blog-pagination span.relative.z-0 > span[aria-disabled="true"] span {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Prev/Next arrows */
+.blog-pagination span.relative.z-0 a svg,
+.blog-pagination span.relative.z-0 span span svg {
+    color: #3B4EFC;
+}
+
+.blog-pagination span.relative.z-0 a:hover svg {
+    color: #D9FF00;
+}
 @media(min-width: 1024px){
     img.lumaecosystem.w-full.h-auto {
         position: absolute;

@@ -13,9 +13,13 @@ class BlogController extends BaseController
             ->active()
             ->published()
             ->orderByDesc('published_at')
-            ->paginate(10);
+            ->paginate(6);
 
         $seoKey = 'blog';
+
+        if (request()->ajax()) {
+            return view('public.blog.partials.posts', compact('posts'))->render();
+        }
 
         return view('public.blog.index', compact('posts', 'seoKey'));
     }
@@ -30,6 +34,15 @@ class BlogController extends BaseController
 
         // Increment views
         $post->increment('views');
+
+        // Fetch 3 random articles (excluding the current one)
+        $randomPosts = BlogPost::query()
+            ->active()
+            ->published()
+            ->where('id', '!=', $post->id)
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
 
         // Prepare SEO data from blog post fields
         $seo = [
@@ -48,6 +61,6 @@ class BlogController extends BaseController
             'twitter_creator' => null,
         ];
 
-        return view('public.blog.show', compact('post', 'seo'));
+        return view('public.blog.show', compact('post', 'seo', 'randomPosts'));
     }
 }

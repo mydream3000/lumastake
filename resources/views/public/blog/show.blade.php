@@ -84,15 +84,11 @@
     {{-- RECENT NEWS SECTION (Dynamic) --}}
     <section class="py-20 bg-white">
         <div class="max-w-[1440px] mx-auto px-4 md:px-12">
-            <h2 class="text-4xl md:text-[60px] font-the-bold-font font-black text-[#3B4EFC] mb-12 uppercase leading-[0.9] tracking-tighter">Latest News</h2>
+            <h2 class="text-4xl md:text-[60px] font-the-bold-font font-black text-[#3B4EFC] mb-12 uppercase leading-[0.9] tracking-tighter">Recommended Articles</h2>
 
             <div class="grid md:grid-cols-3 gap-8">
-                @php
-                    $latestPosts = \App\Models\BlogPost::active()->published()->where('id', '!=', $post->id)->orderByDesc('published_at')->take(3)->get();
-                @endphp
-
-                @if($latestPosts->count() > 0)
-                    @foreach($latestPosts as $lPost)
+                @if($randomPosts->count() > 0)
+                    @foreach($randomPosts as $lPost)
                         <div class="bg-white border border-[#2BA6FF] rounded-[30px] p-8 shadow-[0_4px_4px_0_rgba(43,166,255,1)] flex flex-col transition-transform hover:scale-[1.02] min-h-[550px]">
                             <div class="h-[240px] mb-8 rounded-[24px] overflow-hidden">
                                 <img src="{{ $lPost->image ? asset($lPost->image) : asset('img/blog/blog-article-main.png') }}" alt="{{ $lPost->title }}" class="w-full h-full object-cover">

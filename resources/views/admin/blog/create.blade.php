@@ -170,16 +170,16 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="faq_schema" class="block text-sm font-medium text-gray-700 mb-2">
-                        FAQ JSON-LD Schema
+                    <label for="schema_json" class="block text-sm font-medium text-gray-700 mb-2">
+                        Custom JSON-LD Schema (FAQ, BlogPosting, etc.)
                     </label>
-                    <textarea id="faq_schema"
-                              name="faq_schema"
+                    <textarea id="schema_json"
+                              name="schema_json"
                               rows="10"
                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange font-mono text-sm"
-                              placeholder='<script type="application/ld+json">...</script>'>{{ old('faq_schema') }}</textarea>
-                    <p class="mt-1 text-sm text-gray-500">Вставьте готовый код <script type="application/ld+json">...</script></p>
-                    @error('faq_schema')
+                              placeholder='<script type="application/ld+json">...</script>'>{{ old('schema_json') }}</textarea>
+                    <p class="mt-1 text-sm text-gray-500">Вставьте готовый код <script type="application/ld+json">...</script>. Поддерживает BlogPosting, FAQPage и другие схемы.</p>
+                    @error('schema_json')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

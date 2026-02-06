@@ -80,25 +80,34 @@ class ProcessDepositJob implements ShouldQueue
             // Пересчитываем тир
             $tierService->recalculateUserTier($user);
 
+            // Обновляем флаг processed в crypto_transactions
+            $cryptoTransaction = CryptoTransaction::where('tx_hash', $this->txHash)
+                ->where('user_id', $this->userId)
+                ->first();
+
             // Обновляем/создаем транзакцию: если была pending по tx_hash — переводим в confirmed
             $transaction = Transaction::updateOrCreate(
-                ['tx_hash' => $this->txHash],
                 [
+                    'tx_hash' => $this->txHash,
                     'user_id' => $this->userId,
+                ],
+                [
                     'type' => 'deposit',
                     'amount' => $this->amount,
                     'status' => 'confirmed',
+                    'is_real' => true,
                     'description' => "Deposit of {$this->amount} {$this->token}",
                     'tx_hash' => $this->txHash,
+                    'wallet_address' => $cryptoTransaction?->address,
+                    'network' => $this->network,
                     'meta' => [
                         'network' => $this->network,
                         'token' => $this->token,
+                        'address' => $cryptoTransaction?->address,
                     ],
                 ]
             );
 
-            // Обновляем флаг processed в crypto_transactions
-            $cryptoTransaction = CryptoTransaction::where('tx_hash', $this->txHash)->first();
             if ($cryptoTransaction) {
                 $cryptoTransaction->update(['processed' => true]);
                 $telegramBotService->sendDepositConfirmed($transaction, $cryptoTransaction);

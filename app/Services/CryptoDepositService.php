@@ -83,7 +83,7 @@ class CryptoDepositService
         $existingTx = CryptoTransaction::where('tx_hash', $txHash)->first();
         if ($existingTx && $existingTx->processed) {
             Log::info('Transaction already processed', ['tx_hash' => $txHash]);
-            return false;
+            return true; // Return true to signal successful webhook receipt
         }
 
         // Находим пользователя по адресу или uniqID
@@ -128,14 +128,17 @@ class CryptoDepositService
 
             // Создаём или обновляем pending Transaction для отображения в ЛК/админке
             $transaction = Transaction::updateOrCreate(
-                ['tx_hash' => $txHash],
                 [
+                    'tx_hash' => $txHash,
                     'user_id' => $user->id,
+                ],
+                [
                     'type' => 'deposit',
                     'amount' => $amount,
                     'status' => 'pending',
                     'wallet_address' => $address,
                     'network' => $network,
+                    'is_real' => true,
                     'description' => "Deposit of {$amount} {$token} (pending)",
                     'meta' => [
                         'network' => $network,
@@ -153,7 +156,7 @@ class CryptoDepositService
                 app(\App\Services\TelegramBotService::class)->sendDepositStatusUpdate($transaction, 'pending');
             }
 
-            return false;
+            return true; // Return true to signal successful webhook receipt
         }
 
         // Достаточно подтверждений — запускаем Job для окончательного зачисления

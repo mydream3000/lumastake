@@ -82,8 +82,21 @@ class CryptoDepositService
         // Проверяем, не обработана ли уже эта транзакция
         $existingTx = CryptoTransaction::where('tx_hash', $txHash)->first();
         if ($existingTx && $existingTx->processed) {
-            Log::info('Transaction already processed', ['tx_hash' => $txHash]);
-            return true; // Return true to signal successful webhook receipt
+            // Дополнительная проверка: действительно ли баланс был зачислен?
+            $hasConfirmedTransaction = Transaction::where('tx_hash', $txHash)
+                ->where('status', 'confirmed')
+                ->exists();
+
+            if ($hasConfirmedTransaction) {
+                Log::info('Transaction already processed and confirmed', ['tx_hash' => $txHash]);
+                return true;
+            }
+
+            // CryptoTransaction помечена как processed, но Transaction не подтверждена — повторяем обработку
+            Log::warning('CryptoTransaction marked as processed but Transaction not confirmed, re-processing', [
+                'tx_hash' => $txHash,
+                'crypto_tx_id' => $existingTx->id,
+            ]);
         }
 
         // Находим пользователя по адресу или uniqID
@@ -106,7 +119,7 @@ class CryptoDepositService
                 'address' => $address,
                 'amount' => $amount,
                 'confirmations' => $confirmations,
-                'processed' => ($confirmations >= $minConfirmations),
+                'processed' => false, // Will be set to true by ProcessDepositJob after successful processing
                 'ipn_data' => [
                     'uniqID' => $uniqID,
                     'processed_at' => now()->toDateTimeString(),

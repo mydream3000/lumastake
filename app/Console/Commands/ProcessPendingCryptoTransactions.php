@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\ProcessDepositJob;
 use App\Models\CryptoTransaction;
+use App\Models\Transaction;
 use Illuminate\Console\Command;
 
 class ProcessPendingCryptoTransactions extends Command
@@ -54,8 +55,17 @@ class ProcessPendingCryptoTransactions extends Command
         }
 
         if ($transaction->processed) {
-            $this->warn("Транзакция #{$id} уже обработана");
-            return 0;
+            // Проверяем, действительно ли баланс зачислен
+            $hasConfirmed = Transaction::where('tx_hash', $transaction->tx_hash)
+                ->where('status', 'confirmed')
+                ->exists();
+
+            if ($hasConfirmed) {
+                $this->warn("Транзакция #{$id} уже обработана и баланс зачислен");
+                return 0;
+            }
+
+            $this->warn("Транзакция #{$id} помечена как processed, но баланс НЕ зачислен! Повторная обработка...");
         }
 
         $this->info("Обработка транзакции #{$id}...");
@@ -64,17 +74,14 @@ class ProcessPendingCryptoTransactions extends Command
         $this->info("Network: {$transaction->network}");
         $this->info("TX Hash: {$transaction->tx_hash}");
 
-        // Запускаем Job для зачисления
+        // Запускаем Job для зачисления (Job сам обновит processed = true после успешного зачисления)
         ProcessDepositJob::dispatch(
             $transaction->user_id,
-            $transaction->amount,
+            (float) $transaction->amount,
             $transaction->tx_hash,
             $transaction->network,
             $transaction->token
         );
-
-        // Обновляем флаг processed
-        $transaction->update(['processed' => true]);
 
         $this->info("✓ Транзакция #{$id} успешно отправлена на обработку");
 
@@ -83,16 +90,30 @@ class ProcessPendingCryptoTransactions extends Command
 
     private function processAllPendingTransactions(): int
     {
-        $transactions = CryptoTransaction::where('processed', false)
-            ->where('confirmations', '>=', 9) // Минимум для Tron
+        // 1. Стандартные необработанные транзакции (processed = false)
+        $unprocessed = CryptoTransaction::where('processed', false)
+            ->where('confirmations', '>=', 9)
             ->get();
+
+        // 2. "Застрявшие" транзакции: processed = true, но баланс не зачислен
+        //    (CryptoTransaction помечена processed, но Transaction не confirmed)
+        $stuck = CryptoTransaction::where('processed', true)
+            ->whereDoesntHave('confirmedTransaction')
+            ->get();
+
+        $transactions = $unprocessed->merge($stuck);
 
         if ($transactions->isEmpty()) {
             $this->info('Нет необработанных транзакций');
             return 0;
         }
 
-        $this->info("Найдено {$transactions->count()} необработанных транзакций");
+        if ($unprocessed->isNotEmpty()) {
+            $this->info("Найдено {$unprocessed->count()} необработанных транзакций");
+        }
+        if ($stuck->isNotEmpty()) {
+            $this->warn("Найдено {$stuck->count()} застрявших транзакций (processed=true, но баланс не зачислен)");
+        }
 
         $progressBar = $this->output->createProgressBar($transactions->count());
         $processed = 0;
@@ -100,20 +121,19 @@ class ProcessPendingCryptoTransactions extends Command
         foreach ($transactions as $transaction) {
             ProcessDepositJob::dispatch(
                 $transaction->user_id,
-                $transaction->amount,
+                (float) $transaction->amount,
                 $transaction->tx_hash,
                 $transaction->network,
                 $transaction->token
             );
 
-            $transaction->update(['processed' => true]);
             $processed++;
             $progressBar->advance();
         }
 
         $progressBar->finish();
         $this->newLine();
-        $this->info("✓ Обработано транзакций: {$processed}");
+        $this->info("✓ Отправлено на обработку транзакций: {$processed}");
 
         return 0;
     }

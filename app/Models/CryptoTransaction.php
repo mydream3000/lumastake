@@ -30,4 +30,13 @@ class CryptoTransaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Связанная подтверждённая транзакция (Transaction) по tx_hash
+     */
+    public function confirmedTransaction()
+    {
+        return $this->hasOne(Transaction::class, 'tx_hash', 'tx_hash')
+            ->where('status', 'confirmed');
+    }
 }

@@ -82,36 +82,23 @@ class CheckDepositsViaBlockchain extends Command
                         app(\App\Services\TelegramBotService::class)->sendDepositStatusUpdate($transaction, 'pending');
                     }
 
-                    // Если достаточно confirmations - помечаем как confirmed и начисляем баланс
+                    // Если достаточно confirmations - запускаем Job для зачисления
                     $requiredConfirmations = $transaction->network === 'tron' ? 20 : 12;
-                    if ($btx['confirmations'] >= $requiredConfirmations && $transaction->status === 'pending') {
-                        $transaction->status = 'confirmed';
-                        $transaction->notes = "Confirmed with {$btx['confirmations']} confirmations.";
+                    if ($btx['confirmations'] >= $requiredConfirmations && ($transaction->status === 'pending' || $transaction->status === 'processing')) {
+                        $this->info("       📢 Dispatching ProcessDepositJob for TX #{$transaction->id}");
+
+                        \App\Jobs\ProcessDepositJob::dispatch(
+                            $transaction->user_id,
+                            (float) $transaction->amount,
+                            $transaction->tx_hash,
+                            $transaction->network,
+                            'USDT'
+                        );
+
+                        // Помечаем в базе, что мы начали обработку, чтобы не спамить джобами
+                        // (хотя джоб сам проверит статус confirmed)
+                        $transaction->notes = "Processing via Job. Blockchain confirmations: {$btx['confirmations']}";
                         $transaction->save();
-
-                        // Начисляем баланс
-                        $user = $transaction->user;
-                        $user->balance += $transaction->amount;
-                        $user->deposited += $transaction->amount;
-                        $user->save();
-
-                        // Проверяем активацию пользователя после увеличения баланса
-                        if (!$user->active) {
-                            app(\App\Services\ReferralService::class)->activateUser($user);
-                        }
-
-                        $this->info("       📢 Status updated: pending → confirmed");
-                        $this->info("       💰 Balance credited: +{$transaction->amount} USDT");
-
-                        // Telegram уведомление
-                        app(\App\Services\TelegramBotService::class)->sendDepositStatusUpdate($transaction, 'confirmed');
-
-                        // Toast сообщение
-                        \App\Models\ToastMessage::create([
-                            'user_id' => $user->id,
-                            'message' => "Deposit confirmed! +{$transaction->amount} USDT credited to your balance.",
-                            'type' => 'success',
-                        ]);
                     }
 
                     break; // Нашли нужную транзакцию, прерываем цикл

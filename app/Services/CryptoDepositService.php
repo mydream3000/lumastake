@@ -288,10 +288,13 @@ class CryptoDepositService
      */
     public function checkRecentAddresses(?string $specificAddress = null): int
     {
-        $query = CryptoAddress::where('address_requested_at', '>=', now()->subHours(24));
+        $query = CryptoAddress::query();
 
         if ($specificAddress) {
             $query->where('address', $specificAddress);
+        } else {
+            // Если адрес не указан, проверяем только недавно запрошенные (за последние 24 часа)
+            $query->where('address_requested_at', '>=', now()->subHours(24));
         }
 
         $addresses = $query->get();
@@ -341,39 +344,46 @@ class CryptoDepositService
             // TRC20 USDT contract: TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t
             $contractAddress = 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t';
 
-            $response = Http::get("https://apilist.tronscan.org/api/token_trc20/transfers", [
+            // Используем TronGrid API вместо TronScan (который часто требует API-ключ или выдает 401)
+            $response = Http::timeout(10)->get("https://api.trongrid.io/v1/accounts/{$address}/transactions/trc20", [
                 'limit' => 20,
-                'start' => 0,
-                'toAddress' => $address,
-                'contractAddress' => $contractAddress,
+                'only_to' => 'true',
+                'contract_address' => $contractAddress,
             ]);
 
-            if (!$response->successful()) return [];
+            if (!$response->successful()) {
+                Log::error('TronGrid API check failed', [
+                    'status' => $response->status(),
+                    'address' => $address,
+                    'response' => $response->body()
+                ]);
+                return [];
+            }
 
             $data = $response->json();
-            $transfers = $data['token_transfers'] ?? [];
+            $transfers = $data['data'] ?? [];
             $transactions = [];
 
             foreach ($transfers as $transfer) {
-                if (strtolower($transfer['to_address']) === strtolower($address)) {
+                if (strtolower($transfer['to']) === strtolower($address)) {
                     $txHash = $transfer['transaction_id'];
-                    // Проверяем, есть ли уже эта транзакция в базе
-                    $existingTx = CryptoTransaction::where('tx_hash', $txHash)->first();
+                    $decimals = (int) ($transfer['token_info']['decimals'] ?? 6);
+                    $rawValue = $transfer['value'];
 
-                    // TronScan API token_transfers returns only confirmed transfers.
-                    // We set confirmations to 20 to ensure it passes the min_confirmations check (usually 12-19).
+                    // TronGrid возвращает уже подтвержденные транзакции в этом эндпоинте.
+                    // Устанавливаем 20 подтверждений для прохождения внутренних проверок.
                     $confirmations = 20;
 
                     $transactions[] = [
                         'hash' => $txHash,
-                        'amount' => $transfer['quant'] / 1000000, // USDT has 6 decimals
+                        'amount' => (float) $rawValue / pow(10, $decimals),
                         'confirmations' => $confirmations,
                     ];
                 }
             }
             return $transactions;
         } catch (\Exception $e) {
-            Log::error('TronScan check failed', ['error' => $e->getMessage()]);
+            Log::error('Tron check failed (TronGrid)', ['error' => $e->getMessage()]);
             return [];
         }
     }

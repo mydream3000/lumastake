@@ -66,6 +66,20 @@ class ProcessDepositJob implements ShouldQueue
     public function handle(ReferralService $referralService, TierService $tierService, TelegramBotService $telegramBotService): void
     {
         DB::transaction(function () use ($referralService, $tierService, $telegramBotService) {
+            // Проверка на дубликат: если транзакция с таким хешем уже подтверждена, выходим
+            $alreadyConfirmed = Transaction::where('tx_hash', $this->txHash)
+                ->where('user_id', $this->userId)
+                ->where('status', 'confirmed')
+                ->exists();
+
+            if ($alreadyConfirmed) {
+                Log::info('ProcessDepositJob: Transaction already confirmed, skipping balance increment.', [
+                    'tx_hash' => $this->txHash,
+                    'user_id' => $this->userId
+                ]);
+                return;
+            }
+
             $user = User::lockForUpdate()->findOrFail($this->userId);
 
             // Увеличиваем balance

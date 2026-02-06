@@ -22,7 +22,7 @@
                 $ogImage = asset('images/og-image.jpg');
             }
             $twitterSite = $seo['twitter_site'] ?? '@lumastake';
-            $schemaJson = null;
+            $schemaJson = $seo['schema'] ?? null;
             $ogType = 'article'; // Blog article page
         } else {
             // Use SEO data from SeoSetting model
@@ -102,7 +102,11 @@
 
     {{-- Schema.org JSON-LD --}}
     @if($schemaJson)
-        <script type="application/ld+json">{!! $schemaJson !!}</script>
+        @if(str_contains($schemaJson, '<script'))
+            {!! $schemaJson !!}
+        @else
+            <script type="application/ld+json">{!! $schemaJson !!}</script>
+        @endif
     @endif
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Audiowide&display=swap" rel="stylesheet">

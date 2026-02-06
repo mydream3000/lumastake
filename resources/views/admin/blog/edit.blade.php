@@ -184,6 +184,21 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="mb-4">
+                    <label for="faq_schema" class="block text-sm font-medium text-gray-700 mb-2">
+                        FAQ JSON-LD Schema
+                    </label>
+                    <textarea id="faq_schema"
+                              name="faq_schema"
+                              rows="10"
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange font-mono text-sm"
+                              placeholder='<script type="application/ld+json">...</script>'>{{ old('faq_schema', $blog->faq_schema) }}</textarea>
+                    <p class="mt-1 text-sm text-gray-500">Вставьте готовый код <script type="application/ld+json">...</script></p>
+                    @error('faq_schema')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <!-- Published At -->

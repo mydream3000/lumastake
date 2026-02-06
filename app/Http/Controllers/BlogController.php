@@ -57,6 +57,7 @@ class BlogController extends BaseController
             'article_modified_time' => $post->updated_at?->toIso8601String(),
             'article_author' => $post->author?->name,
             'og_section' => 'Blog',
+            'schema' => $post->faq_schema,
             // Twitter
             'twitter_creator' => null,
         ];

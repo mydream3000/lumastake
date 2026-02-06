@@ -26,14 +26,15 @@ use Illuminate\Console\Command;
  */
 class CheckCryptoDeposits extends Command
 {
-    protected $signature = 'crypto:check-deposits';
+    protected $signature = 'crypto:check-deposits {--address= : Specific address to check}';
     protected $description = 'Check crypto deposits for addresses requested in the last 3 hours';
 
     public function handle(CryptoDepositService $service): int
     {
-        $this->info('Checking crypto deposits...');
+        $address = $this->option('address');
+        $this->info($address ? "Checking crypto deposits for address: {$address}..." : 'Checking crypto deposits...');
 
-        $processedCount = $service->checkRecentAddresses();
+        $processedCount = $service->checkRecentAddresses($address);
 
         $this->info("Processed {$processedCount} deposits");
 

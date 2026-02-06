@@ -286,37 +286,170 @@ class CryptoDepositService
     /**
      * Проверяет адреса, запрошенные за последние 3 часа
      */
-    public function checkRecentAddresses(): int
+    public function checkRecentAddresses(?string $specificAddress = null): int
     {
-        $addresses = CryptoAddress::where('address_requested_at', '>=', now()->subHours(3))
-            ->get();
+        $query = CryptoAddress::where('address_requested_at', '>=', now()->subHours(24));
 
+        if ($specificAddress) {
+            $query->where('address', $specificAddress);
+        }
+
+        $addresses = $query->get();
         $processedCount = 0;
 
         foreach ($addresses as $cryptoAddress) {
-            $balance = $this->checkAddressBalance(
-                $cryptoAddress->network,
-                $cryptoAddress->token,
-                $cryptoAddress->address
-            );
+            $transactions = $this->getBlockchainTransactions($cryptoAddress->address, $cryptoAddress->network, $cryptoAddress->token);
 
-            if ($balance > 0) {
-                // Здесь нужно получить транзакции и обработать их
-                // Для простоты создаем синтетическую транзакцию
-                $this->processDeposit(
-                    network: $cryptoAddress->network,
-                    token: $cryptoAddress->token,
-                    address: $cryptoAddress->address,
-                    amount: $balance,
-                    txHash: 'manual_check_' . time() . '_' . $cryptoAddress->user_id,
-                    confirmations: 100, // Считаем подтвержденным
-                    uniqID: $cryptoAddress->user->uuid
-                );
-                $processedCount++;
+            foreach ($transactions as $tx) {
+                if ($tx['amount'] > 0) {
+                    $processed = $this->processDeposit(
+                        network: $cryptoAddress->network,
+                        token: $cryptoAddress->token,
+                        address: $cryptoAddress->address,
+                        amount: $tx['amount'],
+                        txHash: $tx['hash'],
+                        confirmations: $tx['confirmations'],
+                        uniqID: $cryptoAddress->user->uuid
+                    );
+
+                    if ($processed) {
+                        $processedCount++;
+                    }
+                }
             }
         }
 
         return $processedCount;
+    }
+
+    /**
+     * Получает транзакции из блокчейна (TronScan/Etherscan/BscScan)
+     */
+    public function getBlockchainTransactions(string $address, string $network, string $token): array
+    {
+        return match ($network) {
+            'tron' => $this->getTronTransactions($address, $token),
+            'ethereum' => $this->getEthereumTransactions($address, $token),
+            'bsc' => $this->getBscTransactions($address, $token),
+            default => [],
+        };
+    }
+
+    private function getTronTransactions(string $address, string $token): array
+    {
+        try {
+            // TRC20 USDT contract: TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t
+            $contractAddress = 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t';
+
+            $response = Http::get("https://apilist.tronscan.org/api/token_trc20/transfers", [
+                'limit' => 20,
+                'start' => 0,
+                'toAddress' => $address,
+                'contractAddress' => $contractAddress,
+            ]);
+
+            if (!$response->successful()) return [];
+
+            $data = $response->json();
+            $transfers = $data['token_transfers'] ?? [];
+            $transactions = [];
+
+            foreach ($transfers as $transfer) {
+                if (strtolower($transfer['to_address']) === strtolower($address)) {
+                    $txHash = $transfer['transaction_id'];
+                    // Проверяем, есть ли уже эта транзакция в базе
+                    $existingTx = CryptoTransaction::where('tx_hash', $txHash)->first();
+
+                    // TronScan API token_transfers returns only confirmed transfers.
+                    // We set confirmations to 20 to ensure it passes the min_confirmations check (usually 12-19).
+                    $confirmations = 20;
+
+                    $transactions[] = [
+                        'hash' => $txHash,
+                        'amount' => $transfer['quant'] / 1000000, // USDT has 6 decimals
+                        'confirmations' => $confirmations,
+                    ];
+                }
+            }
+            return $transactions;
+        } catch (\Exception $e) {
+            Log::error('TronScan check failed', ['error' => $e->getMessage()]);
+            return [];
+        }
+    }
+
+    private function getEthereumTransactions(string $address, string $token): array
+    {
+        try {
+            $contractAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
+            $response = Http::get("https://api.etherscan.io/api", [
+                'module' => 'account',
+                'action' => 'tokentx',
+                'contractaddress' => $contractAddress,
+                'address' => $address,
+                'page' => 1,
+                'offset' => 20,
+                'sort' => 'desc',
+            ]);
+
+            if (!$response->successful()) return [];
+
+            $data = $response->json();
+            $result = $data['result'] ?? [];
+            if (!is_array($result)) return [];
+
+            $transactions = [];
+            foreach ($result as $tx) {
+                if (strtolower($tx['to']) === strtolower($address)) {
+                    $transactions[] = [
+                        'hash' => $tx['hash'],
+                        'amount' => $tx['value'] / 1000000,
+                        'confirmations' => (int) ($tx['confirmations'] ?? 0),
+                    ];
+                }
+            }
+            return $transactions;
+        } catch (\Exception $e) {
+            Log::error('Etherscan check failed', ['error' => $e->getMessage()]);
+            return [];
+        }
+    }
+
+    private function getBscTransactions(string $address, string $token): array
+    {
+        try {
+            $contractAddress = '0x55d398326f99059fF775485246999027B3197955';
+            $response = Http::get("https://api.bscscan.com/api", [
+                'module' => 'account',
+                'action' => 'tokentx',
+                'contractaddress' => $contractAddress,
+                'address' => $address,
+                'page' => 1,
+                'offset' => 20,
+                'sort' => 'desc',
+            ]);
+
+            if (!$response->successful()) return [];
+
+            $data = $response->json();
+            $result = $data['result'] ?? [];
+            if (!is_array($result)) return [];
+
+            $transactions = [];
+            foreach ($result as $tx) {
+                if (strtolower($tx['to']) === strtolower($address)) {
+                    $transactions[] = [
+                        'hash' => $tx['hash'],
+                        'amount' => $tx['value'] / 1e18, // BSC USDT usually has 18 decimals
+                        'confirmations' => (int) ($tx['confirmations'] ?? 0),
+                    ];
+                }
+            }
+            return $transactions;
+        } catch (\Exception $e) {
+            Log::error('BscScan check failed', ['error' => $e->getMessage()]);
+            return [];
+        }
     }
 
     /**

@@ -206,16 +206,20 @@ class PaymentController extends Controller
         };
 
         // Реальные депозиты (USDT + USDC) — всего и за сегодня
+        // tx_hash блокчейн-транзакций, чтобы не считать их дважды
+        $cryptoTxHashes = CryptoTransaction::where('processed', true)->pluck('tx_hash')->filter()->all();
+
         $totalRealDeposits = (float) CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
             ->sum('amount');
 
-        // Добавляем ручные "Real Money" депозиты
+        // Добавляем ручные "Real Money" депозиты (исключаем блокчейн-депозиты)
         $totalRealDeposits += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->sum('amount');
 
         $realDepositsToday = (float) CryptoTransaction::query()
@@ -225,10 +229,11 @@ class PaymentController extends Controller
             ->whereDate('created_at', today())
             ->sum('amount');
 
-        // Добавляем ручные "Real Money" депозиты за сегодня
+        // Добавляем ручные "Real Money" депозиты за сегодня (исключаем блокчейн-депозиты)
         $realDepositsToday += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->whereDate('created_at', today())
             ->sum('amount');
 
@@ -548,16 +553,20 @@ class PaymentController extends Controller
             });
         };
 
+        // tx_hash блокчейн-транзакций, чтобы не считать их дважды
+        $cryptoTxHashes = CryptoTransaction::where('processed', true)->pluck('tx_hash')->filter()->all();
+
         $totalRealDeposits = (float) CryptoTransaction::query()
             ->where('processed', true)
             ->whereIn('token', ['USDT', 'USDC'])
             ->where($confirmedOnChain)
             ->sum('amount');
 
-        // Добавляем ручные "Real Money" депозиты
+        // Добавляем ручные "Real Money" депозиты (исключаем блокчейн-депозиты)
         $totalRealDeposits += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->sum('amount');
 
         $realDepositsToday = (float) CryptoTransaction::query()
@@ -567,10 +576,11 @@ class PaymentController extends Controller
             ->whereDate('created_at', today())
             ->sum('amount');
 
-        // Добавляем ручные "Real Money" депозиты за сегодня
+        // Добавляем ручные "Real Money" депозиты за сегодня (исключаем блокчейн-депозиты)
         $realDepositsToday += (float) Transaction::where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->whereDate('created_at', today())
             ->sum('amount');
 

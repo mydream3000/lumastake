@@ -251,11 +251,18 @@ class UserController extends Controller
             ->where($confirmedOnChain)
             ->sum('amount');
 
-        // Добавляем ручные "Real Money" депозиты
+        // Добавляем ручные "Real Money" депозиты (исключаем блокчейн-депозиты)
+        $cryptoTxHashes = CryptoTransaction::where('user_id', $user->id)
+            ->where('processed', true)
+            ->pluck('tx_hash')
+            ->filter()
+            ->all();
+
         $realDeposits += (float) Transaction::where('user_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
             ->sum('amount');
 
         return view('admin.users.show', compact('user', 'realDeposits'));

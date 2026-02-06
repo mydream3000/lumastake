@@ -19,7 +19,7 @@
                     {{ Str::limit(strip_tags($post->content), 150) }}
                 </p>
 
-                <a href="{{ route('blog.show', $post->slug) }}" class="mt-auto inline-flex items-center gap-2 text-[#3B4EFC] font-black text-xl uppercase tracking-tighter hover:gap-4 transition-all">
+                <a href="{{ route('blog.show', $post->slug) }}" target="_blank" class="mt-auto inline-flex items-center gap-2 text-[#3B4EFC] font-black text-xl uppercase tracking-tighter hover:gap-4 transition-all">
                     Read More <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

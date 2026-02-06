@@ -298,7 +298,7 @@
                     });
                 }
             }"
-            @click.prevent="if($event.target.closest('.blog-pagination a')) fetchPosts($event.target.closest('.blog-pagination a').href)">
+            @click="let link = $event.target.closest('.blog-pagination a'); if(link) { $event.preventDefault(); fetchPosts(link.href); }">
                 <h2 id="blog-posts-title" class="text-4xl md:text-[60px] font-the-bold-font font-black text-[#3B4EFC] mb-12 uppercase leading-[0.9] tracking-tighter">
                     Latest News
                 </h2>

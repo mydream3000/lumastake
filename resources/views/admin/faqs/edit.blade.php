@@ -107,3 +107,37 @@
 </div>
 @endsection
 
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            tinymce.init({
+                selector: 'textarea#answer',
+                plugins: 'advlist autolink lists link image charmap preview hr anchor pagebreak code',
+                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+                toolbar_mode: 'floating',
+                height: 400,
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                }
+            });
+
+            // Sync TinyMCE content before form submit
+            document.querySelector('form').addEventListener('submit', function(e) {
+                if (tinymce.get('answer')) {
+                    tinymce.get('answer').save();
+                }
+
+                // Check if answer is empty
+                var answer = document.getElementById('answer').value.trim();
+                if (!answer) {
+                    e.preventDefault();
+                    alert('Answer is required');
+                    return false;
+                }
+            });
+        });
+    </script>
+@endpush
+

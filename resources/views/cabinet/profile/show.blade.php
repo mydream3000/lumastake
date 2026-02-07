@@ -124,9 +124,20 @@
                 {{-- Account Type --}}
                 <div class="flex items-center justify-between gap-4">
                     <span class="shrink-0 font-poppins text-sm md:text-base xl:text-xl text-[#444444]">Account Type:</span>
-                    <span class="min-w-0 grow text-right font-poppins text-sm md:text-base xl:text-xl text-black">
-                        {{ ucfirst($user->account_type) }}
-                    </span>
+                    <div class="min-w-0 grow text-right">
+                        <span class="font-poppins text-sm md:text-base xl:text-xl text-black">
+                            {{ ucfirst($user->account_type) }}
+                        </span>
+                        @if($user->account_type === 'normal' && !$user->account_type_changed_at)
+                            <button
+                                type="button"
+                                class="ml-2 font-poppins font-semibold text-xs md:text-sm text-cabinet-green hover:underline"
+                                onclick="window.dispatchEvent(new CustomEvent('open-modal', { detail: { name: 'change-account-type-modal' } }))"
+                            >
+                                Change
+                            </button>
+                        @endif
+                    </div>
                 </div>
 
                 {{-- Phone --}}
@@ -190,6 +201,93 @@
             </form>
         </div>
     </div>
+
+    {{-- Account Type Change Modal --}}
+    @if($user->account_type === 'normal' && !$user->account_type_changed_at)
+        <x-cabinet.modal name="change-account-type-modal">
+            <div class="bg-white" x-data="{
+                loading: false,
+                errorMessage: '',
+
+                async confirmChange() {
+                    this.loading = true;
+                    this.errorMessage = '';
+
+                    try {
+                        const response = await fetch('{{ route('cabinet.profile.change-account-type') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            window.dispatchEvent(new CustomEvent('close-modal'));
+                            window.location.reload();
+                        } else {
+                            this.errorMessage = data.message || 'An error occurred. Please try again.';
+                        }
+                    } catch (error) {
+                        this.errorMessage = 'An error occurred. Please try again.';
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }">
+                <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-[#222222]">Change Account Type</h3>
+                    <button type="button" class="text-gray-500 hover:text-gray-700" onclick="window.dispatchEvent(new CustomEvent('close-modal'))" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    {{-- Warning message --}}
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-4 rounded">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                            </svg>
+                            <div>
+                                <p class="font-poppins text-sm text-gray-700 leading-relaxed">
+                                    Are you sure you want to change your account type to <strong>Islamic</strong>?
+                                    This action is <strong>irreversible</strong> and cannot be undone. Once confirmed, your account will permanently operate under Islamic staking rules.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Error message from server --}}
+                    <div x-show="errorMessage" x-cloak class="bg-red-50 border-l-4 border-cabinet-red p-4 mb-4 rounded">
+                        <p class="font-poppins text-sm text-cabinet-red" x-text="errorMessage"></p>
+                    </div>
+
+                    {{-- Action buttons --}}
+                    <div class="flex gap-3 mt-6">
+                        <button
+                            type="button"
+                            class="flex-1 px-4 py-3 rounded-md border border-[#DADADA] text-[#444444] font-poppins font-medium hover:bg-gray-50 transition"
+                            onclick="window.dispatchEvent(new CustomEvent('close-modal'))"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            @click="confirmChange()"
+                            :disabled="loading"
+                            class="flex-1 px-4 py-3 rounded-md bg-cabinet-orange text-white font-poppins font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                        >
+                            <span x-show="!loading">Confirm Change</span>
+                            <span x-show="loading">Processing...</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </x-cabinet.modal>
+    @endif
 
     @if($user->verification_status !== 'verified')
         @push('scripts')

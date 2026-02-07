@@ -80,6 +80,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('cabinet.')->
     Route::post('/profile/resend-email-code', [ProfileController::class, 'resendEmailChangeCode'])->name('profile.resend-email-code');
     Route::post('/profile/send-email-verification', [ProfileController::class, 'sendEmailVerification'])->middleware('throttle:3,1')->name('profile.send-email-verification');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->middleware('throttle:5,1')->name('profile.change-password');
+    Route::post('/profile/change-account-type', [ProfileController::class, 'changeAccountType'])->middleware('throttle:3,1')->name('profile.change-account-type');
 
     // Referrals
     Route::get('/referrals', [ReferralController::class, 'index'])->name('referrals');

@@ -35,7 +35,7 @@ class User extends Authenticatable
         'email_verification_code', 'email_verification_code_expires_at',
         'new_email', 'email_change_code', 'email_change_code_expires_at',
         'login_2fa_code', 'login_2fa_code_expires_at', 'login_2fa_verified', 'login_2fa_last_verified_at',
-        'account_type',
+        'account_type', 'account_type_changed_at',
         'is_admin', 'is_super_admin',
     ];
 

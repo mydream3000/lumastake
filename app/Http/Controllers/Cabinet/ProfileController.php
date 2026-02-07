@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\ProfileUpdateRequest;
 use App\Mail\TemplatedMail;
 use App\Models\Country;
+use App\Models\StakingDeposit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -308,6 +309,76 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'New verification code sent to your new email.',
+        ]);
+    }
+
+    /**
+     * One-time account type change (Normal → Islamic)
+     */
+    public function changeAccountType(Request $request)
+    {
+        $user = auth()->user();
+
+        // Already changed once
+        if ($user->account_type_changed_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You have already changed your account type. This action can only be performed once.',
+            ], 400);
+        }
+
+        // Already Islamic
+        if ($user->account_type === 'islamic') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is already set to Islamic.',
+            ], 400);
+        }
+
+        // Check for active staking deposits
+        $activeStakings = StakingDeposit::where('user_id', $user->id)
+            ->where('status', 'active')
+            ->count();
+
+        if ($activeStakings > 0) {
+            return response()->json([
+                'success' => false,
+                'message' => "Dear {$user->name}, please complete all active staking deposits before changing your account type.",
+            ], 400);
+        }
+
+        // Perform the change
+        $user->account_type = 'islamic';
+        $user->account_type_changed_at = now();
+        $user->save();
+
+        // Send email notification
+        try {
+            Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                'account_type_changed',
+                [
+                    'userName' => $user->name ?? $user->email,
+                    'newAccountType' => 'Islamic',
+                ],
+                $user->id,
+                'account_type_change'
+            ));
+        } catch (\Throwable $e) {
+            \Log::error('Failed to send account type change email', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        \App\Models\ToastMessage::create([
+            'user_id' => $user->id,
+            'message' => 'Your account type has been changed to Islamic successfully.',
+            'type' => 'success',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Account type changed successfully.',
         ]);
     }
 

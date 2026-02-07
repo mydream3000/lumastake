@@ -263,6 +263,21 @@ class EmailTemplatesSeeder extends Seeder
             );
         }
 
+        // Account Type Changed
+        EmailTemplate::updateOrCreate(
+            ['key' => 'account_type_changed'],
+            [
+                'key' => 'account_type_changed',
+                'name' => 'Account Type Changed',
+                'subject' => 'Account Type Changed Successfully',
+                'content' => $this->getAccountTypeChangedContent(),
+                'variables' => [
+                    'userName' => 'User name',
+                    'newAccountType' => 'New account type',
+                ],
+            ]
+        );
+
         // Additional: Mass Credit Notification template (for bulk accruals)
         EmailTemplate::updateOrCreate(
             ['key' => 'mass_credit_notification'],
@@ -570,6 +585,36 @@ HTML;
         </p>
         <p style="color: #8f8f8f; font-size: 13px; line-height: 1.6; margin: 0 0 10px;">
             Staking period: {{ $staking_days }} days.
+        </p>
+    </td>
+</tr>
+@endsection
+HTML;
+    }
+
+    private function getAccountTypeChangedContent(): string
+    {
+        return <<<'HTML'
+@extends('emails.layouts.base')
+
+@section('title', 'Account Type Changed')
+
+@section('content')
+<tr>
+    <td style="padding: 0 40px 20px;">
+        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+            Dear {{ $userName }},
+        </p>
+        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Your account type has been successfully changed to <strong style="color: #4FD1C5;">{{ $newAccountType }}</strong>.
+        </p>
+        <div style="background: rgba(255, 255, 255, 0.05); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+                Please note that this change is permanent and cannot be reversed. All future staking deposits will follow {{ $newAccountType }} account rules.
+            </p>
+        </div>
+        <p style="color: #8f8f8f; font-size: 13px; line-height: 1.6; margin: 0;">
+            If you did not make this change, please contact our support team immediately.
         </p>
     </td>
 </tr>

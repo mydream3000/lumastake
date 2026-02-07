@@ -44,7 +44,7 @@
                             <div class="px-8 md:px-10 pb-10">
                                 <div class="w-full h-[1px] bg-[#2BA6FF]/20 mb-8"></div>
                                 <div class="text-xl md:text-[28px] text-black leading-relaxed font-poppins">
-                                    {!! nl2br(e($faq->answer)) !!}
+                                    {!! $faq->answer !!}
                                 </div>
                             </div>
                         </div>

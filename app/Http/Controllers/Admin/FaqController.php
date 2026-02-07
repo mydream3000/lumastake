@@ -19,10 +19,11 @@ class FaqController extends Controller
 
             return response()->json([
                 'data' => $faqs->map(function ($faq) {
+                    $plainAnswer = strip_tags($faq->answer);
                     return [
                         'id' => $faq->id,
                         'question' => $faq->question,
-                        'answer' => mb_substr($faq->answer, 0, 100) . (mb_strlen($faq->answer) > 100 ? '...' : ''),
+                        'answer' => mb_substr($plainAnswer, 0, 100) . (mb_strlen($plainAnswer) > 100 ? '...' : ''),
                         'is_active' => $faq->is_active ? 'Active' : 'Inactive',
                         'order' => $faq->order,
                         'created_at' => $faq->created_at->format('d, M, Y'),

@@ -169,7 +169,7 @@ class UserController extends Controller
                         ->where('type', 'deposit')
                         ->where('status', 'confirmed')
                         ->where('is_real', true)
-                        ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
+                        ->when(!empty($cryptoTxHashes), fn($q) => $q->where(function($sub) use ($cryptoTxHashes) { $sub->whereNull('tx_hash')->orWhereNotIn('tx_hash', $cryptoTxHashes); }))
                         ->groupBy('user_id')
                         ->pluck('total', 'user_id')
                         ->toArray();
@@ -266,7 +266,7 @@ class UserController extends Controller
             ->where('type', 'deposit')
             ->where('status', 'confirmed')
             ->where('is_real', true)
-            ->when(!empty($cryptoTxHashes), fn($q) => $q->whereNotIn('tx_hash', $cryptoTxHashes))
+            ->when(!empty($cryptoTxHashes), fn($q) => $q->where(function($sub) use ($cryptoTxHashes) { $sub->whereNull('tx_hash')->orWhereNotIn('tx_hash', $cryptoTxHashes); }))
             ->sum('amount');
 
         return view('admin.users.show', compact('user', 'realDeposits'));

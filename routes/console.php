@@ -11,4 +11,4 @@ Schedule::command('staking:send-expiring-reminders')->dailyAt('09:00');
 
 // Автоматическая проверка депозитов через публичные blockchain explorers
 // Работает БЕЗ CryptocurrencyAPI.net - использует TronScan, Etherscan, BscScan
-// Schedule::command('crypto:check-blockchain')->everyMinute();
+Schedule::command('crypto:check-blockchain')->everyMinute();

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BotSettingsController;
+use App\Http\Controllers\Admin\CloserUserController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -154,4 +155,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::put('/bot-settings', [AnalyticsController::class, 'updateBotSettings'])->name('bot-settings.update');
         Route::post('/bot-settings/test', [AnalyticsController::class, 'testBot'])->name('bot-settings.test');
     });
+
+    // Closer routes (accessible by closers + admins + super admins)
+    Route::prefix('closer')->name('closer.')->group(function () {
+        Route::get('/users', [CloserUserController::class, 'index'])->name('users.index');
+        Route::get('/users/{user}', [CloserUserController::class, 'show'])->name('users.show');
+        Route::post('/users/{user}/note', [CloserUserController::class, 'saveNote'])->name('users.save-note');
+    });
+
+    // Toggle closer status (super admin only)
+    Route::post('/users/{user}/toggle-closer', [UserController::class, 'toggleCloser'])->name('users.toggle-closer');
 });

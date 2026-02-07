@@ -36,7 +36,7 @@ class User extends Authenticatable
         'new_email', 'email_change_code', 'email_change_code_expires_at',
         'login_2fa_code', 'login_2fa_code_expires_at', 'login_2fa_verified', 'login_2fa_last_verified_at',
         'account_type', 'account_type_changed_at',
-        'is_admin', 'is_super_admin',
+        'is_admin', 'is_super_admin', 'is_closer',
     ];
 
     /**
@@ -61,6 +61,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
             'is_super_admin' => 'boolean',
+            'is_closer' => 'boolean',
             'active' => 'boolean',
             'blocked' => 'boolean',
             'withdrawal_blocked' => 'boolean',
@@ -113,6 +114,14 @@ class User extends Authenticatable
     public function earnings(): HasMany
     {
         return $this->hasMany(Earning::class);
+    }
+
+    /**
+     * Closer notes left about this user
+     */
+    public function closerNotes(): HasMany
+    {
+        return $this->hasMany(CloserUserNote::class, 'user_id');
     }
 
     /**

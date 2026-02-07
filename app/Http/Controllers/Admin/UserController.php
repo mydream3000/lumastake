@@ -182,8 +182,32 @@ class UserController extends Controller
                 \Log::warning('Could not compute real deposits per user: ' . $e->getMessage());
             }
 
+            // Get latest closer note for each user on this page
+            $closerNotes = [];
+            try {
+                if (!empty($userIds)) {
+                    $notes = \App\Models\CloserUserNote::whereIn('user_id', $userIds)
+                        ->with('closer:id,name')
+                        ->orderBy('created_at', 'desc')
+                        ->get()
+                        ->groupBy('user_id');
+
+                    foreach ($notes as $userId => $userNotes) {
+                        $latest = $userNotes->first();
+                        $closerNotes[$userId] = [
+                            'comment' => $latest->comment,
+                            'status' => $latest->status,
+                            'closer_name' => $latest->closer->name ?? 'Unknown',
+                        ];
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Table might not exist yet
+            }
+
             return response()->json([
-                'data' => $users->map(function ($user) use ($favoriteUserIds, $realDepositsByUser) {
+                'data' => $users->map(function ($user) use ($favoriteUserIds, $realDepositsByUser, $closerNotes) {
+                    $note = $closerNotes[$user->id] ?? null;
                     return [
                         'id' => $user->id,
                         'name' => $user->name,
@@ -196,6 +220,7 @@ class UserController extends Controller
                         'referral_level_id' => $user->referral_level_id,
                         'verification_status' => $user->verification_status,
                         'is_admin' => $user->is_admin,
+                        'is_closer' => (bool) ($user->is_closer ?? false),
                         'active' => $user->active,
                         'blocked' => $user->blocked,
                         'withdrawal_blocked' => (bool) ($user->withdrawal_blocked ?? false),
@@ -204,6 +229,9 @@ class UserController extends Controller
                         'email_verified_at' => $user->email_verified_at?->format('d, M, Y'),
                         'created_at' => $user->created_at->format('d, M, Y'),
                         'last_login' => $user->last_login?->format('d, M, Y H:i'),
+                        'closer_comment' => $note['comment'] ?? '',
+                        'closer_status' => $note['status'] ?? '',
+                        'closer_name' => $note['closer_name'] ?? '',
                     ];
                 }),
                 'total' => $users->total(),
@@ -231,7 +259,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->load(['stakingDeposits', 'transactions', 'earnings']);
+        $user->load(['stakingDeposits', 'transactions', 'earnings', 'closerNotes' => function ($q) {
+            $q->with('closer:id,name')->orderBy('created_at', 'desc')->take(5);
+        }]);
 
         // Минимальные подтверждения для сетей
         $minConf = config('crypto.min_confirmations', []);
@@ -1051,6 +1081,34 @@ class UserController extends Controller
             'deleted' => $deletedCount,
             'skipped' => $skippedCount,
             'errors' => $errors,
+        ]);
+    }
+
+    /**
+     * Toggle closer status (super admin only)
+     */
+    public function toggleCloser(User $user)
+    {
+        if (!Auth::user()->is_super_admin) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Only super admins can manage closer access',
+            ], 403);
+        }
+
+        if ($user->id === Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot change your own closer status',
+            ], 403);
+        }
+
+        $user->update(['is_closer' => !$user->is_closer]);
+
+        return response()->json([
+            'success' => true,
+            'message' => $user->is_closer ? 'Closer access granted' : 'Closer access revoked',
+            'is_closer' => $user->is_closer,
         ]);
     }
 

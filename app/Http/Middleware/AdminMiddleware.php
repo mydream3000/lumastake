@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         $user = $request->user();
 
-        if ($user && (bool) ($user->is_admin ?? false)) {
+        if ($user && ((bool) ($user->is_admin ?? false) || (bool) ($user->is_closer ?? false))) {
             return $next($request);
         }
 

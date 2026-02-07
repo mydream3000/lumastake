@@ -574,9 +574,41 @@ document.addEventListener('DOMContentLoaded', function() {
             label: 'Role',
             sortable: true,
             width: '60px',
-            render: (value) => value
-                ? '<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-blue-100 text-blue-800">Adm</span>'
-                : '<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-gray-100 text-gray-800">Usr</span>'
+            render: (value, row) => {
+                if (value) return '<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-blue-100 text-blue-800">Adm</span>';
+                if (row.is_closer) return '<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-teal-100 text-teal-800">Cls</span>';
+                return '<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-gray-100 text-gray-800">Usr</span>';
+            }
+        },
+        {
+            key: 'closer_status',
+            label: 'C.Status',
+            sortable: false,
+            width: '80px',
+            render: (value) => {
+                if (!value) return '<span class="text-xs text-gray-400">-</span>';
+                const map = {
+                    'int': { cls: 'bg-green-100 text-green-800', label: 'INT' },
+                    'no-int': { cls: 'bg-red-100 text-red-800', label: 'NO-INT' },
+                    're-call': { cls: 'bg-yellow-100 text-yellow-800', label: 'RE-CALL' },
+                    'fake': { cls: 'bg-gray-100 text-gray-800', label: 'FAKE' },
+                };
+                const s = map[value] || { cls: 'bg-gray-100 text-gray-800', label: value };
+                return `<span class="inline-flex px-1.5 py-0.5 text-[10px] font-medium rounded-full ${s.cls}">${s.label}</span>`;
+            }
+        },
+        {
+            key: 'closer_comment',
+            label: 'C.Note',
+            sortable: false,
+            width: '120px',
+            render: (value, row) => {
+                if (!value) return '<span class="text-xs text-gray-400">-</span>';
+                const short = value.length > 30 ? value.substring(0, 30) + '...' : value;
+                const escapedShort = short.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const by = row.closer_name ? `<span class="text-[9px] text-gray-400">${row.closer_name}</span>` : '';
+                return `<div><p class="text-[10px] text-gray-700">${escapedShort}</p>${by}</div>`;
+            }
         },
         {
             key: 'verification_status',

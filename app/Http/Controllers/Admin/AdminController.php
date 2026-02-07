@@ -14,6 +14,12 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        // Closer redirect — they only see Users
+        $authUser = auth()->user();
+        if ($authUser && $authUser->is_closer && !$authUser->is_admin) {
+            return redirect()->route('admin.closer.users.index');
+        }
+
         // Статистика пользователей
         $totalUsers = User::count();
         $activeUsers = User::where('active', true)->count();

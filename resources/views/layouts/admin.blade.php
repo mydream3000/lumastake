@@ -75,66 +75,74 @@
     </div>
 
     <nav class="p-4 space-y-1">
-        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-chart-line w-5"></i>
-            <span>Dashboard</span>
-        </a>
-        <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-users w-5"></i>
-            <span>Users</span>
-        </a>
-        <a href="{{ route('admin.payments.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.payments.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-money-bill-wave w-5"></i>
-            <span>Payments</span>
-        </a>
-        <a href="{{ route('admin.tiers.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.tiers.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-layer-group w-5"></i>
-            <span>Tiers</span>
-        </a>
-        <a href="{{ route('admin.pools.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.pools.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-coins w-5"></i>
-            <span>Investment Pools</span>
-        </a>
-        <a href="{{ route('admin.referral-levels.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.referral-levels.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-gift w-5"></i>
-            <span>Referral Levels</span>
-        </a>
-        <a href="{{ route('admin.promo.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.promo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-tag w-5"></i>
-            <span>Promo Codes</span>
-        </a>
-        <a href="{{ route('admin.faqs.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.faqs.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-question-circle w-5"></i>
-            <span>FAQ</span>
-        </a>
-        <a href="{{ route('admin.blog.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.blog.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-newspaper w-5"></i>
-            <span>Blog</span>
-        </a>
-        <a href="{{ route('admin.bot-settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.bot-settings.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-robot w-5"></i>
-            <span>Telegram Bot</span>
-        </a>
-        <a href="{{ route('admin.email-templates.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.email-templates.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-envelope w-5"></i>
-            <span>Email Templates</span>
-        </a>
-        <a href="{{ route('admin.support-team.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.support-team.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-headset w-5"></i>
-            <span>Support Team</span>
-        </a>
-        <a href="{{ route('admin.social-links.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.social-links.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-share-alt w-5"></i>
-            <span>Social Links</span>
-        </a>
-        <a href="{{ route('admin.analytics.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.analytics.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fas fa-chart-bar w-5"></i>
-            <span>Analytics</span>
-        </a>
-        <a href="{{ route('admin.seo.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.seo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
-            <i class="fa-solid fa-search w-5"></i>
-            <span>SEO</span>
-        </a>
+        @if(auth()->user()->is_closer && !auth()->user()->is_admin)
+            {{-- Closer sees only Users --}}
+            <a href="{{ route('admin.closer.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.closer.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+        @else
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+            <a href="{{ route('admin.payments.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.payments.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-money-bill-wave w-5"></i>
+                <span>Payments</span>
+            </a>
+            <a href="{{ route('admin.tiers.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.tiers.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-layer-group w-5"></i>
+                <span>Tiers</span>
+            </a>
+            <a href="{{ route('admin.pools.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.pools.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-coins w-5"></i>
+                <span>Investment Pools</span>
+            </a>
+            <a href="{{ route('admin.referral-levels.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.referral-levels.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-gift w-5"></i>
+                <span>Referral Levels</span>
+            </a>
+            <a href="{{ route('admin.promo.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.promo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-tag w-5"></i>
+                <span>Promo Codes</span>
+            </a>
+            <a href="{{ route('admin.faqs.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.faqs.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-question-circle w-5"></i>
+                <span>FAQ</span>
+            </a>
+            <a href="{{ route('admin.blog.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.blog.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-newspaper w-5"></i>
+                <span>Blog</span>
+            </a>
+            <a href="{{ route('admin.bot-settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.bot-settings.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-robot w-5"></i>
+                <span>Telegram Bot</span>
+            </a>
+            <a href="{{ route('admin.email-templates.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.email-templates.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-envelope w-5"></i>
+                <span>Email Templates</span>
+            </a>
+            <a href="{{ route('admin.support-team.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.support-team.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-headset w-5"></i>
+                <span>Support Team</span>
+            </a>
+            <a href="{{ route('admin.social-links.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.social-links.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-share-alt w-5"></i>
+                <span>Social Links</span>
+            </a>
+            <a href="{{ route('admin.analytics.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.analytics.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-chart-bar w-5"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="{{ route('admin.seo.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.seo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fa-solid fa-search w-5"></i>
+                <span>SEO</span>
+            </a>
+        @endif
     </nav>
 
     <div class="p-4 border-t border-white/10">
@@ -144,7 +152,7 @@
             </div>
             <div>
                 <p class="text-sm font-bold text-white">{{ auth()->user()->name }}</p>
-                <p class="text-[10px] text-white/60 uppercase font-bold">Administrator</p>
+                <p class="text-[10px] text-white/60 uppercase font-bold">{{ auth()->user()->is_closer && !auth()->user()->is_admin ? 'Closer' : 'Administrator' }}</p>
             </div>
         </div>
         <a href="{{ route('cabinet.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-white/80 mb-1 hover:bg-white/10">
@@ -172,94 +180,103 @@
 
         <!-- Navigation -->
         <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-            <a href="{{ route('admin.dashboard') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-chart-line w-5 text-center"></i>
-                <span class="font-medium">Dashboard</span>
-            </a>
+            @if(auth()->user()->is_closer && !auth()->user()->is_admin)
+                {{-- Closer sees only Users --}}
+                <a href="{{ route('admin.closer.users.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.closer.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-users w-5 text-center"></i>
+                    <span class="font-medium">Users</span>
+                </a>
+            @else
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-chart-line w-5 text-center"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
 
-            <a href="{{ route('admin.users.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-users w-5 text-center"></i>
-                <span class="font-medium">Users</span>
-            </a>
+                <a href="{{ route('admin.users.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-users w-5 text-center"></i>
+                    <span class="font-medium">Users</span>
+                </a>
 
-            <a href="{{ route('admin.payments.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.payments.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-money-bill-wave w-5 text-center"></i>
-                <span class="font-medium">Payments</span>
-            </a>
+                <a href="{{ route('admin.payments.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.payments.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-money-bill-wave w-5 text-center"></i>
+                    <span class="font-medium">Payments</span>
+                </a>
 
-            <a href="{{ route('admin.tiers.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.tiers.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-layer-group w-5 text-center"></i>
-                <span class="font-medium">Tiers</span>
-            </a>
+                <a href="{{ route('admin.tiers.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.tiers.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-layer-group w-5 text-center"></i>
+                    <span class="font-medium">Tiers</span>
+                </a>
 
-            <a href="{{ route('admin.pools.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.pools.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-coins w-5 text-center"></i>
-                <span class="font-medium">Investment Pools</span>
-            </a>
+                <a href="{{ route('admin.pools.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.pools.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-coins w-5 text-center"></i>
+                    <span class="font-medium">Investment Pools</span>
+                </a>
 
-            <a href="{{ route('admin.referral-levels.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.referral-levels.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-gift w-5 text-center"></i>
-                <span class="font-medium">Referral Levels</span>
-            </a>
+                <a href="{{ route('admin.referral-levels.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.referral-levels.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-gift w-5 text-center"></i>
+                    <span class="font-medium">Referral Levels</span>
+                </a>
 
-            <a href="{{ route('admin.promo.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.promo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-tag w-5 text-center"></i>
-                <span class="font-medium">Promo Codes</span>
-            </a>
+                <a href="{{ route('admin.promo.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.promo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-tag w-5 text-center"></i>
+                    <span class="font-medium">Promo Codes</span>
+                </a>
 
-            <a href="{{ route('admin.faqs.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.faqs.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-question-circle w-5 text-center"></i>
-                <span class="font-medium">FAQ</span>
-            </a>
+                <a href="{{ route('admin.faqs.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.faqs.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-question-circle w-5 text-center"></i>
+                    <span class="font-medium">FAQ</span>
+                </a>
 
-            <a href="{{ route('admin.blog.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.blog.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-newspaper w-5 text-center"></i>
-                <span class="font-medium">Blog</span>
-            </a>
+                <a href="{{ route('admin.blog.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.blog.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-newspaper w-5 text-center"></i>
+                    <span class="font-medium">Blog</span>
+                </a>
 
-            <a href="{{ route('admin.bot-settings.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.bot-settings.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-robot w-5 text-center"></i>
-                <span class="font-medium">Telegram Bot</span>
-            </a>
+                <a href="{{ route('admin.bot-settings.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.bot-settings.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-robot w-5 text-center"></i>
+                    <span class="font-medium">Telegram Bot</span>
+                </a>
 
-            <a href="{{ route('admin.email-templates.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.email-templates.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-envelope w-5 text-center"></i>
-                <span class="font-medium">Email Templates</span>
-            </a>
+                <a href="{{ route('admin.email-templates.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.email-templates.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-envelope w-5 text-center"></i>
+                    <span class="font-medium">Email Templates</span>
+                </a>
 
-            <a href="{{ route('admin.support-team.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.support-team.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-headset w-5 text-center"></i>
-                <span class="font-medium">Support Team</span>
-            </a>
+                <a href="{{ route('admin.support-team.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.support-team.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-headset w-5 text-center"></i>
+                    <span class="font-medium">Support Team</span>
+                </a>
 
-            <a href="{{ route('admin.social-links.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.social-links.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-share-alt w-5 text-center"></i>
-                <span class="font-medium">Social Links</span>
-            </a>
+                <a href="{{ route('admin.social-links.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.social-links.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-share-alt w-5 text-center"></i>
+                    <span class="font-medium">Social Links</span>
+                </a>
 
-            <a href="{{ route('admin.analytics.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.analytics.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fas fa-chart-bar w-5 text-center"></i>
-                <span class="font-medium">Analytics</span>
-            </a>
-            <a href="{{ route('admin.seo.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.seo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                <i class="fa-solid fa-search w-5 text-center"></i>
-                <span class="font-medium">SEO</span>
-            </a>
+                <a href="{{ route('admin.analytics.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.analytics.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-chart-bar w-5 text-center"></i>
+                    <span class="font-medium">Analytics</span>
+                </a>
+                <a href="{{ route('admin.seo.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.seo.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fa-solid fa-search w-5 text-center"></i>
+                    <span class="font-medium">SEO</span>
+                </a>
+            @endif
         </nav>
 
         <!-- User Info & Logout -->
@@ -270,7 +287,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="text-sm font-bold text-white truncate">{{ auth()->user()->name }}</p>
-                    <p class="text-[10px] text-white/60 uppercase font-bold">Administrator</p>
+                    <p class="text-[10px] text-white/60 uppercase font-bold">{{ auth()->user()->is_closer && !auth()->user()->is_admin ? 'Closer' : 'Administrator' }}</p>
                 </div>
             </div>
 

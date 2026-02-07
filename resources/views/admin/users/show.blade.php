@@ -20,6 +20,11 @@
                     <i class="fas fa-crown mr-1"></i> Admin
                 </span>
             @endif
+            @if($user->is_closer)
+                <span class="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-teal-100 text-teal-800">
+                    <i class="fas fa-headset mr-1"></i> Closer
+                </span>
+            @endif
             @if(!$user->blocked)
                 <span class="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800">
                     <i class="fas fa-check-circle mr-1"></i> Active
@@ -174,6 +179,51 @@
                     <p class="text-center text-gray-500 py-8">No active staking</p>
                 @endif
             </div>
+
+            <!-- Closer Notes -->
+            @if($user->closerNotes && $user->closerNotes->count() > 0)
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-clipboard-list mr-2 text-cabinet-orange"></i>Closer Notes
+                </h2>
+                <div class="space-y-3">
+                    @foreach($user->closerNotes as $note)
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-900">{{ $note->closer->name ?? 'Unknown' }}</span>
+                                    @if($note->status)
+                                        @php
+                                            $statusColors = [
+                                                'int' => 'bg-green-100 text-green-800',
+                                                'no-int' => 'bg-red-100 text-red-800',
+                                                're-call' => 'bg-yellow-100 text-yellow-800',
+                                                'fake' => 'bg-gray-100 text-gray-800',
+                                            ];
+                                            $statusLabels = [
+                                                'int' => 'Interested',
+                                                'no-int' => 'Not Interested',
+                                                're-call' => 'Re-call',
+                                                'fake' => 'Fake',
+                                            ];
+                                        @endphp
+                                        <span class="inline-flex px-2 py-0.5 text-[10px] font-medium rounded-full {{ $statusColors[$note->status] ?? 'bg-gray-100 text-gray-800' }}">
+                                            {{ $statusLabels[$note->status] ?? $note->status }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <span class="text-xs text-gray-500">{{ $note->created_at->format('d, M, Y H:i') }}</span>
+                            </div>
+                            @if($note->comment)
+                                <p class="text-sm text-gray-700">{{ $note->comment }}</p>
+                            @else
+                                <p class="text-sm text-gray-400 italic">No comment</p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             <!-- Earnings -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -335,6 +385,17 @@
                         </div>
                     @endif
 
+                    @if(Auth::user()->is_super_admin && $user->id !== Auth::id())
+                        <div>
+                            <button type="button" onclick="toggleCloserStatus({{ $user->id }})"
+                                    class="w-full px-4 py-2 {{ $user->is_closer ? 'bg-orange-600 hover:bg-orange-700' : 'bg-teal-600 hover:bg-teal-700' }} text-white rounded-lg transition-colors font-medium">
+                                <i class="fas fa-{{ $user->is_closer ? 'user-minus' : 'headset' }} mr-2"></i>
+                                {{ $user->is_closer ? 'Revoke Closer Access' : 'Grant Closer Access' }}
+                            </button>
+                            <p class="text-xs text-gray-500 mt-1 px-2">{{ $user->is_closer ? 'Remove closer privileges' : 'Give closer privileges to view users' }}</p>
+                        </div>
+                    @endif
+
                     <div>
                         @if($user->blocked)
                             <button type="button" onclick="toggleBlockedStatus({{ $user->id }})"
@@ -382,6 +443,34 @@ async function toggleAdminStatus(userId) {
             setTimeout(() => window.location.reload(), 1500);
         } else {
             window.showToast(data.message || 'Failed to update admin status', 'error');
+        }
+    } catch (error) {
+        window.showToast('Error occurred', 'error');
+        console.error(error);
+    }
+}
+
+async function toggleCloserStatus(userId) {
+    if (!confirm('Are you sure you want to change the closer status of this user?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/admin/users/${userId}/toggle-closer`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            window.showToast(data.message, 'success');
+            setTimeout(() => window.location.reload(), 1500);
+        } else {
+            window.showToast(data.message || 'Failed to update closer status', 'error');
         }
     } catch (error) {
         window.showToast('Error occurred', 'error');

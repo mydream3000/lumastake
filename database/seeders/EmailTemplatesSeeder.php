@@ -306,11 +306,11 @@ class EmailTemplatesSeeder extends Seeder
 <!-- Content Section -->
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Your staking period is ending soon! Your {{ $days }}-day staking of <strong style="color: #4FD1C5;">${{ number_format($amount, 2) }}</strong> will complete on <strong>{{ $endDate }}</strong>.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Your staking period is ending soon! Your {{ $days }}-day staking of <strong style="color: #4da3ff;">${{ number_format($amount, 2) }}</strong> will complete on <strong>{{ $endDate }}</strong>.
         </p>
     </td>
 </tr>
@@ -318,24 +318,24 @@ class EmailTemplatesSeeder extends Seeder
 <!-- Staking Summary -->
 <tr>
     <td style="padding: 0 40px 20px;">
-        <table cellpadding="0" cellspacing="0" width="100%" style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; overflow: hidden;">
+        <table cellpadding="0" cellspacing="0" width="100%" style="background: #f9fafb; border-radius: 8px; overflow: hidden;">
             <tr>
-                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                    <p style="color: #999999; font-size: 13px; margin: 0 0 6px;">Staked Amount</p>
-                    <p style="color: #ffffff; font-size: 20px; font-weight: 600; margin: 0;">${{ number_format($amount, 2) }}</p>
+                <td style="padding: 20px; border-bottom: 1px solid #e5e7eb;">
+                    <p style="color: #000000; font-size: 13px; margin: 0 0 6px;">Staked Amount</p>
+                    <p style="color: #000000; font-size: 20px; font-weight: 600; margin: 0;">${{ number_format($amount, 2) }}</p>
                 </td>
             </tr>
             <tr>
-                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                    <p style="color: #999999; font-size: 13px; margin: 0 0 6px;">Expected Profit ({{ $percentage }}%)</p>
-                    <p style="color: #4FD1C5; font-size: 20px; font-weight: 600; margin: 0;">${{ number_format($profitAmount, 2) }}</p>
+                <td style="padding: 20px; border-bottom: 1px solid #e5e7eb;">
+                    <p style="color: #000000; font-size: 13px; margin: 0 0 6px;">Expected Profit ({{ $percentage }}%)</p>
+                    <p style="color: #4da3ff; font-size: 20px; font-weight: 600; margin: 0;">${{ number_format($profitAmount, 2) }}</p>
                 </td>
             </tr>
             <tr>
                 <td style="padding: 20px;">
-                    <p style="color: #999999; font-size: 13px; margin: 0 0 6px;">Auto-Renewal Status</p>
+                    <p style="color: #000000; font-size: 13px; margin: 0 0 6px;">Auto-Renewal Status</p>
                     @if($autoRenewal)
-                        <p style="color: #4FD1C5; font-size: 16px; font-weight: 600; margin: 0;">✓ Enabled</p>
+                        <p style="color: #4da3ff; font-size: 16px; font-weight: 600; margin: 0;">✓ Enabled</p>
                     @else
                         <p style="color: #FF451C; font-size: 16px; font-weight: 600; margin: 0;">✗ Disabled</p>
                     @endif
@@ -349,14 +349,14 @@ class EmailTemplatesSeeder extends Seeder
 <tr>
     <td style="padding: 0 40px 30px;">
         @if($autoRenewal)
-            <div style="background: rgba(79, 209, 197, 0.1); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px;">
-                <p style="color: #ffffff; font-size: 14px; line-height: 1.6; margin: 0;">
-                    <strong style="color: #4FD1C5;">Auto-Renewal is Active:</strong> Your principal will be automatically restaked for another {{ $days }} days. Your profit will be added to your available balance. You can disable auto-renewal anytime in your dashboard.
+            <div style="background: #f0f7ff; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px;">
+                <p style="color: #000000; font-size: 14px; line-height: 1.6; margin: 0;">
+                    <strong style="color: #4da3ff;">Auto-Renewal is Active:</strong> Your principal will be automatically restaked for another {{ $days }} days. Your profit will be added to your available balance. You can disable auto-renewal anytime in your dashboard.
                 </p>
             </div>
         @else
-            <div style="background: rgba(255, 69, 28, 0.1); border-left: 3px solid #FF451C; border-radius: 4px; padding: 14px 16px;">
-                <p style="color: #ffffff; font-size: 14px; line-height: 1.6; margin: 0;">
+            <div style="background: #fef2f2; border-left: 3px solid #FF451C; border-radius: 4px; padding: 14px 16px;">
+                <p style="color: #000000; font-size: 14px; line-height: 1.6; margin: 0;">
                     <strong style="color: #FF451C;">Auto-Renewal is Disabled:</strong> Your funds (principal + profit) will be returned to your balance tomorrow. If you'd like to continue staking, please enable Auto-Renewal in your dashboard before the staking period ends.
                 </p>
             </div>
@@ -367,7 +367,7 @@ class EmailTemplatesSeeder extends Seeder
 <!-- Call to Action -->
 <tr>
     <td align="center" style="padding: 0 40px 30px;">
-        <a href="{{ config('app.url') }}/dashboard/staking" style="display: inline-block; background: linear-gradient(135deg, #4FD1C5 0%, #3BA89F 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 600;">
+        <a href="{{ url('/dashboard') }}/staking" style="display: inline-block; background: linear-gradient(135deg, #4da3ff 0%, #3b82f6 100%); color: #000000; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 600;">
             Manage Staking Settings
         </a>
     </td>
@@ -376,7 +376,7 @@ class EmailTemplatesSeeder extends Seeder
 <!-- Footer Notice -->
 <tr>
     <td style="padding: 0 40px 40px;">
-        <p style="margin: 0; color: #8f8f8f; font-size: 13px; line-height: 1.6;">
+        <p style="margin: 0; color: #000000; opacity: 0.75; font-size: 13px; line-height: 1.6;">
             Thank you for choosing Lumastake for your staking needs. If you have any questions, please contact our support team.
         </p>
     </td>
@@ -395,14 +395,14 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Great news! Your identity verification has been <strong style="color:#4FD1C5;">{{ $decision }}</strong>.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Great news! Your identity verification has been <strong style="color:#4da3ff;">{{ $decision }}</strong>.
         </p>
-        <div style="background: rgba(79, 209, 197, 0.1); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+        <div style="background: #f0f7ff; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #000000; font-size: 14px; margin: 0;">
                 You now have access to all features requiring verification.
             </p>
         </div>
@@ -422,14 +422,14 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
             Unfortunately, your identity verification was <strong style="color:#FF451C;">{{ $decision }}</strong>.
         </p>
-        <div style="background: rgba(255, 69, 28, 0.1); border-left: 3px solid #FF451C; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+        <div style="background: #fef2f2; border-left: 3px solid #FF451C; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #000000; font-size: 14px; margin: 0;">
                 You can try again by re-submitting your documents. If you need assistance, please contact our support team.
             </p>
         </div>
@@ -449,14 +449,14 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
             You have started the identity verification process. Please complete all steps in the opened window.
         </p>
-        <div style="background: rgba(255, 255, 255, 0.05); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+        <div style="background: #f9fafb; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #000000; font-size: 14px; margin: 0;">
                 If the window was closed, you can restart verification from your profile page.
             </p>
         </div>
@@ -476,14 +476,14 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
             Your identity verification has been submitted. Our team will review your information shortly.
         </p>
-        <div style="background: rgba(255, 255, 255, 0.05); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+        <div style="background: #f9fafb; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #000000; font-size: 14px; margin: 0;">
                 We will notify you by email once a decision has been made. You can also check your status in the profile.
             </p>
         </div>
@@ -503,15 +503,15 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            We have credited <strong style="color:#4FD1C5;">${{ $amount }}</strong> to your account balance.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            We have credited <strong style="color:#4da3ff;">${{ $amount }}</strong> to your account balance.
         </p>
         @if(!empty($comment))
-            <div style="background: rgba(255, 255, 255, 0.05); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-                <p style="color: #ffffff; font-size: 14px; margin: 0;">
+            <div style="background: #f9fafb; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+                <p style="color: #000000; font-size: 14px; margin: 0;">
                     Comment from administrator: {{ $comment }}
                 </p>
             </div>
@@ -532,11 +532,11 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Hi {{ $name }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Your staking of <strong style="color:#4FD1C5;">${{ $amount }}</strong> for <strong>{{ $days }}</strong> days at <strong>{{ $percentage }}%</strong> APR has been created successfully.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Your staking of <strong style="color:#4da3ff;">${{ $amount }}</strong> for <strong>{{ $days }}</strong> days at <strong>{{ $percentage }}%</strong> APR has been created successfully.
         </p>
     </td>
 </tr>
@@ -554,11 +554,11 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Hello {{ $referrer_name }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Congratulations! Your referral <strong style="color:#4FD1C5;">{{ $referral_name }}</strong> has staked <strong style="color:#4FD1C5;">${{ $amount }}</strong> for <strong>{{ $days }}</strong> days at <strong>{{ $percentage }}%</strong> APR.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Congratulations! Your referral <strong style="color:#4da3ff;">{{ $referral_name }}</strong> has staked <strong style="color:#4da3ff;">${{ $amount }}</strong> for <strong>{{ $days }}</strong> days at <strong>{{ $percentage }}%</strong> APR.
             You will receive a referral reward after this staking completes.
         </p>
     </td>
@@ -577,13 +577,13 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $referrer_name }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Great news! You have received a referral reward of <strong style="color:#4FD1C5;">${{ $reward_amount }}</strong> ({{ $reward_percentage }}%) from {{ $referral_name }}'s staking profit of <strong style="color:#4FD1C5;">${{ $profit }}</strong>.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Great news! You have received a referral reward of <strong style="color:#4da3ff;">${{ $reward_amount }}</strong> ({{ $reward_percentage }}%) from {{ $referral_name }}'s staking profit of <strong style="color:#4da3ff;">${{ $profit }}</strong>.
         </p>
-        <p style="color: #8f8f8f; font-size: 13px; line-height: 1.6; margin: 0 0 10px;">
+        <p style="color: #000000; opacity: 0.75; font-size: 13px; line-height: 1.6; margin: 0 0 10px;">
             Staking period: {{ $staking_days }} days.
         </p>
     </td>
@@ -602,18 +602,18 @@ HTML;
 @section('content')
 <tr>
     <td style="padding: 0 40px 20px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
             Dear {{ $userName }},
         </p>
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
-            Your account type has been successfully changed to <strong style="color: #4FD1C5;">{{ $newAccountType }}</strong>.
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+            Your account type has been successfully changed to <strong style="color: #4da3ff;">{{ $newAccountType }}</strong>.
         </p>
-        <div style="background: rgba(255, 255, 255, 0.05); border-left: 3px solid #4FD1C5; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">
+        <div style="background: #f9fafb; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px;">
+            <p style="color: #000000; font-size: 14px; margin: 0;">
                 Please note that this change is permanent and cannot be reversed. All future staking deposits will follow {{ $newAccountType }} account rules.
             </p>
         </div>
-        <p style="color: #8f8f8f; font-size: 13px; line-height: 1.6; margin: 0;">
+        <p style="color: #000000; opacity: 0.75; font-size: 13px; line-height: 1.6; margin: 0;">
             If you did not make this change, please contact our support team immediately.
         </p>
     </td>
@@ -633,9 +633,9 @@ HTML;
 <!-- Content Section -->
 <tr>
     <td style="padding: 0 40px;">
-        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">Hi {{ $userName }},</p>
+        <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">Hi {{ $userName }},</p>
 
-        <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 30px;">
+        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 30px;">
             We detected a login attempt on your account. To continue, please verify your identity using the code below:
         </p>
     </td>
@@ -644,11 +644,11 @@ HTML;
 <!-- Verification Code Section -->
 <tr>
     <td align="center" style="padding: 0 40px 30px;">
-        <table cellpadding="0" cellspacing="0" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px;">
+        <table cellpadding="0" cellspacing="0" style="background: #f9fafb; border: 2px solid #d1d5db; border-radius: 12px; padding: 30px;">
             <tr>
                 <td align="center">
-                    <p style="margin: 0 0 10px; color: #999999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Your Verification Code</p>
-                    <h2 style="margin: 0; color: #ffffff; font-size: 48px; font-weight: 700; letter-spacing: 12px; font-family: 'Courier New', monospace;">{{ $code }}</h2>
+                    <p style="margin: 0 0 10px; color: #000000; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Your Verification Code</p>
+                    <h2 style="margin: 0; color: #000000; font-size: 48px; font-weight: 700; letter-spacing: 12px; font-family: 'Courier New', monospace;">{{ $code }}</h2>
                 </td>
             </tr>
         </table>
@@ -661,7 +661,7 @@ HTML;
         <div style="display: inline-block; background-color: #E3FF3B; color: #262262; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer;">
             Copy Code
         </div>
-        <p style="color: #666666; font-size: 12px; margin-top: 10px;">
+        <p style="color: #000000; font-size: 12px; margin-top: 10px;">
             (Click the "Paste from clipboard" button on the login page after copying)
         </p>
     </td>
@@ -670,10 +670,10 @@ HTML;
 <!-- Important Notice -->
 <tr>
     <td style="padding: 0 40px 40px;">
-        <table cellpadding="0" cellspacing="0" style="background: rgba(255, 69, 28, 0.1); border-left: 3px solid #FF451C; border-radius: 4px; padding: 15px 20px;">
+        <table cellpadding="0" cellspacing="0" style="background: #fef2f2; border-left: 3px solid #FF451C; border-radius: 4px; padding: 15px 20px;">
             <tr>
                 <td>
-                    <p style="margin: 0; color: #ffffff; font-size: 14px; line-height: 1.5;">
+                    <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.5;">
                         <strong style="color: #FF451C;">Important:</strong> This code will expire in 10 minutes. If you did not attempt to login to Lumastake, please ignore this email and secure your account.
                     </p>
                 </td>

@@ -13,14 +13,14 @@
                     <!-- Logo Section -->
                     <tr>
                         <td align="center" style="padding: 40px 20px 30px;">
-                            <img src="{{ asset('images/sidebar/logo-white.png') }}" alt="Lumastake" style="height: 50px; width: auto;">
+                            <img src="https://lumastake.com/images/sidebar/logo-white.png" alt="Lumastake" style="height: 50px; width: auto;">
                         </td>
                     </tr>
 
                     <!-- Gradient Title Section -->
                     <tr>
                         <td align="center" style="padding: 0 40px 30px;">
-                            <h1 style="margin: 0; font-size: 32px; font-weight: 700; color: #ffffff;">
+                            <h1 style="margin: 0; font-size: 32px; font-weight: 700; color: #000000;">
                                 RESET YOUR PASSWORD
                             </h1>
                         </td>
@@ -29,9 +29,9 @@
                     <!-- Content Section -->
                     <tr>
                         <td style="padding: 0 40px;">
-                            <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">Hi {{ $userName }},</p>
+                            <p style="color: #000000; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">Hi {{ $userName }},</p>
 
-                            <p style="color: #cccccc; font-size: 15px; line-height: 1.6; margin: 0 0 30px;">
+                            <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 30px;">
                                 We received a request to reset your password. Use the code below to reset your password:
                             </p>
                         </td>
@@ -40,11 +40,11 @@
                     <!-- Reset Code Section -->
                     <tr>
                         <td align="center" style="padding: 0 40px 30px;">
-                            <table cellpadding="0" cellspacing="0" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px;">
+                            <table cellpadding="0" cellspacing="0" style="background: #f9fafb; border: 2px solid #d1d5db; border-radius: 12px; padding: 30px;">
                                 <tr>
                                     <td align="center">
-                                        <p style="margin: 0 0 10px; color: #999999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Your Reset Code</p>
-                                        <h2 style="margin: 0; color: #ffffff; font-size: 48px; font-weight: 700; letter-spacing: 12px; font-family: 'Courier New', monospace;">{{ $code }}</h2>
+                                        <p style="margin: 0 0 10px; color: #000000; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Your Reset Code</p>
+                                        <h2 style="margin: 0; color: #000000; font-size: 48px; font-weight: 700; letter-spacing: 12px; font-family: 'Courier New', monospace;">{{ $code }}</h2>
                                     </td>
                                 </tr>
                             </table>
@@ -54,10 +54,10 @@
                     <!-- Important Notice -->
                     <tr>
                         <td style="padding: 0 40px 40px;">
-                            <table cellpadding="0" cellspacing="0" style="background: rgba(255, 69, 28, 0.1); border-left: 3px solid #FF451C; border-radius: 4px; padding: 15px 20px;">
+                            <table cellpadding="0" cellspacing="0" style="background: #fef2f2; border-left: 3px solid #FF451C; border-radius: 4px; padding: 15px 20px;">
                                 <tr>
                                     <td>
-                                        <p style="margin: 0; color: #ffffff; font-size: 14px; line-height: 1.5;">
+                                        <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.5;">
                                             <strong style="color: #FF451C;">Important:</strong> This code will expire in 15 minutes. If you did not request a password reset, please ignore this email and your password will remain unchanged.
                                         </p>
                                     </td>
@@ -68,8 +68,8 @@
 
                     <!-- Footer -->
                     <tr>
-                        <td align="center" style="padding: 30px 40px 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                            <p style="margin: 0; color: #666666; font-size: 12px;">
+                        <td align="center" style="padding: 30px 40px 40px; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0; color: #000000; font-size: 12px;">
                                 © {{ date('Y') }} Lumastake. All rights reserved.
                             </p>
                         </td>

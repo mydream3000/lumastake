@@ -39,11 +39,27 @@ class SocialiteController extends Controller
             $driver->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
         }
 
-        // Capture referral uuid in session for guests (if present)
+        // Capture referral code in session AND cookie for guests (if present)
+        // Cookie is used as backup because session can be lost during OAuth redirect
+        $refCookie = null;
         if (!auth()->check()) {
             $ref = request()->query('ref');
             if (!empty($ref)) {
-                session(['ref' => $ref]); // Используем ключ 'ref' для консистентности
+                $refTrim = trim($ref);
+                session(['ref' => $refTrim]);
+
+                // Also resolve to referrer_user_id immediately
+                $refUpper = Str::upper($refTrim);
+                $refUser = Str::isUuid($refTrim)
+                    ? User::where('uuid', $refTrim)->first()
+                    : User::where('referral_code', $refUpper)->first();
+
+                if ($refUser) {
+                    session(['referrer_user_id' => $refUser->id]);
+                }
+
+                // Save ref in a cookie (survives OAuth redirect reliably)
+                $refCookie = cookie('oauth_ref', $refTrim, 10); // 10 minutes
             }
         }
 
@@ -54,10 +70,19 @@ class SocialiteController extends Controller
             'provider' => $provider,
             'has_pending_account_type' => session()->has('pending_account_type'),
             'account_type' => session('pending_account_type'),
+            'has_ref' => session()->has('ref'),
+            'has_referrer_user_id' => session()->has('referrer_user_id'),
             'session_id' => session()->getId(),
         ]);
 
-        return $driver->redirect();
+        $response = $driver->redirect();
+
+        // Attach ref cookie to the redirect response
+        if ($refCookie) {
+            $response = $response->withCookie($refCookie);
+        }
+
+        return $response;
     }
 
     /**
@@ -185,11 +210,22 @@ class SocialiteController extends Controller
             $referral = $referral ?: Str::upper(Str::random(8));
 
             try {
-                // Resolve referrer for NEW user only from session (support uuid or referral_code)
+                // Resolve referrer for NEW user from session or cookie fallback
                 $referredById = null;
 
                 $refUserId = session('referrer_user_id');
                 $rawRef = session('ref'); // may be uuid or referral_code
+
+                // Fallback: if session lost during OAuth redirect, check cookie
+                if (!$refUserId && empty($rawRef)) {
+                    $cookieRef = request()->cookie('oauth_ref');
+                    if (!empty($cookieRef)) {
+                        $rawRef = trim($cookieRef);
+                        Log::info('Referral recovered from cookie (session was lost)', [
+                            'ref' => $rawRef,
+                        ]);
+                    }
+                }
 
                 if ($refUserId) {
                     $refUser = User::find($refUserId);
@@ -231,8 +267,9 @@ class SocialiteController extends Controller
                     'has_pending_account_type' => session()->has('pending_account_type'),
                 ]);
 
-                // clear session keys regardless of outcome
+                // clear session keys and cookie regardless of outcome
                 session()->forget(['referrer_user_id', 'ref', 'referrer_uuid', 'pending_account_type']);
+                cookie()->queue(cookie()->forget('oauth_ref'));
 
                 $user = User::create([
                     'name' => $socialUser->getName() ?: explode('@', $email)[0],

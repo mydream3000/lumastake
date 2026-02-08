@@ -42,7 +42,7 @@
                         <div class="flex-1 h-px bg-[#d5d5d5]"></div>
                     </div>
 
-                    <a href="/auth/google" class="w-full max-w-[420px] border border-gray-300 h-[56px] px-6 rounded-md flex items-center justify-center gap-3 text-2xl font-medium mb-8 hover:bg-gray-50 transition-colors">
+                    <a :href="googleAuthUrl" class="w-full max-w-[420px] border border-gray-300 h-[56px] px-6 rounded-md flex items-center justify-center gap-3 text-2xl font-medium mb-8 hover:bg-gray-50 transition-colors">
                         <img :src="'/img/registration_redesign/fefa1c2e6f5c665029dc6d31c54c0577fef11aa5.svg'" alt="Google" class="w-6 h-6">
                         Sign in with Google
                     </a>
@@ -394,6 +394,13 @@ export default {
         },
         isPasswordValid() {
             return this.passValidations.length && this.passValidations.number && this.passValidations.upper
+        },
+        googleAuthUrl() {
+            const base = '/auth/google';
+            if (this.formData.ref) {
+                return base + '?ref=' + encodeURIComponent(this.formData.ref);
+            }
+            return base;
         }
     },
     mounted() {

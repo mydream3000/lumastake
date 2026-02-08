@@ -172,7 +172,47 @@ class CryptoDepositService
             return true; // Return true to signal successful webhook receipt
         }
 
-        // Достаточно подтверждений — запускаем Job для окончательного зачисления
+        // Достаточно подтверждений — создаём/обновляем pending Transaction и отправляем Telegram при первом обнаружении
+        $existingTransaction = Transaction::where('tx_hash', $txHash)->first();
+        $isNewTransaction = !$existingTransaction;
+
+        $transaction = Transaction::updateOrCreate(
+            [
+                'tx_hash' => $txHash,
+                'user_id' => $user->id,
+            ],
+            [
+                'type' => 'deposit',
+                'amount' => $amount,
+                'status' => 'pending',
+                'wallet_address' => $address,
+                'network' => $network,
+                'is_real' => true,
+                'description' => "Deposit of {$amount} {$token} (confirming)",
+                'meta' => [
+                    'network' => $network,
+                    'token' => $token,
+                    'address' => $address,
+                    'confirmations' => $confirmations,
+                    'min_confirmations' => $minConfirmations,
+                ],
+            ]
+        );
+
+        // Отправляем Telegram уведомление о новом депозите (до зачисления)
+        if ($isNewTransaction) {
+            try {
+                $transaction->load('user');
+                app(\App\Services\TelegramBotService::class)->sendDepositStatusUpdate($transaction, 'pending');
+            } catch (\Throwable $e) {
+                Log::warning('Failed to send deposit pending Telegram notification', [
+                    'tx_hash' => $txHash,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        // Запускаем Job для окончательного зачисления на баланс
         ProcessDepositJob::dispatch($user->id, $amount, $txHash, $network, $token);
 
         Log::info('Deposit processed successfully', [
@@ -193,12 +233,15 @@ class CryptoDepositService
         $network = 'tron';
         $token = 'USDT';
 
+        $callbackUrl = config('crypto.webhook_url');
+
         $response = Http::withHeaders([
             'CCAPI-KEY' => $apiKey,
         ])->get('https://new.cryptocurrencyapi.net/api/tron/.give', [
             'token' => $token,
             'uniqID' => $user->uuid,
             'label' => "Deposit for User #{$user->id}",
+            'statusURL' => $callbackUrl,
         ]);
 
         if (!$response->successful()) {

@@ -15,7 +15,7 @@ return [
     'api_key' => env('CRYPTO_API_KEY'),
 
     // URL вебхука для IPN уведомлений
-    'webhook_url' => env('CRYPTO_WEBHOOK_URL', env('APP_URL') . '/api/v1/webhooks/crypto/deposit'),
+    'webhook_url' => env('CRYPTO_WEBHOOK_URL', rtrim(env('APP_URL'), '/') . '/api/v1/webhooks/crypto/deposit'),
 
     // Базовый URL API
     'base_url' => 'https://new.cryptocurrencyapi.net/api/',

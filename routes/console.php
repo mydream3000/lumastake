@@ -9,6 +9,7 @@ Schedule::command('toast:clean')->daily();
 // Send staking expiring reminders (24 hours before end)
 Schedule::command('staking:send-expiring-reminders')->dailyAt('09:00');
 
-// Автоматическая проверка депозитов через публичные blockchain explorers
-// Работает БЕЗ CryptocurrencyAPI.net - использует TronScan, Etherscan, BscScan
-Schedule::command('crypto:check-blockchain')->everyMinute();
+// Резервная проверка депозитов через blockchain explorers (TronGrid, Etherscan, BscScan)
+// Основной механизм — IPN callback от CryptocurrencyAPI.net
+// Эта команда нужна только как fallback на случай пропущенных вебхуков
+Schedule::command('crypto:check-blockchain')->everyTenMinutes();

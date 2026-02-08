@@ -87,7 +87,7 @@ class CheckDepositsViaBlockchain extends Command
                     if ($btx['confirmations'] >= $requiredConfirmations && ($transaction->status === 'pending' || $transaction->status === 'processing')) {
                         $this->info("       📢 Dispatching ProcessDepositJob for TX #{$transaction->id}");
 
-                        \App\Jobs\ProcessDepositJob::dispatch(
+                        \App\Jobs\ProcessDepositJob::dispatchSync(
                             $transaction->user_id,
                             (float) $transaction->amount,
                             $transaction->tx_hash,

@@ -212,8 +212,8 @@ class CryptoDepositService
             }
         }
 
-        // Запускаем Job для окончательного зачисления на баланс
-        ProcessDepositJob::dispatch($user->id, $amount, $txHash, $network, $token);
+        // Зачисляем на баланс синхронно (без очереди — надёжнее)
+        ProcessDepositJob::dispatchSync($user->id, $amount, $txHash, $network, $token);
 
         Log::info('Deposit processed successfully', [
             'user_id' => $user->id,

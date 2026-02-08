@@ -349,8 +349,16 @@ class CryptoDepositService
         if ($specificAddress) {
             $query->where('address', $specificAddress);
         } else {
-            // Если адрес не указан, проверяем только недавно запрошенные (за последние 24 часа)
-            $query->where('address_requested_at', '>=', now()->subHours(24));
+            // Проверяем недавние адреса + адреса с незачисленными депозитами
+            $addressesWithPending = CryptoTransaction::where('processed', false)
+                ->pluck('address')->filter()->unique()->all();
+
+            $query->where(function ($q) use ($addressesWithPending) {
+                $q->where('address_requested_at', '>=', now()->subDays(7));
+                if (!empty($addressesWithPending)) {
+                    $q->orWhereIn('address', $addressesWithPending);
+                }
+            });
         }
 
         $addresses = $query->get();

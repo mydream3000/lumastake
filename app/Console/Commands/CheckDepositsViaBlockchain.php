@@ -119,7 +119,19 @@ class CheckDepositsViaBlockchain extends Command
         if ($specificAddress) {
             $addresses = \App\Models\CryptoAddress::where('address', $specificAddress)->get();
         } else {
-            $addresses = \App\Models\CryptoAddress::where('address_requested_at', '>=', now()->subHours(24))->get();
+            // Проверяем ВСЕ адреса у которых есть незачисленные депозиты + недавно запрошенные
+            $addressesWithPending = \App\Models\CryptoTransaction::where('processed', false)
+                ->pluck('address')
+                ->filter()
+                ->unique()
+                ->all();
+
+            $addresses = \App\Models\CryptoAddress::where(function ($q) use ($addressesWithPending) {
+                $q->where('address_requested_at', '>=', now()->subDays(7));
+                if (!empty($addressesWithPending)) {
+                    $q->orWhereIn('address', $addressesWithPending);
+                }
+            })->get();
         }
 
         if ($addresses->isEmpty()) {

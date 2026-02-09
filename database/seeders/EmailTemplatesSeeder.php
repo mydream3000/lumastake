@@ -278,6 +278,22 @@ class EmailTemplatesSeeder extends Seeder
             ]
         );
 
+        // Promo Code Applied
+        EmailTemplate::updateOrCreate(
+            ['key' => 'promo_code_applied'],
+            [
+                'key' => 'promo_code_applied',
+                'name' => 'Promo Code Applied',
+                'subject' => 'Promo Code Applied - Lumastake',
+                'content' => file_get_contents(resource_path('views/emails/promo-code-applied.blade.php')),
+                'variables' => [
+                    'userName' => 'User name',
+                    'promoCode' => 'Promo code used',
+                    'amount' => 'Bonus amount',
+                ],
+            ]
+        );
+
         // Additional: Mass Credit Notification template (for bulk accruals)
         EmailTemplate::updateOrCreate(
             ['key' => 'mass_credit_notification'],

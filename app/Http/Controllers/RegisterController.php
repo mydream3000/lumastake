@@ -167,20 +167,49 @@ class RegisterController extends BaseController
 
                 Transaction::create([
                     'user_id' => $user->id,
-                    'type' => 'deposit',
+                    'type' => 'promo',
                     'status' => 'confirmed',
                     'amount' => $amount,
-                    'description' => 'Promo bonus',
+                    'is_real' => false,
+                    'description' => "Promo code: {$promo->code}",
                     'meta' => ['promo_code' => $promo->code],
                 ]);
 
                 $user->increment('balance', $amount);
-                $user->increment('deposited', $amount);
                 $promo->increment('used_count');
+
+                // Record promo usage
+                \DB::table('promo_code_usages')->insert([
+                    'user_id' => $user->id,
+                    'promo_code_id' => $promo->id,
+                    'bonus_amount' => $amount,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
 
             return $user;
         });
+
+        // Send promo code email notification (outside transaction)
+        if ($promo && $promo->start_balance > 0) {
+            try {
+                Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                    'promo_code_applied',
+                    [
+                        'userName' => $user->name,
+                        'promoCode' => $promo->code,
+                        'amount' => number_format((float)$promo->start_balance, 2),
+                    ],
+                    $user->id
+                ));
+            } catch (\Exception $e) {
+                Log::error('Failed to send promo code email', [
+                    'user_id' => $user->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
 
         // Send Telegram notification about new registration
         try {
@@ -513,19 +542,47 @@ class RegisterController extends BaseController
                 $amount = (float)$promo->start_balance;
                 Transaction::create([
                     'user_id' => $user->id,
-                    'type' => 'deposit',
+                    'type' => 'promo',
                     'status' => 'confirmed',
                     'amount' => $amount,
-                    'description' => 'Promo bonus',
+                    'is_real' => false,
+                    'description' => "Promo code: {$promo->code}",
                     'meta' => ['promo_code' => $promo->code],
                 ]);
                 $user->increment('balance', $amount);
-                $user->increment('deposited', $amount);
                 $promo->increment('used_count');
+
+                \DB::table('promo_code_usages')->insert([
+                    'user_id' => $user->id,
+                    'promo_code_id' => $promo->id,
+                    'bonus_amount' => $amount,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
 
             return $user;
         });
+
+        // Send promo code email notification
+        if ($promo && $promo->start_balance > 0) {
+            try {
+                Mail::mailer('failover')->to($user->email)->send(new TemplatedMail(
+                    'promo_code_applied',
+                    [
+                        'userName' => $user->name,
+                        'promoCode' => $promo->code,
+                        'amount' => number_format((float)$promo->start_balance, 2),
+                    ],
+                    $user->id
+                ));
+            } catch (\Exception $e) {
+                Log::error('Failed to send promo code email', [
+                    'user_id' => $user->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
 
         Auth::login($user);
 

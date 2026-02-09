@@ -17,10 +17,17 @@ class TransactionController extends Controller
     public function getDepositsData(Request $request)
     {
         $query = Transaction::where('user_id', auth()->id())
-            ->where('type', 'deposit')
             ->where(function($q) {
-                $q->whereNotNull('tx_hash')
-                  ->orWhere('is_real', true);
+                // Real deposits (blockchain or admin-created)
+                $q->where(function($sub) {
+                    $sub->where('type', 'deposit')
+                        ->where(function($inner) {
+                            $inner->whereNotNull('tx_hash')
+                                  ->orWhere('is_real', true);
+                        });
+                })
+                // Promo code bonuses
+                ->orWhere('type', 'promo');
             })
             ->latest();
 
@@ -36,7 +43,7 @@ class TransactionController extends Controller
                 return [
                     'id' => $transaction->id,
                     'number' => $index + 1,
-                    'type' => ucfirst(str_replace('_', ' ', $transaction->type)),
+                    'type' => $transaction->type === 'promo' ? 'Promo Bonus' : ucfirst(str_replace('_', ' ', $transaction->type)),
                     'amount' => '$' . number_format($transaction->amount, 2),
                     'created_at' => $transaction->created_at->toISOString(),
                     'status' => $transaction->status,

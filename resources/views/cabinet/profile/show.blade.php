@@ -38,35 +38,28 @@
                 @endif
             </div>
 
-            {{-- Start verification button --}}
+            {{-- Start verification button + SDK modal trigger --}}
             @if($v !== 'verified' && $v !== 'pending')
                 <div class="mt-4 w-full flex flex-col items-center">
-                    <button type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-cabinet-orange text-white font-medium hover:opacity-90 transition" onclick="window.dispatchEvent(new CustomEvent('open-modal', { detail: { name: 'verification-unavailable' } }))">
+                    <button id="start-veriff" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-cabinet-orange text-white font-medium hover:opacity-90 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5H4.75a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"/></svg>
                         <span>Verify identity</span>
                     </button>
                 </div>
 
-                {{-- Verification Unavailable Modal --}}
-                <x-cabinet.modal name="verification-unavailable">
+                {{-- Veriff Modal --}}
+                <x-cabinet.modal name="veriff-modal">
                     <div class="bg-white">
                         <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-[#222222]">Identity Verification</h3>
-                            <button type="button" class="text-gray-500 hover:text-gray-700" onclick="window.dispatchEvent(new CustomEvent('close-modal'))" aria-label="Close">
+                            <h3 class="text-lg font-semibold text-[#222222]">Identity verification</h3>
+                            <button type="button" class="text-gray-500 hover:text-gray-700" onclick="window.closeVeriffModal()" aria-label="Close">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
-                        <div class="p-6 text-center">
-                            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-cabinet-orange/10">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-cabinet-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                        <div class="p-4">
+                            <div class="rounded-md border border-gray-200 p-3">
+                                <div id="veriff-root" class="w-full"></div>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900 mb-2">Verification Temporarily Unavailable</h4>
-                            <p class="text-sm text-gray-600 mb-6">Identity verification is currently unavailable. Please try again later. We apologize for any inconvenience.</p>
-                            <button type="button" onclick="window.dispatchEvent(new CustomEvent('close-modal'))" class="w-full px-4 py-2.5 rounded-md bg-cabinet-orange text-white font-medium hover:opacity-90 transition">
-                                Got it
-                            </button>
                         </div>
                     </div>
                 </x-cabinet.modal>
@@ -296,7 +289,6 @@
         </x-cabinet.modal>
     @endif
 
-    {{-- Veriff SDK temporarily disabled — uncomment when payment is made
     @if($user->verification_status !== 'verified')
         @push('scripts')
             <script src="https://cdn.veriff.me/sdk/js/1.5/veriff.min.js"></script>
@@ -307,11 +299,36 @@
                     if (!btn) return;
 
                     var veriffInstance = null;
+                    var veriffFrame = null;
+
+                    // Global function to close Veriff modal and cleanup
+                    window.closeVeriffModal = function() {
+                        // Close the Veriff InContext frame if it exists
+                        if (veriffFrame && typeof veriffFrame.close === 'function') {
+                            try { veriffFrame.close(); } catch(e) {}
+                            veriffFrame = null;
+                        }
+                        // Remove any leftover Veriff iframes/overlays
+                        document.querySelectorAll('[id^="veriffFrame"], .veriff-frame, iframe[src*="veriff"]').forEach(function(el) {
+                            el.remove();
+                        });
+                        // Remove any leftover overlay elements from Veriff SDK
+                        document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]').forEach(function(el) {
+                            if (el.querySelector('iframe') || el.style.backgroundColor === 'rgba(0, 0, 0, 0.5)' || el.style.opacity) {
+                                if (!el.closest('[x-data]')) {
+                                    el.remove();
+                                }
+                            }
+                        });
+                        // Close our modal
+                        window.dispatchEvent(new CustomEvent('close-modal'));
+                    };
+
                     function initVeriff() {
                         if (veriffInstance) return veriffInstance;
                         veriffInstance = Veriff({
-                            host: '{{ config("services.veriff.base_url", "https://stationapi.veriff.com") }}',
-                            apiKey: '{{ config("services.veriff.api_key") }}',
+                            host: '{{ config('services.veriff.base_url', 'https://stationapi.veriff.com') }}',
+                            apiKey: '{{ config('services.veriff.api_key') }}',
                             parentId: 'veriff-root',
                             onSession: function (err, response) {
                                 if (err) {
@@ -319,7 +336,16 @@
                                     return;
                                 }
                                 if (window.veriffSDK && response && response.verification && response.verification.url) {
-                                    window.veriffSDK.createVeriffFrame({url: response.verification.url});
+                                    veriffFrame = window.veriffSDK.createVeriffFrame({
+                                        url: response.verification.url,
+                                        onEvent: function(msg) {
+                                            // When Veriff InContext is closed by user or finished
+                                            if (msg === 'FINISHED' || msg === 'CANCELED') {
+                                                veriffFrame = null;
+                                                window.closeVeriffModal();
+                                            }
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -343,9 +369,16 @@
                             console.error('Veriff mount error', e);
                         }
                     });
+
+                    // Also cleanup when modal is closed via Escape or overlay click
+                    window.addEventListener('close-modal', function() {
+                        if (veriffFrame && typeof veriffFrame.close === 'function') {
+                            try { veriffFrame.close(); } catch(e) {}
+                            veriffFrame = null;
+                        }
+                    });
                 });
             </script>
         @endpush
     @endif
-    --}}
 </x-cabinet-layout>

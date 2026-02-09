@@ -123,23 +123,6 @@
             <div class="text-cabinet-text-main font-mono text-xs break-all">{{ selectedTransaction.tx_hash }}</div>
           </div>
 
-          <div v-if="selectedTransaction.meta && Object.keys(selectedTransaction.meta).length > 0" class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-            <div class="text-xs font-bold text-gray-400 uppercase mb-4">Additional Information</div>
-            <div class="space-y-3">
-              <div v-if="selectedTransaction.meta.wallet_address" class="flex justify-between items-start">
-                <span class="text-gray-500 font-medium">Wallet Address:</span>
-                <span class="text-cabinet-text-main font-mono text-xs break-all ml-4">{{ selectedTransaction.meta.wallet_address }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.network" class="flex justify-between">
-                <span class="text-gray-500 font-medium">Network:</span>
-                <span class="text-cabinet-text-main font-bold">{{ selectedTransaction.meta.network }}</span>
-              </div>
-              <div v-if="selectedTransaction.meta.confirmations !== undefined" class="flex justify-between">
-                <span class="text-gray-500 font-medium">Confirmations:</span>
-                <span class="text-cabinet-text-main">{{ selectedTransaction.meta.confirmations }}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

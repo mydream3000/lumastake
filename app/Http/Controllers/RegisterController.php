@@ -171,8 +171,8 @@ class RegisterController extends BaseController
                     'status' => 'confirmed',
                     'amount' => $amount,
                     'is_real' => false,
-                    'description' => "Promo code: {$promo->code}",
-                    'meta' => ['promo_code' => $promo->code],
+                    'description' => $promo->name ?: "Promo code: {$promo->code}",
+                    'meta' => ['promo_code' => $promo->code, 'promo_name' => $promo->name],
                 ]);
 
                 $user->increment('balance', $amount);
@@ -546,8 +546,8 @@ class RegisterController extends BaseController
                     'status' => 'confirmed',
                     'amount' => $amount,
                     'is_real' => false,
-                    'description' => "Promo code: {$promo->code}",
-                    'meta' => ['promo_code' => $promo->code],
+                    'description' => $promo->name ?: "Promo code: {$promo->code}",
+                    'meta' => ['promo_code' => $promo->code, 'promo_name' => $promo->name],
                 ]);
                 $user->increment('balance', $amount);
                 $promo->increment('used_count');

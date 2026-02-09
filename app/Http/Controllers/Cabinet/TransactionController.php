@@ -43,7 +43,9 @@ class TransactionController extends Controller
                 return [
                     'id' => $transaction->id,
                     'number' => $index + 1,
-                    'type' => $transaction->type === 'promo' ? 'Promo Bonus' : ucfirst(str_replace('_', ' ', $transaction->type)),
+                    'type' => $transaction->type === 'promo'
+                        ? ($transaction->meta['promo_code'] ?? 'Promo Bonus')
+                        : ucfirst(str_replace('_', ' ', $transaction->type)),
                     'amount' => '$' . number_format($transaction->amount, 2),
                     'created_at' => $transaction->created_at->toISOString(),
                     'status' => $transaction->status,
@@ -105,18 +107,29 @@ class TransactionController extends Controller
             ], 404);
         }
 
+        $meta = is_array($transaction->meta) ? $transaction->meta : [];
+
+        // For promo transactions, show promo code as type and promo name as description
+        if ($transaction->type === 'promo') {
+            $type = $meta['promo_code'] ?? 'Promo Bonus';
+            $description = $meta['promo_name'] ?? $transaction->description;
+        } else {
+            $type = ucfirst(str_replace('_', ' ', $transaction->type));
+            $description = $transaction->description;
+        }
+
         return response()->json([
             'success' => true,
             'data' => [
                 'id' => $transaction->id,
-                'type' => ucfirst(str_replace('_', ' ', $transaction->type)),
+                'type' => $type,
                 'amount' => '$' . number_format($transaction->amount, 2),
                 'status' => $transaction->status,
                 'created_at' => $transaction->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $transaction->updated_at->format('Y-m-d H:i:s'),
-                'description' => $transaction->description,
+                'description' => $description,
                 'tx_hash' => $transaction->tx_hash,
-                'meta' => $transaction->meta,
+                'meta' => $transaction->type === 'promo' ? null : $meta,
             ]
         ]);
     }

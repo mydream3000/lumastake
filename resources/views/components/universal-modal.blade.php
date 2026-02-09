@@ -2,11 +2,14 @@
     x-data="{ open: false, title: '', message: '', confirmText: 'OK' }"
     x-show="open"
     @open-modal.window="
-        title = $event.detail.title || 'Information';
-        message = $event.detail.message || '';
-        confirmText = $event.detail.confirmText || 'OK';
-        open = true;
+        if (!$event.detail.name) {
+            title = $event.detail.title || 'Information';
+            message = $event.detail.message || '';
+            confirmText = $event.detail.confirmText || 'OK';
+            open = true;
+        }
     "
+    @close-modal.window="open = false"
     @keydown.escape.window="open = false"
     class="fixed inset-0 z-50 overflow-y-auto"
     style="display: none;"

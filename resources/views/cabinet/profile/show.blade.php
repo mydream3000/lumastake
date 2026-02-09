@@ -48,6 +48,43 @@
                 </div>
 
                 {{-- Veriff Modal --}}
+                <style>
+                    /* Veriff SDK button styling */
+                    #veriff-root button,
+                    #veriff-root input[type="submit"],
+                    #veriff-root .veriff-submit-btn,
+                    #veriff-root [type="submit"] {
+                        background-color: var(--color-cabinet-blue) !important;
+                        color: #fff !important;
+                        border: none !important;
+                        border-radius: 0.5rem !important;
+                        padding: 0.75rem 1.5rem !important;
+                        font-weight: 600 !important;
+                        font-size: 0.875rem !important;
+                        cursor: pointer !important;
+                        transition: opacity 0.2s !important;
+                        width: 100% !important;
+                    }
+                    #veriff-root button:hover,
+                    #veriff-root input[type="submit"]:hover,
+                    #veriff-root [type="submit"]:hover {
+                        opacity: 0.9 !important;
+                    }
+                    /* Veriff form labels & inputs styling for dark theme */
+                    #veriff-root label {
+                        color: #94a3b8 !important;
+                        font-size: 0.75rem !important;
+                        font-weight: 600 !important;
+                    }
+                    #veriff-root input[type="text"],
+                    #veriff-root input[type="email"] {
+                        background-color: rgba(255,255,255,0.05) !important;
+                        border: 1px solid var(--color-cabinet-card-border) !important;
+                        border-radius: 0.5rem !important;
+                        color: #fff !important;
+                        padding: 0.5rem 0.75rem !important;
+                    }
+                </style>
                 <x-cabinet.modal name="veriff-modal" modal-class="bg-cabinet-dark">
                     <div class="bg-cabinet-dark">
                         <div class="px-5 py-4 border-b border-cabinet-card-border flex items-center justify-between">

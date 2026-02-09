@@ -1,4 +1,4 @@
-@props(['name', 'show' => false, 'modalClass' => 'bg-white'])
+@props(['name', 'show' => false, 'modalClass' => 'bg-white', 'cabinetCenter' => false])
 
 <div
     x-data="{ show: {{ $show ? 'true' : 'false' }} }"
@@ -12,7 +12,7 @@
     role="dialog"
     aria-modal="true"
 >
-    <div class="flex items-start justify-center min-h-screen pt-[10vh] px-4 pb-20 text-center sm:items-center sm:pt-0 sm:p-0">
+    <div class="flex items-start justify-center min-h-screen pt-[10vh] px-4 pb-20 text-center sm:items-center sm:pt-0 sm:p-0 {{ $cabinetCenter ? 'lg:pl-[346px]' : '' }}">
         <div x-show="show" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-[1000] bg-gray-500/75 transition-opacity" x-on:click="show = false" aria-hidden="true"></div>
 
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>

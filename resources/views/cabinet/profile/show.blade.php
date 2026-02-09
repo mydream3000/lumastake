@@ -85,7 +85,7 @@
                         padding: 0.5rem 0.75rem !important;
                     }
                 </style>
-                <x-cabinet.modal name="veriff-modal" modal-class="bg-cabinet-dark">
+                <x-cabinet.modal name="veriff-modal" modal-class="bg-cabinet-dark" :cabinet-center="true">
                     <div class="bg-cabinet-dark">
                         <div class="px-5 py-4 border-b border-cabinet-card-border flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-blue-950">Identity verification</h3>

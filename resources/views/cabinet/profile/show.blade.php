@@ -359,12 +359,14 @@
 
                         var v = initVeriff();
                         try {
-                            v.mount({
-                                formLabel: {
-                                    vendorData: 'Your e-mail'
+                            v.setParams({
+                                person: {
+                                    givenName: '{{ explode(" ", $user->name)[0] ?? "" }}',
+                                    lastName: '{{ explode(" ", $user->name, 2)[1] ?? "" }}'
                                 },
-                                vendorData: '{{ $user->email }}'
+                                vendorData: '{{ $user->id }}'
                             });
+                            v.mount();
                         } catch (e) {
                             console.error('Veriff mount error', e);
                         }

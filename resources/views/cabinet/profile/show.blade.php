@@ -48,16 +48,16 @@
                 </div>
 
                 {{-- Veriff Modal --}}
-                <x-cabinet.modal name="veriff-modal">
-                    <div class="bg-white">
-                        <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-[#222222]">Identity verification</h3>
-                            <button type="button" class="text-gray-500 hover:text-gray-700" onclick="window.closeVeriffModal()" aria-label="Close">
+                <x-cabinet.modal name="veriff-modal" modal-class="bg-cabinet-dark">
+                    <div class="bg-cabinet-dark">
+                        <div class="px-5 py-4 border-b border-cabinet-card-border flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-white">Identity verification</h3>
+                            <button type="button" class="text-gray-400 hover:text-white transition-colors" onclick="window.closeVeriffModal()" aria-label="Close">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
-                        <div class="p-4">
-                            <div class="rounded-md border border-gray-200 p-3">
+                        <div class="p-5">
+                            <div class="rounded-xl border border-cabinet-card-border bg-cabinet-dark p-4">
                                 <div id="veriff-root" class="w-full"></div>
                             </div>
                         </div>

@@ -70,21 +70,52 @@
                         @endif
                     </div>
 
-                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                        <label class="block text-sm font-medium text-gray-600 mb-1">Verification</label>
-                        @if($user->verification_status === 'verified')
-                            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                <i class="fas fa-check mr-1"></i> Verified
-                            </span>
-                        @elseif($user->verification_status === 'pending')
-                            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
-                                <i class="fas fa-clock mr-1"></i> Pending
-                            </span>
-                        @else
-                            <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
-                                <i class="fas fa-times mr-1"></i> Unverified
-                            </span>
-                        @endif
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200" x-data="{ changingStatus: false }">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Verification</label>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            @if($user->verification_status === 'verified')
+                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                    <i class="fas fa-check mr-1"></i> Verified
+                                </span>
+                            @elseif($user->verification_status === 'pending')
+                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+                                    <i class="fas fa-clock mr-1"></i> Pending
+                                </span>
+                            @else
+                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
+                                    <i class="fas fa-times mr-1"></i> Declined
+                                </span>
+                            @endif
+                        </div>
+                        <div class="mt-3 flex gap-2 flex-wrap">
+                            @if($user->verification_status !== 'verified')
+                                <button
+                                    @click="if(confirm('Approve verification for this user? An email notification will be sent.')) updateVerificationStatus({{ $user->id }}, 'verified')"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors"
+                                    :disabled="changingStatus"
+                                >
+                                    <i class="fas fa-check mr-1"></i> Approve
+                                </button>
+                            @endif
+                            @if($user->verification_status !== 'unverified')
+                                <button
+                                    @click="if(confirm('Decline verification for this user? An email notification will be sent.')) updateVerificationStatus({{ $user->id }}, 'unverified')"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors"
+                                    :disabled="changingStatus"
+                                >
+                                    <i class="fas fa-times mr-1"></i> Decline
+                                </button>
+                            @endif
+                            @if($user->verification_status !== 'pending')
+                                <button
+                                    @click="if(confirm('Set verification to pending?')) updateVerificationStatus({{ $user->id }}, 'pending')"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition-colors"
+                                    :disabled="changingStatus"
+                                >
+                                    <i class="fas fa-clock mr-1"></i> Set Pending
+                                </button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -471,6 +502,32 @@ async function toggleCloserStatus(userId) {
             setTimeout(() => window.location.reload(), 1500);
         } else {
             window.showToast(data.message || 'Failed to update closer status', 'error');
+        }
+    } catch (error) {
+        window.showToast('Error occurred', 'error');
+        console.error(error);
+    }
+}
+
+async function updateVerificationStatus(userId, status) {
+    try {
+        const response = await fetch(`/admin/users/${userId}/verification-status`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: status })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            window.showToast(data.message, 'success');
+            setTimeout(() => window.location.reload(), 1500);
+        } else {
+            window.showToast(data.message || 'Failed to update verification status', 'error');
         }
     } catch (error) {
         window.showToast('Error occurred', 'error');

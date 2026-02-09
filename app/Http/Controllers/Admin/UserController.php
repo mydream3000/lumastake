@@ -1085,6 +1085,76 @@ class UserController extends Controller
     }
 
     /**
+     * Update user verification status (admin only)
+     */
+    public function updateVerificationStatus(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:verified,unverified,pending',
+        ]);
+
+        $oldStatus = $user->verification_status;
+        $newStatus = $validated['status'];
+
+        if ($oldStatus === $newStatus) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Status is already ' . $newStatus,
+            ], 422);
+        }
+
+        $user->update(['verification_status' => $newStatus]);
+
+        Log::info('Admin updated verification status', [
+            'admin_id' => Auth::id(),
+            'user_id' => $user->id,
+            'from' => $oldStatus,
+            'to' => $newStatus,
+        ]);
+
+        // Send email notification
+        try {
+            $templateKey = match ($newStatus) {
+                'verified' => 'kyc_approved',
+                'unverified' => 'kyc_declined',
+                default => null,
+            };
+
+            if ($templateKey) {
+                $template = EmailTemplate::getByKey($templateKey);
+                if ($template) {
+                    Mail::to($user->email)->send(new TemplatedMail(
+                        $templateKey,
+                        [
+                            'userName' => $user->name ?? $user->email,
+                            'decision' => ucfirst($newStatus),
+                        ],
+                        $user->id,
+                        'admin_verification_update'
+                    ));
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::error('Failed to send verification status email', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $statusLabels = [
+            'verified' => 'Verified',
+            'unverified' => 'Declined',
+            'pending' => 'Pending',
+        ];
+
+        return response()->json([
+            'success' => true,
+            'message' => "Verification status changed to: {$statusLabels[$newStatus]}",
+            'verification_status' => $newStatus,
+        ]);
+    }
+
+    /**
      * Toggle closer status (super admin only)
      */
     public function toggleCloser(User $user)

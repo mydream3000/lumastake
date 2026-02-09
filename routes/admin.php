@@ -43,6 +43,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::put('/{user}', [UserController::class, 'update'])->name('update');
         Route::post('/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('toggle-status');
         Route::post('/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])->name('toggle-admin');
+        Route::post('/{user}/verification-status', [UserController::class, 'updateVerificationStatus'])->name('verification-status');
         Route::post('/{user}/toggle-favorite', [UserController::class, 'toggleFavorite'])->name('toggle-favorite');
         Route::post('/{user}/login-as', [UserController::class, 'loginAs'])->name('login-as');
         Route::post('/{user}/adjust-balance', [UserController::class, 'adjustBalance'])->name('adjust-balance');

@@ -20,7 +20,7 @@ class ResetFinancialData extends Command
         $this->warn('⚠️  This will reset ALL financial data:');
         $this->line('  - All staking deposits → cancelled');
         $this->line('  - All transactions → deleted');
-        $this->line('  - All crypto transactions → deleted');
+        $this->line('  - All crypto transactions → kept (as duplicate markers)');
         $this->line('  - All earnings → deleted');
         $this->line('  - All pending withdrawals → deleted');
         $this->line('  - All promo code usages → deleted (codes kept)');
@@ -65,9 +65,9 @@ class ResetFinancialData extends Command
             $deleted = Transaction::query()->delete();
             $this->line("  ✅ Transactions deleted: {$deleted}");
 
-            // 4. Delete crypto transactions
-            $deleted = CryptoTransaction::query()->delete();
-            $this->line("  ✅ Crypto transactions deleted: {$deleted}");
+            // 4. Keep crypto transactions as duplicate markers (prevent re-processing from blockchain)
+            $count = CryptoTransaction::count();
+            $this->line("  ✅ Crypto transactions kept: {$count} (prevents re-crediting from blockchain)");
 
             // 5. Delete pending withdrawals
             $deleted = DB::table('pending_withdrawals')->delete();

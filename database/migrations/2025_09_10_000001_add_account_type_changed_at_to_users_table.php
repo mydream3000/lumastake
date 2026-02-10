@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('account_type_changed_at')->nullable()->after('account_type');
-        });
+        if (!Schema::hasColumn('users', 'account_type_changed_at')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->timestamp('account_type_changed_at')->nullable()->after('account_type');
+            });
+        }
     }
 
     public function down(): void

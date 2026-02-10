@@ -130,6 +130,10 @@
                 <i class="fas fa-headset w-5"></i>
                 <span>Support Team</span>
             </a>
+            <a href="{{ route('admin.contact-submissions.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.contact-submissions.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
+                <i class="fas fa-inbox w-5"></i>
+                <span>Contact Submissions</span>
+            </a>
             <a href="{{ route('admin.social-links.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.social-links.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80' }}">
                 <i class="fas fa-share-alt w-5"></i>
                 <span>Social Links</span>
@@ -258,6 +262,12 @@
                    class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.support-team.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                     <i class="fas fa-headset w-5 text-center"></i>
                     <span class="font-medium">Support Team</span>
+                </a>
+
+                <a href="{{ route('admin.contact-submissions.index') }}"
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.contact-submissions.*') ? 'bg-white/20 text-white font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-inbox w-5 text-center"></i>
+                    <span class="font-medium">Contact Submissions</span>
                 </a>
 
                 <a href="{{ route('admin.social-links.index') }}"

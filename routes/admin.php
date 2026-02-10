@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BotSettingsController;
 use App\Http\Controllers\Admin\CloserUserController;
+use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -155,6 +156,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/', [AnalyticsController::class, 'index'])->name('index');
         Route::put('/bot-settings', [AnalyticsController::class, 'updateBotSettings'])->name('bot-settings.update');
         Route::post('/bot-settings/test', [AnalyticsController::class, 'testBot'])->name('bot-settings.test');
+    });
+
+    // Contact Submissions
+    Route::prefix('contact-submissions')->name('contact-submissions.')->group(function () {
+        Route::get('/', [ContactSubmissionController::class, 'index'])->name('index');
+        Route::get('/{submission}', [ContactSubmissionController::class, 'show'])->name('show');
+        Route::put('/{submission}/status', [ContactSubmissionController::class, 'updateStatus'])->name('update-status');
+        Route::delete('/{submission}', [ContactSubmissionController::class, 'destroy'])->name('destroy');
     });
 
     // Closer routes (accessible by closers + admins + super admins)

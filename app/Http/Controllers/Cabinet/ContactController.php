@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use App\Rules\SafeString;
 use App\Rules\NoUrlForName;
 use App\Mail\ContactReceivedMail;
+use App\Models\ContactSubmission;
 
 class ContactController extends Controller
 {
@@ -79,12 +80,24 @@ class ContactController extends Controller
                 }
             }
 
+            // Generate unique reference number
+            $reference = rand(100000, 999999);
+
+            // Save submission to database
+            ContactSubmission::create([
+                'reference' => $reference,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $data['email'],
+                'phone' => $data['phone'] ?? null,
+                'country' => $data['country'] ?? null,
+                'message' => $data['message'],
+                'user_id' => auth()->id(),
+            ]);
+
             // Отправка подтверждения пользователю
             if ($emailSent || $telegramSent) {
                 try {
-                    // Generate unique reference number
-                    $reference = rand(100000, 999999);
-
                     Log::info('Attempting to send confirmation email', [
                         'user_email' => $data['email'],
                         'user_name' => $data['name'],
@@ -108,21 +121,20 @@ class ContactController extends Controller
                         'error' => $e->getMessage(),
                         'trace' => $e->getTraceAsString()
                     ]);
-                    // Не прерываем процесс, если не удалось отправить подтверждение
                 }
 
                 return redirect()->back()->with([
-                    'success' => 'Ваше сообщение отправлено успешно!',
+                    'success' => 'Your message has been sent successfully!',
                     'show_confirmation_modal' => true
                 ]);
             } else {
-                return redirect()->back()->with('error', 'Не удалось отправить сообщение. Попробуйте позже.');
+                return redirect()->back()->with('error', 'Failed to send the message. Please try again later.');
             }
         } catch (\Exception $e) {
             Log::error('Contact form submission failed', [
                 'error' => $e->getMessage()
             ]);
-            return redirect()->back()->with('error', 'Произошла ошибка при отправке сообщения. Попробуйте позже.');
+            return redirect()->back()->with('error', 'An error occurred while sending the message. Please try again later.');
         }
     }
 

@@ -239,7 +239,7 @@
                 {{-- How Luma Stake Simplifies --}}
                 <div class="bg-gradient-to-b from-[#A2D0BF] to-[#F5F5F5]/70 border-10 border-[#F5F5F5] rounded-[23px] p-6 shadow-[0_4px_10px_0_rgba(0,0,0,0.25)]">
                     <h2 class="text-3xl md:text-[40px] font-bold text-black/70 mb-8 uppercase tracking-[2px] leading-[1.08]">How Luma Stake Simplifies Arbitrage</h2>
-                    <p class="text-lg md:text-[20px] text-black mb-8">Arbitex bridges the gap between opportunity and execution by combining professional-grade arbitrage strategies with a straightforward staking model:</p>
+                    <p class="text-lg md:text-[20px] text-black mb-8">Lumastake bridges the gap between opportunity and execution by combining professional-grade arbitrage strategies with a straightforward staking model:</p>
                     <ol class="list-decimal pl-6 space-y-6 text-lg md:text-[18px] text-black/70">
                         <li><span class="font-bold text-black">You Stake Your USDT</span> – Choose your preferred tier and staking period.</li>
                         <li><span class="font-bold text-black">We Execute Arbitrage</span> – Our system identifies and acts on price gaps using a risk-managed approach.</li>

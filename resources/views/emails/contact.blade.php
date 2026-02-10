@@ -1,120 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новое сообщение из формы обратной связи</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header {
-            background: linear-gradient(135deg, #FF451C 0%, #05C982 100%);
-            color: #ffffff;
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .content {
-            padding: 30px 20px;
-        }
-        .field {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        .field:last-child {
-            border-bottom: none;
-        }
-        .field-label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-        .field-value {
-            color: #333;
-            font-size: 16px;
-        }
-        .message-box {
-            background: #f9f9f9;
-            padding: 15px;
-            border-left: 4px solid #FF451C;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        .footer {
-            background: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-        }
-    </style>
+    <title>New Contact Form Submission</title>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📧 Новое сообщение из формы обратной связи</h1>
-        </div>
-        <div class="content">
-            <div class="field">
-                <div class="field-label">Имя</div>
-                <div class="field-value">{{ $data['name'] ?? ($data['first_name'] . ' ' . $data['last_name']) }}</div>
-            </div>
+<body style="margin: 0; padding: 0; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; padding: 40px 20px;">
+    <tr>
+        <td align="center">
+            <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                <!-- Logo Section -->
+                <tr>
+                    <td align="center" style="padding: 40px 20px 30px;">
+                        <img src="https://lumastake.com/images/sidebar/logo-white.png" alt="Lumastake" style="height: 50px; width: auto;">
+                    </td>
+                </tr>
 
-            <div class="field">
-                <div class="field-label">Email</div>
-                <div class="field-value"><a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a></div>
-            </div>
+                <!-- Title Section -->
+                <tr>
+                    <td align="center" style="padding: 0 40px 30px;">
+                        <h1 style="margin: 0; font-size: 28px; font-weight: bold; color: #4da3ff;">
+                            New Contact Form Submission
+                        </h1>
+                    </td>
+                </tr>
 
-            @if(!empty($data['phone']))
-            <div class="field">
-                <div class="field-label">Телефон</div>
-                <div class="field-value">{{ $data['phone'] }}</div>
-            </div>
-            @endif
+                <!-- Content Section -->
+                <tr>
+                    <td style="padding: 0 40px 20px;">
+                        <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0 0 22px;">
+                            A new message has been received through the contact form. Please review the details below.
+                        </p>
+                    </td>
+                </tr>
 
-            @if(!empty($data['country']))
-            <div class="field">
-                <div class="field-label">Страна</div>
-                <div class="field-value">{{ $data['country'] }}</div>
-            </div>
-            @endif
+                <!-- Details Grid -->
+                <tr>
+                    <td style="padding: 0 40px 20px;">
+                        <table cellpadding="0" cellspacing="0" width="100%" style="background: #f9fafb; border-radius: 8px; overflow: hidden;">
+                            <tr>
+                                <td style="padding: 16px 20px; border-bottom: 1px solid #e5e7eb;">
+                                    <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 4px;">Name</p>
+                                    <p style="color: #000000; font-size: 15px; font-weight: 500; margin: 0;">{{ $data['name'] ?? ($data['first_name'] . ' ' . $data['last_name']) }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 16px 20px; border-bottom: 1px solid #e5e7eb;">
+                                    <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 4px;">Email</p>
+                                    <p style="color: #000000; font-size: 15px; margin: 0;">
+                                        <a href="mailto:{{ $data['email'] }}" style="color: #4da3ff; text-decoration: underline;">{{ $data['email'] }}</a>
+                                    </p>
+                                </td>
+                            </tr>
+                            @if(!empty($data['phone']))
+                            <tr>
+                                <td style="padding: 16px 20px; border-bottom: 1px solid #e5e7eb;">
+                                    <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 4px;">Phone</p>
+                                    <p style="color: #000000; font-size: 15px; margin: 0;">{{ $data['phone'] }}</p>
+                                </td>
+                            </tr>
+                            @endif
+                            @if(!empty($data['country']))
+                            <tr>
+                                <td style="padding: 16px 20px; border-bottom: 1px solid #e5e7eb;">
+                                    <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 4px;">Country</p>
+                                    <p style="color: #000000; font-size: 15px; margin: 0;">{{ $data['country'] }}</p>
+                                </td>
+                            </tr>
+                            @endif
+                            <tr>
+                                <td style="padding: 16px 20px;">
+                                    <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 4px;">Submitted At</p>
+                                    <p style="color: #000000; font-size: 15px; margin: 0;">{{ now()->format('F d, Y \\a\\t H:i') }}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 
-            <div class="field">
-                <div class="field-label">Сообщение</div>
-                <div class="message-box">
-                    {{ $data['message'] }}
-                </div>
-            </div>
+                <!-- Message Section -->
+                <tr>
+                    <td style="padding: 0 40px 30px;">
+                        <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 8px;">Message</p>
+                        <div style="background: #f9fafb; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 16px 20px;">
+                            <p style="color: #000000; font-size: 15px; line-height: 1.6; margin: 0;">{{ $data['message'] }}</p>
+                        </div>
+                    </td>
+                </tr>
 
-            <div class="field">
-                <div class="field-label">Дата отправки</div>
-                <div class="field-value">{{ now()->format('d.m.Y H:i:s') }}</div>
-            </div>
-        </div>
-        <div class="footer">
-            <p>Это автоматическое письмо от системы Lumastake.</p>
-            <p>Для ответа используйте кнопку "Ответить" в вашем почтовом клиенте.</p>
-        </div>
-    </div>
+                <!-- Action Note -->
+                <tr>
+                    <td style="padding: 0 40px 30px;">
+                        <div style="background: #f0f7ff; border-left: 3px solid #4da3ff; border-radius: 4px; padding: 14px 16px;">
+                            <p style="color: #000000; font-size: 14px; line-height: 1.6; margin: 0;">
+                                <strong style="color: #4da3ff;">Action Required:</strong> Please reply to this inquiry at your earliest convenience. Use the "Reply" button in your email client to respond directly to the sender.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td align="center" style="padding: 24px 40px 40px; border-top: 1px solid #e5e7eb;">
+                        <p style="margin: 0; color: #000000; font-size: 12px;">
+                            &copy; {{ date('Y') }} Lumastake. All rights reserved.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

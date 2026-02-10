@@ -156,6 +156,9 @@ class SeoController extends Controller
         $globalSeo = SeoSetting::firstOrCreate(['key' => 'global']);
         $globalSeo->update(['robots_txt' => $request->robots_txt]);
 
+        // Write physical robots.txt file so web server serves it directly
+        file_put_contents(public_path('robots.txt'), $request->robots_txt);
+
         ToastMessage::create([
             'user_id' => auth()->id(),
             'message' => 'Robots.txt updated successfully',

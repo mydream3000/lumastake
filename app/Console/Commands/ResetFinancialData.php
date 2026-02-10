@@ -65,9 +65,9 @@ class ResetFinancialData extends Command
             $deleted = Transaction::query()->delete();
             $this->line("  ✅ Transactions deleted: {$deleted}");
 
-            // 4. Keep crypto transactions as duplicate markers (prevent re-processing from blockchain)
-            $count = CryptoTransaction::count();
-            $this->line("  ✅ Crypto transactions kept: {$count} (prevents re-crediting from blockchain)");
+            // 4. Keep crypto transactions as duplicate markers but zero out amounts
+            $count = CryptoTransaction::query()->update(['amount' => 0, 'processed' => true]);
+            $this->line("  ✅ Crypto transactions zeroed: {$count} (kept as duplicate markers)");
 
             // 5. Delete pending withdrawals
             $deleted = DB::table('pending_withdrawals')->delete();

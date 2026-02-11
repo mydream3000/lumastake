@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Log;
 class CryptoDepositService
 {
     /**
+     * Get the deposit cutoff timestamp (Unix).
+     * Blockchain transactions older than this are ignored during polling.
+     * Does NOT affect webhook-based deposits.
+     */
+    private function getDepositCutoffTimestamp(): ?int
+    {
+        $cutoff = config('crypto.deposit_cutoff');
+        if (!$cutoff) {
+            return null;
+        }
+
+        // Support both Unix timestamp and ISO date string
+        if (is_numeric($cutoff)) {
+            return (int) $cutoff;
+        }
+
+        try {
+            return strtotime($cutoff) ?: null;
+        } catch (\Exception) {
+            return null;
+        }
+    }
+
+    /**
      * Обрабатывает IPN уведомление от CryptocurrencyAPI
      */
     public function processIPN(array $ipnData): bool
@@ -428,8 +452,19 @@ class CryptoDepositService
             $transfers = $data['data'] ?? [];
             $transactions = [];
 
+            $cutoff = $this->getDepositCutoffTimestamp();
+
             foreach ($transfers as $transfer) {
                 if (strtolower($transfer['to']) === strtolower($address)) {
+                    // Filter out transactions older than cutoff
+                    $txTimestamp = isset($transfer['block_timestamp'])
+                        ? (int) ($transfer['block_timestamp'] / 1000) // TronGrid returns milliseconds
+                        : 0;
+
+                    if ($cutoff && $txTimestamp > 0 && $txTimestamp < $cutoff) {
+                        continue;
+                    }
+
                     $txHash = $transfer['transaction_id'];
                     $decimals = (int) ($transfer['token_info']['decimals'] ?? 6);
                     $rawValue = $transfer['value'];
@@ -472,9 +507,16 @@ class CryptoDepositService
             $result = $data['result'] ?? [];
             if (!is_array($result)) return [];
 
+            $cutoff = $this->getDepositCutoffTimestamp();
             $transactions = [];
             foreach ($result as $tx) {
                 if (strtolower($tx['to']) === strtolower($address)) {
+                    // Filter out transactions older than cutoff
+                    $txTimestamp = (int) ($tx['timeStamp'] ?? 0);
+                    if ($cutoff && $txTimestamp > 0 && $txTimestamp < $cutoff) {
+                        continue;
+                    }
+
                     $transactions[] = [
                         'hash' => $tx['hash'],
                         'amount' => $tx['value'] / 1000000,
@@ -509,9 +551,16 @@ class CryptoDepositService
             $result = $data['result'] ?? [];
             if (!is_array($result)) return [];
 
+            $cutoff = $this->getDepositCutoffTimestamp();
             $transactions = [];
             foreach ($result as $tx) {
                 if (strtolower($tx['to']) === strtolower($address)) {
+                    // Filter out transactions older than cutoff
+                    $txTimestamp = (int) ($tx['timeStamp'] ?? 0);
+                    if ($cutoff && $txTimestamp > 0 && $txTimestamp < $cutoff) {
+                        continue;
+                    }
+
                     $transactions[] = [
                         'hash' => $tx['hash'],
                         'amount' => $tx['value'] / 1e18, // BSC USDT usually has 18 decimals

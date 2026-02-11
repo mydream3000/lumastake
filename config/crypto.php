@@ -26,6 +26,10 @@ return [
         // Минимальная сумма депозита (USDT/USDC)
         'min_deposit_amount' => env('CRYPTO_MIN_DEPOSIT', 50),
 
+    // Cutoff date — ignore blockchain transactions older than this (ISO 8601 or Unix timestamp)
+    // Set this to current date/time after database reset to prevent old transactions from being re-processed
+    'deposit_cutoff' => env('CRYPTO_DEPOSIT_CUTOFF'),
+
     // Минимальные подтверждения для разных сетей
     'min_confirmations' => [
         'tron' => 3,

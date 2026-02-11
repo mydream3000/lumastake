@@ -46,7 +46,7 @@
                 :key="column.key"
                 class="px-2 py-2 whitespace-nowrap"
               >
-                <div v-if="column.render" v-html="column.render(row[column.key], row)"></div>
+                <div v-if="column.render" v-html="sanitizeHtml(column.render(row[column.key], row))"></div>
                 <span v-else>{{ row[column.key] }}</span>
               </td>
             </tr>
@@ -134,6 +134,20 @@
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
+
+// Sanitize HTML output from render functions - allow safe tags only
+function sanitizeHtml(html) {
+  if (!html) return '';
+  const str = String(html);
+  // Remove script tags and event handlers
+  return str
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/\bon\w+\s*=\s*["'][^"']*["']/gi, '')
+    .replace(/\bon\w+\s*=\s*[^\s>]*/gi, '')
+    .replace(/javascript\s*:/gi, '')
+    .replace(/vbscript\s*:/gi, '')
+    .replace(/data\s*:\s*text\/html/gi, '');
+}
 
 const props = defineProps({
   columns: {

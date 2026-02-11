@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Log;
 
 class TelegramBotService
 {
+    /**
+     * Escape user-provided strings for Telegram HTML parse mode.
+     */
+    private function esc(?string $value): string
+    {
+        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+    }
+
     private function networkTag(?string $network): string
     {
         return match($network) {
@@ -44,7 +52,7 @@ class TelegramBotService
     public function sendDepositCreated(Transaction $transaction, ?CryptoTransaction $cryptoTransaction = null): bool
     {
         $message = "💰 <b>Новая заявка на пополнение</b>\n\n";
-        $message .= "👤 Пользователь: {$transaction->user->name}\n";
+        $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
         $meta = is_array($transaction->meta) ? $transaction->meta : [];
         $token = $cryptoTransaction?->token ?? ($meta['token'] ?? 'USDT');
         $net = $cryptoTransaction?->network ?? ($meta['network'] ?? null);
@@ -72,7 +80,7 @@ class TelegramBotService
     public function sendDepositConfirmed(Transaction $transaction, ?CryptoTransaction $cryptoTransaction = null): bool
     {
         $message = "✅ <b>Пополнение подтверждено!</b>\n\n";
-        $message .= "👤 Пользователь: {$transaction->user->name}\n";
+        $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
         $meta = is_array($transaction->meta) ? $transaction->meta : [];
         $token = $cryptoTransaction?->token ?? ($meta['token'] ?? 'USDT');
         $net = $cryptoTransaction?->network ?? ($transaction->network ?? ($meta['network'] ?? null));
@@ -101,9 +109,9 @@ class TelegramBotService
     public function sendWithdrawCreated(Transaction $transaction): bool
     {
         $message = "🔴 <b>Новая заявка на вывод</b>\n\n";
-        $message .= "👤 Пользователь: {$transaction->user->name}\n";
+        $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
         $message .= "💵 Сумма: \$" . number_format($transaction->amount, 2) . " USDT\n";
-        $message .= "📍 Адрес: <code>{$transaction->wallet_address}</code>\n";
+        $message .= "📍 Адрес: <code>" . $this->esc($transaction->wallet_address) . "</code>\n";
         $message .= "🌐 Сеть: " . $this->networkTag($transaction->network ?? null) . "\n";
         $message .= "📅 Время: " . $transaction->created_at->format('d.m.Y H:i') . "\n";
 
@@ -123,7 +131,7 @@ class TelegramBotService
     {
         try {
             $message = "🟢 <b>Выбор сети для депозита</b>\n\n";
-            $message .= "👤 Пользователь: {$user->name}\n";
+            $message .= "👤 Пользователь: " . $this->esc($user->name) . "\n";
             $message .= "🌐 Сеть: " . $this->networkTag($network) . "\n";
             $message .= "💠 Токен: {$token}\n";
             $message .= "\nℹ️ Пользователь запросил адрес для пополнения";
@@ -152,11 +160,11 @@ class TelegramBotService
     public function sendWithdrawConfirmed(Transaction $transaction, ?CryptoTransaction $cryptoTransaction = null): bool
     {
         $message = "💸 <b>Вывод успешно обработан!</b>\n\n";
-        $message .= "👤 Пользователь: {$transaction->user->name}\n";
+        $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
         $token = $cryptoTransaction?->token ?? 'USDT';
         $net = $cryptoTransaction?->network ?? ($transaction->network ?? null);
         $message .= "💵 Сумма: \\$" . number_format($transaction->amount, 2) . " " . $this->formatTokenWithNetwork($token, $net) . "\n";
-        $message .= "📍 Адрес: <code>{$transaction->wallet_address}</code>\n";
+        $message .= "📍 Адрес: <code>" . $this->esc($transaction->wallet_address) . "</code>\n";
         $message .= "🌐 Сеть: " . ($net ? $this->networkTag($net) : strtoupper($transaction->network ?? 'TRC20')) . "\n";
         $message .= "📅 Время: " . $transaction->updated_at->format('d.m.Y H:i') . "\n";
 
@@ -181,12 +189,12 @@ class TelegramBotService
     public function sendWithdrawRejected(Transaction $transaction, string $reason): bool
     {
         $message = "❌ <b>Админ отменил вывод</b>\n\n";
-        $message .= "👤 Пользователь: {$transaction->user->name} (ID: {$transaction->user_id})\n";
+        $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . " (ID: {$transaction->user_id})\n";
         $message .= "💵 Сумма: \$" . number_format($transaction->amount, 2) . " USDT\n";
-        $message .= "📍 Адрес: <code>{$transaction->wallet_address}</code>\n";
+        $message .= "📍 Адрес: <code>" . $this->esc($transaction->wallet_address) . "</code>\n";
         $message .= "🌐 Сеть: " . strtoupper($transaction->network ?? 'TRC20') . "\n";
         $message .= "📅 Время: " . $transaction->updated_at->format('d.m.Y H:i') . "\n";
-        $message .= "📝 Причина: <i>{$reason}</i>\n";
+        $message .= "📝 Причина: <i>" . $this->esc($reason) . "</i>\n";
 
         $message .= "\n🚫 <i>Заявка отклонена администратором</i>";
 
@@ -280,7 +288,7 @@ class TelegramBotService
 
         if ($newStatus === 'pending') {
             $message = "🟡 <b>Депозит обнаружен в блокчейне!</b>\n\n";
-            $message .= "👤 Пользователь: {$transaction->user->name}\n";
+            $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
             $message .= "💵 Сумма: \$" . number_format($transaction->amount, 2) . " " . $this->formatTokenWithNetwork($token, $net) . "\n";
             $message .= "🌐 Сеть: " . $this->networkTag($net) . "\n";
 
@@ -294,7 +302,7 @@ class TelegramBotService
             $messageType = 'deposit_pending';
         } elseif ($newStatus === 'confirmed') {
             $message = "✅ <b>Депозит подтвержден!</b>\n\n";
-            $message .= "👤 Пользователь: {$transaction->user->name}\n";
+            $message .= "👤 Пользователь: " . $this->esc($transaction->user->name) . "\n";
             $message .= "💵 Сумма: \$" . number_format($transaction->amount, 2) . " " . $this->formatTokenWithNetwork($token, $net) . "\n";
             $message .= "🌐 Сеть: " . $this->networkTag($net) . "\n";
             $message .= "📅 Время: " . $transaction->updated_at->format('d.m.Y H:i') . "\n";
@@ -478,9 +486,9 @@ class TelegramBotService
 
         // Основные данные
         if ($user->name) {
-            $message .= "👤 Имя: {$user->name}\n";
+            $message .= "👤 Имя: " . $this->esc($user->name) . "\n";
         }
-        $message .= "📧 Email: {$user->email}\n";
+        $message .= "📧 Email: " . $this->esc($user->email) . "\n";
 
         // Телефон (только для обычной регистрации)
         if ($user->phone && $user->country_code) {
@@ -531,9 +539,9 @@ class TelegramBotService
 
         // Основные данные
         if ($user->name) {
-            $message .= "👤 Имя: {$user->name}\n";
+            $message .= "👤 Имя: " . $this->esc($user->name) . "\n";
         }
-        $message .= "📧 Email: {$user->email}\n";
+        $message .= "📧 Email: " . $this->esc($user->email) . "\n";
 
         // Телефон
         if ($user->phone && $user->country_code) {

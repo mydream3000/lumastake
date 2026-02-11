@@ -31,7 +31,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 @foreach($availableVariables as $var => $description)
                     <div class="text-xs">
-                        <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{!! '$' . $var !!}</code>
+                        <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">${{ $var }}</code>
                         <span class="text-gray-600 ml-1">- {{ $description }}</span>
                     </div>
                 @endforeach
@@ -133,7 +133,7 @@
                           rows="20"
                           required
                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cabinet-orange font-mono text-sm">
-{!! old('content', $defaults['content'] ?? '') !!}
+{{ old('content', $defaults['content'] ?? '') }}
                 </textarea>
                 @error('content')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

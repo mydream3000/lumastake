@@ -35,7 +35,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             @foreach($availableVariables as $var => $description)
             <div class="text-xs">
-                <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{!! '$' . $var !!}</code>
+                <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">${{ $var }}</code>
                 <span class="text-gray-600 ml-1">- {{ $description }}</span>
             </div>
             @endforeach

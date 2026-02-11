@@ -14,7 +14,7 @@
                     <h3 class="text-3xl md:text-[52px] font-the-bold-font font-black text-white mb-4 uppercase tracking-tighter leading-[0.9]">
                         STAY UPDATED WITH
                     </h3>
-                    <h1 class="text-5xl md:text-7xl lg:text-[100px] font-the-bold-font font-black text-white leading-[0.9] mb-12 uppercase tracking-tighter">
+                    <h1 class="text-4xl md:text-7xl lg:text-[60px] font-the-bold-font font-black text-white leading-[0.9] mb-12 uppercase tracking-tighter">
                         {{ $post->title }}
                     </h1>
                 </div>

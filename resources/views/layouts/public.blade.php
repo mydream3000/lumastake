@@ -101,11 +101,7 @@
 
     {{-- Schema.org JSON-LD --}}
     @if($schemaJson)
-        @if(str_contains($schemaJson, '<script'))
-            {!! $schemaJson !!}
-        @else
-            <script type="application/ld+json">{!! $schemaJson !!}</script>
-        @endif
+        <script type="application/ld+json">{!! $schemaJson !!}</script>
     @endif
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Audiowide&display=swap" rel="stylesheet">

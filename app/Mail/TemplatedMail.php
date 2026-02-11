@@ -83,9 +83,16 @@ class TemplatedMail extends Mailable
             mkdir($path, 0755, true);
         }
 
+        // Sanitize template content - block dangerous PHP constructs
+        $content = $this->template->content;
+        $content = preg_replace('/@php\b/i', '{{-- blocked --}}', $content);
+        $content = preg_replace('/<\?php/i', '{{-- blocked --}}', $content);
+        $content = preg_replace('/<\?=/i', '{{-- blocked --}}', $content);
+        $content = preg_replace('/\b(system|exec|shell_exec|passthru|popen|proc_open|eval|assert)\s*\(/i', '/* blocked */(', $content);
+
         file_put_contents(
             $path . '/' . $this->template->key . '.blade.php',
-            $this->template->content
+            $content
         );
 
         return new Content(

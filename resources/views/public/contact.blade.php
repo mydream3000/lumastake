@@ -119,7 +119,7 @@
 
                 {{-- Right: Contact Info --}}
                 <div class="lg:w-[40%] bg-gradient-to-b from-[#3B4EFC] to-[#95D2FF] p-8 md:p-14 text-white relative flex flex-col m-[15px] rounded-[23px]">
-                    <h2 class="text-[45px] font-the-bold-font font-black mb-6 leading-tight uppercase tracking-tighter">Contact Information</h2>
+                    <h2 class="text-[30px] lg:text-[45px] font-the-bold-font font-black mb-6 leading-tight uppercase tracking-tighter">Contact Information</h2>
                     <p class="text-[26px] font-normal mb-12 opacity-90">Fill up the form and our team will get back to you within 24 hours.</p>
 
                     <div class="relative space-y-10 flex-grow py-4">

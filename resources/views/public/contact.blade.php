@@ -132,7 +132,7 @@
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
-                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Contact</p>
+                                <p class="text-[23px] lg:text-[26px] font-semibold font-manrope opacity-80 uppercase mb-1">Contact</p>
                                 <p class="text-[20px] lg:text-[25px] font-bold font-manrope">
                                     <a href="tel:{{ $contactInfo->phone }}">{{ $contactInfo->phone }}</a>
                                 </p>
@@ -144,7 +144,7 @@
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
-                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Email</p>
+                                <p class="text-[23px] lg:text-[26px] font-semibold font-manrope opacity-80 uppercase mb-1">Email</p>
                                 <p class="text-[20px] lg:text-[25px] font-bold font-manrope">
                                     <a href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</a>
                                 </p>
@@ -156,7 +156,7 @@
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
-                                <p class="text-[24px] font-semibold font-manrope opacity-80 uppercase mb-1">Location</p>
+                                <p class="text-[23px] lg:text-[26px] font-semibold font-manrope opacity-80 uppercase mb-1">Location</p>
                                 <p class="text-[20px] lg:text-[25px] font-bold font-manrope leading-tight">{{ $contactInfo->address }}</p>
                             </div>
                         </div>

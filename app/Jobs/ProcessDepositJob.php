@@ -113,6 +113,10 @@ class ProcessDepositJob implements ShouldQueue
                 $cryptoTransaction = CryptoTransaction::where('tx_hash', $this->txHash)->first();
             }
 
+            // Determine if this is a real blockchain deposit (has CryptoTransaction record)
+            // Test deposits have tx_hash starting with "test-" and no CryptoTransaction
+            $isReal = $cryptoTransaction !== null || !str_starts_with($this->txHash, 'test-');
+
             // Обновляем/создаем транзакцию: если была pending по tx_hash — переводим в confirmed
             $transaction = Transaction::updateOrCreate(
                 [
@@ -123,7 +127,7 @@ class ProcessDepositJob implements ShouldQueue
                     'type' => 'deposit',
                     'amount' => $this->amount,
                     'status' => 'confirmed',
-                    'is_real' => true,
+                    'is_real' => $isReal,
                     'description' => "Deposit of {$this->amount} {$this->token}",
                     'tx_hash' => $this->txHash,
                     'wallet_address' => $cryptoTransaction?->address,

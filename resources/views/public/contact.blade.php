@@ -128,7 +128,7 @@
 
                         {{-- Contact Details --}}
                         <div class="relative flex items-center gap-8 pl-1">
-                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                            <div class="hidden md:flex w-[69px] h-[69px] rounded-full bg-white/20  items-center justify-center flex-shrink-0 z-10">
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
@@ -140,7 +140,7 @@
                         </div>
 
                         <div class="relative flex items-center gap-8 pl-1 lg:mb-12">
-                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                            <div class="hidden md:flex w-[69px] h-[69px] rounded-full bg-white/20  items-center justify-center flex-shrink-0 z-10">
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="relative flex items-start gap-8 pl-1">
-                            <div class="w-[69px] h-[69px] rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 z-10">
+                            <div class="hidden md:flex w-[69px] h-[69px] rounded-full bg-white/20 items-center justify-center flex-shrink-0 z-10">
                                 <div class="w-[45px] h-[45px] bg-[#E3FF3B] rounded-full"></div>
                             </div>
                             <div>
